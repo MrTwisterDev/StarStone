@@ -36,8 +36,9 @@ public class PlayerController : MonoBehaviour
         gravityMultiplier = 1f;
         groundDistance = 0.4f;
 
+        if(jumpHeight == 0) {jumpHeight = 3f;};
+        
         moveSpeed = 12.5f;
-        jumpHeight = 3f;
 
         mouseSensitivity = 100f;
 
