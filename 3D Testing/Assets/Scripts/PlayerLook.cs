@@ -40,8 +40,8 @@ public class PlayerLook : MonoBehaviour
         }
         else
         {
-            playerBody.Rotate(Vector3.up * mouseX);
-            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            playerBody.Rotate(Vector3.up * xRotation);
+            transform.localRotation = Quaternion.Euler(mouseX, 0f, 0f);
         }
     }
 }
