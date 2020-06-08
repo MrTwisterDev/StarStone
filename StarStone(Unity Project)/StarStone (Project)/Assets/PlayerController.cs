@@ -19,6 +19,13 @@ public class PlayerController : MonoBehaviour
 
     private bool isGrounded;
 
+    public Transform weaponHoldPoint;
+    public GameObject[] weaponsArray;
+    public GameObject activeWeapon;
+    private int activeWeaponIndex;
+    private float weaponSwapCooldown, timeSinceLastPress, prototypeSwapTimeout;
+    private bool hasSwappedWeapon, preparingToSwap;
+
     public LayerMask groundLayer;
 
     private Vector3 currentVelocity, standingScale, crouchingScale;
@@ -37,11 +44,16 @@ public class PlayerController : MonoBehaviour
         groundDistance = 0.4f;
 
         if(jumpHeight == 0) {jumpHeight = 3f;};
-        
-        defaultMoveSpeed = 12.5f;
+
+        activeWeapon = Instantiate(weaponsArray[0], weaponHoldPoint);
+        activeWeapon.transform.parent = weaponHoldPoint;
+        timeSinceLastPress = 0f;
+        prototypeSwapTimeout = 0.25f;
+
+        defaultMoveSpeed = 4f;
         moveSpeed = defaultMoveSpeed;
-        sprintSpeed = 17.5f;
-        crouchSpeed = 6.25f;
+        sprintSpeed = 10f;
+        crouchSpeed = 1.5f;
 
         mouseSensitivity = 100f;
 
@@ -58,6 +70,19 @@ public class PlayerController : MonoBehaviour
         PlayerControls();
         CheckGrounded();
         ApplyGravity();
+        if (hasSwappedWeapon)
+        {
+            weaponSwapCooldown -= Time.deltaTime;
+            if(weaponSwapCooldown <= 0f)
+            {
+                hasSwappedWeapon = false;
+                weaponSwapCooldown = 0.25f;
+            }
+        }
+        if (preparingToSwap)
+        {
+            WeaponSwapTimer();
+        }
     }
 
     private void CameraControls()
@@ -91,16 +116,36 @@ public class PlayerController : MonoBehaviour
             moveSpeed = defaultMoveSpeed;
         }
 
+        if (Input.GetKeyDown(KeyCode.Q) && !hasSwappedWeapon)
+        {
+            timeSinceLastPress = 0f;
+            if (!preparingToSwap)
+            {
+                preparingToSwap = true;
+            }
+            else if(preparingToSwap && timeSinceLastPress <= prototypeSwapTimeout)
+            {
+                activeWeaponIndex = 2;
+                Destroy(activeWeapon);
+                activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
+                activeWeapon.transform.parent = weaponHoldPoint;
+                preparingToSwap = false;
+                timeSinceLastPress = 0f;
+            }
+        }
+
         if (Input.GetKey(KeyCode.LeftControl))
         {
             characterController.height /= 2;
             transform.localScale = crouchingScale;
+            moveSpeed = crouchSpeed;
         }
 
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             characterController.height *= 2;
             transform.localScale = standingScale;
+            moveSpeed = defaultMoveSpeed;
         }
 
         if(Input.GetButtonDown("Jump") && isGrounded)
@@ -110,6 +155,29 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void WeaponSwapTimer()
+    {
+        timeSinceLastPress += Time.deltaTime;
+        if(timeSinceLastPress > prototypeSwapTimeout)
+        {
+            hasSwappedWeapon = true;
+            preparingToSwap = false;
+            if (activeWeaponIndex == 0)
+            {
+                activeWeaponIndex = 1;
+                Destroy(activeWeapon);
+                activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
+                activeWeapon.transform.parent = weaponHoldPoint;
+            }
+            else if (activeWeaponIndex == 1 || activeWeaponIndex == 2)
+            {
+                activeWeaponIndex = 0;
+                Destroy(activeWeapon);
+                activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
+                activeWeapon.transform.parent = weaponHoldPoint;
+            }
+        }
+    }
     private void ApplyGravity()
     {
         currentVelocity.y += gravityScale * Time.deltaTime;
