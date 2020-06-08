@@ -1810,6 +1810,7 @@ MonoBehaviour:
   weaponsArray:
   - {fileID: 2262563361867456817, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d, type: 3}
   - {fileID: 5590963399543002241, guid: 386e3b1a17e5e18448a9bfa163a884b4, type: 3}
+  - {fileID: 1870204686266233526, guid: a4241010e6ff4b7419f0d70430381029, type: 3}
   - {fileID: 1870204686266233526, guid: 669027eaf1541b14090e0815a4b415a7, type: 3}
   activeWeapon: {fileID: 0}
   groundLayer:

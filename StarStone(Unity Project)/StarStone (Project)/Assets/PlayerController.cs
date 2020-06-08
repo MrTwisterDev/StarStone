@@ -125,7 +125,7 @@ public class PlayerController : MonoBehaviour
             }
             else if(preparingToSwap && timeSinceLastPress <= prototypeSwapTimeout)
             {
-                activeWeaponIndex = 2;
+                activeWeaponIndex = weaponsArray.Length -1;
                 Destroy(activeWeapon);
                 activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
                 activeWeapon.transform.parent = weaponHoldPoint;
@@ -162,6 +162,20 @@ public class PlayerController : MonoBehaviour
         {
             hasSwappedWeapon = true;
             preparingToSwap = false;
+            //Thomas' Remastered Code
+            activeWeaponIndex++;
+            if(activeWeaponIndex == weaponsArray.Length || activeWeaponIndex == weaponsArray.Length - 1)
+            {
+                activeWeaponIndex = 0;
+            }
+            Destroy(activeWeapon);
+            activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
+            activeWeapon.transform.parent = weaponHoldPoint;
+
+
+
+            //James' Original Code
+            /*
             if (activeWeaponIndex == 0)
             {
                 activeWeaponIndex = 1;
@@ -175,7 +189,27 @@ public class PlayerController : MonoBehaviour
                 Destroy(activeWeapon);
                 activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
                 activeWeapon.transform.parent = weaponHoldPoint;
-            }
+            } */
+
+            //Thomas's Original Rewrite
+            /*
+            switch (activeWeaponIndex)
+            {
+                case 0:
+                    activeWeaponIndex = 1;
+                    Destroy(activeWeapon);
+                    activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
+                    activeWeapon.transform.parent = weaponHoldPoint;
+                    break;
+                default:
+                    activeWeaponIndex = 0;
+                    Destroy(activeWeapon);
+                    activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
+                    activeWeapon.transform.parent = weaponHoldPoint;
+                    break;
+
+            } */
+
         }
     }
     private void ApplyGravity()
