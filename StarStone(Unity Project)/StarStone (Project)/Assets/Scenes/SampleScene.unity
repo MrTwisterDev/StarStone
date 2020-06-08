@@ -523,6 +523,36 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4493585093827132993, guid: e043652cece195c4fba508cfa8c8d70b, type: 3}
+--- !u!1 &613922828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 613922829}
+  m_Layer: 0
+  m_Name: WeaponHoldPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &613922829
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613922828}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.4, y: 0.2, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2097211755}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1755,6 +1785,7 @@ Transform:
   - {fileID: 1656846698}
   - {fileID: 948403086}
   - {fileID: 434701472}
+  - {fileID: 613922829}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1775,6 +1806,12 @@ MonoBehaviour:
   sprintSpeed: 0
   crouchSpeed: 0
   jumpHeight: 1
+  weaponHoldPoint: {fileID: 613922829}
+  weaponsArray:
+  - {fileID: 2262563361867456817, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d, type: 3}
+  - {fileID: 5590963399543002241, guid: 386e3b1a17e5e18448a9bfa163a884b4, type: 3}
+  - {fileID: 1870204686266233526, guid: 669027eaf1541b14090e0815a4b415a7, type: 3}
+  activeWeapon: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
