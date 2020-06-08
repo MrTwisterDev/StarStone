@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     private float gravityMultiplier;
     private float groundDistance;
 
-    public float moveSpeed, jumpHeight;
+    public float moveSpeed, defaultMoveSpeed, sprintSpeed, crouchSpeed, jumpHeight;
 
     private float xInput, zInput;
 
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask groundLayer;
 
-    private Vector3 currentVelocity;
+    private Vector3 currentVelocity, standingScale, crouchingScale;
 
     public Transform groundChecker, cameraTransform;
 
@@ -38,9 +38,15 @@ public class PlayerController : MonoBehaviour
 
         if(jumpHeight == 0) {jumpHeight = 3f;};
         
-        moveSpeed = 12.5f;
+        defaultMoveSpeed = 12.5f;
+        moveSpeed = defaultMoveSpeed;
+        sprintSpeed = 17.5f;
+        crouchSpeed = 6.25f;
 
         mouseSensitivity = 100f;
+
+        standingScale = transform.localScale;
+        crouchingScale = new Vector3(standingScale.x, standingScale.y / 2, standingScale.z);
 
         characterController = gameObject.GetComponent<CharacterController>();
     }
@@ -75,6 +81,27 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movement = transform.right * xInput + transform.forward * zInput;
         characterController.Move(movement * moveSpeed * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            moveSpeed = sprintSpeed;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            moveSpeed = defaultMoveSpeed;
+        }
+
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            characterController.height /= 2;
+            transform.localScale = crouchingScale;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            characterController.height *= 2;
+            transform.localScale = standingScale;
+        }
 
         if(Input.GetButtonDown("Jump") && isGrounded)
         {
