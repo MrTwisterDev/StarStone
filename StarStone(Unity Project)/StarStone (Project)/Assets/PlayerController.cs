@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour
     public GameObject[] weaponsArray;
     public GameObject activeWeapon;
     private int activeWeaponIndex;
-    private float weaponSwapCooldown;
-    private bool hasSwappedWeapon;
+    private float weaponSwapCooldown, timeSinceLastPress, prototypeSwapTimeout;
+    private bool hasSwappedWeapon, preparingToSwap;
 
     public LayerMask groundLayer;
 
@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
 
         activeWeapon = Instantiate(weaponsArray[0], weaponHoldPoint);
         activeWeapon.transform.parent = weaponHoldPoint;
+        timeSinceLastPress = 0f;
+        prototypeSwapTimeout = 0.25f;
 
         defaultMoveSpeed = 4f;
         moveSpeed = defaultMoveSpeed;
@@ -76,6 +78,10 @@ public class PlayerController : MonoBehaviour
                 hasSwappedWeapon = false;
                 weaponSwapCooldown = 0.25f;
             }
+        }
+        if (preparingToSwap)
+        {
+            WeaponSwapTimer();
         }
     }
 
@@ -112,20 +118,19 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) && !hasSwappedWeapon)
         {
-            hasSwappedWeapon = true;
-            if(activeWeaponIndex == 0)
+            timeSinceLastPress = 0f;
+            if (!preparingToSwap)
             {
-                activeWeaponIndex = 1;
-                Destroy(activeWeapon);
-                activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
-                activeWeapon.transform.parent = weaponHoldPoint;
+                preparingToSwap = true;
             }
-            else if(activeWeaponIndex == 1)
+            else if(preparingToSwap && timeSinceLastPress <= prototypeSwapTimeout)
             {
-                activeWeaponIndex = 0;
+                activeWeaponIndex = 2;
                 Destroy(activeWeapon);
                 activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
                 activeWeapon.transform.parent = weaponHoldPoint;
+                preparingToSwap = false;
+                timeSinceLastPress = 0f;
             }
         }
 
@@ -150,6 +155,29 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void WeaponSwapTimer()
+    {
+        timeSinceLastPress += Time.deltaTime;
+        if(timeSinceLastPress > prototypeSwapTimeout)
+        {
+            hasSwappedWeapon = true;
+            preparingToSwap = false;
+            if (activeWeaponIndex == 0)
+            {
+                activeWeaponIndex = 1;
+                Destroy(activeWeapon);
+                activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
+                activeWeapon.transform.parent = weaponHoldPoint;
+            }
+            else if (activeWeaponIndex == 1 || activeWeaponIndex == 2)
+            {
+                activeWeaponIndex = 0;
+                Destroy(activeWeapon);
+                activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
+                activeWeapon.transform.parent = weaponHoldPoint;
+            }
+        }
+    }
     private void ApplyGravity()
     {
         currentVelocity.y += gravityScale * Time.deltaTime;
