@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     private float weaponSwapCooldown, timeSinceLastPress, prototypeSwapTimeout;
     private bool hasSwappedWeapon, preparingToSwap;
 
+    public GameObject blinkBall;
+
     public LayerMask groundLayer;
 
     private Vector3 currentVelocity, standingScale, crouchingScale;
@@ -118,6 +120,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonUp(1))
         {
             weaponsArray[activeWeaponIndex].transform.position = weaponHoldPoint.transform.position;
+        }
+
+        if (Input.GetMouseButtonDown(2))
+        {
+            GameObject thrownBall = Instantiate(blinkBall, weaponHoldPoint.transform.position, Quaternion.identity);
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
