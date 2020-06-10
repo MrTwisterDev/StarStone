@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isGrounded;
 
-    public Transform weaponHoldPoint;
+    public Transform weaponHoldPoint, adsHoldPoint;
     public GameObject[] weaponsArray;
     private int activeWeaponIndex;
     private float weaponSwapCooldown, timeSinceLastPress, prototypeSwapTimeout;
@@ -97,6 +97,8 @@ public class PlayerController : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        weaponHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        adsHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
     }
 
@@ -107,6 +109,16 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movement = transform.right * xInput + transform.forward * zInput;
         characterController.Move(movement * moveSpeed * Time.deltaTime);
+
+        if (Input.GetMouseButton(1))
+        {
+            weaponsArray[activeWeaponIndex].transform.position = adsHoldPoint.transform.position;
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            weaponsArray[activeWeaponIndex].transform.position = weaponHoldPoint.transform.position;
+        }
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
