@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
 
     public Transform weaponHoldPoint;
     public GameObject[] weaponsArray;
-    public GameObject activeWeapon;
     private int activeWeaponIndex;
     private float weaponSwapCooldown, timeSinceLastPress, prototypeSwapTimeout;
     private bool hasSwappedWeapon, preparingToSwap;
@@ -45,10 +44,11 @@ public class PlayerController : MonoBehaviour
 
         if(jumpHeight == 0) {jumpHeight = 3f;};
 
-        activeWeapon = Instantiate(weaponsArray[0], weaponHoldPoint);
-        activeWeapon.transform.parent = weaponHoldPoint;
         timeSinceLastPress = 0f;
         prototypeSwapTimeout = 0.25f;
+
+        weaponsArray[activeWeaponIndex].SetActive(true);
+        weaponsArray[activeWeaponIndex].transform.parent = weaponHoldPoint;
 
         defaultMoveSpeed = 4f;
         moveSpeed = defaultMoveSpeed;
@@ -125,10 +125,9 @@ public class PlayerController : MonoBehaviour
             }
             else if(preparingToSwap && timeSinceLastPress <= prototypeSwapTimeout)
             {
+                weaponsArray[activeWeaponIndex].SetActive(false);
                 activeWeaponIndex = weaponsArray.Length -1;
-                Destroy(activeWeapon);
-                activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
-                activeWeapon.transform.parent = weaponHoldPoint;
+                weaponsArray[activeWeaponIndex].SetActive(true);
                 preparingToSwap = false;
                 timeSinceLastPress = 0f;
             }
@@ -160,56 +159,15 @@ public class PlayerController : MonoBehaviour
         timeSinceLastPress += Time.deltaTime;
         if(timeSinceLastPress > prototypeSwapTimeout)
         {
-            hasSwappedWeapon = true;
-            preparingToSwap = false;
-            //Thomas' Remastered Code
+            weaponsArray[activeWeaponIndex].SetActive(false);
             activeWeaponIndex++;
-            if(activeWeaponIndex == weaponsArray.Length || activeWeaponIndex == weaponsArray.Length - 1)
+            if(activeWeaponIndex >= weaponsArray.Length - 1)
             {
                 activeWeaponIndex = 0;
             }
-            Destroy(activeWeapon);
-            activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
-            activeWeapon.transform.parent = weaponHoldPoint;
-
-
-
-            //James' Original Code
-            /*
-            if (activeWeaponIndex == 0)
-            {
-                activeWeaponIndex = 1;
-                Destroy(activeWeapon);
-                activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
-                activeWeapon.transform.parent = weaponHoldPoint;
-            }
-            else if (activeWeaponIndex == 1 || activeWeaponIndex == 2)
-            {
-                activeWeaponIndex = 0;
-                Destroy(activeWeapon);
-                activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
-                activeWeapon.transform.parent = weaponHoldPoint;
-            } */
-
-            //Thomas's Original Rewrite
-            /*
-            switch (activeWeaponIndex)
-            {
-                case 0:
-                    activeWeaponIndex = 1;
-                    Destroy(activeWeapon);
-                    activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
-                    activeWeapon.transform.parent = weaponHoldPoint;
-                    break;
-                default:
-                    activeWeaponIndex = 0;
-                    Destroy(activeWeapon);
-                    activeWeapon = Instantiate(weaponsArray[activeWeaponIndex], weaponHoldPoint);
-                    activeWeapon.transform.parent = weaponHoldPoint;
-                    break;
-
-            } */
-
+            weaponsArray[activeWeaponIndex].SetActive(true);
+            preparingToSwap = false;
+            timeSinceLastPress = 0f;
         }
     }
     private void ApplyGravity()
