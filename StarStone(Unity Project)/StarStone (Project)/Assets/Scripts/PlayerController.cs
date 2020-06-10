@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
-    private float gravityScale;
-    private float gravityMultiplier;
+    public float gravityScale;
+    public float gravityMultiplier;
     private float groundDistance;
 
     public float moveSpeed, defaultMoveSpeed, sprintSpeed, crouchSpeed, underWaterSpeed, wadingSpeed, jumpHeight;
@@ -15,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     private float mouseX, mouseY, xRotation, zRotation;
 
-    private float mouseSensitivity;
+    public float mouseSensitivity;
 
     private bool isGrounded;
 
