@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     private float gravityMultiplier;
     private float groundDistance;
 
-    public float moveSpeed, defaultMoveSpeed, sprintSpeed, crouchSpeed, jumpHeight;
+    public float moveSpeed, defaultMoveSpeed, sprintSpeed, crouchSpeed, underWaterSpeed, wadingSpeed, jumpHeight;
 
     private float xInput, zInput;
 
@@ -48,12 +48,13 @@ public class PlayerController : MonoBehaviour
         prototypeSwapTimeout = 0.25f;
 
         weaponsArray[activeWeaponIndex].SetActive(true);
-        weaponsArray[activeWeaponIndex].transform.parent = weaponHoldPoint;
 
         defaultMoveSpeed = 4f;
         moveSpeed = defaultMoveSpeed;
         sprintSpeed = 10f;
         crouchSpeed = 1.5f;
+        wadingSpeed = 2f;
+        underWaterSpeed = 0.75f;
 
         mouseSensitivity = 100f;
 
