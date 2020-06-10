@@ -495,7 +495,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 434701472}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CheckGrounded
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -699,7 +699,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 613922829}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WeaponHoldPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -721,7 +721,7 @@ Transform:
   - {fileID: 794810939}
   - {fileID: 778000073}
   m_Father: {fileID: 2097211755}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
@@ -1003,7 +1003,7 @@ GameObject:
   - component: {fileID: 948403089}
   - component: {fileID: 948403088}
   - component: {fileID: 948403087}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1095,7 +1095,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -1704,7 +1704,7 @@ GameObject:
   - component: {fileID: 1656846701}
   - component: {fileID: 1656846700}
   - component: {fileID: 1656846699}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1785,6 +1785,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1656846697}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1724679016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1724679017}
+  m_Layer: 10
+  m_Name: ADSPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1724679017
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724679016}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2097211755}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1764992945 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7230587208582541622, guid: e043652cece195c4fba508cfa8c8d70b,
@@ -1977,6 +2007,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7469484624682501897, guid: e043652cece195c4fba508cfa8c8d70b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e043652cece195c4fba508cfa8c8d70b, type: 3}
 --- !u!1 &1930233132 stripped
@@ -2053,7 +2088,7 @@ GameObject:
   - component: {fileID: 2097211756}
   - component: {fileID: 2097211752}
   - component: {fileID: 2097211757}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: playerCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2140,6 +2175,7 @@ Transform:
   - {fileID: 1656846698}
   - {fileID: 948403086}
   - {fileID: 434701472}
+  - {fileID: 1724679017}
   - {fileID: 613922829}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -2164,10 +2200,13 @@ MonoBehaviour:
   wadingSpeed: 0
   jumpHeight: 1
   weaponHoldPoint: {fileID: 613922829}
+  adsHoldPoint: {fileID: 1724679017}
   weaponsArray:
   - {fileID: 947291036}
   - {fileID: 794810938}
   - {fileID: 778000072}
+  blinkBall: {fileID: 5853392429948996322, guid: 97010d536ce463b4b9c3891b370132fb,
+    type: 3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256

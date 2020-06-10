@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 2572306094259806829}
   - component: {fileID: 8034204332212782134}
   - component: {fileID: 6638533491127152682}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Weapon01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &801569791777248055
 Transform:
   m_ObjectHideFlags: 0

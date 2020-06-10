@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
-    private float gravityScale;
-    private float gravityMultiplier;
+    public float gravityScale;
+    public float gravityMultiplier;
     private float groundDistance;
 
     public float moveSpeed, defaultMoveSpeed, sprintSpeed, crouchSpeed, underWaterSpeed, wadingSpeed, jumpHeight;
@@ -15,15 +14,17 @@ public class PlayerController : MonoBehaviour
 
     private float mouseX, mouseY, xRotation, zRotation;
 
-    private float mouseSensitivity;
+    public float mouseSensitivity;
 
     private bool isGrounded;
 
-    public Transform weaponHoldPoint;
+    public Transform weaponHoldPoint, adsHoldPoint;
     public GameObject[] weaponsArray;
     private int activeWeaponIndex;
     private float weaponSwapCooldown, timeSinceLastPress, prototypeSwapTimeout;
     private bool hasSwappedWeapon, preparingToSwap;
+
+    public GameObject blinkBall;
 
     public LayerMask groundLayer;
 
@@ -97,6 +98,8 @@ public class PlayerController : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        weaponHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        adsHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
     }
 
@@ -107,6 +110,21 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movement = transform.right * xInput + transform.forward * zInput;
         characterController.Move(movement * moveSpeed * Time.deltaTime);
+
+        if (Input.GetMouseButton(1))
+        {
+            weaponsArray[activeWeaponIndex].transform.position = adsHoldPoint.transform.position;
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            weaponsArray[activeWeaponIndex].transform.position = weaponHoldPoint.transform.position;
+        }
+
+        if (Input.GetMouseButtonDown(2))
+        {
+            GameObject thrownBall = Instantiate(blinkBall, weaponHoldPoint.transform.position, Quaternion.identity);
+        }
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
