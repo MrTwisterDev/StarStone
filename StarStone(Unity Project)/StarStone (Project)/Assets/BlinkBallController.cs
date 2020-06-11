@@ -8,6 +8,7 @@ public class BlinkBallController : MonoBehaviour
     public LayerMask groundLayer;
 
     private GameObject playerObject;
+    private Transform cameraTransform;
 
     private Rigidbody rigidBody;
 
@@ -15,8 +16,9 @@ public class BlinkBallController : MonoBehaviour
     void Start()
     {
         playerObject = GameObject.Find("playerCapsule");
+        cameraTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
         rigidBody = gameObject.GetComponent<Rigidbody>();
-        rigidBody.AddForce(playerObject.transform.forward * 1000f); ;
+        rigidBody.AddForce(cameraTransform.forward * 1000f); ;
     }
 
     // Update is called once per frame
