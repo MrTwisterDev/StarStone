@@ -8,6 +8,14 @@ public class playerUnderWater : MonoBehaviour
     public string waterLayer;
     private LayerMask waterLayerMask;
 
+    public enum typeOfInteractingEntity
+    {
+        Player,
+        Enemy,
+        Object
+    }
+
+    public typeOfInteractingEntity typeOfEntity;
 
     // Start is called before the first frame update
     void Start()
@@ -18,13 +26,19 @@ public class playerUnderWater : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isUnderwater())
-        {
-            Debug.Log("Yes underwater");
-        }
-        else
-        {
-            Debug.Log("Not underwater");
+        if (isUnderwater()) {
+            switch (typeOfEntity)
+            {
+                case typeOfInteractingEntity.Player:
+                    gameObject.GetComponent<PlayerController>().speed = gameObject.GetComponent<PlayerController>().underWaterSpeed;
+                    break;
+                case typeOfInteractingEntity.Enemy:
+                    //Do enemy case stuff here;
+                    break;
+                case typeOfInteractingEntity.Object:
+                    //Do Object case stuff here;
+                    break;
+            } 
         }
     }
 
