@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 currentVelocity, standingScale, crouchingScale;
 
-    public Transform groundChecker, cameraTransform;
+    public Transform groundChecker, ladderChecker, cameraTransform;
 
     private CharacterController characterController;
 
@@ -71,16 +71,16 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         CameraControls();
-        if (!IsClimbingLadder())
+        if (IsClimbingLadder() == false)
         {
             PlayerControls();
+            ApplyGravity();
         }
         else
         {
             ClimbingControls();
         }
         CheckGrounded();
-        ApplyGravity();
         if (hasSwappedWeapon)
         {
             weaponSwapCooldown -= Time.deltaTime;
@@ -98,10 +98,9 @@ public class PlayerController : MonoBehaviour
 
     private bool IsClimbingLadder()
     {
-        Debug.DrawRay(cameraTransform.position, cameraTransform.forward);
-        if(Physics.Raycast(cameraTransform.position, cameraTransform.forward, 0.5f, ladderLayer))
+        Debug.DrawRay(ladderChecker.position, ladderChecker.forward);
+        if(Physics.Raycast(ladderChecker.position, ladderChecker.forward, 0.5f, ladderLayer))
         {
-            Debug.Log("Hitting a ladder!");
             return true;
         }
         else
