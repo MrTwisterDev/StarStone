@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2572306094259806829}
   - component: {fileID: 8034204332212782134}
   - component: {fileID: 6638533491127152682}
+  - component: {fileID: -3736052613932842741}
   m_Layer: 10
   m_Name: Weapon01
   m_TagString: Untagged
@@ -93,3 +94,27 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-3736052613932842741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2262563361867456817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a01d6a53a0be73442a8c049770ff2b24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponName: Rifle
+  totalClips: 24
+  maxBullets: 4
+  currentBullets: 4
+  canShoot: 0
+  canADS: 0
+  weaponSpeedMultiplier: 0
+  typeOfWeapon: 0
+  gunAccuracy: 0
+  roundsPerSecond: 5
+  projectileFired: {fileID: 0}
+  bulletsInSpread: 0

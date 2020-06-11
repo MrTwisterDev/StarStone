@@ -53,9 +53,9 @@ public class PlayerController : MonoBehaviour
         defaultMoveSpeed = 4f;
         moveSpeed = defaultMoveSpeed;
         sprintSpeed = 10f;
-        crouchSpeed = 1.5f;
-        wadingSpeed = 2f;
-        underWaterSpeed = 0.75f;
+        crouchSpeed = 2.5f;
+        wadingSpeed = 3f;
+        underWaterSpeed = 2f;
 
         mouseSensitivity = 100f;
 

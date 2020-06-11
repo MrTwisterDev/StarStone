@@ -2192,6 +2192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba33bb50f54831408c345d1e4160e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gravityScale: 0
+  gravityMultiplier: 0
   moveSpeed: 0
   defaultMoveSpeed: 0
   sprintSpeed: 0
@@ -2199,14 +2201,14 @@ MonoBehaviour:
   underWaterSpeed: 0
   wadingSpeed: 0
   jumpHeight: 1
+  mouseSensitivity: 0
   weaponHoldPoint: {fileID: 613922829}
   adsHoldPoint: {fileID: 1724679017}
   weaponsArray:
   - {fileID: 947291036}
   - {fileID: 794810938}
   - {fileID: 778000072}
-  blinkBall: {fileID: 5853392429948996322, guid: 97010d536ce463b4b9c3891b370132fb,
-    type: 3}
+  blinkBall: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -2225,6 +2227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterLayer: Water
+  typeOfEntity: 0
 --- !u!1 &2099934531 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9091094862930139297, guid: e043652cece195c4fba508cfa8c8d70b,
