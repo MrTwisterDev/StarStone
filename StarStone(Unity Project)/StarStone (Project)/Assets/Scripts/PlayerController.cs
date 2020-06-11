@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
         gravityScale = -9.81f * 2;
         gravityMultiplier = 1f;
-        groundDistance = 0.4f;
+        groundDistance = 0.25f;
 
         if(jumpHeight == 0) {jumpHeight = 3f;};
 

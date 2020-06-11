@@ -18,7 +18,7 @@ public class BlinkBallController : MonoBehaviour
         playerObject = GameObject.Find("playerCapsule");
         cameraTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
         rigidBody = gameObject.GetComponent<Rigidbody>();
-        rigidBody.AddForce(cameraTransform.forward * 1000f); ;
+        rigidBody.AddForce(cameraTransform.forward * 1000f);
     }
 
     // Update is called once per frame
@@ -31,12 +31,10 @@ public class BlinkBallController : MonoBehaviour
     {
         if(collision.gameObject.layer == 8)
         {
-            Debug.Log("Collided with the ground!");
             Vector3 blinkTarget = new Vector3(gameObject.transform.position.x, playerObject.transform.position.y, gameObject.transform.position.z);
             playerObject.transform.position = blinkTarget;
             Destroy(gameObject);
         }
-        Debug.Log("Collided with something that wasn't the floor.");
     }
 
 }
