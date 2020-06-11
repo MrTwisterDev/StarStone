@@ -26,11 +26,16 @@ public class playerUnderWater : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        RenderSettings.fog = isUnderwater();
+        RenderSettings.fogDensity = 0.15f;
+        RenderSettings.fogColor = Color.cyan;
+
         if (isUnderwater()) {
             switch (typeOfEntity)
             {
                 case typeOfInteractingEntity.Player:
                     gameObject.GetComponent<PlayerController>().moveSpeed = gameObject.GetComponent<PlayerController>().underWaterSpeed;
+                    
               //      gameObject.GetComponent<PlayerController>().gravityScale = 
                     break;
                 case typeOfInteractingEntity.Enemy:
