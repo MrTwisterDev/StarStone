@@ -154,14 +154,14 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftControl))
         {
-            characterController.height /= 2;
+            characterController.height = 1;
             transform.localScale = crouchingScale;
             moveSpeed = crouchSpeed;
         }
 
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            characterController.height *= 2;
+            characterController.height = 2;
             transform.localScale = standingScale;
             moveSpeed = defaultMoveSpeed;
         }
