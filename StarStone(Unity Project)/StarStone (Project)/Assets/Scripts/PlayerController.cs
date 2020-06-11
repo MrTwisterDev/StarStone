@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(2))
         {
-            GameObject thrownBall = Instantiate(blinkBall, weaponHoldPoint.transform.position, Quaternion.identity);
+            GameObject thrownBall = Instantiate(blinkBall, cameraTransform.position, cameraTransform.rotation);
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
