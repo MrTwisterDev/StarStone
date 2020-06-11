@@ -8,15 +8,17 @@ public class PlayerController : MonoBehaviour
     public float gravityMultiplier;
     private float groundDistance;
 
-    public float moveSpeed, defaultMoveSpeed, sprintSpeed, crouchSpeed, underWaterSpeed, wadingSpeed, jumpHeight;
+    public float moveSpeed, jumpHeight;
 
-    private float xInput, zInput;
+    public float moveSpeedMultiplier, crouchingMultiplier, sprintingMultiplier, swimmingMultiplier, wadingMultiplier, climbingMultiplier;
 
-    private float mouseX, mouseY, xRotation, zRotation;
+    private float xInput, yInput, zInput;
+
+    private float mouseX, mouseY, xRotation;
 
     public float mouseSensitivity;
 
-    private bool isGrounded;
+    private bool isGrounded, isSprinting, isCrouching, isWading, isSwimming, isClimbing;
 
     public Transform weaponHoldPoint, adsHoldPoint;
     public GameObject[] weaponsArray;
@@ -26,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject blinkBall;
 
-    public LayerMask groundLayer;
+    public LayerMask groundLayer, ladderLayer;
 
     private Vector3 currentVelocity, standingScale, crouchingScale;
 
@@ -50,12 +52,12 @@ public class PlayerController : MonoBehaviour
 
         weaponsArray[activeWeaponIndex].SetActive(true);
 
-        defaultMoveSpeed = 4f;
-        moveSpeed = defaultMoveSpeed;
-        sprintSpeed = 10f;
-        crouchSpeed = 2.5f;
-        wadingSpeed = 3f;
-        underWaterSpeed = 2f;
+        moveSpeed = 4f;
+        moveSpeedMultiplier = 1f;
+        sprintingMultiplier = 1f;
+        crouchingMultiplier = -0.5f;
+        wadingMultiplier = -0.3f;
+        swimmingMultiplier = -0.2f;
 
         mouseSensitivity = 100f;
 
@@ -69,7 +71,14 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         CameraControls();
-        PlayerControls();
+        if (!IsClimbingLadder())
+        {
+            PlayerControls();
+        }
+        else
+        {
+            ClimbingControls();
+        }
         CheckGrounded();
         ApplyGravity();
         if (hasSwappedWeapon)
@@ -87,13 +96,34 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool IsClimbingLadder()
+    {
+        Debug.DrawRay(cameraTransform.position, cameraTransform.forward);
+        if(Physics.Raycast(cameraTransform.position, cameraTransform.forward, 0.5f, ladderLayer))
+        {
+            Debug.Log("Hitting a ladder!");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void ClimbingControls()
+    {
+        yInput = Input.GetAxis("Vertical");
+
+        Vector3 movement = transform.up * yInput;
+        characterController.Move(movement * moveSpeed * Time.deltaTime);
+    }
+
     private void CameraControls()
     {
         mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
-        zRotation -= mouseX;
 
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
@@ -109,7 +139,7 @@ public class PlayerController : MonoBehaviour
         zInput = Input.GetAxis("Vertical");
 
         Vector3 movement = transform.right * xInput + transform.forward * zInput;
-        characterController.Move(movement * moveSpeed * Time.deltaTime);
+        characterController.Move(movement * moveSpeed * moveSpeedMultiplier * Time.deltaTime);
 
         if (Input.GetMouseButton(1))
         {
@@ -126,13 +156,15 @@ public class PlayerController : MonoBehaviour
             GameObject thrownBall = Instantiate(blinkBall, cameraTransform.position, cameraTransform.rotation);
         }
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && !isSprinting)
         {
-            moveSpeed = sprintSpeed;
+            moveSpeedMultiplier += sprintingMultiplier;
+            isSprinting = true;
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.LeftShift) && isSprinting)
         {
-            moveSpeed = defaultMoveSpeed;
+            moveSpeedMultiplier -= sprintingMultiplier;
+            isSprinting = false;
         }
 
         if (Input.GetKeyDown(KeyCode.Q) && !hasSwappedWeapon)
@@ -152,18 +184,20 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl) && !isCrouching)
         {
             characterController.height = 1;
             transform.localScale = crouchingScale;
-            moveSpeed = crouchSpeed;
+            moveSpeedMultiplier += crouchingMultiplier;
+            isCrouching = true;
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftControl))
+        if (Input.GetKeyUp(KeyCode.LeftControl) && isCrouching)
         {
             characterController.height = 2;
             transform.localScale = standingScale;
-            moveSpeed = defaultMoveSpeed;
+            moveSpeedMultiplier -= crouchingMultiplier;
+            isCrouching = false;
         }
 
         if(Input.GetButtonDown("Jump") && isGrounded)

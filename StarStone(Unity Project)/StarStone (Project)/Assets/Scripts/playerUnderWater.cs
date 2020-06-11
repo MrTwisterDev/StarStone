@@ -34,7 +34,7 @@ public class playerUnderWater : MonoBehaviour
             switch (typeOfEntity)
             {
                 case typeOfInteractingEntity.Player:
-                    gameObject.GetComponent<PlayerController>().moveSpeed = gameObject.GetComponent<PlayerController>().underWaterSpeed;
+                    gameObject.GetComponent<PlayerController>().moveSpeedMultiplier += gameObject.GetComponent<PlayerController>().swimmingMultiplier;
                     
               //      gameObject.GetComponent<PlayerController>().gravityScale = 
                     break;
