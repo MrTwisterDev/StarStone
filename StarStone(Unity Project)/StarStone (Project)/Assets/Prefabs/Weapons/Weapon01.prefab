@@ -117,5 +117,6 @@ MonoBehaviour:
   typeOfWeapon: 0
   gunAccuracy: 0
   roundsPerSecond: 5
+  gunRecoil: 1.5
   projectileFired: {fileID: 0}
   bulletsInSpread: 0

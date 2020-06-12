@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     private float xInput, yInput, zInput;
 
-    private float mouseX, mouseY, xRotation;
+    public float mouseX, mouseY, xRotation;
 
     public float mouseSensitivity;
 
@@ -143,6 +143,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             weaponsArray[activeWeaponIndex].GetComponent<baseWeaponClass>().useWeapon();
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (weaponsArray[activeWeaponIndex].GetComponent<build_a_weapon>().typeOfWeapon == build_a_weapon.typesOfWeapon.spreadShot)
+            {
+                weaponsArray[activeWeaponIndex].GetComponent<build_a_weapon>().spreadShotLock = false;
+            }
         }
 
 
