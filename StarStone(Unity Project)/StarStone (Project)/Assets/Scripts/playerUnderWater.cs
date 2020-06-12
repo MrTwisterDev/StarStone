@@ -6,7 +6,10 @@ public class playerUnderWater : MonoBehaviour
 {
     private RaycastHit waterCheck;
     public string waterLayer;
+
     private LayerMask waterLayerMask;
+    private PlayerController componentToModify;
+    private bool ChangeMovementOnce;
 
     public enum typeOfInteractingEntity
     {
@@ -21,6 +24,13 @@ public class playerUnderWater : MonoBehaviour
     void Start()
     {
         waterLayerMask = LayerMask.GetMask(waterLayer);
+        switch (typeOfEntity)
+        {
+            case typeOfInteractingEntity.Player:
+                ChangeMovementOnce = true;
+                componentToModify = gameObject.GetComponent<PlayerController>();
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -34,9 +44,12 @@ public class playerUnderWater : MonoBehaviour
             switch (typeOfEntity)
             {
                 case typeOfInteractingEntity.Player:
-                    gameObject.GetComponent<PlayerController>().moveSpeedMultiplier += gameObject.GetComponent<PlayerController>().swimmingMultiplier;
+                    if (ChangeMovementOnce)
+                    {
+                        componentToModify.moveSpeedMultiplier += componentToModify.swimmingMultiplier;
+                        ChangeMovementOnce = false;
+                    }
                     
-              //      gameObject.GetComponent<PlayerController>().gravityScale = 
                     break;
                 case typeOfInteractingEntity.Enemy:
                     //Do enemy case stuff here;
@@ -46,8 +59,20 @@ public class playerUnderWater : MonoBehaviour
                     break;
 
             }
-            
 
+        }
+        else
+        {
+            switch (typeOfEntity)
+            {
+                case typeOfInteractingEntity.Player:
+                    if (!ChangeMovementOnce)
+                    {
+                        componentToModify.moveSpeedMultiplier -= componentToModify.swimmingMultiplier;
+                        ChangeMovementOnce = true;
+                    }
+                    break;
+            }
         }
     }
 

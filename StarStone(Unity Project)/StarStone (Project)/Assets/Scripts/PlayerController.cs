@@ -140,6 +140,12 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = transform.right * xInput + transform.forward * zInput;
         characterController.Move(movement * moveSpeed * moveSpeedMultiplier * Time.deltaTime);
 
+        if (Input.GetMouseButton(0))
+        {
+            weaponsArray[activeWeaponIndex].GetComponent<baseWeaponClass>().useWeapon();
+        }
+
+
         if (Input.GetMouseButton(1))
         {
             weaponsArray[activeWeaponIndex].transform.position = adsHoldPoint.transform.position;
@@ -164,6 +170,12 @@ public class PlayerController : MonoBehaviour
         {
             moveSpeedMultiplier -= sprintingMultiplier;
             isSprinting = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            baseWeaponClass _currentWeaponScript = weaponsArray[activeWeaponIndex].GetComponent<baseWeaponClass>();
+            _currentWeaponScript.reloadWeapon();
         }
 
         if (Input.GetKeyDown(KeyCode.Q) && !hasSwappedWeapon)

@@ -31,4 +31,10 @@ public class baseWeaponClass : MonoBehaviour
     {
         currentBullets--;
     }
+
+    public void reloadWeapon()
+    {
+        totalClips = totalClips - (maxBullets - currentBullets);
+        currentBullets = maxBullets;
+    }
 }

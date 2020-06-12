@@ -111,6 +111,7 @@ MonoBehaviour:
   maxBullets: 4
   currentBullets: 4
   canShoot: 0
+  isShooting: 0
   canADS: 0
   weaponSpeedMultiplier: 0
   typeOfWeapon: 0
