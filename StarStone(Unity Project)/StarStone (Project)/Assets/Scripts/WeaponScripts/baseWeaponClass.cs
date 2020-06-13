@@ -15,6 +15,8 @@ public class baseWeaponClass : MonoBehaviour
 
     public bool canADS; //The gun does have the ability to ADS (Aim down sights)
     public float weaponSpeedMultiplier; //How much a gun slows the character down when equipped (0 has no effect)
+    public GameObject impactDecal; //What decal is left on impact
+
 
     private void Start()
     {

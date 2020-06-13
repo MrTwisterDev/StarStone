@@ -114,9 +114,12 @@ MonoBehaviour:
   isShooting: 0
   canADS: 0
   weaponSpeedMultiplier: 0
+  impactDecal: {fileID: 8503099283694893430, guid: 83b1cc7bc4b8be54e95dac30519ff48b,
+    type: 3}
   typeOfWeapon: 0
   gunAccuracy: 0
   roundsPerSecond: 5
   gunRecoil: 1.5
+  spreadShotLock: 0
   projectileFired: {fileID: 0}
   bulletsInSpread: 0

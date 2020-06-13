@@ -131,6 +131,11 @@ public class build_a_weapon : baseWeaponClass
                                     Debug.DrawRay(transform.position, _baseDirectionSpread * 20, Color.yellow, 1);
                                     Debug.Log(transform.parent.gameObject.transform.forward);
 
+                                    Quaternion decalRot = Quaternion.LookRotation(shotTargetSpread.normal);
+                                    Quaternion.Inverse(decalRot);
+                                    GameObject bulletDecal = Instantiate(impactDecal, shotTargetSpread.point, Quaternion.Inverse(decalRot));
+                                    bulletDecal.transform.Translate(Vector3.back/100);
+
                                 }
                             }
 
