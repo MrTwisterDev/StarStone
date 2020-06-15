@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
         prototypeSwapTimeout = 0.25f;
 
         weaponsArray[activeWeaponIndex].SetActive(true);
+        activeWeapon = weaponsArray[activeWeaponIndex];
 
         moveSpeed = 4f;
         moveSpeedMultiplier = 1f;
