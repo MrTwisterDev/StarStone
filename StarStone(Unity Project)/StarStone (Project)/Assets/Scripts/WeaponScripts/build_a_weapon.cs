@@ -28,12 +28,14 @@ public class build_a_weapon : baseWeaponClass
     public GameObject projectileFired; //What projectile should this weapon fire
     public int bulletsInSpread; //How many projectiles should be fired in a spreadShot
 
+    GameObject uiController;
 
     void Start()
     {
         timeTillBullet = 1/roundsPerSecond; //Calculates the fire rate
         currentTimeTillBullet = 0;//Makes the first show not have any fire time
 
+        uiController = GameObject.Find("UI Controller");
 
         switch (typeOfWeapon) //A case by case basis on how a weapon should be initialised
         {
@@ -97,7 +99,7 @@ public class build_a_weapon : baseWeaponClass
                             Debug.DrawRay(transform.position, _baseDirection*10, Color.yellow, 2);
                           //  Debug.Log(shotTarget.collider.gameObject.name);
                             Debug.Log(transform.parent.gameObject.transform.forward);
-
+                            uiController.GetComponent<UIController>().UpdateMagazineText();
 
 
                         }
@@ -137,6 +139,8 @@ public class build_a_weapon : baseWeaponClass
                                     Quaternion.Inverse(decalRot);
                                     GameObject bulletDecal = Instantiate(impactDecal, shotTargetSpread.point, Quaternion.Inverse(decalRot));
                                     bulletDecal.transform.Translate(Vector3.back/100);
+
+                                    uiController.GetComponent<UIController>().UpdateMagazineText();
 
                                 }
                             }
