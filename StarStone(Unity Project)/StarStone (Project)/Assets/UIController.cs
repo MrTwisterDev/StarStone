@@ -15,7 +15,7 @@ public class UIController : MonoBehaviour
         playerController = GameObject.Find("playerCapsule").GetComponent<PlayerController>();
         activeWeaponController = playerController.activeWeapon.GetComponent<build_a_weapon>();
         currentMagazineAmmoText = GameObject.Find("CurrentMagazineAmmo").GetComponent<Text>();
-        currentMagazineAmmoText.text = activeWeaponController.currentBullets.ToString();
+        UpdateMagazineText();
     }
 
     // Update is called once per frame
@@ -26,7 +26,7 @@ public class UIController : MonoBehaviour
 
     public void UpdateMagazineText()
     {
-        currentMagazineAmmoText.text = activeWeaponController.currentBullets.ToString();
+        currentMagazineAmmoText.text = activeWeaponController.currentBullets.ToString() + "/" + activeWeaponController.magazineCapacity.ToString();
     }
 
 }
