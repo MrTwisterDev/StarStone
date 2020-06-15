@@ -7,6 +7,8 @@ public class UIController : MonoBehaviour
 {
     private PlayerController playerController;
     private build_a_weapon activeWeaponController;
+
+    public Text totalAmmoText;
     public Text currentMagazineAmmoText;
 
     // Start is called before the first frame update
@@ -14,8 +16,9 @@ public class UIController : MonoBehaviour
     {
         playerController = GameObject.Find("playerCapsule").GetComponent<PlayerController>();
         activeWeaponController = playerController.activeWeapon.GetComponent<build_a_weapon>();
+        totalAmmoText = GameObject.Find("TotalAmmoValue").GetComponent<Text>();
         currentMagazineAmmoText = GameObject.Find("CurrentMagazineAmmo").GetComponent<Text>();
-        UpdateMagazineText();
+        UpdateAmmoText();
     }
 
     // Update is called once per frame
@@ -24,9 +27,10 @@ public class UIController : MonoBehaviour
         
     }
 
-    public void UpdateMagazineText()
+    public void UpdateAmmoText()
     {
         currentMagazineAmmoText.text = activeWeaponController.currentBullets.ToString() + "/" + activeWeaponController.magazineCapacity.ToString();
+        totalAmmoText.text = activeWeaponController.totalBullets.ToString();
     }
 
 }

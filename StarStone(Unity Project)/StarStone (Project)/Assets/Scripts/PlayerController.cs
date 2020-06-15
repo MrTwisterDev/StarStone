@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject blinkBall;
 
+    public UIController uiController;
+
     public LayerMask groundLayer, ladderLayer;
 
     private Vector3 currentVelocity, standingScale, crouchingScale;
@@ -62,6 +64,8 @@ public class PlayerController : MonoBehaviour
         swimmingMultiplier = -0.2f;
 
         mouseSensitivity = 100f;
+
+        uiController = GameObject.Find("UI Controller").GetComponent<UIController>();
 
         standingScale = transform.localScale;
         crouchingScale = new Vector3(standingScale.x, standingScale.y / 2, standingScale.z);
@@ -186,6 +190,7 @@ public class PlayerController : MonoBehaviour
         {
             baseWeaponClass _currentWeaponScript = weaponsArray[activeWeaponIndex].GetComponent<baseWeaponClass>();
             _currentWeaponScript.reloadWeapon();
+            uiController.UpdateAmmoText();
         }
 
         if (Input.GetKeyDown(KeyCode.Q) && !hasSwappedWeapon)

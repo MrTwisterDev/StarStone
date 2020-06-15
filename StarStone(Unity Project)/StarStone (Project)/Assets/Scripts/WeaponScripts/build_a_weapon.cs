@@ -98,7 +98,7 @@ public class build_a_weapon : baseWeaponClass
                             Debug.DrawRay(transform.position, _baseDirection*10, Color.yellow, 2);
                           //  Debug.Log(shotTarget.collider.gameObject.name);
                             Debug.Log(transform.parent.gameObject.transform.forward);
-                            uiController.GetComponent<UIController>().UpdateMagazineText();
+                            uiController.GetComponent<UIController>().UpdateAmmoText();
 
 
                         }
@@ -139,7 +139,7 @@ public class build_a_weapon : baseWeaponClass
                                     GameObject bulletDecal = Instantiate(impactDecal, shotTargetSpread.point, Quaternion.Inverse(decalRot));
                                     bulletDecal.transform.Translate(Vector3.back/100);
 
-                                    uiController.GetComponent<UIController>().UpdateMagazineText();
+                                    uiController.GetComponent<UIController>().UpdateAmmoText();
 
                                 }
                             }
