@@ -20,7 +20,9 @@ public class Test : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            gameObject.GetComponent<NavMeshAgent>().SetDestination(player.transform.position);
+            Transform goal = player.transform;
+            NavMeshAgent agent = GetComponent<NavMeshAgent>();
+            agent.destination = goal.position;
         }
     }
 }
