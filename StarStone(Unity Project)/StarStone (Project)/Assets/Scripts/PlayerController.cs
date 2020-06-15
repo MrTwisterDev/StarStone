@@ -18,7 +18,9 @@ public class PlayerController : MonoBehaviour
 
     public float mouseSensitivity;
 
-    private bool isGrounded, isSprinting, isCrouching, isWading, isSwimming, isClimbing;
+    public float blinkCooldownTime, blinkCooldownTimeRounded;
+
+    private bool isGrounded, isSprinting, isCrouching, isWading, isSwimming, isClimbing, canBlink;
 
     public Transform weaponHoldPoint, adsHoldPoint;
     public GameObject[] weaponsArray;
@@ -65,6 +67,9 @@ public class PlayerController : MonoBehaviour
 
         mouseSensitivity = 100f;
 
+        canBlink = true;
+        blinkCooldownTime = 5f;
+
         uiController = GameObject.Find("UI Controller").GetComponent<UIController>();
 
         standingScale = transform.localScale;
@@ -99,6 +104,17 @@ public class PlayerController : MonoBehaviour
         if (preparingToSwap)
         {
             WeaponSwapTimer();
+        }
+        if (!canBlink)
+        {
+            blinkCooldownTime -= Time.deltaTime;
+            blinkCooldownTimeRounded = Mathf.Round(blinkCooldownTime * 100) / 100;
+            if(blinkCooldownTime <= 0)
+            {
+                canBlink = true;
+                blinkCooldownTime = 5f;
+            }
+            uiController.UpdateBlinkTimer();
         }
     }
 
@@ -170,9 +186,10 @@ public class PlayerController : MonoBehaviour
             weaponsArray[activeWeaponIndex].transform.position = weaponHoldPoint.transform.position;
         }
 
-        if (Input.GetMouseButtonDown(2))
+        if (Input.GetMouseButtonDown(2) && canBlink)
         {
             GameObject thrownBall = Instantiate(blinkBall, cameraTransform.position, cameraTransform.rotation);
+            canBlink = false;
         }
 
         if (Input.GetKey(KeyCode.LeftShift) && !isSprinting)
