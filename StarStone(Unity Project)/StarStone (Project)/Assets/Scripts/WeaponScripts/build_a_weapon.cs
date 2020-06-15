@@ -98,6 +98,8 @@ public class build_a_weapon : baseWeaponClass
                           //  Debug.Log(shotTarget.collider.gameObject.name);
                             Debug.Log(transform.parent.gameObject.transform.forward);
 
+
+
                         }
 
                         //Recoil Application
