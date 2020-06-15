@@ -246,6 +246,8 @@ public class PlayerController : MonoBehaviour
             }
             weaponsArray[activeWeaponIndex].SetActive(true);
             activeWeapon = weaponsArray[activeWeaponIndex];
+            uiController.GetChangedWeapon();
+            uiController.UpdateAmmoText();
             preparingToSwap = false;
             timeSinceLastPress = 0f;
         }

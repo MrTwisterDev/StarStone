@@ -1124,6 +1124,34 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1096382986}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &794810943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794810938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a01d6a53a0be73442a8c049770ff2b24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponName: Rifle
+  totalBullets: 60
+  magazineCapacity: 15
+  currentBullets: 15
+  canShoot: 1
+  isShooting: 0
+  canADS: 1
+  weaponSpeedMultiplier: 0
+  impactDecal: {fileID: 0}
+  typeOfWeapon: 0
+  gunAccuracy: 5
+  roundsPerSecond: 2
+  gunRecoil: 1.5
+  spreadShotLock: 0
+  projectileFired: {fileID: 0}
+  bulletsInSpread: 1
 --- !u!64 &858977895
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1491,9 +1519,9 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 60
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 100
     m_Alignment: 4
@@ -1642,9 +1670,9 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 76
+    m_FontSize: 40
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 100
     m_Alignment: 4
@@ -2169,7 +2197,7 @@ GameObject:
   - component: {fileID: 1581431879}
   - component: {fileID: 1581431878}
   - component: {fileID: 1581431877}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

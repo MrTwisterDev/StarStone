@@ -21,10 +21,9 @@ public class UIController : MonoBehaviour
         UpdateAmmoText();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GetChangedWeapon()
     {
-        
+        activeWeaponController = playerController.activeWeapon.GetComponent<build_a_weapon>();
     }
 
     public void UpdateAmmoText()
