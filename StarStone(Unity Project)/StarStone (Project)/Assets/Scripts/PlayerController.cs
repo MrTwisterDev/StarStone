@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public Transform weaponHoldPoint, adsHoldPoint;
     public GameObject[] weaponsArray;
+    public GameObject activeWeapon;
     private int activeWeaponIndex;
     private float weaponSwapCooldown, timeSinceLastPress, prototypeSwapTimeout;
     private bool hasSwappedWeapon, preparingToSwap;
@@ -238,6 +239,7 @@ public class PlayerController : MonoBehaviour
                 activeWeaponIndex = 0;
             }
             weaponsArray[activeWeaponIndex].SetActive(true);
+            activeWeapon = weaponsArray[activeWeaponIndex];
             preparingToSwap = false;
             timeSinceLastPress = 0f;
         }
