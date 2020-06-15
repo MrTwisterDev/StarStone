@@ -1726,7 +1726,7 @@ PrefabInstance:
     - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
         type: 3}
       propertyPath: currentBullets
-      value: 771
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
         type: 3}
@@ -1754,6 +1754,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8758831134176318721, guid: c9d52207ab47da340923585986b93d2e,
         type: 3}
+    - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
+        type: 3}
+      propertyPath: magazineCapacity
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
+        type: 3}
+      propertyPath: totalBullets
+      value: 48
+      objectReference: {fileID: 0}
     - target: {fileID: 801569791777248055, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1846,7 +1856,7 @@ GameObject:
   - component: {fileID: 1260404692}
   m_Layer: 0
   m_Name: Game Logic Controllers
-  m_TagString: Untagged
+  m_TagString: GameLogicController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
