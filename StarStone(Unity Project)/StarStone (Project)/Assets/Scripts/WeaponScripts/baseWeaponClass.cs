@@ -6,8 +6,8 @@ public class baseWeaponClass : MonoBehaviour
 {
     public string WeaponName;
 
-    public int totalClips;
-    public int maxBullets; //The maximum amount of uses a weapon has in a single clip
+    public int totalBullets; //The current amount of ammunition a player has in their inventory
+    public int magazineCapacity; //The maximum amount of uses a weapon has in a single clip
     public int currentBullets; //The current amount of uses a weapon has in it's current clip
 
     public bool canShoot; //The weapon can be used, set to false whenever the player runs out of currentBullets
@@ -20,7 +20,7 @@ public class baseWeaponClass : MonoBehaviour
 
     private void Start()
     {
-        currentBullets = maxBullets;
+        currentBullets = magazineCapacity;
     }
 
     void Update()
@@ -36,7 +36,7 @@ public class baseWeaponClass : MonoBehaviour
 
     public void reloadWeapon()
     {
-        totalClips = totalClips - (maxBullets - currentBullets);
-        currentBullets = maxBullets;
+        totalBullets = totalBullets - (magazineCapacity - currentBullets);
+        currentBullets = magazineCapacity;
     }
 }

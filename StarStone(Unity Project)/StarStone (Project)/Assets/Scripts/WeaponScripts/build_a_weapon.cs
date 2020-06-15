@@ -55,7 +55,7 @@ public class build_a_weapon : baseWeaponClass
     // Update is called once per frame
     void Update()
     {
-        canShoot = currentBullets > 0 && totalClips > 0;
+        canShoot = currentBullets > 0 && totalBullets > 0;
 
         switch (typeOfWeapon) //How should each weapon differ per frame
         {
