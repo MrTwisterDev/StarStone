@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public bool  canRegenToMax;
 
     public float moveSpeedMultiplier, crouchingMultiplier, sprintingMultiplier, swimmingMultiplier, wadingMultiplier, climbingMultiplier;
+    private float multiplierBeforeJump;
 
     private float xInput, yInput, zInput;
 
@@ -119,14 +120,6 @@ public class PlayerController : MonoBehaviour
         {
             WeaponSwapTimer();
         }
-        if (currentHealth <= healthRegenCutoff)
-        {
-            canRegenToMax = false;
-        }
-        else
-        {
-            canRegenToMax = true;
-        }
     }
 
     private bool IsClimbingLadder()
@@ -190,11 +183,18 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerControls()
     {
-        xInput = Input.GetAxis("Horizontal");
-        zInput = Input.GetAxis("Vertical");
-
-        Vector3 movement = transform.right * xInput + transform.forward * zInput;
-        characterController.Move(movement * moveSpeed * moveSpeedMultiplier * Time.deltaTime);
+        if (isGrounded)
+        {
+            xInput = Input.GetAxis("Horizontal");
+            zInput = Input.GetAxis("Vertical");
+            Vector3 movement = transform.right * xInput + transform.forward * zInput;
+            characterController.Move(movement * moveSpeed * moveSpeedMultiplier * Time.deltaTime);
+        }
+        else if (!isGrounded)
+        {
+            Vector3 movement = transform.right * xInput + transform.forward * zInput;
+            characterController.Move(movement * moveSpeed * multiplierBeforeJump * Time.deltaTime);
+        }
 
         if (Input.GetMouseButton(0))
         {
@@ -300,6 +300,7 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetButtonDown("Jump") && isGrounded)
         {
+            multiplierBeforeJump = moveSpeedMultiplier;
             currentVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravityScale);
         }
 
@@ -324,6 +325,7 @@ public class PlayerController : MonoBehaviour
             timeSinceLastPress = 0f;
         }
     }
+
     private void ApplyGravity()
     {
         currentVelocity.y += gravityScale * Time.deltaTime;
@@ -341,7 +343,15 @@ public class PlayerController : MonoBehaviour
 
     private void HealthRegen()
     {
-        if(canRegen && currentHealth < maxHealth && canRegenToMax)
+        if (currentHealth <= healthRegenCutoff)
+        {
+            canRegenToMax = false;
+        }
+        else
+        {
+            canRegenToMax = true;
+        }
+        if (canRegen && currentHealth < maxHealth && canRegenToMax)
         {
             currentHealth += regenRate * Time.deltaTime;
             if(currentHealth > maxHealth)
