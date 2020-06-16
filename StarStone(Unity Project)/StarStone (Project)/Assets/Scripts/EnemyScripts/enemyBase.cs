@@ -37,6 +37,10 @@ public class enemyBase : MonoBehaviour
     public void takeDamage(float damageAmount)
     {
         enemyHP -= damageAmount;
+        if(enemyHP <= 0)
+        {
+            destroyEnemy();
+        }
     }
 
     public virtual void destroyEnemy() //Method virtual so enemies can have unique death animations, however if not overriden destroy the enemy

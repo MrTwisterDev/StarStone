@@ -27,6 +27,8 @@ public class mediumEnemy : enemyBase
     // Update is called once per frame
     void Update()
     {
+
+
         switch (enemyState)
         {
             case enemyStates.idleState:
@@ -47,6 +49,7 @@ public class mediumEnemy : enemyBase
     void fireProjectile()
     {
         GameObject instancedProjectile = Instantiate(projectileToFire, Vector3.forward,Quaternion.identity);
+
     }
 
     bool detectPlayer()

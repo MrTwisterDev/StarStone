@@ -6,6 +6,9 @@ public class baseWeaponClass : MonoBehaviour
 {
     public string WeaponName;
 
+    public float weaponDamage;
+    public float damageFalloff;
+
     public int totalBullets; //The current amount of ammunition a player has in their inventory
     public int magazineCapacity; //The maximum amount of uses a weapon has in a single clip
     public int currentBullets; //The current amount of uses a weapon has in it's current clip
@@ -16,6 +19,9 @@ public class baseWeaponClass : MonoBehaviour
     public bool canADS; //The gun does have the ability to ADS (Aim down sights)
     public float weaponSpeedMultiplier; //How much a gun slows the character down when equipped (0 has no effect)
     public GameObject impactDecal; //What decal is left on impact
+
+    public GameObject muzzleFlash;
+    public Vector3 muzzleFlashOffset;
 
 
     private void Start()

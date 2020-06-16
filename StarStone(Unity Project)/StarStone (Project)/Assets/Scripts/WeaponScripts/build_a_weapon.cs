@@ -128,11 +128,21 @@ public class build_a_weapon : baseWeaponClass
 
             uiController.GetComponent<UIController>().UpdateAmmoText();
 
+            if(shotTargetSpread.collider.gameObject.GetComponent<enemyBase>() != null)
+            {
+                shotTargetSpread.collider.gameObject.GetComponent<enemyBase>().takeDamage(weaponDamage);
+            }
+
         }
 
         //Recoil Application
         // transform.parent.parent.gameObject.transform.Rotate(new Vector3(gunRecoil, 0, 0));
         transform.parent.parent.gameObject.GetComponent<PlayerController>().xRotation -= gunRecoil;
+
+        Transform _weaponHoldPoint = gameObject.transform.GetComponentInParent<Transform>();
+        GameObject _particleSystem = Instantiate(muzzleFlash, _weaponHoldPoint, false);
+        _particleSystem.gameObject.transform.position += muzzleFlashOffset; 
+
     }
 
 }
