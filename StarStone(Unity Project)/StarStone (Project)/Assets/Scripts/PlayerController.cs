@@ -10,6 +10,13 @@ public class PlayerController : MonoBehaviour
 
     public float moveSpeed, jumpHeight;
 
+    public float maxHealth;
+    public float currentHealth;
+    public float healthRegenCutoff;
+    public float regenRate;
+    public bool  canRegen;
+    public bool  canRegenToMax;
+
     public float moveSpeedMultiplier, crouchingMultiplier, sprintingMultiplier, swimmingMultiplier, wadingMultiplier, climbingMultiplier;
 
     private float xInput, yInput, zInput;
@@ -31,6 +38,9 @@ public class PlayerController : MonoBehaviour
 
     public GameObject blinkBall;
 
+    public Transform fistPosition;
+    private Animator fistAnimator;
+
     public UIController uiController;
 
     public LayerMask groundLayer, ladderLayer;
@@ -51,6 +61,12 @@ public class PlayerController : MonoBehaviour
         groundDistance = 0.25f;
 
         if(jumpHeight == 0) {jumpHeight = 3f;};
+        if(healthRegenCutoff == 0) { healthRegenCutoff = 70f; }
+        if(maxHealth == 0) { maxHealth = 100; }
+        if(healthRegenCutoff > maxHealth) { Debug.LogWarning("The cutoff for health regen is greater than the maximum health value."); }
+        if(regenRate == 0) { regenRate = 5f; }
+
+        currentHealth = maxHealth;
 
         timeSinceLastPress = 0f;
         prototypeSwapTimeout = 0.25f;
@@ -66,6 +82,8 @@ public class PlayerController : MonoBehaviour
         swimmingMultiplier = -0.2f;
 
         mouseSensitivity = 100f;
+
+        fistAnimator = GameObject.Find("Fist").GetComponent<Animator>();
 
         canBlink = true;
         blinkCooldownTime = 5f;
@@ -92,6 +110,15 @@ public class PlayerController : MonoBehaviour
             ClimbingControls();
         }
         CheckGrounded();
+        if(currentHealth < healthRegenCutoff)
+        {
+            canRegenToMax = false;
+        }
+        else
+        {
+            canRegenToMax = true;
+        }
+        HealthRegen();
         if (hasSwappedWeapon)
         {
             weaponSwapCooldown -= Time.deltaTime;
@@ -120,7 +147,6 @@ public class PlayerController : MonoBehaviour
 
     private bool IsClimbingLadder()
     {
-        Debug.DrawRay(ladderChecker.position, ladderChecker.forward);
         if(Physics.Raycast(ladderChecker.position, ladderChecker.forward, 0.5f, ladderLayer))
         {
             return true;
@@ -134,8 +160,9 @@ public class PlayerController : MonoBehaviour
     private void ClimbingControls()
     {
         yInput = Input.GetAxis("Vertical");
+        xInput = Input.GetAxis("Horizontal");
 
-        Vector3 movement = transform.up * yInput;
+        Vector3 movement = transform.right * xInput + transform.up * yInput;
         characterController.Move(movement * moveSpeed * Time.deltaTime);
     }
 
@@ -203,11 +230,32 @@ public class PlayerController : MonoBehaviour
             isSprinting = false;
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Thomas' Work~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
         if (Input.GetKeyDown(KeyCode.R))
         {
             baseWeaponClass _currentWeaponScript = weaponsArray[activeWeaponIndex].GetComponent<baseWeaponClass>();
             _currentWeaponScript.reloadWeapon();
             uiController.UpdateAmmoText();
+        }
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            fistAnimator.SetTrigger("Punch");
+            RaycastHit rayHit;
+            Debug.DrawRay(fistPosition.position, transform.forward);
+            if(Physics.Raycast(fistPosition.position, transform.forward, out rayHit, 0.75f))
+            {
+                if(rayHit.collider.gameObject.tag == "Enemy")
+                {
+                    Debug.Log("Hit an enemy!");
+                    Destroy(rayHit.collider.gameObject);
+                }
+                else
+                {
+                    Debug.Log("Hit not an enemy!");
+                }
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Q) && !hasSwappedWeapon)
@@ -284,4 +332,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void HealthRegen()
+    {
+        if(canRegen && currentHealth < maxHealth && canRegenToMax)
+        {
+            currentHealth += regenRate * Time.deltaTime;
+            if(currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+        }
+        else if(canRegen && currentHealth < maxHealth)
+        {
+            currentHealth += regenRate * Time.deltaTime;
+            if(currentHealth > healthRegenCutoff)
+            {
+                currentHealth = healthRegenCutoff;
+            }
+        }
+        uiController.UpdateHealthbar();
+    }
 }

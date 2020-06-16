@@ -13,6 +13,8 @@ public class UIController : MonoBehaviour
 
     public Text blinkTimerText;
 
+    public Slider healthBar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,8 @@ public class UIController : MonoBehaviour
         currentMagazineAmmoText = GameObject.Find("CurrentMagazineAmmo").GetComponent<Text>();
 
         blinkTimerText = GameObject.Find("BlinkCooldownTimer").GetComponent<Text>();
+
+        healthBar = GameObject.Find("HealthBar").GetComponent<Slider>();
 
         UpdateAmmoText();
     }
@@ -48,6 +52,11 @@ public class UIController : MonoBehaviour
     {
         currentMagazineAmmoText.text = activeWeaponController.currentBullets.ToString() + "/" + activeWeaponController.magazineCapacity.ToString();
         totalAmmoText.text = activeWeaponController.totalBullets.ToString();
+    }
+
+    public void UpdateHealthbar()
+    {
+        healthBar.value = playerController.currentHealth / 100;
     }
 
 }
