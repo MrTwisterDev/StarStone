@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
             ClimbingControls();
         }
         CheckGrounded();
-        if(currentHealth < healthRegenCutoff)
+        if(currentHealth <= healthRegenCutoff)
         {
             canRegenToMax = false;
         }
