@@ -13,6 +13,14 @@ public class enemyBase : MonoBehaviour
         hostileState //The enemy is agressive and actively seeking the player to kill
     }
 
+    public enum stoneBuffs
+    {
+        speedBuff,
+        healthBuff,
+        fireBuff,
+        noBuff
+    }
+
     public enemyStates enemyState;
 
      void Start()

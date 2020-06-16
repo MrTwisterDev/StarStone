@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class mediumEnemy : enemyBase
 {
+    public GameObject projectileToFire;
     public GameObject nearestPlayer;
     private NavMeshAgent enemyAgent;
     private GameObject[] players;
@@ -43,6 +44,10 @@ public class mediumEnemy : enemyBase
         }
     }
 
+    void fireProjectile()
+    {
+        GameObject instancedProjectile = Instantiate(projectileToFire, Vector3.forward,Quaternion.identity);
+    }
 
     bool detectPlayer()
     {
