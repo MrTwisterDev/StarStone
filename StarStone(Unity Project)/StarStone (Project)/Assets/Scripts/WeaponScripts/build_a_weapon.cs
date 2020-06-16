@@ -79,74 +79,19 @@ public class build_a_weapon : baseWeaponClass
                 switch (typeOfWeapon)
                 {
                     case typesOfWeapon.singleShot:
-                        currentBullets--;
-
-                        //Accuracy Calculation (X and Y)
-                        Vector3 _baseDirection = transform.parent.gameObject.transform.forward; //100% Accurate direction
-                        float _degreeOfAccuracy = Random.Range(0, gunAccuracy);
-                        float bulletAngle = Random.Range(0, 360f);
-
-                        _baseDirection = Quaternion.AngleAxis(_degreeOfAccuracy, transform.parent.gameObject.transform.up) * _baseDirection;
-                        _baseDirection = Quaternion.AngleAxis(bulletAngle, transform.parent.gameObject.transform.forward) * _baseDirection;
-
-                     
-                        //Firing a bullet at the previously calculated angle
-                        RaycastHit shotTarget;
-                        if (Physics.Raycast(transform.position, _baseDirection, out shotTarget))
-                        {
-                            Debug.DrawRay(transform.position, transform.parent.gameObject.transform.forward * 10, Color.red, 2);
-                            Debug.DrawRay(transform.position, _baseDirection*10, Color.yellow, 2);
-                          //  Debug.Log(shotTarget.collider.gameObject.name);
-                            Debug.Log(transform.parent.gameObject.transform.forward);
-                            uiController.GetComponent<UIController>().UpdateAmmoText();
-
-
-                        }
-
-                        //Recoil Application
-                        // transform.parent.parent.gameObject.transform.Rotate(new Vector3(gunRecoil, 0, 0));
-                        transform.parent.parent.gameObject.GetComponent<PlayerController>().xRotation -= gunRecoil;
-
+                        fireBullet();
                         break;
                     case typesOfWeapon.spreadShot:
                         if (!spreadShotLock)
                         {
-                            currentBullets--;
 
                             for (int i = 0; i < bulletsInSpread; i++)
                             {
 
+                                fireBullet();
 
-                                //Accuracy Calculation (X and Y)
-                                Vector3 _baseDirectionSpread = transform.parent.gameObject.transform.forward; //100% Accurate direction
-                                float _degreeOfAccuracySpread = Random.Range(0, gunAccuracy);
-                                float bulletAngleSpread = Random.Range(0, 360f);
-
-                                _baseDirectionSpread = Quaternion.AngleAxis(_degreeOfAccuracySpread, transform.parent.gameObject.transform.up) * _baseDirectionSpread;
-                                _baseDirectionSpread = Quaternion.AngleAxis(bulletAngleSpread, transform.parent.gameObject.transform.forward) * _baseDirectionSpread;
-
-
-                                //Firing a bullet at the previously calculated angle
-                                RaycastHit shotTargetSpread;
-                                if (Physics.Raycast(transform.position, _baseDirectionSpread, out shotTargetSpread))
-                                {
-                                    Debug.DrawRay(transform.position, transform.parent.gameObject.transform.forward * 20, Color.red, 1);
-                                    Debug.DrawRay(transform.position, _baseDirectionSpread * 20, Color.yellow, 1);
-                                    Debug.Log(transform.parent.gameObject.transform.forward);
-
-                                    Quaternion decalRot = Quaternion.LookRotation(shotTargetSpread.normal);
-                                    Quaternion.Inverse(decalRot);
-                                    GameObject bulletDecal = Instantiate(impactDecal, shotTargetSpread.point, Quaternion.Inverse(decalRot));
-                                    bulletDecal.transform.Translate(Vector3.back/100);
-
-                                    uiController.GetComponent<UIController>().UpdateAmmoText();
-
-                                }
                             }
 
-                            //Recoil Application
-                            // transform.parent.parent.gameObject.transform.Rotate(new Vector3(gunRecoil, 0, 0));
-                            transform.parent.parent.gameObject.GetComponent<PlayerController>().xRotation -= gunRecoil;
                             spreadShotLock = true;
                         }
                         break;
@@ -154,4 +99,40 @@ public class build_a_weapon : baseWeaponClass
             }
         }
     }
+
+    void fireBullet()
+    {
+        currentBullets--;
+
+        //Accuracy Calculation (X and Y)
+        Vector3 _baseDirectionSpread = transform.parent.gameObject.transform.forward; //100% Accurate direction
+        float _degreeOfAccuracySpread = Random.Range(0, gunAccuracy);
+        float bulletAngleSpread = Random.Range(0, 360f);
+
+        _baseDirectionSpread = Quaternion.AngleAxis(_degreeOfAccuracySpread, transform.parent.gameObject.transform.up) * _baseDirectionSpread;
+        _baseDirectionSpread = Quaternion.AngleAxis(bulletAngleSpread, transform.parent.gameObject.transform.forward) * _baseDirectionSpread;
+
+
+        //Firing a bullet at the previously calculated angle
+        RaycastHit shotTargetSpread;
+        if (Physics.Raycast(transform.position, _baseDirectionSpread, out shotTargetSpread))
+        {
+            Debug.DrawRay(transform.position, transform.parent.gameObject.transform.forward * 20, Color.red, 1);
+            Debug.DrawRay(transform.position, _baseDirectionSpread * 20, Color.yellow, 1);
+            Debug.Log(transform.parent.gameObject.transform.forward);
+
+            Quaternion decalRot = Quaternion.LookRotation(shotTargetSpread.normal);
+            Quaternion.Inverse(decalRot);
+            GameObject bulletDecal = Instantiate(impactDecal, shotTargetSpread.point, Quaternion.Inverse(decalRot));
+            bulletDecal.transform.Translate(Vector3.back / 100);
+
+            uiController.GetComponent<UIController>().UpdateAmmoText();
+
+        }
+
+        //Recoil Application
+        // transform.parent.parent.gameObject.transform.Rotate(new Vector3(gunRecoil, 0, 0));
+        transform.parent.parent.gameObject.GetComponent<PlayerController>().xRotation -= gunRecoil;
+    }
+
 }
