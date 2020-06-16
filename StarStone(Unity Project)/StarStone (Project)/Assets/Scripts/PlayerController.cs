@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float currentHealth;
     public float healthRegenCutoff;
     public float regenRate;
+    public float timeSinceTakenDamage;
     public bool  canRegen;
     public bool  canRegenToMax;
 
@@ -33,8 +34,8 @@ public class PlayerController : MonoBehaviour
     public GameObject[] weaponsArray;
     public GameObject activeWeapon;
     private int activeWeaponIndex;
-    private float weaponSwapCooldown, timeSinceLastPress, prototypeSwapTimeout;
-    private bool hasSwappedWeapon, preparingToSwap;
+    private float timeSinceLastPress, prototypeSwapTimeout;
+    private bool preparingToSwap;
 
     public GameObject blinkBall;
 
@@ -99,6 +100,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(characterController.velocity);
         CameraControls();
         if (IsClimbingLadder() == false)
         {
@@ -110,38 +112,20 @@ public class PlayerController : MonoBehaviour
             ClimbingControls();
         }
         CheckGrounded();
-        if(currentHealth <= healthRegenCutoff)
+        HealthRegen();
+        CooldownTimers();
+
+        if (preparingToSwap)
+        {
+            WeaponSwapTimer();
+        }
+        if (currentHealth <= healthRegenCutoff)
         {
             canRegenToMax = false;
         }
         else
         {
             canRegenToMax = true;
-        }
-        HealthRegen();
-        if (hasSwappedWeapon)
-        {
-            weaponSwapCooldown -= Time.deltaTime;
-            if(weaponSwapCooldown <= 0f)
-            {
-                hasSwappedWeapon = false;
-                weaponSwapCooldown = 0.25f;
-            }
-        }
-        if (preparingToSwap)
-        {
-            WeaponSwapTimer();
-        }
-        if (!canBlink)
-        {
-            blinkCooldownTime -= Time.deltaTime;
-            blinkCooldownTimeRounded = Mathf.Round(blinkCooldownTime * 100) / 100;
-            if(blinkCooldownTime <= 0)
-            {
-                canBlink = true;
-                blinkCooldownTime = 5f;
-            }
-            uiController.UpdateBlinkTimer();
         }
     }
 
@@ -154,6 +138,29 @@ public class PlayerController : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    public void CooldownTimers()
+    {
+        if (!canBlink)
+        {
+            blinkCooldownTime -= Time.deltaTime;
+            blinkCooldownTimeRounded = Mathf.Round(blinkCooldownTime * 100) / 100;
+            if (blinkCooldownTime <= 0)
+            {
+                canBlink = true;
+                blinkCooldownTime = 5f;
+            }
+            uiController.UpdateBlinkTimer();
+        }
+        if (!canRegen)
+        {
+            timeSinceTakenDamage += Time.deltaTime;
+            if (timeSinceTakenDamage >= 5)
+            {
+                canRegen = true;
+            }
         }
     }
 
@@ -258,7 +265,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && !hasSwappedWeapon)
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             timeSinceLastPress = 0f;
             if (!preparingToSwap)
