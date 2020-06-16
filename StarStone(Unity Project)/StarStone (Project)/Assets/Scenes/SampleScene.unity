@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 9547209}
   - component: {fileID: 9547208}
   - component: {fileID: 9547207}
-  - component: {fileID: 9547206}
+  - component: {fileID: 9547212}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -229,19 +229,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &9547206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9547205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbe64e2412eb4984888c20ab9bb45e20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 2097211751}
 --- !u!195 &9547207
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -339,6 +326,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9547212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9547205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc98655609c95d43af2ac66996217d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHP: 5
+  enemyState: 0
+  nearestPlayer: {fileID: 0}
+  minimumDetectionRadius: 15.86
 --- !u!64 &74148465
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3552,7 +3555,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 963194227}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -3693,7 +3696,7 @@ GameObject:
   - component: {fileID: 2097211757}
   m_Layer: 10
   m_Name: playerCapsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
