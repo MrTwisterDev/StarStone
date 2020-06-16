@@ -43,6 +43,10 @@ public class baseWeaponClass : MonoBehaviour
     public void reloadWeapon()
     {
         totalBullets = totalBullets - (magazineCapacity - currentBullets);
+        if(totalBullets <= magazineCapacity)
+        {
+            magazineCapacity = totalBullets;
+        }
         currentBullets = magazineCapacity;
     }
 }

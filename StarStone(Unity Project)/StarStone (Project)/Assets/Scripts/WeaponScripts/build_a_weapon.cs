@@ -79,12 +79,13 @@ public class build_a_weapon : baseWeaponClass
                 switch (typeOfWeapon)
                 {
                     case typesOfWeapon.singleShot:
+                        currentBullets--;
                         fireBullet();
                         break;
                     case typesOfWeapon.spreadShot:
                         if (!spreadShotLock)
                         {
-
+                            currentBullets--;
                             for (int i = 0; i < bulletsInSpread; i++)
                             {
 
@@ -102,7 +103,6 @@ public class build_a_weapon : baseWeaponClass
 
     void fireBullet()
     {
-        currentBullets--;
 
         //Accuracy Calculation (X and Y)
         Vector3 _baseDirectionSpread = transform.parent.gameObject.transform.forward; //100% Accurate direction
