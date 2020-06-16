@@ -139,9 +139,8 @@ public class build_a_weapon : baseWeaponClass
         // transform.parent.parent.gameObject.transform.Rotate(new Vector3(gunRecoil, 0, 0));
         transform.parent.parent.gameObject.GetComponent<PlayerController>().xRotation -= gunRecoil;
 
-        Transform _weaponHoldPoint = gameObject.transform.GetComponentInParent<Transform>();
+        Transform _weaponHoldPoint = gameObject.transform.Find("MuzzlePosition").GetComponent<Transform>();
         GameObject _particleSystem = Instantiate(muzzleFlash, _weaponHoldPoint, false);
-        _particleSystem.gameObject.transform.position += muzzleFlashOffset; 
 
     }
 
