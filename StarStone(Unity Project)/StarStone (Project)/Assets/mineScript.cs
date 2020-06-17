@@ -15,6 +15,8 @@ public class mineScript : MonoBehaviour
     private Rigidbody rigidBody;
     private Transform mainCamera;
 
+    public AudioClip explosionSound;
+
     public GameObject explosionEffect;
     // Start is called before the first frame update
     void Start()
@@ -48,8 +50,16 @@ public class mineScript : MonoBehaviour
     void detonateMine(Collider enemyCollided)
     {
         enemyCollided.gameObject.GetComponent<enemyBase>().takeDamage(mineDamage);
-       // Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        GameObject _pSystem = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        _pSystem.AddComponent<AudioSource>();
+        _pSystem.GetComponent<AudioSource>().PlayOneShot(explosionSound);
         Destroy(gameObject);
 
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, mineExplosionDistance);
     }
 }

@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public float mouseSensitivity;
 
     public float blinkCooldownTime, blinkCooldownTimeRounded;
+    public float mineRechargeTime, mineRechargeTimeRounded;
 
     private bool isGrounded, isJumping, isSprinting, isCrouching, isWading, isSwimming, isClimbing, canBlink;
 
