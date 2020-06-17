@@ -48,8 +48,14 @@ public class mineScript : MonoBehaviour
     void detonateMine(Collider enemyCollided)
     {
         enemyCollided.gameObject.GetComponent<enemyBase>().takeDamage(mineDamage);
-       // Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        Instantiate(explosionEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
 
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, mineExplosionDistance);
     }
 }
