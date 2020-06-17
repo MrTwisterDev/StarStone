@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private bool preparingToSwap;
 
     public GameObject blinkBall;
+    public GameObject proxMine;
 
     public Transform fistPosition;
     private Animator fistAnimator;
@@ -243,6 +244,11 @@ public class PlayerController : MonoBehaviour
             baseWeaponClass _currentWeaponScript = weaponsArray[activeWeaponIndex].GetComponent<baseWeaponClass>();
             _currentWeaponScript.reloadWeapon();
             uiController.UpdateAmmoText();
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Instantiate(proxMine, cameraTransform.position, cameraTransform.rotation);
         }
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
 
