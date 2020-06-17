@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
     public float gravityMultiplier;
     private float groundDistance;
 
-    public float moveSpeed, jumpHeight;
+    public float moveSpeed, jumpingMoveSpeed, jumpHeight;
+
+    private Vector3 movement;
 
     public float maxHealth;
     public float currentHealth;
@@ -29,7 +31,9 @@ public class PlayerController : MonoBehaviour
 
     public float blinkCooldownTime, blinkCooldownTimeRounded;
 
-    private bool isGrounded, isSprinting, isCrouching, isWading, isSwimming, isClimbing, canBlink;
+    private bool isGrounded, isJumping, isSprinting, isCrouching, isWading, isSwimming, isClimbing, canBlink;
+
+    private bool walkingSoundPlaying;
 
     public Transform weaponHoldPoint, adsHoldPoint;
     public GameObject[] weaponsArray;
@@ -41,9 +45,11 @@ public class PlayerController : MonoBehaviour
     public GameObject blinkBall;
 
     public Transform fistPosition;
-    private Animator fistAnimator;
+    private Animator playerAnimator;
 
     public UIController uiController;
+
+    public AudioSource walkingSound;
 
     public LayerMask groundLayer, ladderLayer;
 
@@ -60,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
         gravityScale = -9.81f * 2;
         gravityMultiplier = 1f;
-        groundDistance = 0.25f;
+        groundDistance = 0.4f;
 
         if(jumpHeight == 0) {jumpHeight = 3f;};
         if(healthRegenCutoff == 0) { healthRegenCutoff = 70f; }
@@ -77,6 +83,7 @@ public class PlayerController : MonoBehaviour
         activeWeapon = weaponsArray[activeWeaponIndex];
 
         moveSpeed = 4f;
+        jumpingMoveSpeed = 2f;
         moveSpeedMultiplier = 1f;
         sprintingMultiplier = 1f;
         crouchingMultiplier = -0.5f;
@@ -85,7 +92,7 @@ public class PlayerController : MonoBehaviour
 
         mouseSensitivity = 100f;
 
-        fistAnimator = GameObject.Find("Fist").GetComponent<Animator>();
+        playerAnimator = gameObject.GetComponent<Animator>();
 
         canBlink = true;
         blinkCooldownTime = 5f;
@@ -101,7 +108,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(characterController.velocity);
         CameraControls();
         if (IsClimbingLadder() == false)
         {
@@ -115,7 +121,7 @@ public class PlayerController : MonoBehaviour
         CheckGrounded();
         HealthRegen();
         CooldownTimers();
-
+        PlayerSounds();
         if (preparingToSwap)
         {
             WeaponSwapTimer();
@@ -183,17 +189,17 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerControls()
     {
-        if (isGrounded)
+        if (isGrounded || (!isGrounded && !isJumping))
         {
             xInput = Input.GetAxis("Horizontal");
             zInput = Input.GetAxis("Vertical");
-            Vector3 movement = transform.right * xInput + transform.forward * zInput;
+            movement = transform.right * xInput + transform.forward * zInput;
             characterController.Move(movement * moveSpeed * moveSpeedMultiplier * Time.deltaTime);
         }
-        else if (!isGrounded)
+        else if (!isGrounded && isJumping)
         {
-            Vector3 movement = transform.right * xInput + transform.forward * zInput;
-            characterController.Move(movement * moveSpeed * multiplierBeforeJump * Time.deltaTime);
+            movement = transform.right * xInput + transform.forward * zInput;
+            characterController.Move(movement * jumpingMoveSpeed * multiplierBeforeJump * Time.deltaTime);
         }
 
         if (Input.GetMouseButton(0))
@@ -248,21 +254,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            fistAnimator.SetTrigger("Punch");
-            RaycastHit rayHit;
-            Debug.DrawRay(fistPosition.position, transform.forward);
-            if(Physics.Raycast(fistPosition.position, transform.forward, out rayHit, 0.75f))
-            {
-                if(rayHit.collider.gameObject.tag == "Enemy")
-                {
-                    Debug.Log("Hit an enemy!");
-                    Destroy(rayHit.collider.gameObject);
-                }
-                else
-                {
-                    Debug.Log("Hit not an enemy!");
-                }
-            }
+            playerAnimator.SetTrigger("Punch");
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -300,10 +292,24 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetButtonDown("Jump") && isGrounded)
         {
+            isJumping = true;
             multiplierBeforeJump = moveSpeedMultiplier;
             currentVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravityScale);
         }
 
+    }
+
+    public void DetectMeleeHit()
+    {
+        RaycastHit rayHit;
+        if (Physics.Raycast(fistPosition.position, transform.forward, out rayHit, 0.75f))
+        {
+            if (rayHit.collider.gameObject.tag == "Enemy")
+            {
+                enemyBase enemyController = rayHit.collider.gameObject.GetComponent<enemyBase>();
+                enemyController.takeDamage(1.5f);
+            }
+        }
     }
 
     private void WeaponSwapTimer()
@@ -337,6 +343,7 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundLayer);
         if (isGrounded && currentVelocity.y < 0)
         {
+            isJumping = false;
             currentVelocity.y = -2f;
         }
     }
@@ -368,5 +375,22 @@ public class PlayerController : MonoBehaviour
             }
         }
         uiController.UpdateHealthbar();
+    }
+
+    private void PlayerSounds()
+    {
+        walkingSound.pitch = moveSpeedMultiplier;
+        if(xInput + zInput != 0 && !walkingSoundPlaying && isGrounded)
+        {
+            Debug.Log(xInput + zInput);
+            walkingSound.Play();
+            walkingSoundPlaying = true;
+        }
+        else if (xInput + zInput == 0 || !isGrounded)
+        {
+            walkingSound.Stop();
+            walkingSound.time = 0;
+            walkingSoundPlaying = false;
+        }
     }
 }

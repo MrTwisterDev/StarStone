@@ -5,6 +5,10 @@ using UnityEngine;
 public class enemyBase : MonoBehaviour
 {
 
+    //~James' Work~\\
+    public GameObject soulParticles;
+    //~~~~~~~~~~~~~~\\
+
     public float enemyHP;
     public enum enemyStates
     {
@@ -24,9 +28,9 @@ public class enemyBase : MonoBehaviour
     public enemyStates enemyState;
 
      void Start()
-    {
+     {
         
-    }
+     }
 
     // Update is called once per frame
     void Update()
@@ -45,6 +49,9 @@ public class enemyBase : MonoBehaviour
 
     public virtual void destroyEnemy() //Method virtual so enemies can have unique death animations, however if not overriden destroy the enemy
     {
+        //James' work\\
+        Instantiate(soulParticles, transform.position, soulParticles.transform.rotation);
+        //~~~~~~~~~~~~\\
         Destroy(gameObject);
     }
 }
