@@ -10,7 +10,11 @@ public class mediumEnemy : enemyBase
     private NavMeshAgent enemyAgent;
     private GameObject[] players;
 
-    public float minimumDetectionRadius;
+    public float minimumDetectionRadius; 
+    public float minimumProjectileRadius;//If 0 then the player can be anywhere within the maximum radius to throw projectiles
+    public float maximumProjectileRadius;//The distance of which the enemy will try and "shoot" projectiles at the enemy
+
+    [SerializeField] private bool showDebugGizmos = false;
 
 
     void Start()
@@ -60,12 +64,12 @@ public class mediumEnemy : enemyBase
             Physics.Raycast(transform.position, _Direction, out hitObject);
             if(hitObject.collider.gameObject.tag == "Player")
             {
-                Debug.Log("HIT!");
+                Debug.Log(gameObject.name + "Found Player: " + hitObject.collider.gameObject.name);
                 return true;
             }
             else
             {
-                Debug.Log("NOT HIT!");
+                Debug.Log(gameObject.name + "Cannot see player!" + "Enemy hunger for food grr");
                 return false;
             }
         }
@@ -90,7 +94,14 @@ public class mediumEnemy : enemyBase
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(gameObject.transform.position, minimumDetectionRadius);
+        if (showDebugGizmos)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(gameObject.transform.position, minimumDetectionRadius);
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(gameObject.transform.position, minimumProjectileRadius);
+            Gizmos.DrawWireSphere(gameObject.transform.position, maximumProjectileRadius);
+        }
     }
 }

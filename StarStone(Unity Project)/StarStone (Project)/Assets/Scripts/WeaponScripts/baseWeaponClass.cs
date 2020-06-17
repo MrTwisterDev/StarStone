@@ -21,6 +21,7 @@ public class baseWeaponClass : MonoBehaviour
     public GameObject impactDecal; //What decal is left on impact
 
     public GameObject muzzleFlash;
+    public GameObject bulletParticle;
     public Vector3 muzzleFlashOffset;
 
 

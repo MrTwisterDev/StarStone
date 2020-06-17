@@ -117,9 +117,12 @@ MonoBehaviour:
   isShooting: 0
   canADS: 0
   weaponSpeedMultiplier: 0
-  impactDecal: {fileID: 8503099283694893430, guid: 83b1cc7bc4b8be54e95dac30519ff48b,
+  impactDecal: {fileID: 8758831134176318721, guid: c9d52207ab47da340923585986b93d2e,
     type: 3}
-  muzzleFlash: {fileID: 0}
+  muzzleFlash: {fileID: 4516952251810833583, guid: 8108ef72167fabe499accef63eda8544,
+    type: 3}
+  bulletParticle: {fileID: 3937707436287800812, guid: 6cf2f669c8a9a5e43aefff827fe4d0e0,
+    type: 3}
   muzzleFlashOffset: {x: 0, y: 0, z: 0}
   typeOfWeapon: 0
   gunAccuracy: 0

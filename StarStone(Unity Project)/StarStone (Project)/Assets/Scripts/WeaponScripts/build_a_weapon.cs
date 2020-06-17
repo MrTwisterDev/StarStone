@@ -124,6 +124,7 @@ public class build_a_weapon : baseWeaponClass
             Quaternion decalRot = Quaternion.LookRotation(shotTargetSpread.normal);
             Quaternion.Inverse(decalRot);
             GameObject bulletDecal = Instantiate(impactDecal, shotTargetSpread.point, Quaternion.Inverse(decalRot));
+            GameObject _bulletHitParticle = Instantiate(bulletParticle, shotTargetSpread.point, Quaternion.identity);
             bulletDecal.transform.Translate(Vector3.back / 100);
 
             uiController.GetComponent<UIController>().UpdateAmmoText();
