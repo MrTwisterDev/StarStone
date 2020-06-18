@@ -97,6 +97,7 @@ public class build_a_weapon : baseWeaponClass
                         }
                         break;
                 }
+                uiController.UpdateAmmoText();
             }
         }
     }
@@ -126,8 +127,6 @@ public class build_a_weapon : baseWeaponClass
             GameObject bulletDecal = Instantiate(impactDecal, shotTargetSpread.point, Quaternion.Inverse(decalRot));
             GameObject _bulletHitParticle = Instantiate(bulletParticle, shotTargetSpread.point, Quaternion.identity);
             bulletDecal.transform.Translate(Vector3.back / 100);
-
-            uiController.GetComponent<UIController>().UpdateAmmoText();
 
             if(shotTargetSpread.collider.gameObject.GetComponent<enemyBase>() != null)
             {

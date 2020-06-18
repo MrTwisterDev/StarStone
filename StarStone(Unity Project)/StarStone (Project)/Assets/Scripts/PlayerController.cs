@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
     public UIController uiController;
 
     public AudioSource walkingSound;
+    public AudioClip punchSound;
 
     public LayerMask groundLayer, ladderLayer;
 
@@ -262,6 +263,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             playerAnimator.SetTrigger("Punch");
+            AudioSource.PlayClipAtPoint(punchSound, transform.position);
         }
 
         if (Input.GetKeyDown(KeyCode.Q))

@@ -42,7 +42,6 @@ public class SoulController : MonoBehaviour
         float journeyCompleted = distanceCovered / journeyLength;
 
         transform.position = Vector3.Lerp(transform.position, soulDestination.position, journeyCompleted);
-        Debug.Log(journeyCompleted);
     }
 
 }

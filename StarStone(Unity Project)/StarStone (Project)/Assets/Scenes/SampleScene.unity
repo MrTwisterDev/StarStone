@@ -347,7 +347,7 @@ MonoBehaviour:
   minimumDetectionRadius: 15.86
   minimumProjectileRadius: 3
   maximumProjectileRadius: 40
-  showDebugGizmos: 1
+  showDebugGizmos: 0
 --- !u!64 &74148465
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2017,8 +2017,8 @@ Transform:
   m_LocalPosition: {x: 54.83, y: 6.54, z: 61.83}
   m_LocalScale: {x: 5, y: 2, z: 5}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 850074351}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 20.933}
 --- !u!64 &749929355
 MeshCollider:
@@ -2124,6 +2124,7 @@ Transform:
   - {fileID: 333514938}
   - {fileID: 349301697}
   - {fileID: 5006512736680680838}
+  - {fileID: 742684714}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2884,9 +2885,9 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 40
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 1
-    m_MaxSize: 100
+    m_BestFit: 1
+    m_MinSize: 35
+    m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -4830,6 +4831,8 @@ MonoBehaviour:
   mouseSensitivity: 0
   blinkCooldownTime: 0
   blinkCooldownTimeRounded: 0
+  mineRechargeTime: 0
+  mineRechargeTimeRounded: 0
   weaponHoldPoint: {fileID: 613922829}
   adsHoldPoint: {fileID: 1724679017}
   weaponsArray:
@@ -4844,6 +4847,7 @@ MonoBehaviour:
   fistPosition: {fileID: 665186447}
   uiController: {fileID: 0}
   walkingSound: {fileID: 2097211759}
+  punchSound: {fileID: 8300000, guid: 23cf5400c96ff26488454507952983bf, type: 3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -4898,7 +4902,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5a3037647010fc745acd5c3deb010261, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.75
   m_Pitch: 1
   Loop: 1
   Mute: 0

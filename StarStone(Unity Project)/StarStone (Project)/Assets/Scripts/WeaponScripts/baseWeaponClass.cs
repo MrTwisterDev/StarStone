@@ -24,7 +24,6 @@ public class baseWeaponClass : MonoBehaviour
     public GameObject bulletParticle;
     public Vector3 muzzleFlashOffset;
 
-
     private void Start()
     {
         currentBullets = magazineCapacity;
