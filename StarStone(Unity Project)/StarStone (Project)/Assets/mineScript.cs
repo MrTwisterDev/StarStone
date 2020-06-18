@@ -51,7 +51,6 @@ public class mineScript : MonoBehaviour
     {
         enemyCollided.gameObject.GetComponent<enemyBase>().takeDamage(mineDamage);
         GameObject _pSystem = Instantiate(explosionEffect, transform.position, Quaternion.identity);
-        _pSystem.AddComponent<AudioSource>();
         _pSystem.GetComponent<AudioSource>().PlayOneShot(explosionSound);
         Destroy(gameObject);
 
