@@ -66,8 +66,9 @@ public class mediumEnemy : enemyBase
 
     void fireProjectile()
     {
+        getNearestPlayer();
         GameObject instancedProjectile = Instantiate(projectileToFire,transform.position + new Vector3(0,0.5f),transform.rotation);
-        instancedProjectile.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * (projectileSpeed * 100));
+        instancedProjectile.GetComponent<Rigidbody>().AddForce((nearestPlayer.transform.position - transform.position).normalized * (projectileSpeed * 100));
 
     }
 
