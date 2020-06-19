@@ -35,7 +35,7 @@ public class build_a_weapon : baseWeaponClass
         timeTillBullet = 1/roundsPerSecond; //Calculates the fire rate
         currentTimeTillBullet = 0;//Makes the first show not have any fire time
 
-        uiController = GameObject.FindGameObjectWithTag("GameLogicController").gameObject.GetComponentInChildren<UIController>();
+        uiController = GameObject.Find("UI Controller").GetComponent<UIController>();
         switch (typeOfWeapon) //A case by case basis on how a weapon should be initialised
         {
             case typesOfWeapon.singleShot:
