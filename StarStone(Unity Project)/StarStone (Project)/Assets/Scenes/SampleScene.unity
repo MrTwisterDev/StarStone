@@ -320,7 +320,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9547205}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 37, y: 7.51, z: 31.7}
+  m_LocalPosition: {x: 50.05, y: 7.51, z: 51.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -342,12 +342,17 @@ MonoBehaviour:
     type: 3}
   enemyHP: 5
   enemyState: 0
-  projectileToFire: {fileID: 0}
+  projectileToFire: {fileID: 6746483426840107338, guid: d2af5565df33102458a51a4feded340a,
+    type: 3}
   nearestPlayer: {fileID: 0}
-  minimumDetectionRadius: 15.86
+  minimumDetectionRadius: 55.65
   minimumProjectileRadius: 3
   maximumProjectileRadius: 40
-  showDebugGizmos: 0
+  projectileSpeed: 50
+  projectileMaxTimer: 0
+  projectileMinTimer: 1
+  currentTimer: 0
+  showDebugGizmos: 1
 --- !u!64 &74148465
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4771,8 +4776,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097211751}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 56.912025, y: 9.48, z: 60.108257}
+  m_LocalRotation: {x: -0, y: -0.87997615, z: -0, w: 0.4750179}
+  m_LocalPosition: {x: 45.42, y: 11.67, z: 65.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}
@@ -4785,7 +4790,7 @@ Transform:
   - {fileID: 665186447}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -123.27901, z: 0}
 --- !u!114 &2097211756
 MonoBehaviour:
   m_ObjectHideFlags: 0
