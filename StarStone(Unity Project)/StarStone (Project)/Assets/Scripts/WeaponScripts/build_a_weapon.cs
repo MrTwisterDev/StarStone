@@ -56,7 +56,7 @@ public class build_a_weapon : baseWeaponClass
     // Update is called once per frame
     void Update()
     {
-        canShoot = currentBullets > 0 && totalBullets > 0;
+        canShoot = currentBullets > 0;
 
         switch (typeOfWeapon) //How should each weapon differ per frame
         {
@@ -80,12 +80,14 @@ public class build_a_weapon : baseWeaponClass
                 {
                     case typesOfWeapon.singleShot:
                         currentBullets--;
+                        totalBullets--;
                         fireBullet();
                         break;
                     case typesOfWeapon.spreadShot:
                         if (!spreadShotLock)
                         {
                             currentBullets--;
+                            totalBullets--;
                             for (int i = 0; i < bulletsInSpread; i++)
                             {
 

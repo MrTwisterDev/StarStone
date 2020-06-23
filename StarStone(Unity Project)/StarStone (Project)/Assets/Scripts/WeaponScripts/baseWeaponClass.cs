@@ -10,8 +10,11 @@ public class baseWeaponClass : MonoBehaviour
     public float damageFalloff;
 
     public int totalBullets; //The current amount of ammunition a player has in their inventory
+    private int totalBulletsOriginal;
     public int magazineCapacity; //The maximum amount of uses a weapon has in a single clip
+    private int magazineCapacityOriginal;
     public int currentBullets; //The current amount of uses a weapon has in it's current clip
+    private int currentBulletsOriginal;
 
     public bool canShoot; //The weapon can be used, set to false whenever the player runs out of currentBullets
     public bool isShooting; //The weapon is currently being fired
@@ -27,26 +30,45 @@ public class baseWeaponClass : MonoBehaviour
     private void Start()
     {
         currentBullets = magazineCapacity;
+
+        currentBulletsOriginal = currentBullets;
+        magazineCapacityOriginal = magazineCapacity;
+        totalBulletsOriginal = totalBullets;
     }
 
     void Update()
     {
-            canShoot = currentBullets >= 0;
+            canShoot = currentBullets > 0;
     }
 
     // Update is called once per frame
     public virtual void useWeapon()
     {
-        currentBullets--;
+       /* currentBullets--;
+        totalBullets--;
+        if(totalBullets <= magazineCapacity)
+        {
+            magazineCapacity = currentBullets;
+        }*/
     }
 
     public void reloadWeapon()
     {
-        totalBullets = totalBullets - (magazineCapacity - currentBullets);
-        if(totalBullets <= magazineCapacity)
+        if(magazineCapacity == currentBullets)
         {
-            magazineCapacity = totalBullets;
+            return;
         }
-        currentBullets = magazineCapacity;
+
+        if (totalBullets >= magazineCapacity)
+        {
+            currentBullets = magazineCapacity;
+        }
+        else if(totalBullets > 0)
+        {
+            currentBullets = totalBullets;
+        }
+
+        
+
     }
 }

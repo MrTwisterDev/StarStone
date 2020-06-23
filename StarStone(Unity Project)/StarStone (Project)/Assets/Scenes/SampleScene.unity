@@ -2898,6 +2898,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6937231501781049726, guid: 386e3b1a17e5e18448a9bfa163a884b4,
+        type: 3}
+      propertyPath: roundsPerSecond
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6937231501781049726, guid: 386e3b1a17e5e18448a9bfa163a884b4,
+        type: 3}
+      propertyPath: totalBullets
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 386e3b1a17e5e18448a9bfa163a884b4, type: 3}
 --- !u!1 &1140775494
