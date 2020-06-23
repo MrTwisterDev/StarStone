@@ -6,26 +6,60 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    private bool isInGame;
 
+    #region
+    [Header("Enemy GameObject Prefabs")]
+    [Tooltip("The prefab GameObject for the small enemy.")]
     public GameObject levelOneEnemy;
+    [Tooltip("The prefab GameObject for the medium enemy.")]
     public GameObject levelTwoEnemy;
+    [Tooltip("The prefab GameObject for the large enemy.")]
     public GameObject levelThreeEnemy;
+    #endregion
 
-    public List <GameObject> activeSmallEnemies;
+    #region
+    [Header("Enemy Spawning")]
+    [Tooltip("The maximum number of active small enemies at any given time.")]
     public int maxSmallEnemies;
-    public List<GameObject> activeMediumEnemies;
+    private List <GameObject> activeSmallEnemies;
+
+    [Tooltip("The maximum number of active medium enemies at any given time.")]
     public int maxMediumEnemies;
-    public List<GameObject> activeLargeEnemies;
+    private List<GameObject> activeMediumEnemies;
+
+    [Tooltip("The maximum number of active large enemies at any given time.")]
     public int maxLargeEnemies;
+    private List<GameObject> activeLargeEnemies;
+
     private bool canSpawnEnemy;
+    [Tooltip("The time delay between enemies spawning.")]
+    public float enemySpawnDelay;
     private float spawnCooldownTime;
-    public Transform[] enemySpawnPoints;
+    private Transform[] enemySpawnPoints;
+    #endregion
 
+    #region
+    [Header("Wave Variables")]
+    [Tooltip("The duration of each wave on the Easy difficulty (in seconds).")]
+    public float easyWaveTime;
+    [Tooltip("The duration of each wave on the Normal difficulty (in seconds).")]
+    public float normalWaveTime;
+    [Tooltip("The duration of each wave on the Hard difficulty (in seconds).")]
+    public float hardWaveTime;
+    private float timerValue;
+    private int currentWave;
+    [Tooltip("The number of small enemies in the current wave.")]
+    public int smallEnemiesInWave;
+    [Tooltip("The number of medium enemies in the current wave.")]
+    public int mediumEnemiesInWave;
+    [Tooltip("The number of large enemies in the current wave.")]
+    public int largeEnemiesInWave;
     private bool timerActive;
-    public float timerValue;
+    #endregion
 
-    public PlayerController playerController;
-    public UIController uIController;
+    private PlayerController playerController;
+    private UIController uIController;
 
     public enum gameDifficulty
     {
@@ -35,22 +69,31 @@ public class GameController : MonoBehaviour
 
     };
 
+    [Tooltip("The current difficulty setting in the game.")]
     public gameDifficulty currentGameDifficulty;
 
     // Start is called before the first frame update
     void Start()
     {
-        timerValue = 10f;
-        spawnCooldownTime = 1.75f;
+        currentGameDifficulty = gameDifficulty.normalDifficulty;
+        if(enemySpawnDelay == 0) { enemySpawnDelay = 1f; }
+        if(easyWaveTime == 0) { easyWaveTime = 180f; }
+        if(normalWaveTime == 0) { normalWaveTime = 120f; }
+        if(hardWaveTime == 0) { hardWaveTime = 90f; }
+        spawnCooldownTime = enemySpawnDelay;
+        currentWave = 1;
         canSpawnEnemy = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        GameTimers();
-        EnemySpawning();
-        CheckEnemyStatus();
+        if (isInGame)
+        {
+            GameTimers();
+            EnemySpawning();
+            CheckEnemyStatus();
+        }
     }
 
     public void OnLevelWasLoaded(int level)
@@ -69,27 +112,28 @@ public class GameController : MonoBehaviour
             {
                 case gameDifficulty.easyDifficulty:
                     playerController.healthRegenCutoff = 70f;
-                    timerValue = 180f;
+                    timerValue = easyWaveTime;
                     maxSmallEnemies = 5;
                     maxMediumEnemies = 3;
                     maxLargeEnemies = 2;
                     break;
                 case gameDifficulty.normalDifficulty:
                     playerController.healthRegenCutoff = 60f;
-                    timerValue = 120f;
+                    timerValue = normalWaveTime;
                     maxSmallEnemies = 8;
                     maxMediumEnemies = 5;
                     maxLargeEnemies = 3;
                     break;
                 case gameDifficulty.hardDifficulty:
                     playerController.healthRegenCutoff = 50f;
-                    timerValue = 90f;
+                    timerValue = hardWaveTime;
                     maxSmallEnemies = 10;
                     maxMediumEnemies = 7;
                     maxLargeEnemies = 5;
                     break;
             }
         }
+        isInGame = true;
         timerActive = true;
     }
 

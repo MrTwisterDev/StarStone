@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour
     public Text blinkTimerText;
 
     public Text waveTimerText;
+    public Image timerBar;
 
     public Slider healthBar;
 
@@ -29,6 +30,7 @@ public class UIController : MonoBehaviour
         blinkTimerText = GameObject.Find("BlinkCooldownTimer").GetComponent<Text>();
 
         waveTimerText = GameObject.Find("WaveTimer").GetComponent<Text>();
+        timerBar = GameObject.Find("TimerBar").GetComponent<Image>();
 
         healthBar = GameObject.Find("HealthBar").GetComponent<Slider>();
 
@@ -63,6 +65,7 @@ public class UIController : MonoBehaviour
         int minutes = (int)timeRemaining / 60;
         int seconds = (int)timeRemaining % 60;
         waveTimerText.text = (minutes + ":" + seconds);
+        timerBar.rectTransform.localScale = new Vector2(timerBar.rectTransform.localScale.x - Time.deltaTime / 100, timerBar.rectTransform.localScale.y);
     }
 
     public void UpdateHealthbar()
