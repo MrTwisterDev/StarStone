@@ -171,5 +171,4 @@ public class GameController : MonoBehaviour
         currentGameDifficulty = (gameDifficulty)difficulty;
         Debug.Log(currentGameDifficulty);
     }
-
 }
