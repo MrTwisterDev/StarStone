@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
     private Animator playerAnimator;
 
     public UIController uiController;
+    public GameController gameController;
 
     public AudioSource walkingSound;
     public AudioClip punchSound;
@@ -72,7 +73,6 @@ public class PlayerController : MonoBehaviour
         groundDistance = 0.4f;
 
         if(jumpHeight == 0) {jumpHeight = 3f;};
-        if(healthRegenCutoff == 0) { healthRegenCutoff = 70f; }
         if(maxHealth == 0) { maxHealth = 100; }
         if(healthRegenCutoff > maxHealth) { Debug.LogWarning("The cutoff for health regen is greater than the maximum health value."); }
         if(regenRate == 0) { regenRate = 5f; }
@@ -391,7 +391,6 @@ public class PlayerController : MonoBehaviour
         walkingSound.pitch = moveSpeedMultiplier;
         if(xInput + zInput != 0 && !walkingSoundPlaying && isGrounded)
         {
-            Debug.Log(xInput + zInput);
             walkingSound.Play();
             walkingSoundPlaying = true;
         }
