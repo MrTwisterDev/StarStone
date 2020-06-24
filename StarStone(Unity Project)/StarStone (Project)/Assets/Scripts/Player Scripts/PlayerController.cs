@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
     private bool walkingSoundPlaying;
 
+    private RaycastHit interactableObject;
+
     public Transform weaponHoldPoint, adsHoldPoint;
     public GameObject[] weaponsArray;
     public GameObject activeWeapon;
@@ -127,6 +129,7 @@ public class PlayerController : MonoBehaviour
         HealthRegen();
         CooldownTimers();
         PlayerSounds();
+        InteractWithObject();
         if (preparingToSwap)
         {
             WeaponSwapTimer();
@@ -145,15 +148,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void InteractWithObject()
+    public bool InteractWithObject()
     {
-        RaycastHit rayHit;
-        if(Physics.Raycast(cameraTransform.position, cameraTransform.forward, out rayHit, 1f, interactiveLayer))
+        if(Physics.Raycast(cameraTransform.position, cameraTransform.forward, out interactableObject, 1f, interactiveLayer))
         {
-            if (Input.GetKey(KeyCode.E))
-            {
-                //nothing
-            }
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -232,6 +235,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if(InteractWithObject() && Input.GetKeyDown(KeyCode.E))
+        {
+            StarstoneController starstone = interactableObject.collider.gameObject.GetComponent<StarstoneController>();
+            starstone.ActivateEffect();
+        }
 
         if (Input.GetMouseButton(1))
         {
