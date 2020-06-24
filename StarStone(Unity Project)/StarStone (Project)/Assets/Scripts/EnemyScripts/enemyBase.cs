@@ -25,6 +25,7 @@ public class enemyBase : MonoBehaviour
     [SerializeField] protected float currentTimer;
 
     public float enemyHP;
+    [HideInInspector]public float maxEnemyHP;
     [SerializeField] protected bool showDebugGizmos = false;
 
     public bool hasMelee;
@@ -50,7 +51,7 @@ public class enemyBase : MonoBehaviour
 
      void Start()
      {
-        
+        maxEnemyHP = enemyHP;
      }
 
     // Update is called once per frame
