@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour
     public Text blinkTimerText;
 
     public Text waveTimerText;
+    public Text waveNumberText;
     public Image timerBar;
     private float initialTime;
 
@@ -31,6 +32,7 @@ public class UIController : MonoBehaviour
         blinkTimerText = GameObject.Find("BlinkCooldownTimer").GetComponent<Text>();
 
         waveTimerText = GameObject.Find("WaveTimer").GetComponent<Text>();
+        waveNumberText = GameObject.Find("WaveNumber").GetComponent<Text>();
         timerBar = GameObject.Find("TimerBar").GetComponent<Image>();
 
         healthBar = GameObject.Find("HealthBar").GetComponent<Slider>();
@@ -69,6 +71,11 @@ public class UIController : MonoBehaviour
         int seconds = (int)timeRemaining % 60;
         waveTimerText.text = (minutes + ":" + seconds);
         timerBar.rectTransform.localScale = new Vector2(timerBar.rectTransform.localScale.x - Time.deltaTime / initialTime, timerBar.rectTransform.localScale.y);
+    }
+
+    public void UpdateWaveNumber(int waveNumber)
+    {
+        waveNumberText.text = "Wave " + waveNumber; 
     }
 
     public void UpdateHealthbar()

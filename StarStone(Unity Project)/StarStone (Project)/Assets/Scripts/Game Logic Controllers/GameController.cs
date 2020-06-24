@@ -110,7 +110,8 @@ public class GameController : MonoBehaviour
     public float normalWaveTime;
     [Tooltip("The duration of each wave on the Hard difficulty (in seconds).")]
     public float hardWaveTime;
-    private float timerValue;
+    private float gameWaveTime;
+    private float waveTimerValue;
     private int currentWave;
     [Tooltip("The number of small enemies in the current wave.")]
     public int smallEnemiesInWave;
@@ -119,6 +120,8 @@ public class GameController : MonoBehaviour
     [Tooltip("The number of large enemies in the current wave.")]
     public int largeEnemiesInWave;
     private bool timerActive;
+    public float intermissionLength;
+    private float intermissionTimerValue;
     #endregion
 
     private PlayerController playerController;
@@ -146,6 +149,7 @@ public class GameController : MonoBehaviour
         spawnCooldownTime = enemySpawnDelay;
         currentWave = 1;
         canSpawnEnemy = true;
+        intermissionTimerValue = intermissionLength;
 
         //Thomas' Work//
         activeSmallEnemies = new List<GameObject>();
@@ -162,10 +166,14 @@ public class GameController : MonoBehaviour
             GameTimers();
             EnemySpawning();
             CheckEnemyStatus();
-        }
-        if(enemiesKilled == smallEnemiesInWave + mediumEnemiesInWave + largeEnemiesInWave)
-        {
-            NextWave();
+            if (enemiesKilled >= smallEnemiesInWave + mediumEnemiesInWave + largeEnemiesInWave)
+            {
+                intermissionTimerValue -= Time.deltaTime;
+                if (intermissionTimerValue <= 0) 
+                {
+                    NextWave();
+                }
+            }
         }
     }
 
@@ -186,7 +194,8 @@ public class GameController : MonoBehaviour
             {
                 case gameDifficulty.easyDifficulty:
                     playerController.healthRegenCutoff = 70f;
-                    timerValue = easyWaveTime;
+                    gameWaveTime = easyWaveTime;
+                    waveTimerValue = gameWaveTime;
                     maxSmallEnemies = easyBaseMaxSmallEnemies;
                     maxMediumEnemies = easyBaseMaxMediumEnemies;
                     maxLargeEnemies = easyBaseMaxLargeEnemies;
@@ -196,7 +205,8 @@ public class GameController : MonoBehaviour
                     break;
                 case gameDifficulty.normalDifficulty:
                     playerController.healthRegenCutoff = 60f;
-                    timerValue = normalWaveTime;
+                    gameWaveTime = normalWaveTime;
+                    waveTimerValue = gameWaveTime;
                     maxSmallEnemies = normalBaseMaxSmallEnemies;
                     maxMediumEnemies = normalBaseMaxMediumEnemies;
                     maxLargeEnemies = normalBaseMaxLargeEnemies;
@@ -206,7 +216,8 @@ public class GameController : MonoBehaviour
                     break;
                 case gameDifficulty.hardDifficulty:
                     playerController.healthRegenCutoff = 50f;
-                    timerValue = hardWaveTime;
+                    gameWaveTime = hardWaveTime;
+                    waveTimerValue = gameWaveTime;
                     maxSmallEnemies = hardBaseMaxSmallEnemies;
                     maxMediumEnemies = hardBaseMaxMediumEnemies;
                     maxLargeEnemies = hardBaseMaxLargeEnemies;
@@ -218,25 +229,31 @@ public class GameController : MonoBehaviour
         }
         isInGame = true;
         timerActive = true;
-        uIController.SetBaseTimerValue(timerValue);
+        uIController.SetBaseTimerValue(waveTimerValue);
     }
 
     public void NextWave()
     {
+        Debug.Log("New wave starting!");
         enemiesKilled = 0;
+        smallEnemiesSpawned = 0;
+        mediumEnemiesSpawned = 0;
+        largeEnemiesSpawned = 0;
+        waveTimerValue = gameWaveTime;
         currentWave++;
+        uIController.UpdateWaveNumber(currentWave);
     }
 
     public void GameTimers()
     {
         if (timerActive == true)
         {
-            timerValue -= Time.deltaTime;
-            if (timerValue <= 0)
+            waveTimerValue -= Time.deltaTime;
+            if (waveTimerValue <= 0)
             {
                 Debug.Log("Game Over!");
             }
-            uIController.UpdateWaveTimer(timerValue);
+            uIController.UpdateWaveTimer(waveTimerValue);
         }
 
         if (!canSpawnEnemy)
@@ -258,6 +275,7 @@ public class GameController : MonoBehaviour
             {
                 GameObject deadEnemy = activeSmallEnemies[i];
                 activeSmallEnemies.Remove(deadEnemy);
+                enemiesKilled++;
             }
         }
         for (int j = 0; j <= activeMediumEnemies.Count - 1; j++)
@@ -265,7 +283,8 @@ public class GameController : MonoBehaviour
             if (activeMediumEnemies[j] == null)
             {
                 GameObject deadEnemy = activeMediumEnemies[j];
-                activeMediumEnemies.Remove(deadEnemy);   
+                activeMediumEnemies.Remove(deadEnemy);
+                enemiesKilled++;
             }
         }
         for (int k = 0; k <= activeLargeEnemies.Count - 1; k++)
@@ -273,28 +292,31 @@ public class GameController : MonoBehaviour
             if (activeLargeEnemies[k] == null)
             {
                 GameObject deadEnemy = activeLargeEnemies[k];
-                activeLargeEnemies.Remove(deadEnemy);   
+                activeLargeEnemies.Remove(deadEnemy);
+                enemiesKilled++;
             }
         }
+        Debug.Log(enemiesKilled);
+        Debug.Log(smallEnemiesInWave + mediumEnemiesInWave + largeEnemiesInWave);
     }
 
     public void EnemySpawning()
     {
         int arrayIndex = UnityEngine.Random.Range(0, 4);
         Transform pointToSpawn = enemySpawnPoints[arrayIndex];
-        if (activeSmallEnemies.Count < maxSmallEnemies && canSpawnEnemy && smallEnemiesSpawned + 1 < smallEnemiesInWave)
+        if (activeSmallEnemies.Count < maxSmallEnemies && canSpawnEnemy && smallEnemiesSpawned + 1 <= smallEnemiesInWave)
         {
             activeSmallEnemies.Add(Instantiate(levelOneEnemy, pointToSpawn.position, Quaternion.identity));
             smallEnemiesSpawned++;
             canSpawnEnemy = false;
         }
-        if(activeMediumEnemies.Count < maxMediumEnemies && canSpawnEnemy && mediumEnemiesSpawned + 1 < mediumEnemiesInWave)
+        if(activeMediumEnemies.Count < maxMediumEnemies && canSpawnEnemy && mediumEnemiesSpawned + 1 <= mediumEnemiesInWave)
         {
             activeMediumEnemies.Add(Instantiate(levelTwoEnemy, pointToSpawn.position, Quaternion.identity));
             mediumEnemiesSpawned++;
             canSpawnEnemy = false;
         }
-        if(activeLargeEnemies.Count < maxLargeEnemies && canSpawnEnemy && largeEnemiesSpawned + 1 < largeEnemiesInWave)
+        if(activeLargeEnemies.Count < maxLargeEnemies && canSpawnEnemy && largeEnemiesSpawned + 1 <= largeEnemiesInWave)
         {
             activeLargeEnemies.Add(Instantiate(levelThreeEnemy, pointToSpawn.position, Quaternion.identity));
             largeEnemiesSpawned++;
