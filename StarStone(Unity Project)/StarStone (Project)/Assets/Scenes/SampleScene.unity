@@ -6524,6 +6524,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1618473241743850024, guid: 1477549b445bae347b5071e872ab88d2,
+        type: 3}
+      propertyPath: showDebugGizmos
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1618473241743850031, guid: 1477549b445bae347b5071e872ab88d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7676,6 +7681,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7003788283668661276, guid: 0c8f65ca7fc7c084b8a34a086412a4c8,
+        type: 3}
+      propertyPath: showDebugGizmos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7003788283668661276, guid: 0c8f65ca7fc7c084b8a34a086412a4c8,
+        type: 3}
+      propertyPath: projectileMaxTimer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7003788283668661276, guid: 0c8f65ca7fc7c084b8a34a086412a4c8,
+        type: 3}
+      propertyPath: projectileMinTimer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7003788283668661276, guid: 0c8f65ca7fc7c084b8a34a086412a4c8,
+        type: 3}
+      propertyPath: minimumProjectileRadius
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c8f65ca7fc7c084b8a34a086412a4c8, type: 3}

@@ -132,15 +132,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soulParticles: {fileID: 7636042114336898745, guid: 62227d390de06c04194ddd68c0c5e457,
     type: 3}
-  projectileToFire: {fileID: 6746483426840107338, guid: d2af5565df33102458a51a4feded340a,
+  projectileToFire: {fileID: 1835150139197045866, guid: 43b4515ea9b5c9d4e82bd33ddc1381bc,
     type: 3}
   nearestPlayer: {fileID: 0}
   minimumDetectionRadius: 55.65
-  minimumProjectileRadius: 3
-  maximumProjectileRadius: 40
-  projectileSpeed: 50
-  projectileMaxTimer: 8
-  projectileMinTimer: 3
+  minimumProjectileRadius: 1.5
+  maximumProjectileRadius: 5
+  projectileSpeed: 40
+  projectileMaxTimer: 2
+  projectileMinTimer: 1
   currentTimer: 0
   enemyHP: 5
   showDebugGizmos: 0

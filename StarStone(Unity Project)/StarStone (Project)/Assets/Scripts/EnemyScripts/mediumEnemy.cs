@@ -46,8 +46,9 @@ public class mediumEnemy : enemyBase
                     fireProjectile();
                     resetTimer();
                 }
-                else if(hasMelee)
+                else if(hasMelee && currentTimer <= 0)
                 {
+                    Debug.Log(gameObject.name + " Attacks dealing: " + meleeDamage + " Damage!!");
                     meleePlayer();
                     resetTimer();
                 }
