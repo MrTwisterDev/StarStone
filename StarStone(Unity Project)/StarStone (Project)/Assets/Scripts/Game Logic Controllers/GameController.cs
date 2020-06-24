@@ -146,7 +146,7 @@ public class GameController : MonoBehaviour
             {
                 Debug.Log("Game Over!");
             }
-            uIController.UpdateWaveTimer(timerValue);
+            uIController.UpdateWaveTimer(timerValue, normalWaveTime);
         }
 
         if (!canSpawnEnemy)
@@ -193,6 +193,7 @@ public class GameController : MonoBehaviour
     {
         int arrayIndex = UnityEngine.Random.Range(0, 4);
         Transform pointToSpawn = enemySpawnPoints[arrayIndex];
+        if(pointToSpawn == null) { Debug.Log("Spawn point not set."); }
         if (activeSmallEnemies.Count < maxSmallEnemies && canSpawnEnemy)
         {
             activeSmallEnemies.Add(Instantiate(levelOneEnemy, pointToSpawn.position, Quaternion.identity));

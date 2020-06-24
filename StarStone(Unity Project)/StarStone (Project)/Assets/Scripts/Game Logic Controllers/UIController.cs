@@ -60,12 +60,12 @@ public class UIController : MonoBehaviour
         totalAmmoText.text = activeWeaponController.totalBullets.ToString();
     }
 
-    public void UpdateWaveTimer(float timeRemaining)
+    public void UpdateWaveTimer(float timeRemaining, float totalTime)
     {
         int minutes = (int)timeRemaining / 60;
         int seconds = (int)timeRemaining % 60;
         waveTimerText.text = (minutes + ":" + seconds);
-        timerBar.rectTransform.localScale = new Vector2(timerBar.rectTransform.localScale.x - Time.deltaTime / 100, timerBar.rectTransform.localScale.y);
+        timerBar.rectTransform.localScale = new Vector2(timerBar.rectTransform.localScale.x - Time.deltaTime / totalTime, timerBar.rectTransform.localScale.y);
     }
 
     public void UpdateHealthbar()
