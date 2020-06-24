@@ -83,6 +83,12 @@ public class GameController : MonoBehaviour
         spawnCooldownTime = enemySpawnDelay;
         currentWave = 1;
         canSpawnEnemy = true;
+
+        //Thomas' Work//
+        activeSmallEnemies = new List<GameObject>();
+        activeMediumEnemies = new List<GameObject>();
+        activeLargeEnemies = new List<GameObject>();
+        //End of work//
     }
 
     // Update is called once per frame
