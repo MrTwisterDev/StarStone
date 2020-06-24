@@ -30,7 +30,7 @@ public class SoulController : MonoBehaviour
         MoveToDestination();
         if(transform.position == soulDestination.position)
         {
-            Debug.Log("Reached target destination!");
+            Destroy(gameObject);
         }
     }
 

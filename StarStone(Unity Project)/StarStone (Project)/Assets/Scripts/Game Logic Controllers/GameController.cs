@@ -40,6 +40,69 @@ public class GameController : MonoBehaviour
     #endregion
 
     #region
+    [Header("Enemy Difficulty Settings")]
+    [Tooltip("The base maximum number of small enemies that will spawn at a time in the first wave on the easy difficulty.")]
+    public int easyBaseMaxSmallEnemies;
+    [Tooltip("The base maximum number of medium enemies that will spawn at a time in the first wave on the easy difficulty.")]
+    public int easyBaseMaxMediumEnemies;
+    [Tooltip("The base maximum number of large enemies that will spawn at a time in the first wave on the easy difficulty.")]
+    public int easyBaseMaxLargeEnemies;
+    [Space]
+    [Tooltip("The base maximum number of small enemies that will spawn at a time in the first wave on the normal difficulty.")]
+    public int normalBaseMaxSmallEnemies;
+    [Tooltip("The base maximum number of medium enemies that will spawn at a time in the first wave on the normal difficulty.")]
+    public int normalBaseMaxMediumEnemies;
+    [Tooltip("The base maximum number of large enemies that will spawn at a time in the first wave on the normal difficulty.")]
+    public int normalBaseMaxLargeEnemies;
+    [Space]
+    [Tooltip("The base maximum number of small enemies that will spawn at a time in the first wave on the hard difficulty.")]
+    public int hardBaseMaxSmallEnemies;
+    [Tooltip("The base maximum number of medium enemies that will spawn at a time in the first wave on the hard difficulty.")]
+    public int hardBaseMaxMediumEnemies;
+    [Tooltip("The base maximum number of large enemies that will spawn at a time in the first wave on the hard difficulty.")]
+    public int hardBaseMaxLargeEnemies;
+    [Space]
+    [Tooltip("The value by which the maxiumum number of small enemies spawning in a wave increases each wave on the easy difficulty.")]
+    public int easyMaxSmallEnemyIncrease;                                                  
+    [Tooltip("The value by which the maxiumum number of medium enemies spawning in a wave increases each wave on the easy difficulty.")]
+    public int easyMaxMediumEnemyIncrease;                                                 
+    [Tooltip("The value by which the maxiumum number of large enemies spawning in a wave increases each wave on the easy difficulty.")]
+    public int easyMaxLargeEnemyIncrease;                                                  
+    [Space]                                                                                
+    [Tooltip("The value by which the maxiumum number of small enemies spawning in a wave increases each wave on the normal difficulty.")]
+    public int normalMaxSmallEnemyIncrease;                                                
+    [Tooltip("The value by which the maxiumum number of medium enemies spawning in a wave increases each wave on the normal difficulty.")]
+    public int normalMaxMediumEnemyIncrease;                                               
+    [Tooltip("The value by which the maxiumum number of large enemies spawning in a wave increases each wave on the normal difficulty.")]
+    public int normalMaxLargeEnemyIncrease;
+    [Space]
+    [Tooltip("The value by which the maximum number of small enemies spawning in a wave increases each wave on the hard difficulty.")]
+    public int hardMaxSmallEnemyIncrease;
+    [Tooltip("The value by which the maximum number of medium enemies spawning in a wave increases each wave on the hard difficulty.")]
+    public int hardMaxMediumEnemyIncrease;
+    [Tooltip("The value by which the maximum number of large enemies spawning in a wave increases each wave on the hard difficulty.")]
+    public int hardMaxLargeEnemyIncrease;
+    [Space]
+    public int smallEnemiesInEasyWave;
+    public int mediumEnemiesInEasyWave;
+    public int largeEnemiesInEasyWave;
+    [Space]
+    public int smallEnemiesInNormalWave;
+    public int mediumEnemiesInNormalWave;
+    public int largeEnemiesInNormalWave;
+    [Space]
+    public int smallEnemiesInHardWave;
+    public int mediumEnemiesInHardWave;
+    public int largeEnemiesInHardWave;
+
+    private int smallEnemiesSpawned;
+    private int mediumEnemiesSpawned;
+    private int largeEnemiesSpawned;
+
+    private int enemiesKilled;
+    #endregion
+
+    #region
     [Header("Wave Variables")]
     [Tooltip("The duration of each wave on the Easy difficulty (in seconds).")]
     public float easyWaveTime;
@@ -47,7 +110,8 @@ public class GameController : MonoBehaviour
     public float normalWaveTime;
     [Tooltip("The duration of each wave on the Hard difficulty (in seconds).")]
     public float hardWaveTime;
-    private float timerValue;
+    private float gameWaveTime;
+    private float waveTimerValue;
     private int currentWave;
     [Tooltip("The number of small enemies in the current wave.")]
     public int smallEnemiesInWave;
@@ -56,6 +120,8 @@ public class GameController : MonoBehaviour
     [Tooltip("The number of large enemies in the current wave.")]
     public int largeEnemiesInWave;
     private bool timerActive;
+    public float intermissionLength;
+    private float intermissionTimerValue;
     #endregion
 
     private PlayerController playerController;
@@ -83,6 +149,7 @@ public class GameController : MonoBehaviour
         spawnCooldownTime = enemySpawnDelay;
         currentWave = 1;
         canSpawnEnemy = true;
+        intermissionTimerValue = intermissionLength;
 
         //Thomas' Work//
         activeSmallEnemies = new List<GameObject>();
@@ -99,6 +166,14 @@ public class GameController : MonoBehaviour
             GameTimers();
             EnemySpawning();
             CheckEnemyStatus();
+            if (enemiesKilled >= smallEnemiesInWave + mediumEnemiesInWave + largeEnemiesInWave)
+            {
+                intermissionTimerValue -= Time.deltaTime;
+                if (intermissionTimerValue <= 0) 
+                {
+                    NextWave();
+                }
+            }
         }
     }
 
@@ -110,6 +185,7 @@ public class GameController : MonoBehaviour
             playerController = GameObject.Find("playerCapsule").GetComponent<PlayerController>();
             uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
             enemySpawnPoints = new Transform[4];
+            currentWave = 1;
             for(int i = 0; i < enemySpawnPoints.Length; i++)
             {
                 enemySpawnPoints[i] = GameObject.Find("EnemySpawner" + i).GetComponent<Transform>();
@@ -118,41 +194,66 @@ public class GameController : MonoBehaviour
             {
                 case gameDifficulty.easyDifficulty:
                     playerController.healthRegenCutoff = 70f;
-                    timerValue = easyWaveTime;
-                    maxSmallEnemies = 5;
-                    maxMediumEnemies = 3;
-                    maxLargeEnemies = 2;
+                    gameWaveTime = easyWaveTime;
+                    waveTimerValue = gameWaveTime;
+                    maxSmallEnemies = easyBaseMaxSmallEnemies;
+                    maxMediumEnemies = easyBaseMaxMediumEnemies;
+                    maxLargeEnemies = easyBaseMaxLargeEnemies;
+                    smallEnemiesInWave = smallEnemiesInEasyWave;
+                    mediumEnemiesInWave = mediumEnemiesInEasyWave;
+                    largeEnemiesInWave = largeEnemiesInEasyWave;
                     break;
                 case gameDifficulty.normalDifficulty:
                     playerController.healthRegenCutoff = 60f;
-                    timerValue = normalWaveTime;
-                    maxSmallEnemies = 8;
-                    maxMediumEnemies = 5;
-                    maxLargeEnemies = 3;
+                    gameWaveTime = normalWaveTime;
+                    waveTimerValue = gameWaveTime;
+                    maxSmallEnemies = normalBaseMaxSmallEnemies;
+                    maxMediumEnemies = normalBaseMaxMediumEnemies;
+                    maxLargeEnemies = normalBaseMaxLargeEnemies;
+                    smallEnemiesInWave = smallEnemiesInNormalWave;
+                    mediumEnemiesInWave = mediumEnemiesInNormalWave;
+                    largeEnemiesInWave = largeEnemiesInNormalWave;
                     break;
                 case gameDifficulty.hardDifficulty:
                     playerController.healthRegenCutoff = 50f;
-                    timerValue = hardWaveTime;
-                    maxSmallEnemies = 10;
-                    maxMediumEnemies = 7;
-                    maxLargeEnemies = 5;
+                    gameWaveTime = hardWaveTime;
+                    waveTimerValue = gameWaveTime;
+                    maxSmallEnemies = hardBaseMaxSmallEnemies;
+                    maxMediumEnemies = hardBaseMaxMediumEnemies;
+                    maxLargeEnemies = hardBaseMaxLargeEnemies;
+                    smallEnemiesInWave = smallEnemiesInHardWave;
+                    mediumEnemiesInWave = mediumEnemiesInHardWave;
+                    largeEnemiesInWave = largeEnemiesInHardWave;
                     break;
             }
         }
         isInGame = true;
         timerActive = true;
+        uIController.SetBaseTimerValue(waveTimerValue);
+    }
+
+    public void NextWave()
+    {
+        Debug.Log("New wave starting!");
+        enemiesKilled = 0;
+        smallEnemiesSpawned = 0;
+        mediumEnemiesSpawned = 0;
+        largeEnemiesSpawned = 0;
+        waveTimerValue = gameWaveTime;
+        currentWave++;
+        uIController.UpdateWaveNumber(currentWave);
     }
 
     public void GameTimers()
     {
         if (timerActive == true)
         {
-            timerValue -= Time.deltaTime;
-            if (timerValue <= 0)
+            waveTimerValue -= Time.deltaTime;
+            if (waveTimerValue <= 0)
             {
                 Debug.Log("Game Over!");
             }
-            uIController.UpdateWaveTimer(timerValue, normalWaveTime);
+            uIController.UpdateWaveTimer(waveTimerValue);
         }
 
         if (!canSpawnEnemy)
@@ -164,7 +265,6 @@ public class GameController : MonoBehaviour
                 canSpawnEnemy = true;
             }
         }
-
     }
 
     public void CheckEnemyStatus()
@@ -175,6 +275,7 @@ public class GameController : MonoBehaviour
             {
                 GameObject deadEnemy = activeSmallEnemies[i];
                 activeSmallEnemies.Remove(deadEnemy);
+                enemiesKilled++;
             }
         }
         for (int j = 0; j <= activeMediumEnemies.Count - 1; j++)
@@ -182,7 +283,8 @@ public class GameController : MonoBehaviour
             if (activeMediumEnemies[j] == null)
             {
                 GameObject deadEnemy = activeMediumEnemies[j];
-                activeMediumEnemies.Remove(deadEnemy);   
+                activeMediumEnemies.Remove(deadEnemy);
+                enemiesKilled++;
             }
         }
         for (int k = 0; k <= activeLargeEnemies.Count - 1; k++)
@@ -190,29 +292,34 @@ public class GameController : MonoBehaviour
             if (activeLargeEnemies[k] == null)
             {
                 GameObject deadEnemy = activeLargeEnemies[k];
-                activeLargeEnemies.Remove(deadEnemy);   
+                activeLargeEnemies.Remove(deadEnemy);
+                enemiesKilled++;
             }
         }
+        Debug.Log(enemiesKilled);
+        Debug.Log(smallEnemiesInWave + mediumEnemiesInWave + largeEnemiesInWave);
     }
 
     public void EnemySpawning()
     {
         int arrayIndex = UnityEngine.Random.Range(0, 4);
         Transform pointToSpawn = enemySpawnPoints[arrayIndex];
-        if(pointToSpawn == null) { Debug.Log("Spawn point not set."); }
-        if (activeSmallEnemies.Count < maxSmallEnemies && canSpawnEnemy)
+        if (activeSmallEnemies.Count < maxSmallEnemies && canSpawnEnemy && smallEnemiesSpawned + 1 <= smallEnemiesInWave)
         {
             activeSmallEnemies.Add(Instantiate(levelOneEnemy, pointToSpawn.position, Quaternion.identity));
+            smallEnemiesSpawned++;
             canSpawnEnemy = false;
         }
-        if(activeMediumEnemies.Count < maxMediumEnemies && canSpawnEnemy)
+        if(activeMediumEnemies.Count < maxMediumEnemies && canSpawnEnemy && mediumEnemiesSpawned + 1 <= mediumEnemiesInWave)
         {
             activeMediumEnemies.Add(Instantiate(levelTwoEnemy, pointToSpawn.position, Quaternion.identity));
+            mediumEnemiesSpawned++;
             canSpawnEnemy = false;
         }
-        if(activeLargeEnemies.Count < maxLargeEnemies && canSpawnEnemy)
+        if(activeLargeEnemies.Count < maxLargeEnemies && canSpawnEnemy && largeEnemiesSpawned + 1 <= largeEnemiesInWave)
         {
             activeLargeEnemies.Add(Instantiate(levelThreeEnemy, pointToSpawn.position, Quaternion.identity));
+            largeEnemiesSpawned++;
             canSpawnEnemy = false;
         }
     }
