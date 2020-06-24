@@ -73,6 +73,12 @@ public class UIController : MonoBehaviour
         timerBar.rectTransform.localScale = new Vector2(timerBar.rectTransform.localScale.x - Time.deltaTime / initialTime, timerBar.rectTransform.localScale.y);
     }
 
+    public void UpdateIntermissionTimer(float intermissionTime)
+    {
+        waveTimerText.text = intermissionTime.ToString();
+        waveNumberText.text = "Wave Complete";
+    }
+
     public void UpdateWaveNumber(int waveNumber)
     {
         waveNumberText.text = "Wave " + waveNumber; 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GameController : MonoBehaviour
 {
@@ -169,6 +170,7 @@ public class GameController : MonoBehaviour
             if (enemiesKilled >= smallEnemiesInWave + mediumEnemiesInWave + largeEnemiesInWave)
             {
                 intermissionTimerValue -= Time.deltaTime;
+                uIController.UpdateIntermissionTimer(intermissionTimerValue);
                 if (intermissionTimerValue <= 0) 
                 {
                     NextWave();
@@ -321,6 +323,53 @@ public class GameController : MonoBehaviour
             activeLargeEnemies.Add(Instantiate(levelThreeEnemy, pointToSpawn.position, Quaternion.identity));
             largeEnemiesSpawned++;
             canSpawnEnemy = false;
+        }
+    }
+
+    public void BuffEnemies(int activeBuff)
+    {
+        switch (activeBuff)
+        {
+            case 0:
+                for(int i = 0; i <= activeSmallEnemies.Count - 1; i++)
+                {
+                    NavMeshAgent enemyAgent = activeSmallEnemies[i].GetComponent<NavMeshAgent>();
+                    enemyAgent.speed *= 2;
+                }
+                for(int j = 0; j <= activeMediumEnemies.Count - 1; j++)
+                {
+                    NavMeshAgent enemyAgent = activeMediumEnemies[j].GetComponent<NavMeshAgent>();
+                    enemyAgent.speed *= 2;
+                }
+                for(int k = 0; k <= activeLargeEnemies.Count - 1; k++)
+                {
+                    NavMeshAgent enemyAgent = activeLargeEnemies[k].GetComponent<NavMeshAgent>();
+                    enemyAgent.speed *= 2;
+                }
+                break;
+            case 1:
+                for(int i = 0; i <= activeSmallEnemies.Count - 1; i++)
+                {
+                    mediumEnemy enemyController = activeSmallEnemies[i].GetComponent<mediumEnemy>();
+                    enemyController.enemyHP *= 2;
+                }
+                for(int j = 0; j <= activeMediumEnemies.Count - 1; j++)
+                {
+                    mediumEnemy enemyController = activeMediumEnemies[j].GetComponent<mediumEnemy>();
+                    enemyController.enemyHP *= 2;
+                }
+                for(int k = 0; k <= activeLargeEnemies.Count - 1; k++)
+                {
+                    mediumEnemy enemyController = activeLargeEnemies[k].GetComponent<mediumEnemy>();
+                    enemyController.enemyHP *= 2;
+                }
+                break;
+            case 2:
+                //do another thing
+                break;
+            case 3:
+                //do a final thing
+                break;
         }
     }
 

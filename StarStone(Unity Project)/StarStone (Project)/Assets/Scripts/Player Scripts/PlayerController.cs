@@ -57,6 +57,8 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask groundLayer, ladderLayer;
 
+    public LayerMask interactiveLayer;
+
     private Vector3 currentVelocity, standingScale, crouchingScale;
 
     public Transform groundChecker, ladderChecker, cameraTransform;
@@ -140,6 +142,18 @@ public class PlayerController : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    public void InteractWithObject()
+    {
+        RaycastHit rayHit;
+        if(Physics.Raycast(cameraTransform.position, cameraTransform.forward, out rayHit, 1f, interactiveLayer))
+        {
+            if (Input.GetKey(KeyCode.E))
+            {
+                //nothing
+            }
         }
     }
 
