@@ -63,7 +63,7 @@ public class baseWeaponClass : MonoBehaviour
         {
             currentBullets = magazineCapacity;
         }
-        else if(totalBullets < 0)
+        else if(totalBullets < magazineCapacity)
         {
             currentBullets = totalBullets;
         }
