@@ -138,11 +138,12 @@ MonoBehaviour:
   minimumDetectionRadius: 55.65
   minimumProjectileRadius: 1
   maximumProjectileRadius: 40
-  projectileSpeed: 50
+  projectileSpeed: 20
   projectileMaxTimer: 50000
   projectileMinTimer: 40000
   currentTimer: 0
   enemyHP: 2
+  maxEnemyHP: 0
   showDebugGizmos: 0
   hasMelee: 1
   meleeDamage: 20
