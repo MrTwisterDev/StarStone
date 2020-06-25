@@ -1407,15 +1407,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 613922829}
     m_Modifications:
+    - target: {fileID: 778000074, guid: 669027eaf1541b14090e0815a4b415a7, type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 65536
+      objectReference: {fileID: 0}
     - target: {fileID: 1870204686266233526, guid: 669027eaf1541b14090e0815a4b415a7,
         type: 3}
       propertyPath: m_Name
       value: Weapon03(Prototype)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1870204686266233526, guid: 669027eaf1541b14090e0815a4b415a7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5013730123151103562, guid: 669027eaf1541b14090e0815a4b415a7,
         type: 3}
@@ -2533,7 +2532,7 @@ Transform:
   m_LocalScale: {x: 5, y: 2, z: 5}
   m_Children: []
   m_Father: {fileID: 850074351}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 44.99, z: 20.933}
 --- !u!64 &749929355
 MeshCollider:
@@ -2589,20 +2588,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 453510927}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &778000074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 778000072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89930815eb4a6f04aa864151fcfd3534, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponCharge: 0
-  currentWeaponMode: 0
 --- !u!1 &794810938 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5590963399543002241, guid: 386e3b1a17e5e18448a9bfa163a884b4,
@@ -2651,9 +2636,9 @@ Transform:
   - {fileID: 1581431881}
   - {fileID: 1414377758}
   - {fileID: 333514938}
-  - {fileID: 349301697}
   - {fileID: 5006512736680680838}
   - {fileID: 742684714}
+  - {fileID: 349301697}
   - {fileID: 941311047}
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -8645,7 +8630,7 @@ Transform:
   - {fileID: 8045922790462656337}
   - {fileID: 8493645321514620124}
   m_Father: {fileID: 850074351}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &5032424683097316721
 Transform:

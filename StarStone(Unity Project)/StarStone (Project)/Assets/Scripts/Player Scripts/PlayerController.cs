@@ -70,8 +70,6 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-
         gravityScale = -9.81f * 2;
         gravityMultiplier = 1f;
         groundDistance = 0.4f;
@@ -222,14 +220,14 @@ public class PlayerController : MonoBehaviour
             characterController.Move(movement * jumpingMoveSpeed * multiplierBeforeJump * Time.deltaTime);
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && weaponsArray[activeWeaponIndex].tag != "Prototype")
         {
             weaponsArray[activeWeaponIndex].GetComponent<baseWeaponClass>().useWeapon();
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (weaponsArray[activeWeaponIndex].GetComponent<build_a_weapon>().typeOfWeapon == build_a_weapon.typesOfWeapon.spreadShot)
+            if (weaponsArray[activeWeaponIndex].tag != "Prototype" && weaponsArray[activeWeaponIndex].GetComponent<build_a_weapon>().typeOfWeapon == build_a_weapon.typesOfWeapon.spreadShot)
             {
                 weaponsArray[activeWeaponIndex].GetComponent<build_a_weapon>().spreadShotLock = false;
             }
@@ -404,6 +402,10 @@ public class PlayerController : MonoBehaviour
             {
                 currentHealth = healthRegenCutoff;
             }
+        }
+        if(currentHealth < 0)
+        {
+            currentHealth = 0;
         }
         uiController.UpdateHealthbar();
     }

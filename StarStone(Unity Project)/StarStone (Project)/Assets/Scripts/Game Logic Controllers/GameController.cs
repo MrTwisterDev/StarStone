@@ -186,6 +186,7 @@ public class GameController : MonoBehaviour
         Debug.Log(level);
         if(level == 1)
         {
+            Cursor.lockState = CursorLockMode.Locked;
             playerController = GameObject.Find("playerCapsule").GetComponent<PlayerController>();
             uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
             enemySpawnPoints = new Transform[4];
@@ -230,10 +231,14 @@ public class GameController : MonoBehaviour
                     largeEnemiesInWave = largeEnemiesInHardWave;
                     break;
             }
+            isInGame = true;
+            timerActive = true;
+            uIController.SetBaseTimerValue(waveTimerValue);
         }
-        isInGame = true;
-        timerActive = true;
-        uIController.SetBaseTimerValue(waveTimerValue);
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 
     public void NextWave()
