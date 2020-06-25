@@ -352,7 +352,7 @@ public class GameController : MonoBehaviour
             case 1:
                 for(int i = 0; i <= activeSmallEnemies.Count - 1; i++)
                 {
-                    mediumEnemy enemyController = activeSmallEnemies[i].GetComponent<mediumEnemy>();
+                    smallEnemy enemyController = activeSmallEnemies[i].GetComponent<smallEnemy>();
                     enemyController.maxEnemyHP += 10;
                     if(enemyController.enemyHP >= enemyController.maxEnemyHP - 10) 
                     {

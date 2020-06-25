@@ -20,8 +20,8 @@ public class enemyBase : MonoBehaviour
     public float maximumProjectileRadius;//The distance of which the enemy will try and "shoot" projectiles at the enemy
 
     public float projectileSpeed;//The speed a projectile will travel
-    public float projectileMaxTimer;//The maximum time it takes for a new projectile to fire
-    public float projectileMinTimer;//The minimum time it takes for a AI to fire a projectile
+    public float attackMaxTimer;//The maximum time it takes for a new projectile to fire/use melee attack
+    public float attackMinTimer;//The minimum time it takes for a AI to fire a projectile/use melee attack
     [SerializeField] protected float currentTimer;
 
     public float enemyHP;
@@ -52,7 +52,12 @@ public class enemyBase : MonoBehaviour
      void Start()
      {
         maxEnemyHP = enemyHP;
-     }
+        enemyState = enemyStates.hostileState;
+        players = GameObject.FindGameObjectsWithTag("Player"); //Array used for multiple player handling (While multiple players aren't originally planned they may be added)
+        enemyAgent = GetComponent<NavMeshAgent>();
+        getNearestPlayer();
+
+    }
 
     // Update is called once per frame
     void Update()
@@ -130,6 +135,32 @@ public class enemyBase : MonoBehaviour
 
         //Currently means that a player cannot avoid a melee attack once it has started. Can be improved
         nearestPlayer.GetComponent<PlayerController>().currentHealth -= meleeDamage;
+        resetTimer(true);
+    }
+
+    protected void resetTimer(bool meleeAttack)
+    {
+        if (meleeAttack)
+        {
+            currentTimer = attackMinTimer;
+        }
+        else
+        {
+            currentTimer = Random.Range(attackMinTimer, attackMaxTimer);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (showDebugGizmos)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(gameObject.transform.position, minimumDetectionRadius);
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(gameObject.transform.position, minimumProjectileRadius);
+            Gizmos.DrawWireSphere(gameObject.transform.position, maximumProjectileRadius);
+        }
     }
 
 }

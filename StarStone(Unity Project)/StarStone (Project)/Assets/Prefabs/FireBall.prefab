@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 93191687841188022}
   - component: {fileID: 6075410897648399500}
   - component: {fileID: 3711334834875811041}
-  m_Layer: 0
+  - component: {fileID: 5582069510155531404}
+  m_Layer: 15
   m_Name: FireBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,4 +113,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf02599adbf7afa4b8a643b42d54801d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileDamage: 5
+  projectileDamage: 20
+--- !u!65 &5582069510155531404
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835150139197045866}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.03067265, y: 0.062292024, z: 0.03133156}
+  m_Center: {x: 0.0000041318126, y: 0.0072767367, z: 0.00017130791}
