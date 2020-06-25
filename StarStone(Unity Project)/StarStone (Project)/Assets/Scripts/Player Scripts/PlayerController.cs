@@ -136,6 +136,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Thomas' Work
+    private bool isDead()
+    {
+        if(currentHealth <= 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     private bool IsClimbingLadder()
     {
         if(Physics.Raycast(ladderChecker.position, ladderChecker.forward, 0.5f, ladderLayer))
