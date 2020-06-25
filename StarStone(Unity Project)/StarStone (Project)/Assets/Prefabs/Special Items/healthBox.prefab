@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1524184592698953100
+--- !u!1 &5150274718591927208
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2037548677233740887}
-  - component: {fileID: 6773377553805604193}
-  - component: {fileID: 4205842835137258478}
-  - component: {fileID: 5355131906515677390}
-  - component: {fileID: 3294771896563950029}
-  - component: {fileID: 4102421782696946677}
+  - component: {fileID: 5627632458338697843}
+  - component: {fileID: 1125988563197295429}
+  - component: {fileID: 7494457725553962442}
+  - component: {fileID: 1733549710378221290}
+  - component: {fileID: 9216317343222427625}
+  - component: {fileID: 5150274718591927209}
   m_Layer: 0
-  m_Name: ammoBox
+  m_Name: healthBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2037548677233740887
+--- !u!4 &5627632458338697843
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524184592698953100}
+  m_GameObject: {fileID: 5150274718591927208}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31.905754, y: 7.07, z: 46.50389}
+  m_LocalPosition: {x: 31.45, y: 7.07, z: 46.50389}
   m_LocalScale: {x: 0.98180073, y: 0.49311936, z: 0.49311936}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6773377553805604193
+--- !u!33 &1125988563197295429
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524184592698953100}
+  m_GameObject: {fileID: 5150274718591927208}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &4205842835137258478
+--- !u!23 &7494457725553962442
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524184592698953100}
+  m_GameObject: {fileID: 5150274718591927208}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ee4239619be50894d9bd46324ada3680, type: 2}
+  - {fileID: 2100000, guid: bb5c1e7b3d7be7748b63f5d5d6b1b136, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,26 +82,26 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5355131906515677390
+--- !u!65 &1733549710378221290
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524184592698953100}
+  m_GameObject: {fileID: 5150274718591927208}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3294771896563950029
+--- !u!54 &9216317343222427625
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524184592698953100}
+  m_GameObject: {fileID: 5150274718591927208}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -111,17 +111,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4102421782696946677
+--- !u!114 &5150274718591927209
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524184592698953100}
+  m_GameObject: {fileID: 5150274718591927208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f15602432e581294181fc828fdf77a4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a41f56030cc5664bb1575b4243d2a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   collectableIncreaser: 0
-  ammoAmount: 20
+  healthAmount: 20
