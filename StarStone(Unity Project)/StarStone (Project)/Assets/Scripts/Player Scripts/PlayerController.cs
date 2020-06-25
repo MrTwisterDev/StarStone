@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
     private bool walkingSoundPlaying;
 
+    private RaycastHit interactableObject;
+
     public Transform weaponHoldPoint, adsHoldPoint;
     public GameObject[] weaponsArray;
     public GameObject activeWeapon;
@@ -56,6 +58,8 @@ public class PlayerController : MonoBehaviour
     public AudioClip punchSound;
 
     public LayerMask groundLayer, ladderLayer;
+
+    public LayerMask interactiveLayer;
 
     private Vector3 currentVelocity, standingScale, crouchingScale;
 
@@ -125,6 +129,7 @@ public class PlayerController : MonoBehaviour
         HealthRegen();
         CooldownTimers();
         PlayerSounds();
+        InteractWithObject();
         if (preparingToSwap)
         {
             WeaponSwapTimer();
@@ -134,6 +139,18 @@ public class PlayerController : MonoBehaviour
     private bool IsClimbingLadder()
     {
         if(Physics.Raycast(ladderChecker.position, ladderChecker.forward, 0.5f, ladderLayer))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool InteractWithObject()
+    {
+        if(Physics.Raycast(cameraTransform.position, cameraTransform.forward, out interactableObject, 1f, interactiveLayer))
         {
             return true;
         }
@@ -218,6 +235,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if(InteractWithObject() && Input.GetKeyDown(KeyCode.E))
+        {
+            StarstoneController starstone = interactableObject.collider.gameObject.GetComponent<StarstoneController>();
+            starstone.ActivateEffect();
+        }
 
         if (Input.GetMouseButton(1))
         {

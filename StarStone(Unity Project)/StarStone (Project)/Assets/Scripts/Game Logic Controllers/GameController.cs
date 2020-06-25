@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GameController : MonoBehaviour
 {
@@ -124,6 +125,8 @@ public class GameController : MonoBehaviour
     private float intermissionTimerValue;
     #endregion
 
+    public GameObject[] starstoneArray;
+
     private PlayerController playerController;
     private UIController uIController;
 
@@ -169,6 +172,7 @@ public class GameController : MonoBehaviour
             if (enemiesKilled >= smallEnemiesInWave + mediumEnemiesInWave + largeEnemiesInWave)
             {
                 intermissionTimerValue -= Time.deltaTime;
+                uIController.UpdateIntermissionTimer(intermissionTimerValue);
                 if (intermissionTimerValue <= 0) 
                 {
                     NextWave();
@@ -322,6 +326,70 @@ public class GameController : MonoBehaviour
             largeEnemiesSpawned++;
             canSpawnEnemy = false;
         }
+    }
+
+    public void BuffEnemies(int activeBuff)
+    {
+        switch (activeBuff)
+        {
+            case 0:
+                for(int i = 0; i <= activeSmallEnemies.Count - 1; i++)
+                {
+                    NavMeshAgent enemyAgent = activeSmallEnemies[i].GetComponent<NavMeshAgent>();
+                    enemyAgent.speed = 6;
+                }
+                for(int j = 0; j <= activeMediumEnemies.Count - 1; j++)
+                {
+                    NavMeshAgent enemyAgent = activeMediumEnemies[j].GetComponent<NavMeshAgent>();
+                    enemyAgent.speed = 5;
+                }
+                for(int k = 0; k <= activeLargeEnemies.Count - 1; k++)
+                {
+                    NavMeshAgent enemyAgent = activeLargeEnemies[k].GetComponent<NavMeshAgent>();
+                    enemyAgent.speed = 5;
+                }
+                break;
+            case 1:
+                for(int i = 0; i <= activeSmallEnemies.Count - 1; i++)
+                {
+                    mediumEnemy enemyController = activeSmallEnemies[i].GetComponent<mediumEnemy>();
+                    enemyController.maxEnemyHP += 10;
+                    if(enemyController.enemyHP >= enemyController.maxEnemyHP - 10) 
+                    {
+                        enemyController.enemyHP = enemyController.maxEnemyHP;
+                    }
+                }
+                for(int j = 0; j <= activeMediumEnemies.Count - 1; j++)
+                {
+                    mediumEnemy enemyController = activeMediumEnemies[j].GetComponent<mediumEnemy>();
+                    enemyController.maxEnemyHP += 10;
+                    if(enemyController.enemyHP >= enemyController.maxEnemyHP - 10)
+                    {
+                        enemyController.enemyHP = enemyController.maxEnemyHP;
+                    }
+                }
+                for(int k = 0; k <= activeLargeEnemies.Count - 1; k++)
+                {
+                    mediumEnemy enemyController = activeLargeEnemies[k].GetComponent<mediumEnemy>();
+                    enemyController.maxEnemyHP += 10;
+                    if(enemyController.enemyHP >= enemyController.maxEnemyHP)
+                    {
+                        enemyController.enemyHP = enemyController.maxEnemyHP;
+                    }
+                }
+                break;
+            case 2:
+                //do another thing
+                break;
+            case 3:
+                //do a final thing
+                break;
+        }
+    }
+
+    public void ActivateNewStarstone()
+    {
+        //Activate the next highest charged starstone
     }
 
     public void ChangeDifficulty(int difficulty)
