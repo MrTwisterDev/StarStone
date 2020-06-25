@@ -238,6 +238,8 @@ public class GameController : MonoBehaviour
         else
         {
             Cursor.lockState = CursorLockMode.None;
+            isInGame = false;
+            timerActive = false;
         }
     }
 
