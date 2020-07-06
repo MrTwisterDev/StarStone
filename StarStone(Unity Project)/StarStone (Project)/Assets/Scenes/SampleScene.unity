@@ -5151,6 +5151,21 @@ PrefabInstance:
       propertyPath: showDebugGizmos
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8472320929289863073, guid: 3b0c9ec7163b40b4b8dac497cd7206de,
+        type: 3}
+      propertyPath: enemyPowerup
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8472320929289863073, guid: 3b0c9ec7163b40b4b8dac497cd7206de,
+        type: 3}
+      propertyPath: speedBuffAmount
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8472320929289863073, guid: 3b0c9ec7163b40b4b8dac497cd7206de,
+        type: 3}
+      propertyPath: startingBuff
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8472320929289863086, guid: 3b0c9ec7163b40b4b8dac497cd7206de,
         type: 3}
       propertyPath: m_Name
@@ -6345,7 +6360,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097211751}
   m_LocalRotation: {x: -0, y: -0.74497014, z: -0, w: 0.66709787}
-  m_LocalPosition: {x: 60.18162, y: 2.47, z: -59.48697}
+  m_LocalPosition: {x: 57.55, y: 8.8, z: 80.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}
