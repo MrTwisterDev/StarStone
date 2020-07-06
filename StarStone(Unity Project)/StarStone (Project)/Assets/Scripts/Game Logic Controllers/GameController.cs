@@ -132,7 +132,7 @@ public class GameController : MonoBehaviour
     private float intermissionTimerValue;
     #endregion
 
-    public GameObject[] starstoneArray;
+    private GameObject[] starstoneArray;
 
     private PlayerController playerController;
     private UIController uIController;
@@ -338,8 +338,11 @@ public class GameController : MonoBehaviour
 
     public void EnemySpawning()
     {
+        //Generates a random number between 0 and 4 which is used to pick a random spawn point from the array
         int arrayIndex = UnityEngine.Random.Range(0, 4);
         Transform pointToSpawn = enemySpawnPoints[arrayIndex];
+        //Checks if the number of each type of enemy alive in the scene is less than the maximum number, as well as if the
+        //spawning cooldown has ended and if spawning a new enemy of that type will exceed the number allowed in that wave to determine whether or not to spawn a new enemy
         if (activeSmallEnemies.Count < maxSmallEnemies && canSpawnEnemy && smallEnemiesSpawned + 1 <= smallEnemiesInWave)
         {
             activeSmallEnemies.Add(Instantiate(levelOneEnemy, pointToSpawn.position, Quaternion.identity));
@@ -426,6 +429,7 @@ public class GameController : MonoBehaviour
 
     public void ChangeDifficulty(int difficulty)
     {
+        //Updates the game difficulty to whatever is selected by the user, casting an int to an enum
         currentGameDifficulty = (gameDifficulty)difficulty;
         Debug.Log(currentGameDifficulty);
     }
