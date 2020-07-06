@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    //***************************************************************|
+    // Project Name: Temple Imperium                                 |
+    // Script Name: Level Manager                                    |
+    // Script Author: James Smale                                    |
+    // Purpose: Handle scene management and level loading            |
+    //***************************************************************|
+
     // Start is called before the first frame update
     void Start()
     {

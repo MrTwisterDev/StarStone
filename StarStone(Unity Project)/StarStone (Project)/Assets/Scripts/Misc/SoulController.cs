@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class SoulController : MonoBehaviour
 {
+    //***************************************************************|
+    // Project Name: Temple Imperium                                 |
+    // Script Name: Soul Controller                                  |
+    // Script Author: James Smale                                    |
+    // Purpose: Handle soul movement and guide it to its destination |
+    //***************************************************************|
 
     public Transform soulDestination;
     private Transform startingPosition;

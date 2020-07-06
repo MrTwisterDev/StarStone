@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PrototypeWeapon : MonoBehaviour
 {
+    //***************************************************************|
+    // Project Name: Temple Imperium                                 |
+    // Script Name: PrototypeWeapon                                  |
+    // Script Author: James Smale                                    |
+    // Purpose: Manages the different fire modes and charge level of |
+    //          the game's prototype weapon                          |
+    //***************************************************************|
 
     public float weaponCharge;
 

@@ -6283,7 +6283,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 1.75
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -6344,8 +6344,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097211751}
-  m_LocalRotation: {x: -0, y: -0.99986744, z: -0, w: -0.016281595}
-  m_LocalPosition: {x: 20, y: 64, z: -98}
+  m_LocalRotation: {x: -0, y: -0.74497014, z: -0, w: 0.66709787}
+  m_LocalPosition: {x: 60.18162, y: 2.47, z: -59.48697}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}
@@ -6358,7 +6358,7 @@ Transform:
   - {fileID: 665186447}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -181.866, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -96.313, z: 0}
 --- !u!114 &2097211756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87746,7 +87746,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &6554616227079048306
 MeshCollider:
   m_ObjectHideFlags: 0

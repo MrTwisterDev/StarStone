@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    //***************************************************************|
+    // Project Name: Temple Imperium                                 |
+    // Script Name: Player Controller                                |
+    // Script Author: James Smale                                    |
+    // Purpose: Handles all aspects of the player, including movement|
+    //          , health, camera controls and physics                |
+    //***************************************************************|
+
     public float gravityScale;
     public float gravityMultiplier;
     private float groundDistance;

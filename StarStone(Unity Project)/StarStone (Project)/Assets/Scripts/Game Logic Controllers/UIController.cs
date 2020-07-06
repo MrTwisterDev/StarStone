@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
+    //***************************************************************|
+    // Project Name: Temple Imperium                                 |
+    // Script Name: UI Controller                                    |
+    // Script Author: James Smale                                    |
+    // Purpose: Handles updates of the User Interface                |
+    //***************************************************************|
+
+
     private PlayerController playerController;
     private build_a_weapon activeWeaponController;
 

@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class StarstoneController : MonoBehaviour
 {
+    //***************************************************************|
+    // Project Name: Temple Imperium                                 |
+    // Script Name: Starstone Controller                             |
+    // Script Author: James Smale                                    |
+    // Purpose: Controls the active effects of the starstones, as    |
+    //          well as their charge level                           |
+    //***************************************************************|
+
+
 
     private GameController gameController;
     private bool isActiveStarstone;
