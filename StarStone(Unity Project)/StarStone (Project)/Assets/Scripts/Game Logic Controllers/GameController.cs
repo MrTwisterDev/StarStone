@@ -172,9 +172,6 @@ public class GameController : MonoBehaviour
 
         starstoneArray = new GameObject[4];
 
-        int starstoneIndex = UnityEngine.Random.Range(0, 4);
-        starstoneArray[starstoneIndex].GetComponent<StarstoneController>().ActivateEffect();
-
         //Thomas' Work//
         activeSmallEnemies = new List<GameObject>();
         activeMediumEnemies = new List<GameObject>();
@@ -218,8 +215,11 @@ public class GameController : MonoBehaviour
             uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
             //Sets the length of the spawn point array
             enemySpawnPoints = new Transform[4];
+            //Generates a random number used as an array index and activates the relevant Starstone
+            int starstoneIndex = UnityEngine.Random.Range(0, 4);
+            starstoneArray[starstoneIndex].GetComponent<StarstoneController>().ActivateEffect();
             //Finds all of the enemy spawners in the scene and adds them to the array so they can be accessed randomly in the enemy spawning method
-            for(int i = 0; i < enemySpawnPoints.Length; i++)
+            for (int i = 0; i < enemySpawnPoints.Length; i++)
             {
                 enemySpawnPoints[i] = GameObject.Find("EnemySpawner" + i).GetComponent<Transform>();
             }
