@@ -132,7 +132,10 @@ public class GameController : MonoBehaviour
     private float intermissionTimerValue;
     #endregion
 
-    private GameObject[] starstoneArray;
+    #region
+    [Header("Starstones")]
+    public GameObject[] starstoneArray;
+    #endregion
 
     private PlayerController playerController;
     private UIController uIController;
@@ -166,6 +169,11 @@ public class GameController : MonoBehaviour
         canSpawnEnemy = true;
         //Sets the value of the intermission timer to the value input in the inspector
         intermissionTimerValue = intermissionLength;
+
+        starstoneArray = new GameObject[4];
+
+        int starstoneIndex = UnityEngine.Random.Range(0, 4);
+        starstoneArray[starstoneIndex].GetComponent<StarstoneController>().ActivateEffect();
 
         //Thomas' Work//
         activeSmallEnemies = new List<GameObject>();
@@ -264,6 +272,14 @@ public class GameController : MonoBehaviour
             isInGame = false;                           //Prevents game timers and enemy spawning methods from being executed
             timerActive = false;
         }
+    }
+
+    public void FindStarstones()
+    {
+        starstoneArray[0] = GameObject.Find("HealthStarstone");
+        starstoneArray[1] = GameObject.Find("BuffStarstone");
+        starstoneArray[2] = GameObject.Find("SpeedStarstone");
+        starstoneArray[3] = GameObject.Find("FireStarstone");
     }
 
     public void NextWave()
@@ -424,7 +440,18 @@ public class GameController : MonoBehaviour
 
     public void ActivateNewStarstone()
     {
-        //Activate the next highest charged starstone
+        float highestCharge = 0;
+        int indexToActivate = 0;
+        for(int i = 0; i < starstoneArray.Length - 1; i++)
+        {
+            StarstoneController currentStarstone = starstoneArray[i].GetComponent<StarstoneController>();
+            if(currentStarstone.starstoneCharge > highestCharge)
+            {
+                highestCharge = currentStarstone.starstoneCharge;
+                indexToActivate = i;
+            }
+        }
+        starstoneArray[indexToActivate].GetComponent<StarstoneController>().ActivateEffect();
     }
 
     public void ChangeDifficulty(int difficulty)

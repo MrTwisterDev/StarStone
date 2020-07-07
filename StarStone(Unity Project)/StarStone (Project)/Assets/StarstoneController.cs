@@ -13,9 +13,12 @@ public class StarstoneController : MonoBehaviour
     //***************************************************************|
 
     private GameController gameController;
-    private bool isActiveStarstone;
 
-    private float starstoneCharge;
+    [HideInInspector]
+    public bool isActiveStarstone;
+
+    [HideInInspector]
+    public float starstoneCharge;
 
     public enum starstoneTypes
     {
