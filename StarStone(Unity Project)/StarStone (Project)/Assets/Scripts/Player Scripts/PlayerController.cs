@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 currentVelocity, standingScale, crouchingScale;
 
-    private Transform groundChecker, ladderChecker, cameraTransform;
+    public Transform groundChecker, ladderChecker, cameraTransform;
 
     private CharacterController characterController;
 

@@ -6391,6 +6391,12 @@ MonoBehaviour:
   moveSpeed: 0
   jumpingMoveSpeed: 0
   jumpHeight: 1.5
+  moveSpeedMultiplier: 0
+  crouchingMultiplier: 0
+  sprintingMultiplier: 0
+  swimmingMultiplier: 0
+  wadingMultiplier: 0
+  climbingMultiplier: 0
   maxHealth: 0
   currentHealth: 0
   healthRegenCutoff: 0
@@ -6398,36 +6404,24 @@ MonoBehaviour:
   timeSinceTakenDamage: 0
   canRegen: 0
   canRegenToMax: 0
-  moveSpeedMultiplier: 0
-  crouchingMultiplier: 0
-  sprintingMultiplier: 0
-  swimmingMultiplier: 0
-  wadingMultiplier: 0
-  climbingMultiplier: 0
-  mouseX: 0
-  mouseY: 0
-  xRotation: 0
   mouseSensitivity: 0
+  xRotation: 0
   blinkCooldownTime: 0
   blinkCooldownTimeRounded: 0
   mineRechargeTime: 0
   mineRechargeTimeRounded: 0
+  blinkBall: {fileID: 5853392429948996322, guid: 97010d536ce463b4b9c3891b370132fb,
+    type: 3}
+  proxMine: {fileID: 8537370861242923161, guid: 6d1824edfa5e208439c77426b29c4190,
+    type: 3}
   weaponHoldPoint: {fileID: 613922829}
   adsHoldPoint: {fileID: 1724679017}
+  fistPosition: {fileID: 665186447}
   weaponsArray:
   - {fileID: 947291036}
   - {fileID: 794810938}
   - {fileID: 778000072}
   activeWeapon: {fileID: 947291036}
-  blinkBall: {fileID: 5853392429948996322, guid: 97010d536ce463b4b9c3891b370132fb,
-    type: 3}
-  proxMine: {fileID: 8537370861242923161, guid: 6d1824edfa5e208439c77426b29c4190,
-    type: 3}
-  fistPosition: {fileID: 665186447}
-  uiController: {fileID: 0}
-  gameController: {fileID: 0}
-  walkingSound: {fileID: 2097211759}
-  punchSound: {fileID: 8300000, guid: 23cf5400c96ff26488454507952983bf, type: 3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
