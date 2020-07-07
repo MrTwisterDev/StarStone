@@ -215,6 +215,7 @@ public class GameController : MonoBehaviour
             uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
             //Sets the length of the spawn point array
             enemySpawnPoints = new Transform[4];
+            FindStarstones();
             //Generates a random number used as an array index and activates the relevant Starstone
             int starstoneIndex = UnityEngine.Random.Range(0, 4);
             starstoneArray[starstoneIndex].GetComponent<StarstoneController>().ActivateEffect();
