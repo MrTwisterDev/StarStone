@@ -12,6 +12,7 @@ public class smallEnemy : enemyBase
 
     void Start()
     {
+
         maxEnemyHP = enemyHP;
         enemyState = enemyStates.hostileState;
         players = GameObject.FindGameObjectsWithTag("Player"); //Array used for multiple player handling (While multiple players aren't originally planned they may be added)

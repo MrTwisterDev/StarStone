@@ -5,14 +5,42 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    //***************************************************************|
+    // Project Name: Temple Imperium                                 |
+    // Script Name: Player Controller                                |
+    // Script Author: James Smale                                    |
+    // Purpose: Handles all aspects of the player, including movement|
+    //          , health, camera controls and physics                |
+    //***************************************************************|
+
+    #region
+    [Header("Physics")]
     public float gravityScale;
     public float gravityMultiplier;
     private float groundDistance;
+    [Space]
+    #endregion
 
-    public float moveSpeed, jumpingMoveSpeed, jumpHeight;
-
+    #region
+    [Header("Movement")]
+    public float moveSpeed;
+    public float jumpingMoveSpeed;
+    public float jumpHeight;
+    [Header("Movement Speed Modifiers")]
+    public float moveSpeedMultiplier;
+    public float crouchingMultiplier;
+    public float sprintingMultiplier;
+    public float swimmingMultiplier;
+    public float wadingMultiplier;
+    public float climbingMultiplier;
+    private float multiplierBeforeJump;
+    private float xInput, yInput, zInput;
     private Vector3 movement;
+    [Space]
+    #endregion
 
+    #region
+    [Header("Health")]
     public float maxHealth;
     public float currentHealth;
     public float healthRegenCutoff;
@@ -20,18 +48,30 @@ public class PlayerController : MonoBehaviour
     public float timeSinceTakenDamage;
     public bool  canRegen;
     public bool  canRegenToMax;
+    [Space]
+    #endregion
 
-    public float moveSpeedMultiplier, crouchingMultiplier, sprintingMultiplier, swimmingMultiplier, wadingMultiplier, climbingMultiplier;
-    private float multiplierBeforeJump;
-
-    private float xInput, yInput, zInput;
-
-    public float mouseX, mouseY, xRotation;
-
+    #region
+    [Header("Camera Controls")]
     public float mouseSensitivity;
+    private float mouseX, mouseY;
+    [HideInInspector]
+    public float xRotation;
+    [Space]
+    #endregion
 
-    public float blinkCooldownTime, blinkCooldownTimeRounded;
-    public float mineRechargeTime, mineRechargeTimeRounded;
+    #region
+    [Header("Abilities")]
+    public float blinkCooldownTime;
+    [HideInInspector]
+    public float blinkCooldownTimeRounded;
+    public float mineRechargeTime;
+    [HideInInspector]
+    public float mineRechargeTimeRounded;
+    public GameObject blinkBall;
+    public GameObject proxMine;
+    [Space]
+    #endregion
 
     private bool isGrounded, isJumping, isSprinting, isCrouching, isWading, isSwimming, isClimbing, canBlink;
 
@@ -39,32 +79,37 @@ public class PlayerController : MonoBehaviour
 
     private RaycastHit interactableObject;
 
-    public Transform weaponHoldPoint, adsHoldPoint;
+    #region
+    [Header("Weapons")]
+    public Transform weaponHoldPoint;
+    public Transform adsHoldPoint;
+    public Transform fistPosition;
     public GameObject[] weaponsArray;
     public GameObject activeWeapon;
     private int activeWeaponIndex;
     private float timeSinceLastPress, prototypeSwapTimeout;
     private bool preparingToSwap;
+    [Space]
+    #endregion
 
-    public GameObject blinkBall;
-    public GameObject proxMine;
-
-    public Transform fistPosition;
     private Animator playerAnimator;
 
-    public UIController uiController;
-    public GameController gameController;
+    private UIController uiController;
+    private GameController gameController;
 
-    public AudioSource walkingSound;
-    public AudioClip punchSound;
+    private AudioSource walkingSound;
+    private AudioClip punchSound;
 
-    public LayerMask groundLayer, ladderLayer;
-
+    #region
+    [Header("Layer Masks")]
+    public LayerMask groundLayer;
+    public LayerMask ladderLayer;
     public LayerMask interactiveLayer;
+    #endregion
 
     private Vector3 currentVelocity, standingScale, crouchingScale;
 
-    public Transform groundChecker, ladderChecker, cameraTransform;
+    private Transform groundChecker, ladderChecker, cameraTransform;
 
     private CharacterController characterController;
 

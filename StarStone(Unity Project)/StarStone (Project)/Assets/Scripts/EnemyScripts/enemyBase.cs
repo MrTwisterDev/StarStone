@@ -6,30 +6,47 @@ using UnityEngine.AI;
 public class enemyBase : MonoBehaviour
 {
 
+    [Header("Instansiated Objects")]
+
     //~James' Work~\\
     public GameObject soulParticles;
     //~~~~~~~~~~~~~~\\
-
     public GameObject projectileToFire;
     public GameObject nearestPlayer;
+
+   
+
     protected NavMeshAgent enemyAgent;
     protected GameObject[] players;
 
-    public float minimumDetectionRadius;
+    [Header ("AI Values")]
+    [Tooltip("The radius of which the enemy will spot the player")]
+    public float detectionRadius;
+    [Tooltip("The minimum distance of which enemies will use projectiles, if a player is closer than this the enemy will use their melee attack")]
     public float minimumProjectileRadius;//If 0 then the player can be anywhere within the maximum radius to throw projectiles
+    [Tooltip("The maximum distance the enemy will use a projectile")]
     public float maximumProjectileRadius;//The distance of which the enemy will try and "shoot" projectiles at the enemy
 
+    [Tooltip("The speed of which a projectile travels in air")]
     public float projectileSpeed;//The speed a projectile will travel
+    [Tooltip("The maximum amount of time until an enemy will fire a projectile")]
     public float attackMaxTimer;//The maximum time it takes for a new projectile to fire/use melee attack
+    [Tooltip("The minimum amount of time until an enemy will fire a projectile")]
     public float attackMinTimer;//The minimum time it takes for a AI to fire a projectile/use melee attack
     [SerializeField] protected float currentTimer;
 
+    [Header("Enemy Stats")]
+    [Tooltip("The amount of Health this enemy has")]
     public float enemyHP;
-    [HideInInspector]public float maxEnemyHP;
-    [SerializeField] protected bool showDebugGizmos = false;
+    [Tooltip("The amount of damage this enemies melee attack deals")]
+    public int meleeDamage;
 
     public bool hasMelee;
-    public int meleeDamage;
+
+    [Header("Debug/Test Options")]
+    [SerializeField] protected bool showDebugGizmos = false;
+    [HideInInspector]public float maxEnemyHP;
+
 
 
     public enum enemyStates
@@ -39,6 +56,10 @@ public class enemyBase : MonoBehaviour
         hostileState //The enemy is agressive and actively seeking the player to kill
     }
 
+    [Tooltip("The amount to buff enemies health when they are health buffed")]
+    [SerializeField]protected float healthBuffAmount; //Amount to buff an enemies health
+    [Tooltip("The amount to intcrease an enemies speed when they are buffed with speed")]
+    [SerializeField]protected float speedBuffAmount; //Amount to buff an enemies speed
     public enum stoneBuffs
     {
         speedBuff,
@@ -48,12 +69,13 @@ public class enemyBase : MonoBehaviour
     }
 
     public enemyStates enemyState;
+    public stoneBuffs enemyPowerup;
 
      void Start()
      {
+   
 
-
-    }
+     }
 
     // Update is called once per frame
     void Update()
@@ -88,7 +110,7 @@ public class enemyBase : MonoBehaviour
 
     public bool detectPlayer()
     {
-        if (minimumDetectionRadius >= getNearestPlayer())
+        if (detectionRadius >= getNearestPlayer())
         {
             Vector3 _Direction = nearestPlayer.transform.position - transform.position;
             RaycastHit hitObject;
@@ -146,12 +168,55 @@ public class enemyBase : MonoBehaviour
         }
     }
 
+    protected void changePowerup(stoneBuffs newBuff)
+    {
+        if(newBuff == enemyPowerup)
+        {
+            return;
+        }
+
+        if(enemyPowerup == stoneBuffs.healthBuff) //If the old buff is changing to a new buff, take back the health
+        {
+            enemyHP -= healthBuffAmount;
+
+        }
+
+        if (enemyPowerup == stoneBuffs.speedBuff) //If the old buff is changing to a new buff, take back the speed
+        {
+            gameObject.GetComponent<NavMeshAgent>().speed -= speedBuffAmount;
+            gameObject.GetComponent<NavMeshAgent>().angularSpeed -= (speedBuffAmount*3);
+        }
+
+        switch (newBuff)
+        {
+            case stoneBuffs.noBuff:
+                enemyPowerup = stoneBuffs.noBuff;
+
+                break;
+            case stoneBuffs.healthBuff:
+                enemyHP += healthBuffAmount;
+                enemyPowerup = stoneBuffs.healthBuff;
+                break;
+            case stoneBuffs.speedBuff:
+                gameObject.GetComponent<NavMeshAgent>().speed += speedBuffAmount;
+                gameObject.GetComponent<NavMeshAgent>().angularSpeed += speedBuffAmount*3;
+
+                enemyPowerup = stoneBuffs.speedBuff;
+                break;
+            case stoneBuffs.fireBuff:
+
+
+                enemyPowerup = stoneBuffs.fireBuff;
+                break;
+        }
+    }
+
     private void OnDrawGizmos()
     {
         if (showDebugGizmos)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(gameObject.transform.position, minimumDetectionRadius);
+            Gizmos.DrawWireSphere(gameObject.transform.position, detectionRadius);
 
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(gameObject.transform.position, minimumProjectileRadius);
