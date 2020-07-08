@@ -73,9 +73,14 @@ public class enemyBase : MonoBehaviour
 
      void Start()
      {
-   
 
-     }
+        maxEnemyHP = enemyHP;
+        enemyState = enemyStates.hostileState;
+        players = GameObject.FindGameObjectsWithTag("Player"); //Array used for multiple player handling (While multiple players aren't originally planned they may be added)
+        enemyAgent = GetComponent<NavMeshAgent>();
+        getNearestPlayer();
+        resetTimer(false);
+    }
 
     // Update is called once per frame
     void Update()
@@ -168,7 +173,7 @@ public class enemyBase : MonoBehaviour
         }
     }
 
-    protected void changePowerup(stoneBuffs newBuff)
+    public void changePowerup(stoneBuffs newBuff)
     {
         if(newBuff == enemyPowerup)
         {
