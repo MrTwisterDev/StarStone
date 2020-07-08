@@ -1089,6 +1089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da3bac6e74c90643b1082bedf861917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameController: {fileID: 0}
   isActiveStarstone: 0
   starstoneCharge: 0
   starstoneType: 2
@@ -4064,6 +4065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da3bac6e74c90643b1082bedf861917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameController: {fileID: 0}
   isActiveStarstone: 0
   starstoneCharge: 0
   starstoneType: 3
@@ -4421,6 +4423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da3bac6e74c90643b1082bedf861917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameController: {fileID: 0}
   isActiveStarstone: 0
   starstoneCharge: 0
   starstoneType: 1
@@ -5459,6 +5462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da3bac6e74c90643b1082bedf861917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameController: {fileID: 0}
   isActiveStarstone: 0
   starstoneCharge: 0
   starstoneType: 0
@@ -6678,6 +6682,8 @@ MonoBehaviour:
   - {fileID: 794810938}
   - {fileID: 778000072}
   activeWeapon: {fileID: 947291036}
+  walkingSound: {fileID: 2097211759}
+  punchSound: {fileID: 8300000, guid: 23cf5400c96ff26488454507952983bf, type: 3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256

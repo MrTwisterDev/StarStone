@@ -216,9 +216,6 @@ public class GameController : MonoBehaviour
             //Sets the length of the spawn point array
             enemySpawnPoints = new Transform[4];
             FindStarstones();
-            //Generates a random number used as an array index and activates the relevant Starstone
-            int starstoneIndex = UnityEngine.Random.Range(0, 4);
-            starstoneArray[starstoneIndex].GetComponent<StarstoneController>().ActivateEffect();
             //Finds all of the enemy spawners in the scene and adds them to the array so they can be accessed randomly in the enemy spawning method
             for (int i = 0; i < enemySpawnPoints.Length; i++)
             {
@@ -266,6 +263,9 @@ public class GameController : MonoBehaviour
             timerActive = true;
             //Updates the wave timer UI element
             uIController.SetBaseTimerValue(waveTimerValue);
+            //Generates a random number used as an array index and activates the relevant Starstone
+            int starstoneIndex = UnityEngine.Random.Range(0, 4);
+            starstoneArray[starstoneIndex].GetComponent<StarstoneController>().ActivateEffect();
         }
         else
         {

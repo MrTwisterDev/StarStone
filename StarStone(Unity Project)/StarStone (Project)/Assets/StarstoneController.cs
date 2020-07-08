@@ -12,12 +12,10 @@ public class StarstoneController : MonoBehaviour
     //          well as their charge level                           |
     //***************************************************************|
 
-    private GameController gameController;
+    public GameController gameController;
 
-    [HideInInspector]
     public bool isActiveStarstone;
 
-    [HideInInspector]
     public float starstoneCharge;
 
     public enum starstoneTypes
@@ -65,6 +63,7 @@ public class StarstoneController : MonoBehaviour
     {
         //Sets the starstone as active and buffs all of the enemies in the scene
         isActiveStarstone = true;
+        if(gameController == null) { gameController = GameObject.Find("GameController").GetComponent<GameController>(); }
         gameController.BuffEnemies((int)starstoneType);
     }
 

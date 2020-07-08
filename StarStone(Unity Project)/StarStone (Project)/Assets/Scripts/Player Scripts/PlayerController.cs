@@ -97,8 +97,8 @@ public class PlayerController : MonoBehaviour
     private UIController uiController;
     private GameController gameController;
 
-    private AudioSource walkingSound;
-    private AudioClip punchSound;
+    public AudioSource walkingSound;
+    public AudioClip punchSound;
 
     #region
     [Header("Layer Masks")]
