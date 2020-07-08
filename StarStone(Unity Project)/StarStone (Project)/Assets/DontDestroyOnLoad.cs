@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class DontDestroyOnLoad : MonoBehaviour
 {
+
+    private static DontDestroyOnLoad dontDestroyScript;
+
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(gameObject);
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if(dontDestroyScript == null)
+        {
+            dontDestroyScript = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

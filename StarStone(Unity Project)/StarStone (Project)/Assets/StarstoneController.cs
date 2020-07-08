@@ -64,7 +64,23 @@ public class StarstoneController : MonoBehaviour
         //Sets the starstone as active and buffs all of the enemies in the scene
         isActiveStarstone = true;
         if(gameController == null) { gameController = GameObject.Find("GameController").GetComponent<GameController>(); }
-        gameController.BuffEnemies((int)starstoneType);
+        switch (starstoneType)
+        {
+            case starstoneTypes.speedStarstone:
+                gameController.currentStarstone = GameController.starstoneEffects.speedEffect;
+                break;
+            case starstoneTypes.healthStarstone:
+                gameController.currentStarstone = GameController.starstoneEffects.healthEffect;
+                break;
+            case starstoneTypes.fireStarstone:
+                gameController.currentStarstone = GameController.starstoneEffects.fireEffect;
+                break;
+            case starstoneTypes.buffStarstone:
+                gameController.currentStarstone = GameController.starstoneEffects.buffEffect;
+                break;
+        }
+        gameController.BuffEnemies();
+        Debug.Log("Buffing enemies.");
     }
 
 }

@@ -135,7 +135,7 @@ MonoBehaviour:
   projectileToFire: {fileID: 1835150139197045866, guid: 43b4515ea9b5c9d4e82bd33ddc1381bc,
     type: 3}
   nearestPlayer: {fileID: 0}
-  minimumDetectionRadius: 41.01
+  detectionRadius: 0
   minimumProjectileRadius: 0
   maximumProjectileRadius: 30
   projectileSpeed: 10
@@ -143,8 +143,11 @@ MonoBehaviour:
   attackMinTimer: 5
   currentTimer: 0
   enemyHP: 10
-  maxEnemyHP: 0
-  showDebugGizmos: 1
-  hasMelee: 0
   meleeDamage: 35
+  hasMelee: 0
+  showDebugGizmos: 1
+  maxEnemyHP: 0
+  healthBuffAmount: 0
+  speedBuffAmount: 2
   enemyState: 0
+  enemyPowerup: 0
