@@ -175,7 +175,7 @@ public class enemyBase : MonoBehaviour
 
     public void changePowerup(stoneBuffs newBuff)
     {
-        Debug.Log("Buffing an enemy!");
+        Debug.Log("Buffing an enemy with " + newBuff.ToString());
         if(newBuff == enemyPowerup)
         {
             return;

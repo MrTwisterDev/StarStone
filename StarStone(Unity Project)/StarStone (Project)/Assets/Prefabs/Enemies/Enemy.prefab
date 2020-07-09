@@ -149,4 +149,4 @@ MonoBehaviour:
   healthBuffAmount: 10
   speedBuffAmount: 4
   enemyState: 0
-  enemyPowerup: 0
+  enemyPowerup: 3

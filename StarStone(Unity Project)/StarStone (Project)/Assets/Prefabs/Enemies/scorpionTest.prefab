@@ -167,7 +167,7 @@ MonoBehaviour:
   healthBuffAmount: 5
   speedBuffAmount: 6
   enemyState: 0
-  enemyPowerup: 0
+  enemyPowerup: 3
 --- !u!65 &187219280486179381
 BoxCollider:
   m_ObjectHideFlags: 0
