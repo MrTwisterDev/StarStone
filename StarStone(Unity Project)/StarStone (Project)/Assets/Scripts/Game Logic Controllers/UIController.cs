@@ -18,6 +18,9 @@ public class UIController : MonoBehaviour
     //Ammo UI Elements
     private Text totalAmmoText;
     private Text currentMagazineAmmoText;
+    //Prototype Weapon UI Elements
+    private Slider prototypeChargeSlider;
+    private Text prototypeChargePercent;
     //Ability UI Elements
     private Text blinkTimerText;
     //Wave Information UI Elements
@@ -99,6 +102,11 @@ public class UIController : MonoBehaviour
     public void UpdateWaveNumber(int waveNumber)
     {
         waveNumberText.text = "Wave " + waveNumber; 
+    }
+
+    public void UpdatePrototypeCharge(int charge)
+    {
+        prototypeChargePercent.text = charge.ToString() + "%";
     }
 
     public void UpdateHealthbar()

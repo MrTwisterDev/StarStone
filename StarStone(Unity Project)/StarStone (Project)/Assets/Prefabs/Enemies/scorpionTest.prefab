@@ -164,7 +164,7 @@ MonoBehaviour:
   hasMelee: 1
   showDebugGizmos: 0
   maxEnemyHP: 0
-  healthBuffAmount: 0
+  healthBuffAmount: 5
   speedBuffAmount: 6
   enemyState: 0
   enemyPowerup: 0

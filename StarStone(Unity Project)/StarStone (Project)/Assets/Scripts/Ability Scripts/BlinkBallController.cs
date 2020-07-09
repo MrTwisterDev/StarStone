@@ -7,6 +7,8 @@ public class BlinkBallController : MonoBehaviour
 
     public LayerMask groundLayer;
 
+    public float lifeTimeRemaining;
+
     private GameObject playerObject;
     private Transform cameraTransform;
 
@@ -24,7 +26,11 @@ public class BlinkBallController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        lifeTimeRemaining -= Time.deltaTime;
+        if(lifeTimeRemaining == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

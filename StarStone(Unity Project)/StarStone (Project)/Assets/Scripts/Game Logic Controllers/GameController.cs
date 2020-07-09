@@ -128,13 +128,17 @@ public class GameController : MonoBehaviour
     [Tooltip("The number of large enemies in the current wave.")]
     public int largeEnemiesInWave;
     private bool timerActive;
+    [Tooltip("The duration of the intermission between waves.")]
     public float intermissionLength;
     private float intermissionTimerValue;
     #endregion
 
     #region
     [Header("Starstones")]
+    [Tooltip("An array of the four Starstones in the scene.")]
     public GameObject[] starstoneArray;
+    [Tooltip("The currently active Starstone powerup effect.")]
+    public starstoneEffects currentStarstone;
     #endregion
 
     private PlayerController playerController;
@@ -156,10 +160,9 @@ public class GameController : MonoBehaviour
         buffEffect
     }
 
+    [Space]
     [Tooltip("The current difficulty setting in the game.")]
     public gameDifficulty currentGameDifficulty;
-
-    public starstoneEffects currentStarstone;
 
     // Start is called before the first frame update
     void Start()
@@ -398,6 +401,7 @@ public class GameController : MonoBehaviour
 
     public void ApplyNewEnemyBuff(enemyBase newEnemy)
     {
+        //Applies the currently activate Starstone powerup to the newly spawned enemy
         switch (currentStarstone)
         {
             case starstoneEffects.speedEffect:
@@ -407,7 +411,7 @@ public class GameController : MonoBehaviour
                 newEnemy.changePowerup(enemyBase.stoneBuffs.healthBuff);
                 break;
             case starstoneEffects.fireEffect:
-                newEnemy.changePowerup(enemyBase.stoneBuffs.healthBuff);
+                newEnemy.changePowerup(enemyBase.stoneBuffs.fireBuff);
                 break;
             case starstoneEffects.buffEffect:
                 newEnemy.changePowerup(enemyBase.stoneBuffs.noBuff);
@@ -419,6 +423,7 @@ public class GameController : MonoBehaviour
     {
         switch(currentStarstone)
         {
+            //Loops through the lists of the different levels of enemy active in the scene and buffs them, depending on the current active Starstone effect
             case starstoneEffects.speedEffect:
                 for(int i = 0; i <= activeSmallEnemies.Count - 1; i++)
                 {
@@ -482,15 +487,19 @@ public class GameController : MonoBehaviour
     {
         float highestCharge = 0;
         int indexToActivate = 0;
+        //Iterates through the starstones in the scene to determine which to activate
         for(int i = 0; i < starstoneArray.Length - 1; i++)
         {
             StarstoneController currentStarstone = starstoneArray[i].GetComponent<StarstoneController>();
+            //If the charge of the current starstone is greater than the previously recorded highest charge, the new charge is assigned to highestCharge
+            //and the array index of the starstone is saved to be activated later
             if(currentStarstone.starstoneCharge > highestCharge)
             {
                 highestCharge = currentStarstone.starstoneCharge;
                 indexToActivate = i;
             }
         }
+        //Once all starstones have been checked, the one with the highest charge is activated
         starstoneArray[indexToActivate].GetComponent<StarstoneController>().ActivateEffect();
     }
 
