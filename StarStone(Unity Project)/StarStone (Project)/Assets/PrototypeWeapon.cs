@@ -59,6 +59,7 @@ public class PrototypeWeapon : MonoBehaviour
     #endregion
 
     private PlayerController playerController;
+    private UIController uIController;
 
     [Tooltip("The layer on which the enemies exist.")]
     public LayerMask enemyLayer;
@@ -79,6 +80,7 @@ public class PrototypeWeapon : MonoBehaviour
     void Start()
     {
         playerController = GameObject.Find("playerCapsule").GetComponent<PlayerController>();
+        uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
 
         weaponCharge = 100;
     }
@@ -159,5 +161,8 @@ public class PrototypeWeapon : MonoBehaviour
         {
             currentWeaponMode = weaponModes.singularityMode;
         }
+
+        uIController.UpdatePrototypeCharge((int)weaponCharge);
+
     }
 }
