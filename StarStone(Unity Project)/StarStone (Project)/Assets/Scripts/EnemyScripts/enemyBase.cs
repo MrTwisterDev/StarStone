@@ -205,7 +205,6 @@ public class enemyBase : MonoBehaviour
                 break;
             case stoneBuffs.speedBuff:
                 gameObject.GetComponent<NavMeshAgent>().speed += speedBuffAmount;
-                Debug.Log("Speed increased");
                 gameObject.GetComponent<NavMeshAgent>().angularSpeed += speedBuffAmount*3;
 
                 enemyPowerup = stoneBuffs.speedBuff;
