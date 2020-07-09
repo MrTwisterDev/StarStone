@@ -10,7 +10,11 @@ public class rocketProjectile : MonoBehaviour
     [Range(0,5)]
     public float angularSpeed;
 
+    public GameObject explosionParticles;
     public GameObject targetedPlayer;
+    public AudioClip rocketExplosionSound;
+    public AudioClip rocketFlyingSound;
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +33,21 @@ public class rocketProjectile : MonoBehaviour
 
         Quaternion rotationToPlayer = Quaternion.LookRotation(targetedPlayer.transform.position - transform.position);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotationToPlayer, (angularSpeed*2) * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotationToPlayer, (angularSpeed) * Time.deltaTime);
         transform.Translate(Vector3.forward * rocketSpeed *Time.deltaTime);
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        try
+        {
+           GameObject _pSystem = Instantiate(explosionParticles,transform.position,Quaternion.identity);
+            _pSystem.GetComponent<AudioSource>().PlayOneShot(rocketExplosionSound);
+        }
+        finally
+        {
+        Destroy(gameObject);
+        }
     }
 }

@@ -49,8 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c6989307ae1fb44a3217b34864825c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rocketSpeed: 0.05
-  angularSpeed: 0
+  rocketSpeed: 9
+  angularSpeed: 3
   targetedPlayer: {fileID: 0}
 --- !u!65 &2488583777793195265
 BoxCollider:
