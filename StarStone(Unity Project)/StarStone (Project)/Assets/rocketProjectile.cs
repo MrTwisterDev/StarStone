@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class rocketProjectile : MonoBehaviour
 {
+   [Range(0,20)]
     public float rocketSpeed;
+
+    [Range(0,5)]
     public float angularSpeed;
 
     public GameObject targetedPlayer;
@@ -23,7 +26,10 @@ public class rocketProjectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(targetedPlayer.transform);
-        transform.Translate(transform.forward * rocketSpeed);
+
+        Quaternion rotationToPlayer = Quaternion.LookRotation(targetedPlayer.transform.position - transform.position);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotationToPlayer, (angularSpeed*2) * Time.deltaTime);
+        transform.Translate(Vector3.forward * rocketSpeed *Time.deltaTime);
     }
 }
