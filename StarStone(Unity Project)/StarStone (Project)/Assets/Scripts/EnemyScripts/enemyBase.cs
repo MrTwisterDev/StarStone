@@ -105,11 +105,12 @@ public class enemyBase : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void fireProjectile()
+    public GameObject fireProjectile()
     {
         GameObject instancedProjectile = Instantiate(projectileToFire, transform.position + new Vector3(0, 0.5f), transform.rotation);
         instancedProjectile.GetComponent<Rigidbody>().AddForce((nearestPlayer.transform.position - transform.position).normalized * (projectileSpeed * 100));
         instancedProjectile.GetComponent<Rigidbody>().AddForce((Physics.gravity/2));
+        return instancedProjectile;
 
     }
 

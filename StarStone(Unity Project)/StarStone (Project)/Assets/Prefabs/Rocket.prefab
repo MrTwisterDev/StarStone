@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1792047795532479797}
   - component: {fileID: 2488583777793195265}
   - component: {fileID: 4836667623296247682}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,6 +34,7 @@ Transform:
   - {fileID: 5025060002062672644}
   - {fileID: 5127289619402527652}
   - {fileID: 1775365651876991639}
+  - {fileID: 3272059238787364947}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -51,7 +52,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rocketSpeed: 9
   angularSpeed: 3
+  explosionParticles: {fileID: 0}
   targetedPlayer: {fileID: 0}
+  rocketExplosionSound: {fileID: 0}
+  rocketFlyingSound: {fileID: 0}
 --- !u!65 &2488583777793195265
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -92,7 +96,7 @@ GameObject:
   - component: {fileID: 2783899348114672002}
   - component: {fileID: 8367505441160915065}
   - component: {fileID: 5433580861111410373}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +175,7 @@ GameObject:
   - component: {fileID: 1775365651876991639}
   - component: {fileID: 5738393235394197661}
   - component: {fileID: 8221460259964332367}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: wingRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +254,7 @@ GameObject:
   - component: {fileID: 5025060002062672644}
   - component: {fileID: 4392413521676370899}
   - component: {fileID: 7618882654302281246}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Exhaust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +333,7 @@ GameObject:
   - component: {fileID: 5127289619402527652}
   - component: {fileID: 3671854240196709117}
   - component: {fileID: 2690127718718207946}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: wingLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,3 +401,88 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1001 &2279554362897811046
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3352358319853063969}
+    m_Modifications:
+    - target: {fileID: 186632293128779926, guid: 9fd2f40da165fc94c8d4ae1048d4fcfa,
+        type: 3}
+      propertyPath: m_Name
+      value: RocketExhaust
+      objectReference: {fileID: 0}
+    - target: {fileID: 186632293128779926, guid: 9fd2f40da165fc94c8d4ae1048d4fcfa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659783926223994421, guid: 9fd2f40da165fc94c8d4ae1048d4fcfa,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659783926223994421, guid: 9fd2f40da165fc94c8d4ae1048d4fcfa,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659783926223994421, guid: 9fd2f40da165fc94c8d4ae1048d4fcfa,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659783926223994421, guid: 9fd2f40da165fc94c8d4ae1048d4fcfa,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659783926223994421, guid: 9fd2f40da165fc94c8d4ae1048d4fcfa,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659783926223994421, guid: 9fd2f40da165fc94c8d4ae1048d4fcfa,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659783926223994421, guid: 9fd2f40da165fc94c8d4ae1048d4fcfa,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659783926223994421, guid: 9fd2f40da165fc94c8d4ae1048d4fcfa,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659783926223994421, guid: 9fd2f40da165fc94c8d4ae1048d4fcfa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659783926223994421, guid: 9fd2f40da165fc94c8d4ae1048d4fcfa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659783926223994421, guid: 9fd2f40da165fc94c8d4ae1048d4fcfa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9133956434577649360, guid: 9fd2f40da165fc94c8d4ae1048d4fcfa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9fd2f40da165fc94c8d4ae1048d4fcfa, type: 3}
+--- !u!4 &3272059238787364947 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3659783926223994421, guid: 9fd2f40da165fc94c8d4ae1048d4fcfa,
+    type: 3}
+  m_PrefabInstance: {fileID: 2279554362897811046}
+  m_PrefabAsset: {fileID: 0}

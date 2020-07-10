@@ -27,7 +27,7 @@ public class large_Enemy : enemyBase
                 currentTimer -= Time.deltaTime;
                 if (currentTimer <= 0 && getNearestPlayer() > minimumProjectileRadius)
                 {
-                    fireProjectile();
+                    fireProjectile().GetComponent<rocketProjectile>().targetedPlayer = nearestPlayer;
                     resetTimer(false);
                 }
                 else if (hasMelee && currentTimer <= 0 && getNearestPlayer() <= minimumProjectileRadius)
