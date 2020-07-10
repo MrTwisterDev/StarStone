@@ -73,9 +73,14 @@ public class enemyBase : MonoBehaviour
 
      void Start()
      {
-   
 
-     }
+        maxEnemyHP = enemyHP;
+        enemyState = enemyStates.hostileState;
+        players = GameObject.FindGameObjectsWithTag("Player"); //Array used for multiple player handling (While multiple players aren't originally planned they may be added)
+        enemyAgent = GetComponent<NavMeshAgent>();
+        getNearestPlayer();
+        resetTimer(false);
+    }
 
     // Update is called once per frame
     void Update()
@@ -100,11 +105,12 @@ public class enemyBase : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void fireProjectile()
+    public GameObject fireProjectile()
     {
         GameObject instancedProjectile = Instantiate(projectileToFire, transform.position + new Vector3(0, 0.5f), transform.rotation);
         instancedProjectile.GetComponent<Rigidbody>().AddForce((nearestPlayer.transform.position - transform.position).normalized * (projectileSpeed * 100));
         instancedProjectile.GetComponent<Rigidbody>().AddForce((Physics.gravity/2));
+        return instancedProjectile;
 
     }
 
@@ -168,8 +174,9 @@ public class enemyBase : MonoBehaviour
         }
     }
 
-    protected void changePowerup(stoneBuffs newBuff)
+    public void changePowerup(stoneBuffs newBuff)
     {
+        Debug.Log("Buffing an enemy with " + newBuff.ToString());
         if(newBuff == enemyPowerup)
         {
             return;

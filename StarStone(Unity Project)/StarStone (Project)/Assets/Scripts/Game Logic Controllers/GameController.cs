@@ -128,11 +128,18 @@ public class GameController : MonoBehaviour
     [Tooltip("The number of large enemies in the current wave.")]
     public int largeEnemiesInWave;
     private bool timerActive;
+    [Tooltip("The duration of the intermission between waves.")]
     public float intermissionLength;
     private float intermissionTimerValue;
     #endregion
 
-    private GameObject[] starstoneArray;
+    #region
+    [Header("Starstones")]
+    [Tooltip("An array of the four Starstones in the scene.")]
+    public GameObject[] starstoneArray;
+    [Tooltip("The currently active Starstone powerup effect.")]
+    public starstoneEffects currentStarstone;
+    #endregion
 
     private PlayerController playerController;
     private UIController uIController;
@@ -145,6 +152,15 @@ public class GameController : MonoBehaviour
 
     };
 
+    public enum starstoneEffects
+    {
+        speedEffect,
+        healthEffect,
+        fireEffect,
+        buffEffect
+    }
+
+    [Space]
     [Tooltip("The current difficulty setting in the game.")]
     public gameDifficulty currentGameDifficulty;
 
@@ -166,6 +182,8 @@ public class GameController : MonoBehaviour
         canSpawnEnemy = true;
         //Sets the value of the intermission timer to the value input in the inspector
         intermissionTimerValue = intermissionLength;
+
+        starstoneArray = new GameObject[4];
 
         //Thomas' Work//
         activeSmallEnemies = new List<GameObject>();
@@ -210,8 +228,9 @@ public class GameController : MonoBehaviour
             uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
             //Sets the length of the spawn point array
             enemySpawnPoints = new Transform[4];
+            FindStarstones();
             //Finds all of the enemy spawners in the scene and adds them to the array so they can be accessed randomly in the enemy spawning method
-            for(int i = 0; i < enemySpawnPoints.Length; i++)
+            for (int i = 0; i < enemySpawnPoints.Length; i++)
             {
                 enemySpawnPoints[i] = GameObject.Find("EnemySpawner" + i).GetComponent<Transform>();
             }
@@ -257,6 +276,9 @@ public class GameController : MonoBehaviour
             timerActive = true;
             //Updates the wave timer UI element
             uIController.SetBaseTimerValue(waveTimerValue);
+            //Generates a random number used as an array index and activates the relevant Starstone
+            int starstoneIndex = UnityEngine.Random.Range(0, 4);
+            starstoneArray[starstoneIndex].GetComponent<StarstoneController>().ActivateEffect();
         }
         else
         {
@@ -264,6 +286,14 @@ public class GameController : MonoBehaviour
             isInGame = false;                           //Prevents game timers and enemy spawning methods from being executed
             timerActive = false;
         }
+    }
+
+    public void FindStarstones()
+    {
+        starstoneArray[0] = GameObject.Find("HealthStarstone");
+        starstoneArray[1] = GameObject.Find("BuffStarstone");
+        starstoneArray[2] = GameObject.Find("SpeedStarstone");
+        starstoneArray[3] = GameObject.Find("FireStarstone");
     }
 
     public void NextWave()
@@ -346,85 +376,131 @@ public class GameController : MonoBehaviour
         if (activeSmallEnemies.Count < maxSmallEnemies && canSpawnEnemy && smallEnemiesSpawned + 1 <= smallEnemiesInWave)
         {
             activeSmallEnemies.Add(Instantiate(levelOneEnemy, pointToSpawn.position, Quaternion.identity));
+            enemyBase newEnemy = activeSmallEnemies[activeSmallEnemies.Count - 1].GetComponent<enemyBase>();
+            ApplyNewEnemyBuff(newEnemy);
             smallEnemiesSpawned++;
             canSpawnEnemy = false;
         }
         if(activeMediumEnemies.Count < maxMediumEnemies && canSpawnEnemy && mediumEnemiesSpawned + 1 <= mediumEnemiesInWave)
         {
             activeMediumEnemies.Add(Instantiate(levelTwoEnemy, pointToSpawn.position, Quaternion.identity));
+            enemyBase newEnemy = activeMediumEnemies[activeMediumEnemies.Count - 1].GetComponent<enemyBase>();
+            ApplyNewEnemyBuff(newEnemy);
             mediumEnemiesSpawned++;
             canSpawnEnemy = false;
         }
         if(activeLargeEnemies.Count < maxLargeEnemies && canSpawnEnemy && largeEnemiesSpawned + 1 <= largeEnemiesInWave)
         {
             activeLargeEnemies.Add(Instantiate(levelThreeEnemy, pointToSpawn.position, Quaternion.identity));
+            enemyBase newEnemy = activeLargeEnemies[activeLargeEnemies.Count - 1].GetComponent<enemyBase>();
+            ApplyNewEnemyBuff(newEnemy);
             largeEnemiesSpawned++;
             canSpawnEnemy = false;
         }
     }
 
-    public void BuffEnemies(int activeBuff)
+    public void ApplyNewEnemyBuff(enemyBase newEnemy)
     {
-        switch (activeBuff)
+        //Applies the currently activate Starstone powerup to the newly spawned enemy
+        switch (currentStarstone)
         {
-            case 0:
+            case starstoneEffects.speedEffect:
+                newEnemy.changePowerup(enemyBase.stoneBuffs.speedBuff);
+                break;
+            case starstoneEffects.healthEffect:
+                newEnemy.changePowerup(enemyBase.stoneBuffs.healthBuff);
+                break;
+            case starstoneEffects.fireEffect:
+                newEnemy.changePowerup(enemyBase.stoneBuffs.fireBuff);
+                break;
+            case starstoneEffects.buffEffect:
+                newEnemy.changePowerup(enemyBase.stoneBuffs.noBuff);
+                break;
+        }
+    }
+
+    public void BuffEnemies()
+    {
+        switch(currentStarstone)
+        {
+            //Loops through the lists of the different levels of enemy active in the scene and buffs them, depending on the current active Starstone effect
+            case starstoneEffects.speedEffect:
                 for(int i = 0; i <= activeSmallEnemies.Count - 1; i++)
                 {
-                    NavMeshAgent enemyAgent = activeSmallEnemies[i].GetComponent<NavMeshAgent>();
-                    enemyAgent.speed = 6;
+                    activeSmallEnemies[i].GetComponent<enemyBase>().changePowerup(enemyBase.stoneBuffs.speedBuff);
                 }
                 for(int j = 0; j <= activeMediumEnemies.Count - 1; j++)
                 {
-                    NavMeshAgent enemyAgent = activeMediumEnemies[j].GetComponent<NavMeshAgent>();
-                    enemyAgent.speed = 5;
+                    activeMediumEnemies[j].GetComponent<enemyBase>().changePowerup(enemyBase.stoneBuffs.speedBuff);
                 }
                 for(int k = 0; k <= activeLargeEnemies.Count - 1; k++)
                 {
-                    NavMeshAgent enemyAgent = activeLargeEnemies[k].GetComponent<NavMeshAgent>();
-                    enemyAgent.speed = 5;
+                    activeLargeEnemies[k].GetComponent<enemyBase>().changePowerup(enemyBase.stoneBuffs.speedBuff);
                 }
                 break;
-            case 1:
-                for(int i = 0; i <= activeSmallEnemies.Count - 1; i++)
+            case starstoneEffects.healthEffect:
+                for (int i = 0; i <= activeSmallEnemies.Count - 1; i++)
                 {
-                    smallEnemy enemyController = activeSmallEnemies[i].GetComponent<smallEnemy>();
-                    enemyController.maxEnemyHP += 10;
-                    if(enemyController.enemyHP >= enemyController.maxEnemyHP - 10) 
-                    {
-                        enemyController.enemyHP = enemyController.maxEnemyHP;
-                    }
+                    activeSmallEnemies[i].GetComponent<enemyBase>().changePowerup(enemyBase.stoneBuffs.healthBuff);
                 }
-                for(int j = 0; j <= activeMediumEnemies.Count - 1; j++)
+                for (int j = 0; j <= activeMediumEnemies.Count - 1; j++)
                 {
-                    mediumEnemy enemyController = activeMediumEnemies[j].GetComponent<mediumEnemy>();
-                    enemyController.maxEnemyHP += 10;
-                    if(enemyController.enemyHP >= enemyController.maxEnemyHP - 10)
-                    {
-                        enemyController.enemyHP = enemyController.maxEnemyHP;
-                    }
+                    activeMediumEnemies[j].GetComponent<enemyBase>().changePowerup(enemyBase.stoneBuffs.healthBuff);
                 }
-                for(int k = 0; k <= activeLargeEnemies.Count - 1; k++)
+                for (int k = 0; k <= activeLargeEnemies.Count - 1; k++)
                 {
-                    mediumEnemy enemyController = activeLargeEnemies[k].GetComponent<mediumEnemy>();
-                    enemyController.maxEnemyHP += 10;
-                    if(enemyController.enemyHP >= enemyController.maxEnemyHP)
-                    {
-                        enemyController.enemyHP = enemyController.maxEnemyHP;
-                    }
+                    activeLargeEnemies[k].GetComponent<enemyBase>().changePowerup(enemyBase.stoneBuffs.healthBuff);
                 }
                 break;
-            case 2:
-                //do another thing
+            case starstoneEffects.fireEffect:
+                for (int i = 0; i <= activeSmallEnemies.Count - 1; i++)
+                {
+                    activeSmallEnemies[i].GetComponent<enemyBase>().changePowerup(enemyBase.stoneBuffs.fireBuff);
+                }
+                for (int j = 0; j <= activeMediumEnemies.Count - 1; j++)
+                {
+                    activeMediumEnemies[j].GetComponent<enemyBase>().changePowerup(enemyBase.stoneBuffs.fireBuff);
+                }
+                for (int k = 0; k <= activeLargeEnemies.Count - 1; k++)
+                {
+                    activeLargeEnemies[k].GetComponent<enemyBase>().changePowerup(enemyBase.stoneBuffs.fireBuff);
+                }
                 break;
-            case 3:
-                //do a final thing
+            case starstoneEffects.buffEffect:
+                for (int i = 0; i <= activeSmallEnemies.Count - 1; i++)
+                {
+                    activeSmallEnemies[i].GetComponent<enemyBase>().changePowerup(enemyBase.stoneBuffs.noBuff);
+                }
+                for (int j = 0; j <= activeMediumEnemies.Count - 1; j++)
+                {
+                    activeMediumEnemies[j].GetComponent<enemyBase>().changePowerup(enemyBase.stoneBuffs.noBuff);
+                }
+                for (int k = 0; k <= activeLargeEnemies.Count - 1; k++)
+                {
+                    activeLargeEnemies[k].GetComponent<enemyBase>().changePowerup(enemyBase.stoneBuffs.noBuff);
+                }
                 break;
         }
     }
 
     public void ActivateNewStarstone()
     {
-        //Activate the next highest charged starstone
+        float highestCharge = 0;
+        int indexToActivate = 0;
+        //Iterates through the starstones in the scene to determine which to activate
+        for(int i = 0; i < starstoneArray.Length - 1; i++)
+        {
+            StarstoneController currentStarstone = starstoneArray[i].GetComponent<StarstoneController>();
+            //If the charge of the current starstone is greater than the previously recorded highest charge, the new charge is assigned to highestCharge
+            //and the array index of the starstone is saved to be activated later
+            if(currentStarstone.starstoneCharge > highestCharge)
+            {
+                highestCharge = currentStarstone.starstoneCharge;
+                indexToActivate = i;
+            }
+        }
+        //Once all starstones have been checked, the one with the highest charge is activated
+        starstoneArray[indexToActivate].GetComponent<StarstoneController>().ActivateEffect();
     }
 
     public void ChangeDifficulty(int difficulty)

@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Prototype
   - Protoype
+  - starStoneController
   layers:
   - Default
   - TransparentFX

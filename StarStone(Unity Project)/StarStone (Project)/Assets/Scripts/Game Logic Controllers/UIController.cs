@@ -18,6 +18,9 @@ public class UIController : MonoBehaviour
     //Ammo UI Elements
     private Text totalAmmoText;
     private Text currentMagazineAmmoText;
+    //Prototype Weapon UI Elements
+    private Slider prototypeChargeSlider;
+    private Text prototypeChargePercent;
     //Ability UI Elements
     private Text blinkTimerText;
     //Wave Information UI Elements
@@ -36,6 +39,9 @@ public class UIController : MonoBehaviour
 
         totalAmmoText = GameObject.Find("TotalAmmoValue").GetComponent<Text>();
         currentMagazineAmmoText = GameObject.Find("CurrentMagazineAmmo").GetComponent<Text>();
+
+        prototypeChargeSlider = GameObject.Find("PrototypeCharge").GetComponent<Slider>();
+        prototypeChargePercent = GameObject.Find("PrototypeChargeValue").GetComponent<Text>();
 
         blinkTimerText = GameObject.Find("BlinkCooldownTimer").GetComponent<Text>();
 
@@ -99,6 +105,14 @@ public class UIController : MonoBehaviour
     public void UpdateWaveNumber(int waveNumber)
     {
         waveNumberText.text = "Wave " + waveNumber; 
+    }
+
+    public void UpdatePrototypeCharge(int charge)
+    {
+        //Updates the text representation of Starstone charge to the current value
+        prototypeChargePercent.text = charge.ToString() + "%";
+        //Updates the value of the slider to reflect the charge of the Starstone
+        prototypeChargeSlider.value = charge;
     }
 
     public void UpdateHealthbar()

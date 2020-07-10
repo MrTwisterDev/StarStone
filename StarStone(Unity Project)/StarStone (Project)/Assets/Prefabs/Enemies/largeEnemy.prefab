@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5943778680241642382}
   - component: {fileID: 5943778680241642383}
   - component: {fileID: 5943778680241642368}
-  - component: {fileID: 6747359559128684610}
+  - component: {fileID: -590713126386003380}
   m_Layer: 16
   m_Name: largeEnemy
   m_TagString: Enemy
@@ -118,7 +118,7 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6747359559128684610
+--- !u!114 &-590713126386003380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,24 +127,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 5943778680241642370}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e8b15486dc28de4c9179b8e0d042275, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fe32438cb4881147b271751c7ecefe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   soulParticles: {fileID: 7636042114336898745, guid: 62227d390de06c04194ddd68c0c5e457,
     type: 3}
-  projectileToFire: {fileID: 1835150139197045866, guid: 43b4515ea9b5c9d4e82bd33ddc1381bc,
+  projectileToFire: {fileID: 1792047795532479794, guid: 16f310bf136f16f408cd7ca9effc70c7,
     type: 3}
   nearestPlayer: {fileID: 0}
-  minimumDetectionRadius: 41.01
-  minimumProjectileRadius: 0
+  detectionRadius: 30
+  minimumProjectileRadius: 2
   maximumProjectileRadius: 30
-  projectileSpeed: 10
+  projectileSpeed: 0
   attackMaxTimer: 10
-  attackMinTimer: 5
+  attackMinTimer: 7.5
   currentTimer: 0
-  enemyHP: 10
-  maxEnemyHP: 0
-  showDebugGizmos: 1
+  enemyHP: 20
+  meleeDamage: 20
   hasMelee: 0
-  meleeDamage: 35
+  showDebugGizmos: 0
+  maxEnemyHP: 0
+  healthBuffAmount: 0
+  speedBuffAmount: 0
   enemyState: 0
+  enemyPowerup: 0

@@ -1,21 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class smallEnemy : enemyBase
+public class large_Enemy : enemyBase
 {
-
-
-
-
-
+    // Start is called before the first frame update
 
 
     // Update is called once per frame
     void Update()
     {
-
         switch (enemyState)
         {
             case enemyStates.idleState:
@@ -33,10 +27,10 @@ public class smallEnemy : enemyBase
                 currentTimer -= Time.deltaTime;
                 if (currentTimer <= 0 && getNearestPlayer() > minimumProjectileRadius)
                 {
-                    fireProjectile();
+                    fireProjectile().GetComponent<rocketProjectile>().targetedPlayer = nearestPlayer;
                     resetTimer(false);
                 }
-                else if(hasMelee && currentTimer <= 0 && getNearestPlayer() <= minimumProjectileRadius)
+                else if (hasMelee && currentTimer <= 0 && getNearestPlayer() <= minimumProjectileRadius)
                 {
                     Debug.Log(gameObject.name + " Attacks dealing: " + meleeDamage + " Damage!!");
                     meleePlayer();
@@ -45,6 +39,4 @@ public class smallEnemy : enemyBase
                 break;
         }
     }
-
-
 }

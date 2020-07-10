@@ -97,8 +97,8 @@ public class PlayerController : MonoBehaviour
     private UIController uiController;
     private GameController gameController;
 
-    private AudioSource walkingSound;
-    private AudioClip punchSound;
+    public AudioSource walkingSound;
+    public AudioClip punchSound;
 
     #region
     [Header("Layer Masks")]
@@ -302,8 +302,18 @@ public class PlayerController : MonoBehaviour
 
         if(InteractWithObject() && Input.GetKeyDown(KeyCode.E))
         {
-            StarstoneController starstone = interactableObject.collider.gameObject.GetComponent<StarstoneController>();
-            starstone.ActivateEffect();
+            if (interactableObject.collider.gameObject.GetComponent<StarstoneController>() != null)
+            {
+                StarstoneController starstone = interactableObject.collider.gameObject.GetComponent<StarstoneController>();
+                starstone.ActivateEffect();
+            }
+
+
+            //TESTING REMOVE IF NOT WANTED
+            if (interactableObject.collider.gameObject.GetComponent<StarStoneBase>() != null)
+            {
+                interactableObject.collider.gameObject.GetComponent<StarStoneBase>().ActivateStarStone();
+            }
         }
 
         if (Input.GetMouseButton(1))
