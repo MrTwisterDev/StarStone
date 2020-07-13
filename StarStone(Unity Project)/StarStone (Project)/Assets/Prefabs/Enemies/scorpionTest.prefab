@@ -58,7 +58,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8472320929289863086}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 50.834496, y: 6.847812, z: 48.35163}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -160,7 +160,7 @@ MonoBehaviour:
   attackMinTimer: 1.5
   currentTimer: 0
   enemyHP: 2
-  meleeDamage: 20
+  meleeDamage: 15
   hasMelee: 1
   showDebugGizmos: 0
   maxEnemyHP: 0
