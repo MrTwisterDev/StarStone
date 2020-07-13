@@ -8,6 +8,7 @@ public class blkHoleStarStone : StarStoneBase
     {
         base.Start();
         StoneWeaponAffect = PrototypeWeapon.weaponModes.singularityMode;
+        StoneEnemyAffect = enemyBase.stoneBuffs.blackHole;
     }
 
     // Update is called once per frame

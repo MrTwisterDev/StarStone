@@ -144,6 +144,9 @@ public class GameController : MonoBehaviour
     private PlayerController playerController;
     private UIController uIController;
 
+    public List<GameObject> enemiesList = new List<GameObject>(); //Tom's work
+    public bool enemiesSpawned = false; //Tom's work
+
     public enum gameDifficulty
     {
         easyDifficulty,
@@ -229,6 +232,7 @@ public class GameController : MonoBehaviour
             //Sets the length of the spawn point array
             enemySpawnPoints = new Transform[4];
             FindStarstones();
+
             //Finds all of the enemy spawners in the scene and adds them to the array so they can be accessed randomly in the enemy spawning method
             for (int i = 0; i < enemySpawnPoints.Length; i++)
             {
@@ -303,6 +307,7 @@ public class GameController : MonoBehaviour
         smallEnemiesSpawned = 0;
         mediumEnemiesSpawned = 0;
         largeEnemiesSpawned = 0;
+        enemiesList.Clear();
         //Resets the game's wave timer to its initial value
         waveTimerValue = gameWaveTime;
         currentWave++;
@@ -397,6 +402,18 @@ public class GameController : MonoBehaviour
             largeEnemiesSpawned++;
             canSpawnEnemy = false;
         }
+        enemiesSpawned = true;
+
+        //Tom's work
+        if (enemiesSpawned)
+        {
+            enemiesList.AddRange(activeSmallEnemies);
+            enemiesList.AddRange(activeMediumEnemies);
+            enemiesList.AddRange(activeLargeEnemies);
+            GameObject.FindWithTag("starStoneController").GetComponent<starStoneControllerRework>().enemyList = enemiesList;
+            enemiesSpawned = false;
+        }
+
     }
 
     public void ApplyNewEnemyBuff(enemyBase newEnemy)

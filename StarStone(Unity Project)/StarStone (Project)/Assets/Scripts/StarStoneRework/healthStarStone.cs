@@ -9,6 +9,8 @@ public class healthStarStone : StarStoneBase
     {
         base.Start();
         StoneWeaponAffect = PrototypeWeapon.weaponModes.vampireMode;
+        StoneEnemyAffect = enemyBase.stoneBuffs.healthBuff;
+
     }
 
     // Update is called once per frame

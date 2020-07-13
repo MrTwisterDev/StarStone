@@ -347,7 +347,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             baseWeaponClass _currentWeaponScript = weaponsArray[activeWeaponIndex].GetComponent<baseWeaponClass>();
-            _currentWeaponScript.reloadWeapon();
+            weaponsArray[activeWeaponIndex].GetComponent<Animator>().Play("Reload");
             uiController.UpdateAmmoText();
         }
 
