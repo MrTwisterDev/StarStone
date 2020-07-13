@@ -65,6 +65,7 @@ public class enemyBase : MonoBehaviour
         speedBuff,
         healthBuff,
         fireBuff,
+        blackHole,
         noBuff
     }
 

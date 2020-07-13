@@ -8,6 +8,8 @@ public class fireStarStone : StarStoneBase
     {
         base.Start();
         StoneWeaponAffect = PrototypeWeapon.weaponModes.flamethrowerMode;
+        StoneEnemyAffect = enemyBase.stoneBuffs.fireBuff;
+
     }
 
     // Update is called once per frame

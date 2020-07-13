@@ -16,15 +16,14 @@ public class StarStoneBase : MonoBehaviour
     [Tooltip("The multiplier used to calculate the recharge rate of the selected Starstone.")]
     public float rechargeMultiplier;
 
-    protected GameObject starStoneController;
-    protected GameObject[] weaponsToEffect = new GameObject[1];
+    public GameObject starStoneController;
+    public GameObject[] weaponsToEffect = new GameObject[1];
 
     protected PrototypeWeapon.weaponModes StoneWeaponAffect;
+    protected enemyBase.stoneBuffs StoneEnemyAffect;
 
     public void Start()
     {
-        starStoneController = GameObject.FindGameObjectWithTag("starStoneController");
-        weaponsToEffect[0] = starStoneController.GetComponent<starStoneControllerRework>().protoTypeWeapon;
         starstoneCharge = 100f;
     }
 
@@ -62,6 +61,7 @@ public class StarStoneBase : MonoBehaviour
             if (weapon.GetComponent<PrototypeWeapon>() != null)
             {
                 weapon.GetComponent<PrototypeWeapon>().currentWeaponMode = StoneWeaponAffect;
+                starStoneController.GetComponent<starStoneControllerRework>().changeElement(StoneEnemyAffect);
             }
         }
     }

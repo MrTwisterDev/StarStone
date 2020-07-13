@@ -8,6 +8,7 @@ public class speedStarStone : StarStoneBase
     {
         base.Start();
         StoneWeaponAffect = PrototypeWeapon.weaponModes.minigunMode;
+        StoneEnemyAffect = enemyBase.stoneBuffs.speedBuff;
     }
 
     // Update is called once per frame
