@@ -52,23 +52,5 @@ public class baseWeaponClass : MonoBehaviour
         }*/
     }
 
-    public void reloadWeapon()
-    {
-        if(magazineCapacity == currentBullets)
-        {
-            return;
-        }
 
-        if (totalBullets >= magazineCapacity)
-        {
-            currentBullets = magazineCapacity;
-        }
-        else if(totalBullets < magazineCapacity)
-        {
-            currentBullets = totalBullets;
-        }
-
-        
-
-    }
 }

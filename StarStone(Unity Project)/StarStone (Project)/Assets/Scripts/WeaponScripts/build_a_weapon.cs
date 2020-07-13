@@ -146,4 +146,23 @@ public class build_a_weapon : baseWeaponClass
 
     }
 
+    public void reloadWeapon()
+    {
+        if (magazineCapacity == currentBullets)
+        {
+            return;
+        }
+
+        if (totalBullets >= magazineCapacity)
+        {
+            currentBullets = magazineCapacity;
+        }
+        else if (totalBullets < magazineCapacity)
+        {
+            currentBullets = totalBullets;
+        }
+
+        uiController.UpdateAmmoText();
+    }
+
 }
