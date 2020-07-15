@@ -140,10 +140,10 @@ MonoBehaviour:
   maximumProjectileRadius: 30
   projectileSpeed: 0
   attackMaxTimer: 10
-  attackMinTimer: 7.5
+  attackMinTimer: 3
   currentTimer: 0
   enemyHP: 20
-  meleeDamage: 20
+  meleeDamage: 34
   hasMelee: 0
   showDebugGizmos: 0
   maxEnemyHP: 0

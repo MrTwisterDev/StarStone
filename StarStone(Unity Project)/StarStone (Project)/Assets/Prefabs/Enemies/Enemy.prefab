@@ -138,11 +138,11 @@ MonoBehaviour:
   minimumProjectileRadius: 2
   maximumProjectileRadius: 5
   projectileSpeed: 0
-  attackMaxTimer: 5
+  attackMaxTimer: 2
   attackMinTimer: 2
   currentTimer: 0
-  enemyHP: 5
-  meleeDamage: 35
+  enemyHP: 15
+  meleeDamage: 10
   hasMelee: 1
   showDebugGizmos: 1
   maxEnemyHP: 0
