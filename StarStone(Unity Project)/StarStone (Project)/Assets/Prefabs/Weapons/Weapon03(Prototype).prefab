@@ -140,27 +140,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponCharge: 0
   weaponRechargeMultiplier: 10
+  chargeRange: 2
   minigunRange: 10
   minigunChargeUsage: 0.15
   minigunDamage: 0.75
+  minigunSound: {fileID: 8300000, guid: 3d0b0721c828fe347a329843502a73a4, type: 3}
   vampireRange: 15
   vampireChargeUsage: 1.5
   vampireDamage: 2
   vampireDrain: 10
+  isVampireSingleShot: 1
+  vampireSound: {fileID: 8300000, guid: 8e9e9fdad277a2a408056bf4e02f2703, type: 3}
   grenadeLauncherChargeUsage: 25
   grenadeProjectile: {fileID: 8290254636570083106, guid: 431047d4291366a4b8cccd14b0c46bc8,
     type: 3}
   grenadeLaunch: {fileID: 8300000, guid: 593f5152df5c8af4780b1fb858af4169, type: 3}
   singularityChargeUsage: 50
-  muzzleTransform: {fileID: 2090666062332639981}
-  chargeRange: 2
+  singularityProjectile: {fileID: 0}
+  singularityLaunch: {fileID: 8300000, guid: e422e2e2eb09e814ca12b9e5afde62f4, type: 3}
   starstoneLayer:
     serializedVersion: 2
     m_Bits: 16384
-  weaponSound: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 65536
+  weaponSound: {fileID: 0}
+  muzzleTransform: {fileID: 2090666062332639981}
   speedColour: {r: 0, g: 0, b: 0, a: 0}
   healthColour: {r: 0, g: 0, b: 0, a: 0}
   fireColour: {r: 0, g: 0, b: 0, a: 0}
@@ -177,7 +182,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
