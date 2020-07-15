@@ -8,6 +8,8 @@ public class ExplosiveRound : MonoBehaviour
     private Rigidbody rigidBody;
     private Transform cameraTransform;
 
+    public AudioClip explosion;
+
     public float areaOfEffect;
     public float launchForce;
     public float explosionDamage;
@@ -30,10 +32,18 @@ public class ExplosiveRound : MonoBehaviour
                 if (enemyCollider.GetComponent<enemyBase>() != null)
                 {
                     enemyBase enemyToDamage = enemyCollider.GetComponent<enemyBase>();
-                    enemyToDamage.isBurning = true;
+                    if (!enemyToDamage.isBurning)
+                    {
+                        enemyToDamage.isBurning = true;
+                    }
+                    else
+                    {
+                        enemyToDamage.burnTimer = enemyToDamage.burnTime;
+                    }
                     enemyToDamage.takeDamage(explosionDamage);
                 }
             }
+            AudioSource.PlayClipAtPoint(explosion, transform.position);
             Destroy(gameObject);
         }
     }

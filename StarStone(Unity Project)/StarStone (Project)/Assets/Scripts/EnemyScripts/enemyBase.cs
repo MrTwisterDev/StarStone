@@ -49,7 +49,8 @@ public class enemyBase : MonoBehaviour
     public float burnDamage;
     [Tooltip("The amount of time for which an enemy will burn.")]
     public float burnTime;
-    private float burnTimer;
+    [HideInInspector]
+    public float burnTimer;
     [Tooltip("Determines whether or not an enemy should take burn damage.")]
     public bool isBurning;
     public ParticleSystem burnParticles;

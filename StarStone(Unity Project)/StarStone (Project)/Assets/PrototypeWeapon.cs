@@ -49,6 +49,7 @@ public class PrototypeWeapon : MonoBehaviour
     [Tooltip("The amount of charge the grenade launcher uses per shot.")]
     public float grenadeLauncherChargeUsage;
     public GameObject grenadeProjectile;
+    public AudioClip grenadeLaunch;
     [Space]
     #endregion
 
@@ -66,6 +67,7 @@ public class PrototypeWeapon : MonoBehaviour
     public Transform muzzleTransform;
     public float chargeRange;
     public LayerMask starstoneLayer;
+    public AudioSource weaponSound;
 
     [Tooltip("The layer on which the enemies exist.")]
     public LayerMask enemyLayer;
@@ -98,6 +100,8 @@ public class PrototypeWeapon : MonoBehaviour
         healthColour = Color.green;
         fireColour = Color.red;
         singularityColor = Color.magenta;
+
+        weaponSound = gameObject.GetComponent<AudioSource>();
 
         uIController.UpdatePrototypeSliderColour(speedColour);
 
@@ -144,6 +148,7 @@ public class PrototypeWeapon : MonoBehaviour
     {
         if (weaponCharge - grenadeLauncherChargeUsage >= 0)
         {
+            weaponSound.Play();
             Instantiate(grenadeProjectile, muzzleTransform.position, Quaternion.identity);
             weaponCharge -= grenadeLauncherChargeUsage;
         }
@@ -234,6 +239,7 @@ public class PrototypeWeapon : MonoBehaviour
                             break;
                         case weaponModes.grenadeLauncherMode:
                             currentWeaponMode = newWeaponMode;
+                            weaponSound.clip = grenadeLaunch;
                             uIController.UpdatePrototypeSliderColour(fireColour);
                             weaponCharge = 0f;
                             break;
