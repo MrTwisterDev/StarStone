@@ -33,10 +33,21 @@ public class SingularityProjectile : PrototypeProjectileBase
         blackHoleDuration -= Time.deltaTime;
         if(blackHoleDuration <= 0)
         {
+            //Loops through all the enemies affected by the black hole and disables the physics simulation of their rigidbodies to prevent strange physics interactions
+            Collider[] enemiesAffected = Physics.OverlapSphere(transform.position, areaOfEffect);
+            foreach(Collider enemyToAffect in enemiesAffected)
+            {
+                if(enemyToAffect.GetComponent<enemyBase>() != null)
+                {
+                    enemyToAffect.GetComponent<Rigidbody>().isKinematic = true;
+                }
+            }
+            //Destroys the Singulairty gameobject
             Destroy(gameObject);
         }
         else
         {
+            //Loops through all enemies within a sphere of influence each frame
             Collider[] enemiesAffected = Physics.OverlapSphere(transform.position, areaOfEffect);
             foreach(Collider enemyToAffect in enemiesAffected)
             {
@@ -46,10 +57,18 @@ public class SingularityProjectile : PrototypeProjectileBase
                     Rigidbody currentEnemyRigidbody = enemyToAffect.GetComponent<Rigidbody>();
                     GameObject currentEnemy = enemyToAffect.gameObject;
 
+                    //Determines the direction in which the black hole is in relation to the enemy
                     Vector3 direction = (transform.position - currentEnemy.transform.position).normalized;
                     Vector3 position = currentEnemy.transform.position;
                     Debug.DrawLine(position, position + direction * 10);
 
+                    //Enables physics simulation of the enemy's rigidbody
+                    if (currentEnemyRigidbody.isKinematic)
+                    {
+                        currentEnemyRigidbody.isKinematic = false;
+                    }
+
+                    //Damages the enemy and pulls them towards the center of the black hole
                     currentEnemyController.takeDamage(damageToDeal);
                     currentEnemyRigidbody.AddForce(direction * 10);
                 }
