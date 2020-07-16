@@ -159,7 +159,10 @@ MonoBehaviour:
   enemyState: 0
   enemyPowerup: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 0d94a97... Singularity Work
 --- !u!1 &8149220642241224762
 GameObject:
   m_ObjectHideFlags: 0
