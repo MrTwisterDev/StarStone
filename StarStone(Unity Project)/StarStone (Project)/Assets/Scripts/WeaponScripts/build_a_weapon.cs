@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class build_a_weapon : baseWeaponClass
 {
-    public AudioClip[] gunshotNoises;
-    public AudioClip[] reloadSound;
 
     public enum typesOfWeapon
     {
@@ -25,7 +23,6 @@ public class build_a_weapon : baseWeaponClass
     private float timeTillBullet;
     private float currentTimeTillBullet;
 
-
     [HideInInspector]public bool spreadShotLock; //If true don't allow shooting until mouse0 is lifted
 
     public GameObject projectileFired; //What projectile should this weapon fire
@@ -37,7 +34,6 @@ public class build_a_weapon : baseWeaponClass
     {
         timeTillBullet = 1/roundsPerSecond; //Calculates the fire rate
         currentTimeTillBullet = 0;//Makes the first show not have any fire time
-        weaponAudioSource = gameObject.GetComponent<AudioSource>();
 
         uiController = GameObject.Find("UI Controller").GetComponent<UIController>();
         switch (typeOfWeapon) //A case by case basis on how a weapon should be initialised
@@ -86,14 +82,12 @@ public class build_a_weapon : baseWeaponClass
                         currentBullets--;
                         totalBullets--;
                         fireBullet();
-                        weaponAudioSource.PlayOneShot(gunshotNoises[Random.Range(0, gunshotNoises.Length)]);
                         break;
                     case typesOfWeapon.spreadShot:
                         if (!spreadShotLock)
                         {
                             currentBullets--;
                             totalBullets--;
-                            weaponAudioSource.PlayOneShot(gunshotNoises[Random.Range(0, gunshotNoises.Length)]);
                             for (int i = 0; i < bulletsInSpread; i++)
                             {
 
@@ -171,8 +165,4 @@ public class build_a_weapon : baseWeaponClass
         uiController.UpdateAmmoText();
     }
 
-    public void playReloadSound() //Animation event for specific timing
-    {
-        weaponAudioSource.PlayOneShot(reloadSound[Random.Range(0, reloadSound.Length)]);
-    }
 }

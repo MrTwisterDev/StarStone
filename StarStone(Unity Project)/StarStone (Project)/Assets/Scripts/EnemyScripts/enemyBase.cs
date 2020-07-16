@@ -97,8 +97,6 @@ public class enemyBase : MonoBehaviour
         //James' Work\\
         if(burnTime == 0) { burnTime = 5f; }
         if(burnDamage == 0) { burnDamage = 0.5f; }
-        isBurning = false;
-        //~~~~~~~~~~~\\
     }
 
     // Update is called once per frame

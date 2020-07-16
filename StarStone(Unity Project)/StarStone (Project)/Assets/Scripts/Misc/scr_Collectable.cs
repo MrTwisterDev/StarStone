@@ -5,13 +5,11 @@ using UnityEngine;
 public class scr_Collectable : MonoBehaviour
 {
     public int collectableIncreaser; //How much to increase a value based on what collectable it is;
-    public AudioClip pickupSound;
 
     // Start is called before the first frame update
-    protected virtual void Start()
+    void Start()
     {
-
-
+        
     }
 
     public virtual void pickupCollectable(GameObject playerObject)

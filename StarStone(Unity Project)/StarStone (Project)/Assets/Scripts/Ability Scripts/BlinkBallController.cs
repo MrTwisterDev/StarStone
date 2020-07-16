@@ -9,8 +9,6 @@ public class BlinkBallController : MonoBehaviour
 
     public float lifeTimeRemaining;
 
-    public float heightOffset;
-
     private GameObject playerObject;
     private Transform cameraTransform;
 
@@ -29,7 +27,7 @@ public class BlinkBallController : MonoBehaviour
     void Update()
     {
         lifeTimeRemaining -= Time.deltaTime;
-        if(lifeTimeRemaining <= 0)
+        if(lifeTimeRemaining == 0)
         {
             Destroy(gameObject);
         }
@@ -39,7 +37,7 @@ public class BlinkBallController : MonoBehaviour
     {
         if(collision.gameObject.layer == 8)
         {
-            Vector3 blinkTarget = new Vector3(gameObject.transform.position.x, transform.position.y + heightOffset, gameObject.transform.position.z);
+            Vector3 blinkTarget = new Vector3(gameObject.transform.position.x, playerObject.transform.position.y, gameObject.transform.position.z);
             playerObject.transform.position = blinkTarget;
             Destroy(gameObject);
         }
