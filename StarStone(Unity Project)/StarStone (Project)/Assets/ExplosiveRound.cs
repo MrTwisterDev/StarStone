@@ -6,10 +6,8 @@ public class ExplosiveRound : PrototypeProjectileBase
 {
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision!");
         if (collision.gameObject.tag != "Prototype")
         {
-            Debug.Log("Wasn't the weapon!");
             Collider[] enemiesAffected = Physics.OverlapSphere(transform.position, areaOfEffect);
             foreach (Collider enemyCollider in enemiesAffected)
             {

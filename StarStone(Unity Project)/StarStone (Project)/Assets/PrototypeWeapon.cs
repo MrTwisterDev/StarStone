@@ -175,6 +175,16 @@ public class PrototypeWeapon : MonoBehaviour
         }
     }
 
+    public void FireSingularity()
+    {
+        if(weaponCharge - singularityChargeUsage >= 0)
+        {
+            weaponSound.Play();
+            Instantiate(singularityProjectile, muzzleTransform.position, Quaternion.identity);
+            weaponCharge -= singularityChargeUsage;
+        }
+    }
+
     public bool IsAimingAtStarstone()
     {
         RaycastHit rayHit;
@@ -248,7 +258,7 @@ public class PrototypeWeapon : MonoBehaviour
                     FireGrenade();
                     break;
                 case weaponModes.singularityMode:
-                    //singularity code here
+                    FireSingularity();
                     break;
             }
         }

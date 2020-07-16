@@ -156,7 +156,8 @@ MonoBehaviour:
     type: 3}
   grenadeLaunch: {fileID: 8300000, guid: 593f5152df5c8af4780b1fb858af4169, type: 3}
   singularityChargeUsage: 50
-  singularityProjectile: {fileID: 0}
+  singularityProjectile: {fileID: 9126183708517525008, guid: d9b78dd168779f8408f449ab6ca06358,
+    type: 3}
   singularityLaunch: {fileID: 8300000, guid: e422e2e2eb09e814ca12b9e5afde62f4, type: 3}
   starstoneLayer:
     serializedVersion: 2
