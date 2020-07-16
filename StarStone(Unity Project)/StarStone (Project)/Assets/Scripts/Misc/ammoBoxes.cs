@@ -6,8 +6,9 @@ public class ammoBoxes : scr_Collectable
 {
     public int ammoAmount;
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         collectableIncreaser = ammoAmount;
     }
 
@@ -20,6 +21,7 @@ public class ammoBoxes : scr_Collectable
     public override void pickupCollectable(GameObject playerObject)
     {
         playerObject.GetComponent<PlayerController>().activeWeapon.GetComponent<baseWeaponClass>().totalBullets += collectableIncreaser;
+        AudioSource.PlayClipAtPoint(pickupSound, gameObject.transform.position);
         Destroy(gameObject);
     }
 

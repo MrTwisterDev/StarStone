@@ -5,13 +5,8 @@ using UnityEngine;
 public class SingularityProjectile : PrototypeProjectileBase
 {
     public float fuseLength;
+    public float blackHoleDuration;
     private bool hasDetonated;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        if(fuseLength == 0) { fuseLength = 3f; }
-    }
 
     // Update is called once per frame
     void Update()
@@ -22,7 +17,9 @@ public class SingularityProjectile : PrototypeProjectileBase
             if(fuseLength <= 0)
             {
                 hasDetonated = true;
-                rigidBody.isKinematic = false;
+                rigidBody.isKinematic = true;
+                rigidBody.detectCollisions = false;
+                AudioSource.PlayClipAtPoint(detonationSound, transform.position);
             }
         }
         else
@@ -33,7 +30,31 @@ public class SingularityProjectile : PrototypeProjectileBase
 
     private void Detonate()
     {
-        
+        blackHoleDuration -= Time.deltaTime;
+        if(blackHoleDuration <= 0)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Collider[] enemiesAffected = Physics.OverlapSphere(transform.position, areaOfEffect);
+            foreach(Collider enemyToAffect in enemiesAffected)
+            {
+                if(enemyToAffect.GetComponent<enemyBase>() != null)
+                {
+                    enemyBase currentEnemyController = enemyToAffect.GetComponent<enemyBase>();
+                    Rigidbody currentEnemyRigidbody = enemyToAffect.GetComponent<Rigidbody>();
+                    GameObject currentEnemy = enemyToAffect.gameObject;
+
+                    Vector3 direction = (transform.position - currentEnemy.transform.position).normalized;
+                    Vector3 position = currentEnemy.transform.position;
+                    Debug.DrawLine(position, position + direction * 10);
+
+                    currentEnemyController.takeDamage(damageToDeal);
+                    currentEnemyRigidbody.AddForce(direction * 10);
+                }
+            }
+        }
     }
 
 }
