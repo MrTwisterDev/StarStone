@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7039487467642429917}
   - component: {fileID: 2071446103657248878}
   m_Layer: 0
-  m_Name: untitled
+  m_Name: bulletDecal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8758831134176318721}
   m_LocalRotation: {x: -0.7071068, y: 0.000000015454312, z: 0.000000015454312, w: 0.7071068}
   m_LocalPosition: {x: 41.53369, y: 6.599114, z: 59.654613}
-  m_LocalScale: {x: 9.3, y: 9.3, z: 9.3}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 166432becb794dd42a4e6306e6b6bca5, type: 2}
+  - {fileID: 2100000, guid: e74d0e29299a6bb4995e651d15e8ddae, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

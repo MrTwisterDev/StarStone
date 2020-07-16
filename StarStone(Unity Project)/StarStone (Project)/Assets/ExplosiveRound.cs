@@ -2,26 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosiveRound : MonoBehaviour
+public class ExplosiveRound : PrototypeProjectileBase
 {
-
-    private Rigidbody rigidBody;
-    private Transform cameraTransform;
-
-    public AudioClip explosion;
-
-    public float areaOfEffect;
-    public float launchForce;
-    public float explosionDamage;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        rigidBody = gameObject.GetComponent<Rigidbody>();
-        cameraTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
-        rigidBody.AddForce(cameraTransform.forward * launchForce);
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag != "Prototype")
@@ -40,17 +22,11 @@ public class ExplosiveRound : MonoBehaviour
                     {
                         enemyToDamage.burnTimer = enemyToDamage.burnTime;
                     }
-                    enemyToDamage.takeDamage(explosionDamage);
+                    enemyToDamage.takeDamage(damageToDeal);
                 }
             }
-            AudioSource.PlayClipAtPoint(explosion, transform.position);
+            AudioSource.PlayClipAtPoint(detonationSound, transform.position);
             Destroy(gameObject);
         }
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, areaOfEffect);
-    }
-
 }
