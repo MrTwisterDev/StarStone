@@ -136,7 +136,6 @@ public class PrototypeWeapon : MonoBehaviour
             //If the raycast hits an enemy, the enemy takes damage
             if (Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out rayHit, minigunRange, enemyLayer))
             {
-                Debug.Log("Hit an enemy!");
                 rayHit.collider.gameObject.GetComponent<enemyBase>().takeDamage(minigunDamage);
             }
             //The weapon's charge is reduced by the amount of charge the current mode uses

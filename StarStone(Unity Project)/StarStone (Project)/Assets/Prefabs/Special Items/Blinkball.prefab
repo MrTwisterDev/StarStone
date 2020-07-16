@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5853392429948996320}
   - component: {fileID: 5853392429948996321}
   m_Layer: 9
-  m_Name: Sphere
+  m_Name: Blinkball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,3 +126,5 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
+  lifeTimeRemaining: 5
+  heightOffset: 1.5
