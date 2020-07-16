@@ -4880,9 +4880,9 @@ GameObject:
   - component: {fileID: 253591722}
   - component: {fileID: 253591721}
   - component: {fileID: 253591720}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GeneratorTop
-  m_TagString: Untagged
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4992,9 +4992,9 @@ GameObject:
   m_Component:
   - component: {fileID: 258627022}
   - component: {fileID: 258627023}
-  m_Layer: 0
-  m_Name: StarstoneGenerator - Health
-  m_TagString: Untagged
+  m_Layer: 14
+  m_Name: HealthStarstone
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5087,9 +5087,9 @@ GameObject:
   - component: {fileID: 261795583}
   - component: {fileID: 261795582}
   - component: {fileID: 261795581}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GeneratorBase
-  m_TagString: Untagged
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5300,9 +5300,9 @@ GameObject:
   - component: {fileID: 274788057}
   - component: {fileID: 274788056}
   - component: {fileID: 274788055}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GeneratorTop
-  m_TagString: Untagged
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5666,9 +5666,9 @@ GameObject:
   m_Component:
   - component: {fileID: 291089015}
   - component: {fileID: 291089016}
-  m_Layer: 0
-  m_Name: StarstoneGenerator - Fire
-  m_TagString: Untagged
+  m_Layer: 14
+  m_Name: FireStarstone
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5739,9 +5739,9 @@ GameObject:
   m_Component:
   - component: {fileID: 292036612}
   - component: {fileID: 292036613}
-  m_Layer: 0
-  m_Name: StarstoneGenerator - Buff
-  m_TagString: Untagged
+  m_Layer: 14
+  m_Name: BuffStarstone
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7833,9 +7833,9 @@ GameObject:
   - component: {fileID: 437030634}
   - component: {fileID: 437030633}
   - component: {fileID: 437030632}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GeneratorBase
-  m_TagString: Untagged
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9277,9 +9277,9 @@ GameObject:
   - component: {fileID: 494111651}
   - component: {fileID: 494111650}
   - component: {fileID: 494111649}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GeneratorGlass
-  m_TagString: Untagged
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10659,9 +10659,9 @@ GameObject:
   - component: {fileID: 545499319}
   - component: {fileID: 545499318}
   - component: {fileID: 545499317}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GeneratorGlass
-  m_TagString: Untagged
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11962,9 +11962,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 627356981}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Starstones
-  m_TagString: Untagged
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13000,9 +13000,9 @@ GameObject:
   - component: {fileID: 690157702}
   - component: {fileID: 690157701}
   - component: {fileID: 690157700}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GeneratorGlass
-  m_TagString: Untagged
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22250,7 +22250,7 @@ GameObject:
   - component: {fileID: 1190441435}
   - component: {fileID: 1190441434}
   m_Layer: 14
-  m_Name: BuffStarstone
+  m_Name: Starstone
   m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23920,9 +23920,9 @@ GameObject:
   - component: {fileID: 1282861042}
   - component: {fileID: 1282861041}
   - component: {fileID: 1282861040}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GeneratorBase
-  m_TagString: Untagged
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38017,9 +38017,9 @@ GameObject:
   - component: {fileID: 1891022488}
   - component: {fileID: 1891022487}
   - component: {fileID: 1891022486}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GeneratorTop
-  m_TagString: Untagged
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38546,9 +38546,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1925834839}
   - component: {fileID: 1925834840}
-  m_Layer: 0
-  m_Name: StarstoneGenerator - Speed
-  m_TagString: Untagged
+  m_Layer: 14
+  m_Name: SpeedStarstone
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41403,9 +41403,9 @@ GameObject:
   - component: {fileID: 2085904831}
   - component: {fileID: 2085904830}
   - component: {fileID: 2085904829}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GeneratorGlass
-  m_TagString: Untagged
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42368,9 +42368,9 @@ GameObject:
   - component: {fileID: 2113588298}
   - component: {fileID: 2113588297}
   - component: {fileID: 2113588296}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GeneratorBase
-  m_TagString: Untagged
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42761,9 +42761,9 @@ GameObject:
   - component: {fileID: 2125469642}
   - component: {fileID: 2125469641}
   - component: {fileID: 2125469640}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GeneratorTop
-  m_TagString: Untagged
+  m_TagString: Starstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

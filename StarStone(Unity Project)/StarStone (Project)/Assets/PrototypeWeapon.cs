@@ -191,7 +191,7 @@ public class PrototypeWeapon : MonoBehaviour
         {
             if (rayHit.collider.gameObject.tag == "Starstone")
             {
-                starstoneToChargeFrom = rayHit.collider.gameObject.GetComponent<StarstoneController>();
+                starstoneToChargeFrom = rayHit.collider.gameObject.GetComponentInParent<StarstoneController>();
                 switch (starstoneToChargeFrom.starstoneType)
                 {
                     case StarstoneController.starstoneTypes.speedStarstone:
