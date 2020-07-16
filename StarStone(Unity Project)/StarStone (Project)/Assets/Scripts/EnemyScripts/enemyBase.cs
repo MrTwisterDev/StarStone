@@ -43,6 +43,19 @@ public class enemyBase : MonoBehaviour
 
     public bool hasMelee;
 
+    //James' Work\\
+    [Header("Fire Damage")]
+    [Tooltip("The amount of damage the enemy takes from burning.")]
+    public float burnDamage;
+    [Tooltip("The amount of time for which an enemy will burn.")]
+    public float burnTime;
+    [HideInInspector]
+    public float burnTimer;
+    [Tooltip("Determines whether or not an enemy should take burn damage.")]
+    public bool isBurning;
+    public ParticleSystem burnParticles;
+    //~~~~~~~~~~~\\
+
     [Header("Debug/Test Options")]
     [SerializeField] protected bool showDebugGizmos = false;
     [HideInInspector]public float maxEnemyHP;
@@ -81,12 +94,18 @@ public class enemyBase : MonoBehaviour
         enemyAgent = GetComponent<NavMeshAgent>();
         getNearestPlayer();
         resetTimer(false);
+        //James' Work\\
+        if(burnTime == 0) { burnTime = 5f; }
+        if(burnDamage == 0) { burnDamage = 0.5f; }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (isBurning)
+        {
+            TakeFireDamage();
+        }
     }
 
     public void takeDamage(float damageAmount)
@@ -97,6 +116,23 @@ public class enemyBase : MonoBehaviour
             destroyEnemy();
         }
     }
+
+    //James' Work\\
+    public void TakeFireDamage()
+    {
+        if(burnTimer % 1 == 0)
+        {
+            takeDamage(burnDamage);
+            burnParticles.Play();
+        }
+        burnTimer -= Time.deltaTime;
+        if(burnTimer <= 0)
+        {
+            isBurning = false;
+            burnTimer = burnTime;
+        }
+    }
+    //~~~~~~~~~~~\\
 
     public virtual void destroyEnemy() //Method virtual so enemies can have unique death animations, however if not overriden destroy the enemy
     {

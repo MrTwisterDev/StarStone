@@ -45,9 +45,11 @@ public class PrototypeWeapon : MonoBehaviour
     #endregion
 
     #region
-    [Header("Flamethrower Stats")]
-    [Tooltip("The amount of charge the minigun uses per shot.")]
-    public float flamethrowerChargeUsage;
+    [Header("Grenade Launcher Stats")]
+    [Tooltip("The amount of charge the grenade launcher uses per shot.")]
+    public float grenadeLauncherChargeUsage;
+    public GameObject grenadeProjectile;
+    public AudioClip grenadeLaunch;
     [Space]
     #endregion
 
@@ -60,14 +62,25 @@ public class PrototypeWeapon : MonoBehaviour
 
     private PlayerController playerController;
     private UIController uIController;
+    private StarstoneController starstoneToChargeFrom;
+
+    public Transform muzzleTransform;
+    public float chargeRange;
+    public LayerMask starstoneLayer;
+    public AudioSource weaponSound;
 
     [Tooltip("The layer on which the enemies exist.")]
     public LayerMask enemyLayer;
 
+    public Color speedColour;
+    public Color healthColour;
+    public Color fireColour;
+    public Color singularityColor;
+
     public enum weaponModes
     {
         minigunMode,
-        flamethrowerMode,
+        grenadeLauncherMode,
         vampireMode,
         singularityMode
     }
@@ -75,12 +88,24 @@ public class PrototypeWeapon : MonoBehaviour
     [Space]
     [Tooltip("The current mode the prototype weapon is in.")]
     public weaponModes currentWeaponMode;
+    private weaponModes newWeaponMode;
 
     // Start is called before the first frame update
     void Start()
     {
         playerController = GameObject.Find("playerCapsule").GetComponent<PlayerController>();
         uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
+
+        speedColour = Color.cyan;
+        healthColour = Color.green;
+        fireColour = Color.red;
+        singularityColor = Color.magenta;
+
+        weaponSound = gameObject.GetComponent<AudioSource>();
+
+        uIController.UpdatePrototypeSliderColour(speedColour);
+
+        newWeaponMode = currentWeaponMode;
 
         weaponCharge = 100;
     }
@@ -119,6 +144,53 @@ public class PrototypeWeapon : MonoBehaviour
         }
     }
 
+    public void FireGrenade()
+    {
+        if (weaponCharge - grenadeLauncherChargeUsage >= 0)
+        {
+            weaponSound.Play();
+            Instantiate(grenadeProjectile, muzzleTransform.position, Quaternion.identity);
+            weaponCharge -= grenadeLauncherChargeUsage;
+        }
+    }
+
+    public bool IsAimingAtStarstone()
+    {
+        RaycastHit rayHit;
+        if(Physics.Raycast(muzzleTransform.position, transform.forward, out rayHit, chargeRange, starstoneLayer))
+        {
+            if (rayHit.collider.gameObject.tag == "Starstone")
+            {
+                starstoneToChargeFrom = rayHit.collider.gameObject.GetComponent<StarstoneController>();
+                switch (starstoneToChargeFrom.starstoneType)
+                {
+                    case StarstoneController.starstoneTypes.speedStarstone:
+                        newWeaponMode = weaponModes.minigunMode;
+                        break;
+                    case StarstoneController.starstoneTypes.healthStarstone:
+                        newWeaponMode = weaponModes.vampireMode;
+                        break;
+                    case StarstoneController.starstoneTypes.fireStarstone:
+                        newWeaponMode = weaponModes.grenadeLauncherMode;
+                        break;
+                    case StarstoneController.starstoneTypes.buffStarstone:
+                        newWeaponMode = weaponModes.singularityMode;
+                        break;
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+        
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -129,9 +201,6 @@ public class PrototypeWeapon : MonoBehaviour
                 case weaponModes.minigunMode:
                     FireMinigunMode();
                     break;
-                case weaponModes.flamethrowerMode:
-                    //flamethrower code
-                    break;
                 case weaponModes.vampireMode:
                     FireVampireMode();
                     break;
@@ -139,27 +208,58 @@ public class PrototypeWeapon : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0))
         {
-            if(currentWeaponMode == weaponModes.singularityMode)
+            switch (currentWeaponMode)
             {
-                //singularity code
+                case weaponModes.grenadeLauncherMode:
+                    FireGrenade();
+                    break;
+                case weaponModes.singularityMode:
+                    //singularity code here
+                    break;
             }
         }
-        //Placeholder mode-switching code. Will not be used in final prototype.\\
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+
+        if (Input.GetMouseButton(1))
         {
-            currentWeaponMode = weaponModes.minigunMode;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            currentWeaponMode = weaponModes.flamethrowerMode;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            currentWeaponMode = weaponModes.vampireMode;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            currentWeaponMode = weaponModes.singularityMode;
+            if (IsAimingAtStarstone())
+            {
+                if (newWeaponMode != currentWeaponMode)
+                {
+                    switch (newWeaponMode)
+                    {
+                        case weaponModes.minigunMode:
+                            currentWeaponMode = newWeaponMode;
+                            uIController.UpdatePrototypeSliderColour(speedColour);
+                            weaponCharge = 0f;
+                            break;
+                        case weaponModes.vampireMode:
+                            currentWeaponMode = newWeaponMode;
+                            uIController.UpdatePrototypeSliderColour(healthColour);
+                            weaponCharge = 0f;
+                            break;
+                        case weaponModes.grenadeLauncherMode:
+                            currentWeaponMode = newWeaponMode;
+                            weaponSound.clip = grenadeLaunch;
+                            uIController.UpdatePrototypeSliderColour(fireColour);
+                            weaponCharge = 0f;
+                            break;
+                        case weaponModes.singularityMode:
+                            currentWeaponMode = newWeaponMode;
+                            uIController.UpdatePrototypeSliderColour(singularityColor);
+                            weaponCharge = 0f;
+                            break;
+                    }
+                }
+                else if(weaponCharge < 100 && starstoneToChargeFrom.starstoneCharge - Time.deltaTime * weaponRechargeMultiplier >= 0)
+                {
+                    weaponCharge += Time.deltaTime * weaponRechargeMultiplier;
+                    starstoneToChargeFrom.starstoneCharge -= Time.deltaTime * weaponRechargeMultiplier;
+                    if(weaponCharge > 100)
+                    {
+                        weaponCharge = 100;
+                    }
+                }
+            }
         }
 
         uIController.UpdatePrototypeCharge((int)weaponCharge);
