@@ -124,4 +124,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectableIncreaser: 0
+  pickupSound: {fileID: 8300000, guid: 899f0ad2c38a36040a11f06ee8a2939b, type: 3}
   healthAmount: 20

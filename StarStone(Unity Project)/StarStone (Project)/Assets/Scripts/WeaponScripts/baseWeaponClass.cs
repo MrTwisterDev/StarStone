@@ -5,7 +5,7 @@ using UnityEngine;
 public class baseWeaponClass : MonoBehaviour
 {
     public string WeaponName;
-
+    protected AudioSource weaponAudioSource;
     public float weaponDamage;
     public float damageFalloff;
 
