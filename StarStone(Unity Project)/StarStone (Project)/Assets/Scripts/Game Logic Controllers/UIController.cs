@@ -115,11 +115,6 @@ public class UIController : MonoBehaviour
         prototypeChargeSlider.value = charge;
     }
 
-    public void UpdatePrototypeSliderColour(Color newColour)
-    {
-        GameObject.Find("ChargeFill").GetComponent<Image>().color = newColour;
-    }
-
     public void UpdateHealthbar()
     {
         //Updates the value of the slider to reflect the amount of health the player has left

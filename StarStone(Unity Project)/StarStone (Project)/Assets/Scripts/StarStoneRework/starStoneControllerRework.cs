@@ -6,7 +6,7 @@ public class starStoneControllerRework : MonoBehaviour
 {
     public GameObject protoTypeWeapon;
 
-    public GameObject[] enemyList;
+    public List<GameObject> enemyList = new List<GameObject>();
     public GameObject[] starStones = new GameObject[4];
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,6 @@ public class starStoneControllerRework : MonoBehaviour
 
     public void changeElement(enemyBase.stoneBuffs enemyBuff)
     {
-        enemyList = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var enemy in enemyList)
         {
             enemy.GetComponent<enemyBase>().changePowerup(enemyBuff);

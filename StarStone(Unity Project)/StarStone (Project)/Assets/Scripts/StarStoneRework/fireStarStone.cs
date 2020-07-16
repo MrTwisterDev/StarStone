@@ -7,7 +7,7 @@ public class fireStarStone : StarStoneBase
     void Start()
     {
         base.Start();
-        StoneWeaponAffect = PrototypeWeapon.weaponModes.grenadeLauncherMode;
+        StoneWeaponAffect = PrototypeWeapon.weaponModes.flamethrowerMode;
         StoneEnemyAffect = enemyBase.stoneBuffs.fireBuff;
 
     }

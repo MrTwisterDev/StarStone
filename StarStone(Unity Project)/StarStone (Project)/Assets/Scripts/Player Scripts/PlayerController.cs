@@ -113,9 +113,6 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController characterController;
 
-    public GameObject flashLight;
-    private bool flashlightToggle;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -157,8 +154,6 @@ public class PlayerController : MonoBehaviour
         crouchingScale = new Vector3(standingScale.x, standingScale.y / 2, standingScale.z);
 
         characterController = gameObject.GetComponent<CharacterController>();
-
-        flashlightToggle = false;
     }
 
     // Update is called once per frame
@@ -363,12 +358,6 @@ public class PlayerController : MonoBehaviour
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
 
         if (Input.GetKeyDown(KeyCode.F))
-        {
-            flashlightToggle = !flashlightToggle;
-            flashLight.SetActive(flashlightToggle);
-        }
-
-        if (Input.GetKeyDown(KeyCode.V))
         {
             playerAnimator.SetTrigger("Punch");
             AudioSource.PlayClipAtPoint(punchSound, transform.position);

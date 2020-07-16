@@ -404,7 +404,15 @@ public class GameController : MonoBehaviour
         }
         enemiesSpawned = true;
 
-
+        //Tom's work
+        if (enemiesSpawned)
+        {
+            enemiesList.AddRange(activeSmallEnemies);
+            enemiesList.AddRange(activeMediumEnemies);
+            enemiesList.AddRange(activeLargeEnemies);
+            GameObject.FindWithTag("starStoneController").GetComponent<starStoneControllerRework>().enemyList = enemiesList;
+            enemiesSpawned = false;
+        }
 
     }
 
