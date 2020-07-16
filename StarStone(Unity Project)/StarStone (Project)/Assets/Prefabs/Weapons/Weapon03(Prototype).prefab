@@ -114,6 +114,21 @@ MonoBehaviour:
   vampireChargeUsage: 1.5
   vampireDamage: 2
   vampireDrain: 10
+<<<<<<< HEAD
+=======
+  isVampireSingleShot: 1
+  vampireSound: {fileID: 8300000, guid: 8e9e9fdad277a2a408056bf4e02f2703, type: 3}
+  grenadeLauncherChargeUsage: 25
+  grenadeProjectile: {fileID: 8290254636570083106, guid: 431047d4291366a4b8cccd14b0c46bc8,
+    type: 3}
+  grenadeLaunch: {fileID: 8300000, guid: 593f5152df5c8af4780b1fb858af4169, type: 3}
+  singularityChargeUsage: 50
+  singularityProjectile: {fileID: 0}
+  singularityLaunch: {fileID: 8300000, guid: e422e2e2eb09e814ca12b9e5afde62f4, type: 3}
+  starstoneLayer:
+    serializedVersion: 2
+    m_Bits: 16384
+>>>>>>> parent of 0d94a97... Singularity Work
   enemyLayer:
     serializedVersion: 2
     m_Bits: 65536

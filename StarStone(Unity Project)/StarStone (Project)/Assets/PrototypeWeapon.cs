@@ -119,6 +119,56 @@ public class PrototypeWeapon : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
+=======
+    public void FireGrenade()
+    {
+        if (weaponCharge - grenadeLauncherChargeUsage >= 0)
+        {
+            weaponSound.Play();
+            Instantiate(grenadeProjectile, muzzleTransform.position, Quaternion.identity);
+            weaponCharge -= grenadeLauncherChargeUsage;
+        }
+    }
+
+    public bool IsAimingAtStarstone()
+    {
+        RaycastHit rayHit;
+        if(Physics.Raycast(muzzleTransform.position, transform.forward, out rayHit, chargeRange, starstoneLayer))
+        {
+            if (rayHit.collider.gameObject.tag == "Starstone")
+            {
+                starstoneToChargeFrom = rayHit.collider.gameObject.GetComponent<StarstoneController>();
+                switch (starstoneToChargeFrom.starstoneType)
+                {
+                    case StarstoneController.starstoneTypes.speedStarstone:
+                        newWeaponMode = weaponModes.minigunMode;
+                        break;
+                    case StarstoneController.starstoneTypes.healthStarstone:
+                        newWeaponMode = weaponModes.vampireMode;
+                        break;
+                    case StarstoneController.starstoneTypes.fireStarstone:
+                        newWeaponMode = weaponModes.grenadeLauncherMode;
+                        break;
+                    case StarstoneController.starstoneTypes.buffStarstone:
+                        newWeaponMode = weaponModes.singularityMode;
+                        break;
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+        
+    }
+
+>>>>>>> parent of 0d94a97... Singularity Work
     // Update is called once per frame
     void Update()
     {
@@ -141,7 +191,22 @@ public class PrototypeWeapon : MonoBehaviour
         {
             if(currentWeaponMode == weaponModes.singularityMode)
             {
+<<<<<<< HEAD
                 //singularity code
+=======
+                case weaponModes.vampireMode:
+                    if (isVampireSingleShot)
+                    {
+                        FireVampireMode();
+                    }
+                    break;
+                case weaponModes.grenadeLauncherMode:
+                    FireGrenade();
+                    break;
+                case weaponModes.singularityMode:
+                    //singularity code here
+                    break;
+>>>>>>> parent of 0d94a97... Singularity Work
             }
         }
         //Placeholder mode-switching code. Will not be used in final prototype.\\

@@ -162,6 +162,13 @@ MonoBehaviour:
   enemyHP: 2
   meleeDamage: 15
   hasMelee: 1
+<<<<<<< HEAD
+=======
+  burnDamage: 0
+  burnTime: 0
+  isBurning: 0
+  burnParticles: {fileID: 2279863401286990534}
+>>>>>>> parent of 0d94a97... Singularity Work
   showDebugGizmos: 0
   maxEnemyHP: 0
   healthBuffAmount: 5
