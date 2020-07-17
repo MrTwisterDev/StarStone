@@ -312,9 +312,9 @@ public class PlayerController : MonoBehaviour
 
         if(InteractWithObject() && Input.GetKeyDown(KeyCode.E))
         {
-            if (interactableObject.collider.gameObject.GetComponent<StarstoneController>() != null)
+            if (interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>() != null)
             {
-                StarstoneController starstone = interactableObject.collider.gameObject.GetComponent<StarstoneController>();
+                StarstoneController starstone = interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>();
                 starstone.ActivateEffect();
             }
 
