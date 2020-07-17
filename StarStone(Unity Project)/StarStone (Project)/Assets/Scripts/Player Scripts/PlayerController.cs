@@ -97,8 +97,11 @@ public class PlayerController : MonoBehaviour
     private UIController uiController;
     private GameController gameController;
 
+    [Header("Sounds")]
     public AudioSource walkingSound;
     public AudioClip punchSound;
+    public AudioClip flashlightSound;
+    public AudioClip landingSound;
 
 
 
@@ -367,6 +370,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             flashlightToggle = !flashlightToggle;
+            AudioSource.PlayClipAtPoint(flashlightSound, transform.position);
             flashLight.SetActive(flashlightToggle);
         }
 
