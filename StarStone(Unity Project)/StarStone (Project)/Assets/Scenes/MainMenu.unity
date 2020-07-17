@@ -203,7 +203,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1553872306}
+      - m_Target: {fileID: 1670212841}
         m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
@@ -408,7 +408,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &580761242
 PrefabInstance:
@@ -618,7 +618,7 @@ PrefabInstance:
     - target: {fileID: 2858349823743127418, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2858349823743127418, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -724,7 +724,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1491220646}
+      - m_Target: {fileID: 1670212841}
         m_MethodName: ChangeDifficulty
         m_Mode: 3
         m_Arguments:
@@ -861,7 +861,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1003531281
 GameObject:
@@ -927,7 +927,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1017101146
 GameObject:
@@ -1088,7 +1088,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1491220646}
+      - m_Target: {fileID: 1670212841}
         m_MethodName: ChangeDifficulty
         m_Mode: 3
         m_Arguments:
@@ -1289,30 +1289,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083061026}
   m_CullTransparentMesh: 0
---- !u!114 &1491220646 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
-    type: 3}
-  m_PrefabInstance: {fileID: 580761242}
+--- !u!1 &1670212840
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1670212842}
+  - component: {fileID: 1670212841}
+  m_Layer: 0
+  m_Name: MenuController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1670212841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670212840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7814467601560a4285f808f4ffa6b9a, type: 3}
+  m_Script: {fileID: 11500000, guid: b6d6c9432ee0b6a4bbe2c56fb77bce7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1553872306 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 71895816100234660, guid: 5fb40fc5760edb64096d8ec44572b59a,
-    type: 3}
-  m_PrefabInstance: {fileID: 580761242}
+--- !u!4 &1670212842
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cea54cad07aedf945aed738d272a8950, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_GameObject: {fileID: 1670212840}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 600.4171, y: 319.55344, z: -277.4176}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2059641115
 GameObject:
   m_ObjectHideFlags: 0
@@ -1395,7 +1414,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1491220646}
+      - m_Target: {fileID: 1670212841}
         m_MethodName: ChangeDifficulty
         m_Mode: 3
         m_Arguments:
@@ -1537,7 +1556,7 @@ RectTransform:
   - {fileID: 858847046}
   - {fileID: 183619415}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

@@ -128,7 +128,7 @@ public class build_a_weapon : baseWeaponClass
         {
             Debug.DrawRay(transform.position, transform.parent.gameObject.transform.forward * 20, Color.red, 1);
             Debug.DrawRay(transform.position, _baseDirectionSpread * 20, Color.yellow, 1);
-            Debug.Log(transform.parent.gameObject.transform.forward);
+            //Debug.Log(transform.parent.gameObject.transform.forward);
 
             Quaternion decalRot = Quaternion.LookRotation(shotTargetSpread.normal);
             Quaternion.Inverse(decalRot);

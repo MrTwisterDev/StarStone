@@ -141,6 +141,9 @@ public class GameController : MonoBehaviour
     public starstoneEffects currentStarstone;
     #endregion
 
+    public int soulsInGenerator;
+    public int requiredSoulsInGenerator;
+
     private PlayerController playerController;
     private UIController uIController;
 
@@ -179,6 +182,7 @@ public class GameController : MonoBehaviour
         if(easyWaveTime == 0) { easyWaveTime = 180f; }
         if(normalWaveTime == 0) { normalWaveTime = 120f; }
         if(hardWaveTime == 0) { hardWaveTime = 90f; }
+        if(requiredSoulsInGenerator == 0) { requiredSoulsInGenerator = 50; }
         //Sets the value of the enemy spawning cooldown timer to the default value input in the inspector
         spawnCooldownTime = enemySpawnDelay;
         //Starts the current wave at 1
@@ -212,6 +216,7 @@ public class GameController : MonoBehaviour
             if(hasFoundGenerator && !timerActive)
             {
                 timerActive = true;
+                enemiesKilled = 0;
                 uIController.UpdateWaveNumber(currentWave);
             }
             //If the player has killed all enemies in a wave, the wave ends and an intermission starts
@@ -226,6 +231,10 @@ public class GameController : MonoBehaviour
                     intermissionTimerValue = intermissionLength;
                 }
             }
+            if(soulsInGenerator == requiredSoulsInGenerator)
+            {
+                //Do victory stuff
+            }
         }
     }
 
@@ -234,6 +243,7 @@ public class GameController : MonoBehaviour
         //If the level loaded is the playable level, all of the necessary variables are assigned depending on the currently selected difficulty
         if(level == 1)
         {
+            Debug.Log(enemiesKilled);
             //Locks the cursor to the center of the screen to prevent it from moving outside of the playable area, ensuring the player cannot accidentall leave the game window
             Cursor.lockState = CursorLockMode.Locked;
             //Finds the player character in the scene and assigns its script to the playerController variable
@@ -298,6 +308,25 @@ public class GameController : MonoBehaviour
             int starstoneIndex = UnityEngine.Random.Range(0, 4);
             starstoneArray[starstoneIndex].GetComponent<StarstoneController>().ActivateEffect();
         }
+        else if(level == 0)
+        {
+            //Resets all variables necessary for game flow that are not reset when the game level is loaded
+            isInGame = false;
+            hasFoundGenerator = false;
+            timerActive = false;
+            //Loops through the lists of enemies and clears them until the number of enemies killed no longer increases
+            //This is to ensure all null objects are removed from the lists of enemies before the game loads, as loading without this resulted in
+            //false positive killcounts
+            while (enemiesKilled > 0)
+            {
+                CheckEnemyStatus();
+                enemiesKilled = 0;
+                CheckEnemyStatus();
+            }
+            smallEnemiesSpawned = 0;
+            mediumEnemiesSpawned = 0;
+            largeEnemiesSpawned = 0;
+        }
         else
         {
             Cursor.lockState = CursorLockMode.None;     //Unlocks the cursor so the player can select menu options
@@ -316,6 +345,7 @@ public class GameController : MonoBehaviour
 
     public void NextWave()
     {
+        Debug.Log("Killed: " + enemiesKilled + " In Wave: " + (smallEnemiesInWave + mediumEnemiesInWave + largeEnemiesInWave).ToString());
         //Resets variables linked to enemies in order to prevent new waves from starting immediately after
         enemiesKilled = 0;
         smallEnemiesSpawned = 0;
@@ -361,7 +391,7 @@ public class GameController : MonoBehaviour
             if(activeSmallEnemies[i] == null)
             {
                 GameObject deadEnemy = activeSmallEnemies[i];
-                activeSmallEnemies.Remove(deadEnemy);
+                activeSmallEnemies.Remove(deadEnemy);                
                 enemiesKilled++;
             }
         }
@@ -383,6 +413,7 @@ public class GameController : MonoBehaviour
                 enemiesKilled++;
             }
         }
+        Debug.Log(enemiesKilled);
     }
 
     public void EnemySpawning()

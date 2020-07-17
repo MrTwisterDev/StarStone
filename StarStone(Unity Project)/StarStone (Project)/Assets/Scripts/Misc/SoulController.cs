@@ -14,6 +14,8 @@ public class SoulController : MonoBehaviour
     public Transform soulDestination;
     private Transform startingPosition;
 
+    private GameController gameController;
+
     private float startingTime;
     private float journeyLength;
     public float moveSpeed;
@@ -22,6 +24,7 @@ public class SoulController : MonoBehaviour
     void Start()
     {
         if (soulDestination == null) { soulDestination = GameObject.Find("SoulSuckOMatic3000").transform; }
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
         startingPosition = transform;
 
         journeyLength = Vector3.Distance(startingPosition.position, soulDestination.position);
@@ -51,6 +54,7 @@ public class SoulController : MonoBehaviour
         Debug.Log("Collided!" + other);
         if(other.transform.position == soulDestination.transform.position)
         {
+            gameController.soulsInGenerator++;
             Destroy(gameObject);
         }
     }
