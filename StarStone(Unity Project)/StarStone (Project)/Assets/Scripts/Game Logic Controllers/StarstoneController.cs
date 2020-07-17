@@ -13,6 +13,7 @@ public class StarstoneController : MonoBehaviour
     //***************************************************************|
 
     public GameController gameController;
+    public GameObject playerObject;
 
     [Tooltip("Boolean that determines whether or not the selected Starstone is active.")]
     public bool isActiveStarstone;
@@ -39,6 +40,7 @@ public class StarstoneController : MonoBehaviour
     public void Start()
     {
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        playerObject = GameObject.Find("playerCapsule");
         starstoneCharge = 100f;
 
         if(dischargeMultiplier == 0) { dischargeMultiplier = 1; }
@@ -68,6 +70,11 @@ public class StarstoneController : MonoBehaviour
                 starstoneCharge = 100f;
             }
         }
+        if(Vector3.Distance(gameObject.transform.position, playerObject.transform.position) <= 5f && !gameController.hasFoundGenerator)
+        {
+            gameController.hasFoundGenerator = true;
+        }
+
     }
 
     public void ActivateEffect()

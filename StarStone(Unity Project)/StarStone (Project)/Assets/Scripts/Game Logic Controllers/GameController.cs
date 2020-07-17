@@ -147,6 +147,8 @@ public class GameController : MonoBehaviour
     public List<GameObject> enemiesList = new List<GameObject>(); //Tom's work
     public bool enemiesSpawned = false; //Tom's work
 
+    public bool hasFoundGenerator;
+
     public enum gameDifficulty
     {
         easyDifficulty,
@@ -202,17 +204,26 @@ public class GameController : MonoBehaviour
         if (isInGame)
         {
             GameTimers();
-            EnemySpawning();
-            CheckEnemyStatus();
+            if (timerActive)
+            {
+                EnemySpawning();
+                CheckEnemyStatus();
+            }
+            if(hasFoundGenerator && !timerActive)
+            {
+                timerActive = true;
+                uIController.UpdateWaveNumber(currentWave);
+            }
             //If the player has killed all enemies in a wave, the wave ends and an intermission starts
             if (enemiesKilled >= smallEnemiesInWave + mediumEnemiesInWave + largeEnemiesInWave)
             {
                 intermissionTimerValue -= Time.deltaTime;
-                uIController.UpdateIntermissionTimer(intermissionTimerValue);
+                uIController.UpdateIntermissionTimer((int)intermissionTimerValue);
                 //When the intermission timer runs out, the next wave begins
                 if (intermissionTimerValue <= 0) 
                 {
                     NextWave();
+                    intermissionTimerValue = intermissionLength;
                 }
             }
         }
@@ -277,7 +288,10 @@ public class GameController : MonoBehaviour
             }
             isInGame = true;
             //Initiates the wave timer
-            timerActive = true;
+            if (hasFoundGenerator)
+            {
+                timerActive = true;
+            }
             //Updates the wave timer UI element
             uIController.SetBaseTimerValue(waveTimerValue);
             //Generates a random number used as an array index and activates the relevant Starstone

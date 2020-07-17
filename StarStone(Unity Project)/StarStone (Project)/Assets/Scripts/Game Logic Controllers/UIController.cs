@@ -94,7 +94,7 @@ public class UIController : MonoBehaviour
         timerBar.rectTransform.localScale = new Vector2(timerBar.rectTransform.localScale.x - Time.deltaTime / initialTime, timerBar.rectTransform.localScale.y);
     }
 
-    public void UpdateIntermissionTimer(float intermissionTime)
+    public void UpdateIntermissionTimer(int intermissionTime)
     {
         //During the intermission, the wave timer text is set to the value of the intermission timer so the player know how long of a break there is
         waveTimerText.text = intermissionTime.ToString();
