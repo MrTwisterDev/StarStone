@@ -24,4 +24,9 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(levelToLoad);
     }
 
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
 }

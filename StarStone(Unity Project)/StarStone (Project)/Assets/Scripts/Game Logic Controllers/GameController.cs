@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour
     public float enemySpawnDelay;
     private float spawnCooldownTime;
     private Transform[] enemySpawnPoints;
+    private Transform spawnerParent;
     private Transform pointToSpawnOn;
     #endregion
 
@@ -148,6 +149,7 @@ public class GameController : MonoBehaviour
     private PlayerController playerController;
     private Camera mainCamera;
     private UIController uIController;
+    private GameObject victoryCanvas;
 
     public List<GameObject> enemiesList = new List<GameObject>(); //Tom's work
     public bool enemiesSpawned = false; //Tom's work
@@ -236,6 +238,16 @@ public class GameController : MonoBehaviour
             if(soulsInGenerator == requiredSoulsInGenerator)
             {
                 //Do victory stuff
+                if (Time.timeScale - 0.01f >= 0)
+                {
+                    Time.timeScale -= 0.01f;
+                    if (Time.timeScale < 0.01f)
+                    {
+                        Time.timeScale = 0;
+                        victoryCanvas.SetActive(true);
+                    }
+                }
+                Debug.Log(Time.timeScale);
             }
         }
     }
@@ -245,6 +257,9 @@ public class GameController : MonoBehaviour
         //If the level loaded is the playable level, all of the necessary variables are assigned depending on the currently selected difficulty
         if(level == 1)
         {
+            victoryCanvas = GameObject.Find("VictoryCanvas");
+            victoryCanvas.SetActive(false);
+            spawnerParent = GameObject.Find("EnemySpawners").GetComponent<Transform>();
             mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
             //Locks the cursor to the center of the screen to prevent it from moving outside of the playable area, ensuring the player cannot accidentall leave the game window
             Cursor.lockState = CursorLockMode.Locked;
@@ -253,7 +268,7 @@ public class GameController : MonoBehaviour
             //Find the UI Controller object in the scene and assigns its script to the uIController variable
             uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
             //Sets the length of the spawn point array
-            enemySpawnPoints = new Transform[4];
+            enemySpawnPoints = new Transform[spawnerParent.childCount];
             FindStarstones();
 
             //Finds all of the enemy spawners in the scene and adds them to the array so they can be accessed randomly in the enemy spawning method
@@ -436,7 +451,7 @@ public class GameController : MonoBehaviour
     public void EnemySpawning()
     {
         //Generates a random number between 0 and 4 which is used to pick a random spawn point from the array
-        int arrayIndex = UnityEngine.Random.Range(0, 4);
+        int arrayIndex = UnityEngine.Random.Range(0, spawnerParent.childCount - 1);
         pointToSpawnOn = enemySpawnPoints[arrayIndex];
         if (!PlayerCanSeeSpawner())
         {

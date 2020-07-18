@@ -25,4 +25,9 @@ public class MenuButton : MonoBehaviour
         gameController.ChangeDifficulty(i);
     }
 
+    public void LoadMainMenu()
+    {
+        levelManager.LoadMainMenu();
+    }
+
 }
