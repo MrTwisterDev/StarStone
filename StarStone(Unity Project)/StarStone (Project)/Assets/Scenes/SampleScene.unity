@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.14107391, g: 0.2287189, b: 0.33498874, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2148,6 +2148,7 @@ GameObject:
   - component: {fileID: 121124224}
   - component: {fileID: 121124226}
   - component: {fileID: 121124225}
+  - component: {fileID: 121124227}
   m_Layer: 14
   m_Name: Starstone
   m_TagString: Starstone
@@ -2216,6 +2217,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 121124223}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &121124227
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121124223}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 93c3d7bd29f3b1e49a0c0404a06cdad9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &121481493 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5039950764253943587, guid: 06385ef8b1013374f9a4dfaa9754c371,
@@ -6105,6 +6125,7 @@ GameObject:
   - component: {fileID: 304718942}
   - component: {fileID: 304718944}
   - component: {fileID: 304718943}
+  - component: {fileID: 304718945}
   m_Layer: 14
   m_Name: Starstone
   m_TagString: Starstone
@@ -6173,6 +6194,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 304718941}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &304718945
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304718941}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 93c3d7bd29f3b1e49a0c0404a06cdad9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &306910756 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6958244279560336777, guid: 06385ef8b1013374f9a4dfaa9754c371,
@@ -22407,6 +22447,7 @@ GameObject:
   - component: {fileID: 1190441431}
   - component: {fileID: 1190441435}
   - component: {fileID: 1190441434}
+  - component: {fileID: 1190441432}
   m_Layer: 14
   m_Name: Starstone
   m_TagString: Starstone
@@ -22428,6 +22469,25 @@ Transform:
   m_Father: {fileID: 292036612}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 45, y: 15, z: 45}
+--- !u!95 &1190441432
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190441430}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 93c3d7bd29f3b1e49a0c0404a06cdad9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!23 &1190441434
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -38045,6 +38105,7 @@ GameObject:
   - component: {fileID: 1847244226}
   - component: {fileID: 1847244228}
   - component: {fileID: 1847244227}
+  - component: {fileID: 1847244229}
   m_Layer: 14
   m_Name: Starstone
   m_TagString: Starstone
@@ -38113,6 +38174,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847244225}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &1847244229
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847244225}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 93c3d7bd29f3b1e49a0c0404a06cdad9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1848217011 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8543541861694780771, guid: 06385ef8b1013374f9a4dfaa9754c371,

@@ -39,7 +39,7 @@ public class StarstoneController : MonoBehaviour
 
     public void Start()
     {
-        gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        if (gameController == null) { gameController = GameObject.Find("GameController").GetComponent<GameController>(); }
         playerObject = GameObject.Find("playerCapsule");
         starstoneCharge = 100f;
 
