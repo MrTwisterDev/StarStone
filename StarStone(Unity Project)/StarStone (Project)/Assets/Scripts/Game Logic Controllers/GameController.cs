@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour
     public float enemySpawnDelay;
     private float spawnCooldownTime;
     private Transform[] enemySpawnPoints;
+    private Transform pointToSpawnOn;
     #endregion
 
     #region
@@ -145,6 +146,7 @@ public class GameController : MonoBehaviour
     public int requiredSoulsInGenerator;
 
     private PlayerController playerController;
+    private Camera mainCamera;
     private UIController uIController;
 
     public List<GameObject> enemiesList = new List<GameObject>(); //Tom's work
@@ -243,7 +245,7 @@ public class GameController : MonoBehaviour
         //If the level loaded is the playable level, all of the necessary variables are assigned depending on the currently selected difficulty
         if(level == 1)
         {
-            Debug.Log(enemiesKilled);
+            mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
             //Locks the cursor to the center of the screen to prevent it from moving outside of the playable area, ensuring the player cannot accidentall leave the game window
             Cursor.lockState = CursorLockMode.Locked;
             //Finds the player character in the scene and assigns its script to the playerController variable
@@ -416,41 +418,56 @@ public class GameController : MonoBehaviour
         Debug.Log(enemiesKilled);
     }
 
+    public bool PlayerCanSeeSpawner()
+    {
+        RaycastHit rayhit;
+        Vector3 direction = (pointToSpawnOn.position - mainCamera.gameObject.transform.position).normalized;
+        Physics.Raycast(pointToSpawnOn.position, direction, out rayhit, 1000f);
+        if (rayhit.collider.gameObject.GetComponent<PlayerController>())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void EnemySpawning()
     {
         //Generates a random number between 0 and 4 which is used to pick a random spawn point from the array
         int arrayIndex = UnityEngine.Random.Range(0, 4);
-        Transform pointToSpawn = enemySpawnPoints[arrayIndex];
-        //Checks if the number of each type of enemy alive in the scene is less than the maximum number, as well as if the
-        //spawning cooldown has ended and if spawning a new enemy of that type will exceed the number allowed in that wave to determine whether or not to spawn a new enemy
-        if (activeSmallEnemies.Count < maxSmallEnemies && canSpawnEnemy && smallEnemiesSpawned + 1 <= smallEnemiesInWave)
+        pointToSpawnOn = enemySpawnPoints[arrayIndex];
+        if (!PlayerCanSeeSpawner())
         {
-            activeSmallEnemies.Add(Instantiate(levelOneEnemy, pointToSpawn.position, Quaternion.identity));
-            enemyBase newEnemy = activeSmallEnemies[activeSmallEnemies.Count - 1].GetComponent<enemyBase>();
-            ApplyNewEnemyBuff(newEnemy);
-            smallEnemiesSpawned++;
-            canSpawnEnemy = false;
+            //Checks if the number of each type of enemy alive in the scene is less than the maximum number, as well as if the
+            //spawning cooldown has ended and if spawning a new enemy of that type will exceed the number allowed in that wave to determine whether or not to spawn a new enemy
+            if (activeSmallEnemies.Count < maxSmallEnemies && canSpawnEnemy && smallEnemiesSpawned + 1 <= smallEnemiesInWave)
+            {
+                activeSmallEnemies.Add(Instantiate(levelOneEnemy, pointToSpawnOn.position, Quaternion.identity));
+                enemyBase newEnemy = activeSmallEnemies[activeSmallEnemies.Count - 1].GetComponent<enemyBase>();
+                ApplyNewEnemyBuff(newEnemy);
+                smallEnemiesSpawned++;
+                canSpawnEnemy = false;
+            }
+            if (activeMediumEnemies.Count < maxMediumEnemies && canSpawnEnemy && mediumEnemiesSpawned + 1 <= mediumEnemiesInWave)
+            {
+                activeMediumEnemies.Add(Instantiate(levelTwoEnemy, pointToSpawnOn.position, Quaternion.identity));
+                enemyBase newEnemy = activeMediumEnemies[activeMediumEnemies.Count - 1].GetComponent<enemyBase>();
+                ApplyNewEnemyBuff(newEnemy);
+                mediumEnemiesSpawned++;
+                canSpawnEnemy = false;
+            }
+            if (activeLargeEnemies.Count < maxLargeEnemies && canSpawnEnemy && largeEnemiesSpawned + 1 <= largeEnemiesInWave)
+            {
+                activeLargeEnemies.Add(Instantiate(levelThreeEnemy, pointToSpawnOn.position, Quaternion.identity));
+                enemyBase newEnemy = activeLargeEnemies[activeLargeEnemies.Count - 1].GetComponent<enemyBase>();
+                ApplyNewEnemyBuff(newEnemy);
+                largeEnemiesSpawned++;
+                canSpawnEnemy = false;
+            }
+            enemiesSpawned = true;
         }
-        if(activeMediumEnemies.Count < maxMediumEnemies && canSpawnEnemy && mediumEnemiesSpawned + 1 <= mediumEnemiesInWave)
-        {
-            activeMediumEnemies.Add(Instantiate(levelTwoEnemy, pointToSpawn.position, Quaternion.identity));
-            enemyBase newEnemy = activeMediumEnemies[activeMediumEnemies.Count - 1].GetComponent<enemyBase>();
-            ApplyNewEnemyBuff(newEnemy);
-            mediumEnemiesSpawned++;
-            canSpawnEnemy = false;
-        }
-        if(activeLargeEnemies.Count < maxLargeEnemies && canSpawnEnemy && largeEnemiesSpawned + 1 <= largeEnemiesInWave)
-        {
-            activeLargeEnemies.Add(Instantiate(levelThreeEnemy, pointToSpawn.position, Quaternion.identity));
-            enemyBase newEnemy = activeLargeEnemies[activeLargeEnemies.Count - 1].GetComponent<enemyBase>();
-            ApplyNewEnemyBuff(newEnemy);
-            largeEnemiesSpawned++;
-            canSpawnEnemy = false;
-        }
-        enemiesSpawned = true;
-
-
-
     }
 
     public void ApplyNewEnemyBuff(enemyBase newEnemy)
