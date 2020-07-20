@@ -235,13 +235,13 @@ public class GameController : MonoBehaviour
                     intermissionTimerValue = intermissionLength;
                 }
             }
-            if(soulsInGenerator == requiredSoulsInGenerator)
+            if(soulsInGenerator >= requiredSoulsInGenerator)
             {
                 //Do victory stuff
-                if (Time.timeScale - 0.01f >= 0)
+                if (Time.timeScale - 0.005f >= 0)
                 {
-                    Time.timeScale -= 0.01f;
-                    if (Time.timeScale < 0.01f)
+                    Time.timeScale -= 0.005f;
+                    if (Time.timeScale < 0.005f)
                     {
                         Time.timeScale = 0;
                         victoryCanvas.SetActive(true);
