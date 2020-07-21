@@ -141,7 +141,7 @@ MonoBehaviour:
   attackMaxTimer: 2
   attackMinTimer: 2
   currentTimer: 0
-  enemyHP: 15
+  enemyHP: 20
   meleeDamage: 10
   hasMelee: 1
   showDebugGizmos: 1

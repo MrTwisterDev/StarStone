@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ee3671b2522cd14088f4f4e844669ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineExplosionDistance: 10
-  mineDamage: 100
+  mineExplosionDistance: 0.3
+  mineDamage: 10
   minePrimeTimer: 3
   explosionSound: {fileID: 8300000, guid: d98acc88deec6664080fc6d4bb83aa94, type: 3}
   explosionEffect: {fileID: 3116116019638928491, guid: 723c90f5f841139489708a587029fc91,

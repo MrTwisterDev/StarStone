@@ -142,9 +142,9 @@ MonoBehaviour:
   attackMaxTimer: 10
   attackMinTimer: 3
   currentTimer: 0
-  enemyHP: 20
-  meleeDamage: 34
-  hasMelee: 0
+  enemyHP: 35
+  meleeDamage: 35
+  hasMelee: 1
   showDebugGizmos: 0
   maxEnemyHP: 0
   healthBuffAmount: 0
