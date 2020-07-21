@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,6 +22,12 @@ public class PlayerBase : MonoBehaviour
     public float gravityMultiplier;
     [Tooltip("The distance from the player the floor can be before the player is considered grounded.")]
     public float groundDistance;
+    [Tooltip("The layer that, if the player lands on it, will trigger isGrounded to return true.")]
+    public LayerMask groundLayer;
+    [Tooltip("The layer the ladders are assigned to in the game.")]
+    public LayerMask ladderLayer;
+    public LayerMask interactiveLayer;
+    private RaycastHit interactableObject;
     private bool isGrounded;
     [Space]
     #endregion
@@ -67,6 +74,8 @@ public class PlayerBase : MonoBehaviour
     public float regenRate;
     [Tooltip("The amount of time passed since the player last took damage.")]
     public float timeSinceTakenDamage;
+    [Tooltip("The amount of time the player must wait before being able to regenerate health after having taken damage.")]
+    public float regenWaitAfterDamage;
     [Tooltip("A boolean determining whether or not the player is currently able to regenerate health.")]
     public bool canRegen;
     [Tooltip("A boolean determining whether or not the player's health can regeneate to the maximum health value.")]
@@ -107,18 +116,18 @@ public class PlayerBase : MonoBehaviour
     #region
     [Header("Ability Management")]
     [Tooltip("The amount of time remaining before the player can use their blink ability again.")]
-    public float blinkCooldownTime;
-    private bool canBlink;
+    public float leftAbilityCooldown;
+    private bool canUseLeftAbility;
     [HideInInspector]
-    public float blinkCooldownRounded;
+    public float leftAbilityCooldownRounded;
     [Tooltip("The amount of time remaining before the player can use their mine ability again.")]
-    public float mineRechargeTime;
+    public float rightAbilityCooldown;
     [HideInInspector]
-    public float mineRechargeRounded;
+    public float rightAbilityCooldownRounded;
     [Tooltip("The prefab GameObject of the Blinkball.")]
-    public GameObject blinkballPrefab;
+    public GameObject leftAbilityPrefab;
     [Tooltip("The prefab GameObject of the Mine.")]
-    public GameObject minePrefab;
+    public GameObject rightAbilityPrefab;
     [Space]
     #endregion
     //Sounds
@@ -139,12 +148,14 @@ public class PlayerBase : MonoBehaviour
     [Header("Miscellaneous")]
     [Tooltip("The flashlight object attached to the player.")]
     public GameObject flashlight;
+    [HideInInspector]
+    public string playerNumber;
     private bool flashlightToggle;
     private Animator playerAnimator;
     private GameController gameController;
     private UIController uIController;
     private Vector3 standingScale, crouchingScale;
-    private Transform playerFeet;
+    public Transform playerFeet;
     #endregion
     //Enums
     #region
@@ -174,10 +185,11 @@ public class PlayerBase : MonoBehaviour
         playerAnimator = gameObject.GetComponent<Animator>();
         //Finds and assigns the UIController
         uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
+        uIController.GetChangedWeapon();
         //Assigns the CharacterController component of the player.
         characterController = gameObject.GetComponent<CharacterController>();
         //Sets canBlink to true so that the player is able to use the ability immediately when the game loads.
-        canBlink = true;
+        canUseLeftAbility = true;
         //Sets the player's flashlight boolean to false as the flashlight starts turned off.
         flashlightToggle = false;
         //Sets the player's standing and crouching sizes
@@ -201,7 +213,8 @@ public class PlayerBase : MonoBehaviour
         if (wadingSpeedMultiplier == 0) { wadingSpeedMultiplier = -0.3f; }
         if (underwaterSpeedMultiplier == 0) { underwaterSpeedMultiplier = -0.2f; }
         if (mouseSensitivity == 0) { mouseSensitivity = 100f; }
-        if (blinkCooldownTime == 0) { blinkCooldownTime = 5f; }
+        if (leftAbilityCooldown == 0) { leftAbilityCooldown = 5f; }
+        if (playerNumber == null) { playerNumber = "PlayerOne"; }
     }
 
     // Update is called once per frame
@@ -215,8 +228,9 @@ public class PlayerBase : MonoBehaviour
         else if(playerState == PlayerStates.climbingState || playerState == PlayerStates.standardState)
         {
             CameraControls();
+            CheckCanClimb();
             CheckGrounded();
-            HealthRegen();
+            HealthManagement();
             PlayerSounds();
             CooldownTimers();
             PlayerInput();
@@ -236,8 +250,8 @@ public class PlayerBase : MonoBehaviour
     {
         if(isGrounded || (!isGrounded && !isJumping))
         {
-            xInput = Input.GetAxis("Horizontal");
-            zInput = Input.GetAxis("Vertical");
+            xInput = Input.GetAxis(playerNumber + "Horizontal");
+            zInput = Input.GetAxis(playerNumber + "Vertical");
             movement = transform.right * xInput + transform.forward * zInput;
             //Moves the player by the newly calculated movement vector, applying the movement speed and any multipliers and using deltaTime to make movement non-framerate dependent
             characterController.Move(movement * moveSpeed * moveSpeedMultiplier * Time.deltaTime);
@@ -251,21 +265,21 @@ public class PlayerBase : MonoBehaviour
         }
         //If the sprint button is held and the player is not already sprinting, the sprint speed modifier is added to the movement speed multiplier and the isSprinting is set to true
         //Checking to see if the player is already sprinting prevents the speed from being added more than once
-        if (Input.GetButtonDown("Sprint") && !isSprinting)
+        if (Input.GetButtonDown(playerNumber + "Sprint") && !isSprinting)
         {
             moveSpeedMultiplier += sprintSpeedMultiplier;
             isSprinting = true;
         }
         //If the player release the sprint button while they are sprinting, the sprint speed modifier is subtracted from the movement speed multiplier and isSprinting is set to false
         //Checking to see if the player is already sprinting prevents the modifier from being subtracted more than once
-        if(Input.GetButtonDown("Sprint") && isSprinting)
+        if(Input.GetButtonDown(playerNumber + "Sprint") && isSprinting)
         {
             moveSpeedMultiplier -= sprintSpeedMultiplier;
             isSprinting = false;
         }
         //If the player presses the jump button and are currently standing on the ground, their current movement speed multiplier is saved and their vertical velocity is set to
         //the square root of the player's jumpheight doubled, multiplied by the gravity force in order to create a more realistic jump without using Unity physics
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        if(Input.GetButtonDown(playerNumber + "Jump") && isGrounded)
         {
             isJumping = true;
             //Speed multiplier is saved so it can be used to move the player without them being able to change it in mid air
@@ -276,44 +290,282 @@ public class PlayerBase : MonoBehaviour
 
     public virtual void PlayerInput()
     {
+        //Checks that the player's active weapon is not the Prototype weapon, as it has its own firing code
+        if(Input.GetButton(playerNumber + ("Fire")) && activeWeapon.tag != "Prototype")
+        {
+            //Runs the UseWeapon method of the baseWeaponClass to fire the active weapon
+            activeWeapon.GetComponent<baseWeaponClass>().useWeapon();
+        }
+        if(Input.GetButtonUp(playerNumber + "Fire"))
+        {
+            //Thomas did this I don't know what it's for
+            if(activeWeapon.tag != "Prototype" && activeWeapon.GetComponent<build_a_weapon>().typeOfWeapon == build_a_weapon.typesOfWeapon.spreadShot)
+            {
+                activeWeapon.GetComponent<build_a_weapon>().spreadShotLock = false;
+            }
+        }
+        if(Input.GetButtonDown(playerNumber + "Interact"))
+        {
+            //Checks to see what script is attached to the object being interacted with and runs the necessary method
+            if(CanInteract() && interactableObject.collider.gameObject.GetComponent<StarstoneController>() != null)
+            {
+                interactableObject.collider.gameObject.GetComponent<StarstoneController>().ActivateEffect();
+            }
+            else if(CanInteract() && interactableObject.collider.gameObject.GetComponent<StarStoneBase>() != null)
+            {
+                interactableObject.collider.gameObject.GetComponent<StarStoneBase>().ActivateStarStone();
+            }
+        }
+        if(Input.GetButton(playerNumber + "Aim") && activeWeapon.tag == "Prototype")
+        {
+            //Moves the prototype weapon to its ADS position
+            activeWeapon.transform.position = adsHoldPoint.position;
+        }
+        if(Input.GetButtonUp(playerNumber + "Aim") && activeWeapon.tag == "Prototype")
+        {
+            //Moves the prototype weapon back to its hipfire location
+            activeWeapon.transform.position = weaponHoldPoint.position;
+        }
+        if(Input.GetButtonDown(playerNumber + "LeftAbility") && canUseLeftAbility)
+        {
+            UseLeftAbility();
+        }
+        if(Input.GetAxis(playerNumber + "Flashlight") == 1)
+        {
+            //Toggles the flashlight boolean and plays the toggle sound, setting the flashlight to active or inactive depending on the value of flashlightToggle
+            flashlightToggle = !flashlightToggle;
+            AudioSource.PlayClipAtPoint(flashlightSound, flashlight.transform.position);
+            flashlight.SetActive(flashlightToggle);
+        }
+        if(Input.GetButtonDown(playerNumber + "Melee"))
+        {
+            //Plays the melee animation of the player and the appropriate sound
+            playerAnimator.SetTrigger("Punch");
+            AudioSource.PlayClipAtPoint(meleeSound, transform.position);
+        }
+        if(Input.GetButtonDown(playerNumber + "ChangeWeapon"))
+        {
+            //Resets the value of timeSinceLastPress so the timer can start from 0
+            timeSinceLastPress = 0f;
+            //If the player isn't already preparing to swap their weapon, they are now
+            if (!preparingToSwapWeapon)
+            {
+                preparingToSwapWeapon = true;
+            }
+            //If the player is already preparing to swap their weapon, and they press the button before the time since their last press surpasses the timeout value,
+            //their active weapon is changed to be the Prototype Weapon
+            else if(preparingToSwapWeapon && timeSinceLastPress <= prototypeSwitchTimeout)
+            {
+                weaponsArray[activeWeaponIndex].SetActive(false);
+                activeWeaponIndex = weaponsArray.Length - 1;
+                weaponsArray[activeWeaponIndex].SetActive(true);
+                activeWeapon = weaponsArray[activeWeaponIndex];
+                preparingToSwapWeapon = false;
+                timeSinceLastPress = 0f;
+            }
+        }
+    }
 
+    public void WeaponSwapTimer()
+    {
+        //The value of timeSinceLastPress is incremented every frame
+        timeSinceLastPress += Time.deltaTime;
+        //If it surpasses the value of prototypeSwitchTimeout, the player's weapon is swapped
+        if(timeSinceLastPress > prototypeSwitchTimeout)
+        {
+            //The currently active weapon is disabled, and the array index is incremented by 1
+            weaponsArray[activeWeaponIndex].SetActive(false);
+            activeWeaponIndex++;
+            //If the index matches that of the prototype weapon or is out of range, it is set to 0
+            if(activeWeaponIndex >= weaponsArray.Length - 1)
+            {
+                activeWeaponIndex = 0;
+            }
+            //The newly selected weapon is activated and set as the current weapon
+            weaponsArray[activeWeaponIndex].SetActive(true);
+            activeWeapon = weaponsArray[activeWeaponIndex];
+            //The new values are acquired by the UI Controller and the UI elements are updated to use them
+            uIController.GetChangedWeapon();
+            uIController.UpdateAmmoText();
+            //Preparing to swap is set to false and the timer is reset, so that the weapon changing mechanism is reset
+            preparingToSwapWeapon = false;
+            timeSinceLastPress = 0f;
+        }
+    }
+
+    public virtual void UseLeftAbility()
+    {
+        Debug.LogError("No override method has been defined for this character's left ability.");
+    }
+
+    public virtual void UseRightAbility()
+    {
+        Debug.LogError("No override method has been created for this character's right ability.");
     }
 
     public void ApplyGravity()
     {
         //Adds the value of gravity to the player's current velocity in the Y axis
-        currentVelocity.y += gravityForce;
+        currentVelocity.y += gravityForce * Time.deltaTime;
         //Moves the player downwards on the Y axis by the value of current velocity, using the gravity multiplier to add any gravity affects and using deltaTime to make gravity non-framerate dependent
         characterController.Move(currentVelocity * gravityMultiplier * Time.deltaTime);
     }
 
     public virtual void ClimbingControls()
     {
+        yInput = Input.GetAxis(playerNumber + "Vertical");
+        xInput = Input.GetAxis(playerNumber + "Horizontal");
 
+        //Moves the player up and down the Y axis to climb ladders
+        Vector3 movement = transform.right * xInput + transform.up * yInput;
+        characterController.Move(movement * moveSpeed * Time.deltaTime);
     }
 
     public virtual void CameraControls()
     {
+        mouseX = Input.GetAxis(playerNumber + "CameraX");
+        mouseY = Input.GetAxis(playerNumber + "CameraY");
 
+        xRotation -= mouseY;
+        //Locks the camera from going above or below 90 degrees in the Y direction
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        //Rotates all of the necessary GameObjects to match camera rotation
+        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        weaponHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        adsHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        meleeHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        //Rotates the player object left and right based on player input
+        transform.Rotate(Vector3.up * mouseX);
     }
 
     public void PlayerSounds()
     {
-
+        //The pitch of the AudioSource is changed to match the tempo with the movement speed
+        walkingSound.pitch = moveSpeedMultiplier;
+        //If the player is moving in any direction, the walking sound is played
+        if(Input.GetAxis(playerNumber + "Horizontal") != 0 || Input.GetAxis(playerNumber + "Vertical") != 0 && isGrounded && !walkingSound.isPlaying)
+        {
+            walkingSound.Play();
+        }
+        //When the player stops moving, the walking sound is stopped
+        else
+        {
+            walkingSound.Stop();
+        }
     }
 
     public void CooldownTimers()
     {
-
+        //If the player can't use their left ability, a cooldown timer is run each frame
+        if (!canUseLeftAbility)
+        {
+            leftAbilityCooldown -= Time.deltaTime;
+            //The value is rounded to two decimal places so that it can be used in the ability's UI element
+            leftAbilityCooldownRounded = Mathf.Round(leftAbilityCooldown * 100) / 100;
+            //Once the timer reaches 0, the player is able to use their ability again
+            if(leftAbilityCooldown <= 0)
+            {
+                canUseLeftAbility = true;
+                leftAbilityCooldown = 5f;
+            }
+            uIController.UpdateBlinkTimer();
+        }
+        //If the player cannot regenerate health, a cooldown timer is run each frame
+        if (!canRegen)
+        {
+            //The time since they last took damage is incremented each frame
+            timeSinceTakenDamage += Time.deltaTime;
+            //If the time since the player last took damage reaches the value of regenWaitAfterDamage, the player is then able to regen health again
+            if(timeSinceTakenDamage >= regenWaitAfterDamage)
+            {
+                canRegen = true;
+            }
+        }
     }
 
     public void CheckGrounded()
     {
-
+        //A spherical area at the player's feet is checked. If it contains a GameObject on the ground layer, the player is set as grounded
+        isGrounded = Physics.CheckSphere(playerFeet.position, groundDistance, groundLayer);
+        if(isGrounded && currentVelocity.y == 0)
+        {
+            isJumping = false;
+            //Prevents a downward force from being built up on the player while they are on the ground, so that if they step off of a ledge they do not plummet
+            currentVelocity.y = 2f;
+        }
     }
 
-    public void HealthRegen()
+    public void CheckCanClimb()
     {
+        //A raycast is sent out from the player's feet. If it collides with an object on the ladder layer, the player enters climing mode
+        //The raycast comes from the player's feet to ensure they are in climbing mode until they reach the top and can step off
+        if (Physics.Raycast(playerFeet.position, playerFeet.forward, 0.5f, ladderLayer))
+        {
+            playerState = PlayerStates.climbingState;
+            moveSpeedMultiplier += climbingMultiplier;
+        }
+        //If the raycast doesn't hit a ladder, and the player is not already in the standard state, they are set to standard state
+        //The ladder climbing speed modifier is subtracted from their movement speed
+        else
+        {
+            if (playerState != PlayerStates.standardState)
+            {
+                playerState = PlayerStates.standardState;
+                moveSpeedMultiplier -= climbingMultiplier;
+            }
+        }
+    }
 
+    public bool CanInteract()
+    {
+        //Fires out a raycast from the camera. If it collides with something on the interactive layer 
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out interactableObject, 1f, interactiveLayer))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void HealthManagement()
+    {
+        //If the player's health is reduced past the regen cutoff, they can no longer regenerate to maximum health
+        if(currentHealth <= healthRegenCutoff)
+        {
+            canRegenToMax = false;
+        }
+        //If their health is greater than the cutoff, they can regenerate to max
+        else
+        {
+            canRegenToMax = true;
+        }
+        //If the player is able to regenerate their health to the maximum value, it is incremented by the regen rate every frame
+        if(canRegen && currentHealth < maxHealth && canRegenToMax)
+        {
+            currentHealth += regenRate * Time.deltaTime;
+            //If it surpasses the maximum health the player can have, it is set to the maximum value
+            if(currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+        }
+        //If the player is only able to regenerate their health to the cutoff point, it is still incremented every frame
+        else if(canRegen && currentHealth < healthRegenCutoff)
+        {
+            currentHealth += regenRate * Time.deltaTime;
+            //But if it surpasses the cutoff point, it is set to that value
+            if(currentHealth > healthRegenCutoff)
+            {
+                currentHealth = healthRegenCutoff;
+            }
+        }
+        //If the player's health drops past 0, it is set to equal 0
+        if(currentHealth < 0)
+        {
+            currentHealth = 0;
+        }
+        uIController.UpdateHealthbar();
     }
 }

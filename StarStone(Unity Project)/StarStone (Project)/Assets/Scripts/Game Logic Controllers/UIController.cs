@@ -13,29 +13,27 @@ public class UIController : MonoBehaviour
     //***************************************************************|
 
     //Scripts
-    private PlayerController playerController;
-    private build_a_weapon activeWeaponController;
+    public PlayerBase playerController;
+    public build_a_weapon activeWeaponController;
     //Ammo UI Elements
-    private Text totalAmmoText;
-    private Text currentMagazineAmmoText;
+    public Text totalAmmoText;
+    public Text currentMagazineAmmoText;
     //Prototype Weapon UI Elements
-    private Slider prototypeChargeSlider;
-    private Text prototypeChargePercent;
+    public Slider prototypeChargeSlider;
+    public Text prototypeChargePercent;
     //Ability UI Elements
-    private Text blinkTimerText;
+    public Text blinkTimerText;
     //Wave Information UI Elements
-    private Text waveTimerText;
-    private Text waveNumberText;
-    private Image timerBar;
-    private float initialTime;
+    public Text waveTimerText;
+    public Text waveNumberText;
+    public Image timerBar;
+    public float initialTime;
     //Health UI Elements
-    private Slider healthBar;
+    public Slider healthBar;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        playerController = GameObject.Find("playerCapsule").GetComponent<PlayerController>();
-        activeWeaponController = playerController.activeWeapon.GetComponent<build_a_weapon>();
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBase>();
 
         totalAmmoText = GameObject.Find("TotalAmmoValue").GetComponent<Text>();
         currentMagazineAmmoText = GameObject.Find("CurrentMagazineAmmo").GetComponent<Text>();
@@ -51,6 +49,7 @@ public class UIController : MonoBehaviour
 
         healthBar = GameObject.Find("HealthBar").GetComponent<Slider>();
 
+        GetChangedWeapon();
         UpdateAmmoText();
     }
 
@@ -63,14 +62,14 @@ public class UIController : MonoBehaviour
     public void UpdateBlinkTimer()
     {
         //If the blink timer reaches 5, the timer stops and is replaced with "Blink Ready" to show the player they can use their ability again
-        if (playerController.blinkCooldownTime == 5)
+        if (playerController.leftAbilityCooldown == 5)
         {
             blinkTimerText.text = "Blink Ready";
         }
         //If the blink timer is still running, the value of the timer is updated on the UI
         else
         {
-            blinkTimerText.text = playerController.blinkCooldownTimeRounded.ToString();
+            blinkTimerText.text = playerController.leftAbilityCooldownRounded.ToString();
         }
     }
 
