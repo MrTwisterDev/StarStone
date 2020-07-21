@@ -1313,7 +1313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuController: {fileID: 787769884}
   screenToChange: {fileID: 50227521}
-  keyToStart: 0
+  keyToStart: 32
 --- !u!222 &686108457
 CanvasRenderer:
   m_ObjectHideFlags: 0
