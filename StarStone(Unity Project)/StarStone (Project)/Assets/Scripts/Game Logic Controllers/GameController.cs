@@ -16,16 +16,18 @@ public class GameController : MonoBehaviour
     //***************************************************************|
     private bool isInGame;
 
+    //Prefabs
     #region
-    [Header("Enemy GameObject Prefabs")]
+    [Header("GameObject Prefabs")]
     [Tooltip("The prefab GameObject for the small enemy.")]
     public GameObject levelOneEnemy;
     [Tooltip("The prefab GameObject for the medium enemy.")]
     public GameObject levelTwoEnemy;
     [Tooltip("The prefab GameObject for the large enemy.")]
     public GameObject levelThreeEnemy;
+    public GameObject playerPrefab;
     #endregion
-
+    //Enemy Spawning
     #region
     [Header("Enemy Spawning")]
     [Tooltip("The maximum number of active small enemies at any given time.")]
@@ -48,7 +50,7 @@ public class GameController : MonoBehaviour
     private Transform spawnerParent;
     private Transform pointToSpawnOn;
     #endregion
-
+    //Enemy Difficulty Settings
     #region
     [Header("Enemy Difficulty Settings")]
     [Tooltip("The base maximum number of small enemies that will spawn at a time in the first wave on the easy difficulty.")]
@@ -111,7 +113,7 @@ public class GameController : MonoBehaviour
 
     private int enemiesKilled;
     #endregion
-
+    //Wave Management
     #region
     [Header("Wave Variables")]
     [Tooltip("The duration of each wave on the Easy difficulty (in seconds).")]
@@ -134,7 +136,7 @@ public class GameController : MonoBehaviour
     public float intermissionLength;
     private float intermissionTimerValue;
     #endregion
-
+    //Starstone Management
     #region
     [Header("Starstones")]
     [Tooltip("An array of the four Starstones in the scene.")]
@@ -146,7 +148,10 @@ public class GameController : MonoBehaviour
     public int soulsInGenerator;
     public int requiredSoulsInGenerator;
 
-    private PlayerController playerController;
+    public Transform playerOneSpawnPoint;
+    public Transform playerTwoSpawnPoint;
+
+    private PlayerBase playerController;
     private Camera mainCamera;
     private UIController uIController;
     private GameObject victoryCanvas;
@@ -257,14 +262,15 @@ public class GameController : MonoBehaviour
         //If the level loaded is the playable level, all of the necessary variables are assigned depending on the currently selected difficulty
         if(level == 1)
         {
+            playerOneSpawnPoint = GameObject.Find("PlayerOneSpawnPoint").GetComponent<Transform>();
+            playerController = Instantiate(playerPrefab, playerOneSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
+            playerController.playerNumber = "PlayerOne";
             victoryCanvas = GameObject.Find("VictoryCanvas");
             victoryCanvas.SetActive(false);
             spawnerParent = GameObject.Find("EnemySpawners").GetComponent<Transform>();
             mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
             //Locks the cursor to the center of the screen to prevent it from moving outside of the playable area, ensuring the player cannot accidentall leave the game window
             Cursor.lockState = CursorLockMode.Locked;
-            //Finds the player character in the scene and assigns its script to the playerController variable
-            playerController = GameObject.Find("playerCapsule").GetComponent<PlayerController>();
             //Find the UI Controller object in the scene and assigns its script to the uIController variable
             uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
             //Sets the length of the spawn point array

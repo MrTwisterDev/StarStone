@@ -1193,6 +1193,12 @@ PrefabInstance:
       propertyPath: requiredSoulsInGenerator
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 5355848417490344555, guid: 0bfedd40c39f35b42ba56747334aceda,
+        type: 3}
     - target: {fileID: 2858349823743127418, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: m_LocalPosition.x
