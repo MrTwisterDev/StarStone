@@ -11,6 +11,7 @@ TagManager:
   - Protoype
   - starStoneController
   - Starstone
+  - UIHandler
   layers:
   - Default
   - TransparentFX
