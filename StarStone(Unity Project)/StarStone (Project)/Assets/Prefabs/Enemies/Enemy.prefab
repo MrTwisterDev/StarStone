@@ -4862,7 +4862,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2.5
+  m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -4894,11 +4894,11 @@ MonoBehaviour:
   minimumProjectileRadius: 2
   maximumProjectileRadius: 5
   projectileSpeed: 0
-  attackMaxTimer: 5
+  attackMaxTimer: 2
   attackMinTimer: 2
   currentTimer: 0
-  enemyHP: 5
-  meleeDamage: 35
+  enemyHP: 12
+  meleeDamage: 10
   hasMelee: 1
   burnDamage: 0
   burnTime: 0
