@@ -16,7 +16,7 @@ public class PlayerBase : MonoBehaviour
     //Physics
     #region
     [Header("Physics Variables")]
-    [Tooltip("The amount of gravity applied to the player each frame.")]
+    [Tooltip("The amount of gravity applied to the player each frame. Should be negative for downward force.")]
     public float gravityForce;
     [Tooltip("The value by which the gravity is multiplied.")]
     public float gravityMultiplier;
@@ -176,6 +176,8 @@ public class PlayerBase : MonoBehaviour
     {
         //Checks to see if any numerical values are unassigned. If they are, they are assigned a standard value to ensure all mechanics work correctly.
         AssignNullVariables();
+        isSprinting = false;
+        isCrouching = false;
         if(healthRegenCutoff > maxHealth) { Debug.LogWarning("The health regen cutoff value is greater than the maximum health value of" + gameObject + ", this player's health will regen as normal."); }
         currentHealth = maxHealth;
         //Sets the first weapon in the array of weapons to active, and sets it as the player's active weapon to feed information through to the weapon and the UI Controller.
@@ -199,7 +201,7 @@ public class PlayerBase : MonoBehaviour
 
     private void AssignNullVariables()
     {
-        if (gravityForce == 0) { gravityForce = 9.81f; }
+        if (gravityForce == 0) { gravityForce = -9.81f; }
         if (gravityMultiplier == 0) { gravityMultiplier = 1f; }
         if (groundDistance == 0) { groundDistance = 0.4f; }
         if (jumpHeight == 0) { jumpHeight = 3f; }
@@ -225,7 +227,7 @@ public class PlayerBase : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
         }
-        else if(playerState == PlayerStates.climbingState || playerState == PlayerStates.standardState)
+        if(playerState == PlayerStates.climbingState || playerState == PlayerStates.standardState)
         {
             CameraControls();
             CheckCanClimb();
@@ -234,12 +236,16 @@ public class PlayerBase : MonoBehaviour
             PlayerSounds();
             CooldownTimers();
             PlayerInput();
+            if (preparingToSwapWeapon)
+            {
+                WeaponSwapTimer();
+            }
         }
-        else if(playerState == PlayerStates.climbingState)
+        if(playerState == PlayerStates.climbingState)
         {
             ClimbingControls();
         }
-        else if(playerState == PlayerStates.standardState)
+        if(playerState == PlayerStates.standardState)
         {
             MovementControls();
             ApplyGravity();
@@ -286,6 +292,18 @@ public class PlayerBase : MonoBehaviour
             multiplierBeforeJump = moveSpeedMultiplier;
             currentVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravityForce);
         }
+        if(Input.GetButtonDown(playerNumber + "Crouch") && !isCrouching)
+        {
+            isCrouching = true;
+            transform.localScale = crouchingScale;
+            moveSpeedMultiplier += crouchSpeedMultiplier;
+        }
+        if(Input.GetButtonUp(playerNumber + "Crouch") && isCrouching)
+        {
+            isCrouching = false;
+            transform.localScale = standingScale;
+            moveSpeedMultiplier -= crouchSpeedMultiplier;
+        }
     }
 
     public virtual void PlayerInput()
@@ -330,6 +348,10 @@ public class PlayerBase : MonoBehaviour
         {
             UseLeftAbility();
         }
+        if(Input.GetButtonDown(playerNumber + "RightAbility"))
+        {
+            UseRightAbility();
+        }
         if(Input.GetAxis(playerNumber + "Flashlight") == 1)
         {
             //Toggles the flashlight boolean and plays the toggle sound, setting the flashlight to active or inactive depending on the value of flashlightToggle
@@ -370,6 +392,8 @@ public class PlayerBase : MonoBehaviour
     {
         //The value of timeSinceLastPress is incremented every frame
         timeSinceLastPress += Time.deltaTime;
+        Debug.Log("Time Since Last Press:" + timeSinceLastPress);
+        Debug.Log("Timeout length:" + prototypeSwitchTimeout);
         //If it surpasses the value of prototypeSwitchTimeout, the player's weapon is swapped
         if(timeSinceLastPress > prototypeSwitchTimeout)
         {
