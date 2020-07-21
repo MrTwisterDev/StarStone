@@ -45,6 +45,8 @@ public class GameController : MonoBehaviour
     public float enemySpawnDelay;
     private float spawnCooldownTime;
     private Transform[] enemySpawnPoints;
+    private Transform spawnerParent;
+    private Transform pointToSpawnOn;
     #endregion
 
     #region
@@ -141,11 +143,18 @@ public class GameController : MonoBehaviour
     public starstoneEffects currentStarstone;
     #endregion
 
+    public int soulsInGenerator;
+    public int requiredSoulsInGenerator;
+
     private PlayerController playerController;
+    private Camera mainCamera;
     private UIController uIController;
+    private GameObject victoryCanvas;
 
     public List<GameObject> enemiesList = new List<GameObject>(); //Tom's work
     public bool enemiesSpawned = false; //Tom's work
+
+    public bool hasFoundGenerator;
 
     public enum gameDifficulty
     {
@@ -177,6 +186,7 @@ public class GameController : MonoBehaviour
         if(easyWaveTime == 0) { easyWaveTime = 180f; }
         if(normalWaveTime == 0) { normalWaveTime = 120f; }
         if(hardWaveTime == 0) { hardWaveTime = 90f; }
+        if(requiredSoulsInGenerator == 0) { requiredSoulsInGenerator = 50; }
         //Sets the value of the enemy spawning cooldown timer to the default value input in the inspector
         spawnCooldownTime = enemySpawnDelay;
         //Starts the current wave at 1
@@ -202,18 +212,42 @@ public class GameController : MonoBehaviour
         if (isInGame)
         {
             GameTimers();
-            EnemySpawning();
-            CheckEnemyStatus();
+            if (timerActive)
+            {
+                EnemySpawning();
+                CheckEnemyStatus();
+            }
+            if(hasFoundGenerator && !timerActive)
+            {
+                timerActive = true;
+                enemiesKilled = 0;
+                uIController.UpdateWaveNumber(currentWave);
+            }
             //If the player has killed all enemies in a wave, the wave ends and an intermission starts
             if (enemiesKilled >= smallEnemiesInWave + mediumEnemiesInWave + largeEnemiesInWave)
             {
                 intermissionTimerValue -= Time.deltaTime;
-                uIController.UpdateIntermissionTimer(intermissionTimerValue);
+                uIController.UpdateIntermissionTimer((int)intermissionTimerValue);
                 //When the intermission timer runs out, the next wave begins
                 if (intermissionTimerValue <= 0) 
                 {
                     NextWave();
+                    intermissionTimerValue = intermissionLength;
                 }
+            }
+            if(soulsInGenerator >= requiredSoulsInGenerator)
+            {
+                //Do victory stuff
+                if (Time.timeScale - 0.005f >= 0)
+                {
+                    Time.timeScale -= 0.005f;
+                    if (Time.timeScale < 0.005f)
+                    {
+                        Time.timeScale = 0;
+                        victoryCanvas.SetActive(true);
+                    }
+                }
+                Debug.Log(Time.timeScale);
             }
         }
     }
@@ -223,6 +257,10 @@ public class GameController : MonoBehaviour
         //If the level loaded is the playable level, all of the necessary variables are assigned depending on the currently selected difficulty
         if(level == 1)
         {
+            victoryCanvas = GameObject.Find("VictoryCanvas");
+            victoryCanvas.SetActive(false);
+            spawnerParent = GameObject.Find("EnemySpawners").GetComponent<Transform>();
+            mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
             //Locks the cursor to the center of the screen to prevent it from moving outside of the playable area, ensuring the player cannot accidentall leave the game window
             Cursor.lockState = CursorLockMode.Locked;
             //Finds the player character in the scene and assigns its script to the playerController variable
@@ -230,7 +268,7 @@ public class GameController : MonoBehaviour
             //Find the UI Controller object in the scene and assigns its script to the uIController variable
             uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
             //Sets the length of the spawn point array
-            enemySpawnPoints = new Transform[4];
+            enemySpawnPoints = new Transform[spawnerParent.childCount];
             FindStarstones();
 
             //Finds all of the enemy spawners in the scene and adds them to the array so they can be accessed randomly in the enemy spawning method
@@ -277,12 +315,34 @@ public class GameController : MonoBehaviour
             }
             isInGame = true;
             //Initiates the wave timer
-            timerActive = true;
+            if (hasFoundGenerator)
+            {
+                timerActive = true;
+            }
             //Updates the wave timer UI element
             uIController.SetBaseTimerValue(waveTimerValue);
             //Generates a random number used as an array index and activates the relevant Starstone
             int starstoneIndex = UnityEngine.Random.Range(0, 4);
             starstoneArray[starstoneIndex].GetComponent<StarstoneController>().ActivateEffect();
+        }
+        else if(level == 0)
+        {
+            //Resets all variables necessary for game flow that are not reset when the game level is loaded
+            isInGame = false;
+            hasFoundGenerator = false;
+            timerActive = false;
+            //Loops through the lists of enemies and clears them until the number of enemies killed no longer increases
+            //This is to ensure all null objects are removed from the lists of enemies before the game loads, as loading without this resulted in
+            //false positive killcounts
+            while (enemiesKilled > 0)
+            {
+                CheckEnemyStatus();
+                enemiesKilled = 0;
+                CheckEnemyStatus();
+            }
+            smallEnemiesSpawned = 0;
+            mediumEnemiesSpawned = 0;
+            largeEnemiesSpawned = 0;
         }
         else
         {
@@ -302,6 +362,7 @@ public class GameController : MonoBehaviour
 
     public void NextWave()
     {
+        Debug.Log("Killed: " + enemiesKilled + " In Wave: " + (smallEnemiesInWave + mediumEnemiesInWave + largeEnemiesInWave).ToString());
         //Resets variables linked to enemies in order to prevent new waves from starting immediately after
         enemiesKilled = 0;
         smallEnemiesSpawned = 0;
@@ -347,7 +408,7 @@ public class GameController : MonoBehaviour
             if(activeSmallEnemies[i] == null)
             {
                 GameObject deadEnemy = activeSmallEnemies[i];
-                activeSmallEnemies.Remove(deadEnemy);
+                activeSmallEnemies.Remove(deadEnemy);                
                 enemiesKilled++;
             }
         }
@@ -369,51 +430,59 @@ public class GameController : MonoBehaviour
                 enemiesKilled++;
             }
         }
+        Debug.Log(enemiesKilled);
+    }
+
+    public bool PlayerCanSeeSpawner()
+    {
+        RaycastHit rayhit;
+        Vector3 direction = (pointToSpawnOn.position - mainCamera.gameObject.transform.position).normalized;
+        Physics.Raycast(pointToSpawnOn.position, direction, out rayhit, 1000f);
+        if (rayhit.collider.gameObject.GetComponent<PlayerController>())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void EnemySpawning()
     {
         //Generates a random number between 0 and 4 which is used to pick a random spawn point from the array
-        int arrayIndex = UnityEngine.Random.Range(0, 4);
-        Transform pointToSpawn = enemySpawnPoints[arrayIndex];
-        //Checks if the number of each type of enemy alive in the scene is less than the maximum number, as well as if the
-        //spawning cooldown has ended and if spawning a new enemy of that type will exceed the number allowed in that wave to determine whether or not to spawn a new enemy
-        if (activeSmallEnemies.Count < maxSmallEnemies && canSpawnEnemy && smallEnemiesSpawned + 1 <= smallEnemiesInWave)
+        int arrayIndex = UnityEngine.Random.Range(0, spawnerParent.childCount - 1);
+        pointToSpawnOn = enemySpawnPoints[arrayIndex];
+        if (!PlayerCanSeeSpawner())
         {
-            activeSmallEnemies.Add(Instantiate(levelOneEnemy, pointToSpawn.position, Quaternion.identity));
-            enemyBase newEnemy = activeSmallEnemies[activeSmallEnemies.Count - 1].GetComponent<enemyBase>();
-            ApplyNewEnemyBuff(newEnemy);
-            smallEnemiesSpawned++;
-            canSpawnEnemy = false;
+            //Checks if the number of each type of enemy alive in the scene is less than the maximum number, as well as if the
+            //spawning cooldown has ended and if spawning a new enemy of that type will exceed the number allowed in that wave to determine whether or not to spawn a new enemy
+            if (activeSmallEnemies.Count < maxSmallEnemies && canSpawnEnemy && smallEnemiesSpawned + 1 <= smallEnemiesInWave)
+            {
+                activeSmallEnemies.Add(Instantiate(levelOneEnemy, pointToSpawnOn.position, Quaternion.identity));
+                enemyBase newEnemy = activeSmallEnemies[activeSmallEnemies.Count - 1].GetComponent<enemyBase>();
+                ApplyNewEnemyBuff(newEnemy);
+                smallEnemiesSpawned++;
+                canSpawnEnemy = false;
+            }
+            if (activeMediumEnemies.Count < maxMediumEnemies && canSpawnEnemy && mediumEnemiesSpawned + 1 <= mediumEnemiesInWave)
+            {
+                activeMediumEnemies.Add(Instantiate(levelTwoEnemy, pointToSpawnOn.position, Quaternion.identity));
+                enemyBase newEnemy = activeMediumEnemies[activeMediumEnemies.Count - 1].GetComponent<enemyBase>();
+                ApplyNewEnemyBuff(newEnemy);
+                mediumEnemiesSpawned++;
+                canSpawnEnemy = false;
+            }
+            if (activeLargeEnemies.Count < maxLargeEnemies && canSpawnEnemy && largeEnemiesSpawned + 1 <= largeEnemiesInWave)
+            {
+                activeLargeEnemies.Add(Instantiate(levelThreeEnemy, pointToSpawnOn.position, Quaternion.identity));
+                enemyBase newEnemy = activeLargeEnemies[activeLargeEnemies.Count - 1].GetComponent<enemyBase>();
+                ApplyNewEnemyBuff(newEnemy);
+                largeEnemiesSpawned++;
+                canSpawnEnemy = false;
+            }
+            enemiesSpawned = true;
         }
-        if(activeMediumEnemies.Count < maxMediumEnemies && canSpawnEnemy && mediumEnemiesSpawned + 1 <= mediumEnemiesInWave)
-        {
-            activeMediumEnemies.Add(Instantiate(levelTwoEnemy, pointToSpawn.position, Quaternion.identity));
-            enemyBase newEnemy = activeMediumEnemies[activeMediumEnemies.Count - 1].GetComponent<enemyBase>();
-            ApplyNewEnemyBuff(newEnemy);
-            mediumEnemiesSpawned++;
-            canSpawnEnemy = false;
-        }
-        if(activeLargeEnemies.Count < maxLargeEnemies && canSpawnEnemy && largeEnemiesSpawned + 1 <= largeEnemiesInWave)
-        {
-            activeLargeEnemies.Add(Instantiate(levelThreeEnemy, pointToSpawn.position, Quaternion.identity));
-            enemyBase newEnemy = activeLargeEnemies[activeLargeEnemies.Count - 1].GetComponent<enemyBase>();
-            ApplyNewEnemyBuff(newEnemy);
-            largeEnemiesSpawned++;
-            canSpawnEnemy = false;
-        }
-        enemiesSpawned = true;
-
-        //Tom's work
-        if (enemiesSpawned)
-        {
-            enemiesList.AddRange(activeSmallEnemies);
-            enemiesList.AddRange(activeMediumEnemies);
-            enemiesList.AddRange(activeLargeEnemies);
-            GameObject.FindWithTag("starStoneController").GetComponent<starStoneControllerRework>().enemyList = enemiesList;
-            enemiesSpawned = false;
-        }
-
     }
 
     public void ApplyNewEnemyBuff(enemyBase newEnemy)

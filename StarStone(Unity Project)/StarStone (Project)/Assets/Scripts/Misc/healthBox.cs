@@ -6,8 +6,9 @@ public class healthBox : scr_Collectable
 {
     public int healthAmount; //Amount to recover the players health
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         collectableIncreaser = healthAmount;   
     }
 
@@ -20,6 +21,7 @@ public class healthBox : scr_Collectable
     public override void pickupCollectable(GameObject playerObject)
     {
         playerObject.GetComponent<PlayerController>().currentHealth += healthAmount;
+        AudioSource.PlayClipAtPoint(pickupSound, gameObject.transform.position);
         Destroy(gameObject);
     }
 }

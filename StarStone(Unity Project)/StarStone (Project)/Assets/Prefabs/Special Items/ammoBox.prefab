@@ -124,4 +124,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectableIncreaser: 0
+  pickupSound: {fileID: 8300000, guid: 3ff81a056f77bc94387efe1eafb13776, type: 3}
   ammoAmount: 20

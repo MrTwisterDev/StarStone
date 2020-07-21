@@ -97,8 +97,13 @@ public class PlayerController : MonoBehaviour
     private UIController uiController;
     private GameController gameController;
 
+    [Header("Sounds")]
     public AudioSource walkingSound;
     public AudioClip punchSound;
+    public AudioClip flashlightSound;
+    public AudioClip landingSound;
+
+
 
     #region
     [Header("Layer Masks")]
@@ -112,6 +117,9 @@ public class PlayerController : MonoBehaviour
     public Transform groundChecker, ladderChecker, cameraTransform;
 
     private CharacterController characterController;
+
+    public GameObject flashLight;
+    private bool flashlightToggle;
 
     // Start is called before the first frame update
     void Start()
@@ -154,6 +162,8 @@ public class PlayerController : MonoBehaviour
         crouchingScale = new Vector3(standingScale.x, standingScale.y / 2, standingScale.z);
 
         characterController = gameObject.GetComponent<CharacterController>();
+
+        flashlightToggle = false;
     }
 
     // Update is called once per frame
@@ -302,9 +312,9 @@ public class PlayerController : MonoBehaviour
 
         if(InteractWithObject() && Input.GetKeyDown(KeyCode.E))
         {
-            if (interactableObject.collider.gameObject.GetComponent<StarstoneController>() != null)
+            if (interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>() != null)
             {
-                StarstoneController starstone = interactableObject.collider.gameObject.GetComponent<StarstoneController>();
+                StarstoneController starstone = interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>();
                 starstone.ActivateEffect();
             }
 
@@ -358,6 +368,13 @@ public class PlayerController : MonoBehaviour
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
 
         if (Input.GetKeyDown(KeyCode.F))
+        {
+            flashlightToggle = !flashlightToggle;
+            AudioSource.PlayClipAtPoint(flashlightSound, transform.position);
+            flashLight.SetActive(flashlightToggle);
+        }
+
+        if (Input.GetKeyDown(KeyCode.V))
         {
             playerAnimator.SetTrigger("Punch");
             AudioSource.PlayClipAtPoint(punchSound, transform.position);

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7636042114336898751}
   - component: {fileID: 7636042114336898744}
   - component: {fileID: 1446298309431298379}
+  - component: {fileID: 4854851331431103773}
   m_Layer: 0
   m_Name: SoulParticles
   m_TagString: Untagged
@@ -4782,3 +4783,17 @@ Halo:
     serializedVersion: 2
     rgba: 4284868960
   m_Size: 0.5
+--- !u!136 &4854851331431103773
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7636042114336898745}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5918901
+  m_Height: 2.9809515
+  m_Direction: 1
+  m_Center: {x: 0.04111862, y: 0.9691471, z: -0.042475343}
