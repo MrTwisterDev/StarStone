@@ -202,9 +202,10 @@ public class PlayerBase : MonoBehaviour
     private void AssignNullVariables()
     {
         if (gravityForce == 0) { gravityForce = -9.81f; }
-        if (gravityMultiplier == 0) { gravityMultiplier = 1f; }
+        if (gravityMultiplier == 0) { gravityMultiplier = 2f; }
         if (groundDistance == 0) { groundDistance = 0.4f; }
         if (jumpHeight == 0) { jumpHeight = 3f; }
+        if (jumpingMoveSpeed == 0) { jumpingMoveSpeed = 2f; }
         if (maxHealth == 0) { maxHealth = 100f; }
         if (regenRate == 0) { regenRate = 5f; }
         if (prototypeSwitchTimeout == 0) { prototypeSwitchTimeout = 0.25f; }
@@ -272,13 +273,13 @@ public class PlayerBase : MonoBehaviour
         //If the sprint button is held and the player is not already sprinting, the sprint speed modifier is added to the movement speed multiplier and the isSprinting is set to true
         //Checking to see if the player is already sprinting prevents the speed from being added more than once
         if (Input.GetButtonDown(playerNumber + "Sprint") && !isSprinting)
-        {
+        { 
             moveSpeedMultiplier += sprintSpeedMultiplier;
             isSprinting = true;
         }
         //If the player release the sprint button while they are sprinting, the sprint speed modifier is subtracted from the movement speed multiplier and isSprinting is set to false
         //Checking to see if the player is already sprinting prevents the modifier from being subtracted more than once
-        if(Input.GetButtonDown(playerNumber + "Sprint") && isSprinting)
+        if(Input.GetButtonUp(playerNumber + "Sprint") && isSprinting)
         {
             moveSpeedMultiplier -= sprintSpeedMultiplier;
             isSprinting = false;
@@ -385,6 +386,11 @@ public class PlayerBase : MonoBehaviour
                 preparingToSwapWeapon = false;
                 timeSinceLastPress = 0f;
             }
+        }
+        if(Input.GetButtonDown(playerNumber + "Reload"))
+        {
+            activeWeapon.GetComponent<Animator>().Play("Reload");
+            uIController.UpdateAmmoText();
         }
     }
 
