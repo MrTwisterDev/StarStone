@@ -67,7 +67,7 @@ public class PrototypeWeapon : MonoBehaviour
     [Space]
     #endregion
 
-    private PlayerController playerController;
+    private PlayerBase playerController;
     private UIController uIController;
     private StarstoneController starstoneToChargeFrom;
 
@@ -104,7 +104,7 @@ public class PrototypeWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerController = GameObject.Find("playerCapsule").GetComponent<PlayerController>();
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBase>();
         uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
 
         speedColour = Color.cyan;
