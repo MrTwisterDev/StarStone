@@ -20,7 +20,6 @@ public class BlinkBallController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerObject = GameObject.Find("playerCapsule");
         cameraTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
         rigidBody = gameObject.GetComponent<Rigidbody>();
         rigidBody.AddForce(cameraTransform.forward * 1000f);
