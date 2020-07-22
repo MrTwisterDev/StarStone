@@ -7,7 +7,10 @@ public class UIScreenBase : MonoBehaviour
     public menuSwitcher menuController;
     public GameObject screenToChange;
 
- 
+    public void changeMenu()
+    {
+        menuController.switchScreen(screenToChange);
+    }
 
 
 }
