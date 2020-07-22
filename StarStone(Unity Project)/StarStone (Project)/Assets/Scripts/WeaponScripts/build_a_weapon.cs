@@ -26,7 +26,7 @@ public class build_a_weapon : baseWeaponClass
     private float currentTimeTillBullet;
 
 
-    [HideInInspector]public bool spreadShotLock; //If true don't allow shooting until mouse0 is lifted
+    public bool spreadShotLock; //If true don't allow shooting until mouse0 is lifted
 
     public GameObject projectileFired; //What projectile should this weapon fire
     public int bulletsInSpread; //How many projectiles should be fired in a spreadShot
