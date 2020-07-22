@@ -257,8 +257,16 @@ public class PlayerBase : MonoBehaviour
     {
         if(isGrounded || (!isGrounded && !isJumping))
         {
+
             xInput = Input.GetAxis(playerNumber + "Horizontal");
             zInput = Input.GetAxis(playerNumber + "Vertical");
+            if(playerNumber == "PlayerOne")
+            {
+                Debug.Log(Input.GetAxis("PlayerOneAltHorizontal"));
+                xInput += Input.GetAxis("PlayerOneAltHorizontal");
+                Debug.Log(Input.GetAxis("PlayerOneAltVertical"));
+                zInput += Input.GetAxis("PlayerOneAltVertical");
+            }
             movement = transform.right * xInput + transform.forward * zInput;
             //Moves the player by the newly calculated movement vector, applying the movement speed and any multipliers and using deltaTime to make movement non-framerate dependent
             characterController.Move(movement * moveSpeed * moveSpeedMultiplier * Time.deltaTime);
@@ -310,12 +318,12 @@ public class PlayerBase : MonoBehaviour
     public virtual void PlayerInput()
     {
         //Checks that the player's active weapon is not the Prototype weapon, as it has its own firing code
-        if(Input.GetButton(playerNumber + ("Fire")) && activeWeapon.tag != "Prototype")
+        if(Input.GetButton(playerNumber + ("AltFire")) && activeWeapon.tag != "Prototype" || Input.GetAxis(playerNumber + "Fire") > 0 && activeWeapon.tag != "Prototype")
         {
             //Runs the UseWeapon method of the baseWeaponClass to fire the active weapon
             activeWeapon.GetComponent<baseWeaponClass>().useWeapon();
         }
-        if(Input.GetButtonUp(playerNumber + "Fire"))
+        if(Input.GetButtonUp(playerNumber + "AltFire") || Input.GetAxis(playerNumber + "Fire") == 0)
         {
             //Thomas did this I don't know what it's for
             if(activeWeapon.tag != "Prototype" && activeWeapon.GetComponent<build_a_weapon>().typeOfWeapon == build_a_weapon.typesOfWeapon.spreadShot)
@@ -335,12 +343,12 @@ public class PlayerBase : MonoBehaviour
                 interactableObject.collider.gameObject.GetComponent<StarStoneBase>().ActivateStarStone();
             }
         }
-        if(Input.GetButton(playerNumber + "Aim") && activeWeapon.tag == "Prototype")
+        if(Input.GetButton(playerNumber + "AltAim") && activeWeapon.tag == "Prototype" || Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.tag == "Prototype")
         {
             //Moves the prototype weapon to its ADS position
             activeWeapon.transform.position = adsHoldPoint.position;
         }
-        if(Input.GetButtonUp(playerNumber + "Aim") && activeWeapon.tag == "Prototype")
+        if(Input.GetButtonUp(playerNumber + "Aim") && activeWeapon.tag == "Prototype" || Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.tag == "Prototype")
         {
             //Moves the prototype weapon back to its hipfire location
             activeWeapon.transform.position = weaponHoldPoint.position;
@@ -353,7 +361,7 @@ public class PlayerBase : MonoBehaviour
         {
             UseRightAbility();
         }
-        if(Input.GetAxis(playerNumber + "Flashlight") == 1)
+        if(Input.GetButtonDown(playerNumber + "AltFlashlight") || Input.GetAxis(playerNumber + "Flashlight") == 1)
         {
             //Toggles the flashlight boolean and plays the toggle sound, setting the flashlight to active or inactive depending on the value of flashlightToggle
             flashlightToggle = !flashlightToggle;
@@ -455,7 +463,11 @@ public class PlayerBase : MonoBehaviour
     {
         mouseX = Input.GetAxis(playerNumber + "CameraX");
         mouseY = Input.GetAxis(playerNumber + "CameraY");
-
+        if (playerNumber == "PlayerOne")
+        {
+            mouseX += Input.GetAxis(playerNumber + "AltCameraX");
+            mouseY += Input.GetAxis(playerNumber + "AltCameraY");
+        }
         xRotation -= mouseY;
         //Locks the camera from going above or below 90 degrees in the Y direction
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
