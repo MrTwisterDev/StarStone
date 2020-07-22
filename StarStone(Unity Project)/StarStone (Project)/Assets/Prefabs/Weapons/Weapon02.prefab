@@ -142,9 +142,9 @@ MonoBehaviour:
   WeaponName: Rifle
   weaponDamage: 4
   damageFalloff: 0
-  totalBullets: 60
+  totalBullets: 100
   magazineCapacity: 15
-  currentBullets: 15
+  currentBullets: 0
   canShoot: 1
   isShooting: 0
   canADS: 1
@@ -157,14 +157,14 @@ MonoBehaviour:
     type: 3}
   muzzleFlashOffset: {x: 0, y: 0, z: 0}
   gunshotNoises:
-  - {fileID: 8300000, guid: 99e0d23e2b3306e47b228798e2e14034, type: 3}
-  - {fileID: 8300000, guid: ecff4352e27f7a442897259bfe85ce4a, type: 3}
+  - {fileID: 8300000, guid: fadd40948e244a74baf3001543571fb2, type: 3}
+  - {fileID: 8300000, guid: a13785688edca4241aa25413796f8852, type: 3}
   reloadSound:
-  - {fileID: 8300000, guid: 84072f530763c9847a6f91aa3413b893, type: 3}
+  - {fileID: 8300000, guid: 59b684f6ff82a944b90acfbf7dd673d3, type: 3}
   typeOfWeapon: 0
-  gunAccuracy: 5
-  roundsPerSecond: 4
-  gunRecoil: 1.5
+  gunAccuracy: 0.5
+  roundsPerSecond: 5
+  gunRecoil: 0.3
   spreadShotLock: 0
   projectileFired: {fileID: 0}
   bulletsInSpread: 1

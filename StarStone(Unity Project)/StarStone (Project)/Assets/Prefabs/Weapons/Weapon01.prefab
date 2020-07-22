@@ -111,9 +111,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponName: Shotgun
   weaponDamage: 1
-  damageFalloff: 0
+  damageFalloff: 28
   totalBullets: 96
-  magazineCapacity: 24
+  magazineCapacity: 4
   currentBullets: 24
   canShoot: 0
   isShooting: 0
@@ -127,16 +127,16 @@ MonoBehaviour:
     type: 3}
   muzzleFlashOffset: {x: 0, y: 0, z: 0}
   gunshotNoises:
-  - {fileID: 8300000, guid: 99e0d23e2b3306e47b228798e2e14034, type: 3}
+  - {fileID: 8300000, guid: 0a646c02c5a461345bf16b212d04bcc3, type: 3}
   reloadSound:
   - {fileID: 8300000, guid: 6bf2008f5fbccf54f85f1cbe1636e8b5, type: 3}
   typeOfWeapon: 1
-  gunAccuracy: 5
-  roundsPerSecond: 10
-  gunRecoil: 0.9
+  gunAccuracy: 16
+  roundsPerSecond: 3
+  gunRecoil: 0.3
   spreadShotLock: 0
   projectileFired: {fileID: 0}
-  bulletsInSpread: 6
+  bulletsInSpread: 12
 --- !u!95 &436743632458346021
 Animator:
   serializedVersion: 3

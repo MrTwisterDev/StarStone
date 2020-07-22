@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1733549710378221290}
   - component: {fileID: 9216317343222427625}
   - component: {fileID: 5150274718591927209}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: healthBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,5 +124,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectableIncreaser: 0
-  pickupSound: {fileID: 8300000, guid: 899f0ad2c38a36040a11f06ee8a2939b, type: 3}
+  pickupSound: {fileID: 8300000, guid: f006bdbe0d34d9b4e97845d63aafccc4, type: 3}
   healthAmount: 20

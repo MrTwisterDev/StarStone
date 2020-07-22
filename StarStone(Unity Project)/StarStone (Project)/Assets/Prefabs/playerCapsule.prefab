@@ -601,7 +601,7 @@ MonoBehaviour:
   underwaterSpeedMultiplier: 0
   wadingSpeedMultiplier: 0
   climbingMultiplier: 0
-  maxHealth: 0
+  maxHealth: 100
   currentHealth: 0
   healthRegenCutoff: 0
   regenRate: 0
@@ -629,7 +629,7 @@ MonoBehaviour:
   walkingSound: {fileID: 5355848417490344547}
   flashlightSound: {fileID: 8300000, guid: 5739edf863abab34890c09c7b5bc6bf6, type: 3}
   meleeSound: {fileID: 8300000, guid: 23cf5400c96ff26488454507952983bf, type: 3}
-  landingSound: {fileID: 8300000, guid: b847dbd716cd9cf40a428309c29a20b2, type: 3}
+  landingSound: {fileID: 8300000, guid: 3ab6b617bbe526a4ca8455f4d52b1652, type: 3}
   flashlight: {fileID: 5355848417578942282}
   playerNumber: 
   playerFeet: {fileID: 5355848416224099050}
