@@ -117,7 +117,8 @@ public class PlayerBase : MonoBehaviour
     [Header("Ability Management")]
     [Tooltip("The amount of time remaining before the player can use their blink ability again.")]
     public float leftAbilityCooldown;
-    private bool canUseLeftAbility;
+    [HideInInspector]
+    public bool canUseLeftAbility;
     [HideInInspector]
     public float leftAbilityCooldownRounded;
     [Tooltip("The amount of time remaining before the player can use their mine ability again.")]
