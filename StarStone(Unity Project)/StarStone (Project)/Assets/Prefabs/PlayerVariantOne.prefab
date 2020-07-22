@@ -333,9 +333,9 @@ GameObject:
   - component: {fileID: 5355848417490344546}
   - component: {fileID: 5355848417490344547}
   - component: {fileID: 5355848417490344572}
-  - component: {fileID: -5878976395874415252}
+  - component: {fileID: 3377633029053220151}
   m_Layer: 10
-  m_Name: playerCapsule
+  m_Name: PlayerVariantOne
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -568,7 +568,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 1.8625657e-12, y: 0, z: 0.09689016}
---- !u!114 &-5878976395874415252
+--- !u!114 &3377633029053220151
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -577,7 +577,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5355848417490344555}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80666e1ff4785df439a9c93132a339ea, type: 3}
+  m_Script: {fileID: 11500000, guid: d374d59f2809c4649999fadb5c247146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gravityForce: 0
@@ -621,11 +621,14 @@ MonoBehaviour:
   - {fileID: 6027934522978993845}
   activeWeapon: {fileID: 0}
   leftAbilityCooldown: 0
+  canUseLeftAbility: 0
   leftAbilityCooldownRounded: 0
   rightAbilityCooldown: 0
   rightAbilityCooldownRounded: 0
-  leftAbilityPrefab: {fileID: 0}
-  rightAbilityPrefab: {fileID: 0}
+  leftAbilityPrefab: {fileID: 5853392429948996322, guid: 97010d536ce463b4b9c3891b370132fb,
+    type: 3}
+  rightAbilityPrefab: {fileID: 8537370861242923161, guid: 6d1824edfa5e208439c77426b29c4190,
+    type: 3}
   walkingSound: {fileID: 5355848417490344547}
   flashlightSound: {fileID: 8300000, guid: 5739edf863abab34890c09c7b5bc6bf6, type: 3}
   meleeSound: {fileID: 8300000, guid: 23cf5400c96ff26488454507952983bf, type: 3}
