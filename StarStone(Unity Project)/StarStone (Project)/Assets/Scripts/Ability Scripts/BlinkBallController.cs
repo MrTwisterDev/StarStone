@@ -11,7 +11,8 @@ public class BlinkBallController : MonoBehaviour
 
     public float heightOffset;
 
-    private GameObject playerObject;
+    [HideInInspector]
+    public GameObject playerObject;
     private Transform cameraTransform;
 
     private Rigidbody rigidBody;

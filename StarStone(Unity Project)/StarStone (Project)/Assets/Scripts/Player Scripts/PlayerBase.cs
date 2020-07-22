@@ -205,7 +205,7 @@ public class PlayerBase : MonoBehaviour
         if (gravityForce == 0) { gravityForce = -9.81f; }
         if (gravityMultiplier == 0) { gravityMultiplier = 2f; }
         if (groundDistance == 0) { groundDistance = 0.4f; }
-        if (jumpHeight == 0) { jumpHeight = 3f; }
+        if (jumpHeight == 0) { jumpHeight = 1.5f; }
         if (jumpingMoveSpeed == 0) { jumpingMoveSpeed = 2f; }
         if (maxHealth == 0) { maxHealth = 100f; }
         if (regenRate == 0) { regenRate = 5f; }
@@ -302,12 +302,16 @@ public class PlayerBase : MonoBehaviour
             multiplierBeforeJump = moveSpeedMultiplier;
             currentVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravityForce);
         }
+        //If the player presses the crouch button, their scale is set to the crouching scale, and the crouching speed modifier is added to their speed multiplier
+        //Checking to see if the player is already crouching prevents the modifier from being added multiple times
         if(Input.GetButtonDown(playerNumber + "Crouch") && !isCrouching)
         {
             isCrouching = true;
             transform.localScale = crouchingScale;
             moveSpeedMultiplier += crouchSpeedMultiplier;
         }
+        //When the player releases the crouch button, their scale is reseting to full size and the crouching speed modifier is subtracted from their speed multiplier
+        //Checking to see if the player is already crouching prevents the modifier from being subtracted multiple times
         if(Input.GetButtonUp(playerNumber + "Crouch") && isCrouching)
         {
             isCrouching = false;

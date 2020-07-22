@@ -151,7 +151,10 @@ public class GameController : MonoBehaviour
     public Transform playerOneSpawnPoint;
     public Transform playerTwoSpawnPoint;
 
-    private PlayerBase playerController;
+    public int numberOfPlayers;
+
+    private PlayerBase playerOneController;
+    private PlayerBase playerTwoController;
     private Camera mainCamera;
     private UIController uIController;
     private GameObject victoryCanvas;
@@ -200,6 +203,8 @@ public class GameController : MonoBehaviour
         canSpawnEnemy = true;
         //Sets the value of the intermission timer to the value input in the inspector
         intermissionTimerValue = intermissionLength;
+
+        numberOfPlayers = 1;
 
         starstoneArray = new GameObject[4];
 
@@ -262,9 +267,7 @@ public class GameController : MonoBehaviour
         //If the level loaded is the playable level, all of the necessary variables are assigned depending on the currently selected difficulty
         if(level == 1)
         {
-            playerOneSpawnPoint = GameObject.Find("PlayerOneSpawnPoint").GetComponent<Transform>();
-            playerController = Instantiate(playerPrefab, playerOneSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
-            playerController.playerNumber = "PlayerOne";
+            InstantiatePlayers();
             victoryCanvas = GameObject.Find("VictoryCanvas");
             victoryCanvas.SetActive(false);
             spawnerParent = GameObject.Find("EnemySpawners").GetComponent<Transform>();
@@ -286,7 +289,7 @@ public class GameController : MonoBehaviour
             switch (currentGameDifficulty)
             {
                 case gameDifficulty.easyDifficulty:
-                    playerController.healthRegenCutoff = 70f;
+                    playerOneController.healthRegenCutoff = 70f;
                     gameWaveTime = easyWaveTime;
                     waveTimerValue = gameWaveTime;
                     maxSmallEnemies = easyBaseMaxSmallEnemies;
@@ -297,7 +300,7 @@ public class GameController : MonoBehaviour
                     largeEnemiesInWave = largeEnemiesInEasyWave;
                     break;
                 case gameDifficulty.normalDifficulty:
-                    playerController.healthRegenCutoff = 60f;
+                    playerOneController.healthRegenCutoff = 60f;
                     gameWaveTime = normalWaveTime;
                     waveTimerValue = gameWaveTime;
                     maxSmallEnemies = normalBaseMaxSmallEnemies;
@@ -308,7 +311,7 @@ public class GameController : MonoBehaviour
                     largeEnemiesInWave = largeEnemiesInNormalWave;
                     break;
                 case gameDifficulty.hardDifficulty:
-                    playerController.healthRegenCutoff = 50f;
+                    playerOneController.healthRegenCutoff = 50f;
                     gameWaveTime = hardWaveTime;
                     waveTimerValue = gameWaveTime;
                     maxSmallEnemies = hardBaseMaxSmallEnemies;
@@ -355,6 +358,19 @@ public class GameController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;     //Unlocks the cursor so the player can select menu options
             isInGame = false;                           //Prevents game timers and enemy spawning methods from being executed
             timerActive = false;
+        }
+    }
+
+    public void InstantiatePlayers()
+    {
+        playerOneSpawnPoint = GameObject.Find("PlayerOneSpawnPoint").GetComponent<Transform>();
+        playerTwoSpawnPoint = GameObject.Find("PlayerTwoSpawnPoint").GetComponent<Transform>();
+        playerOneController = Instantiate(playerPrefab, playerOneSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
+        playerOneController.playerNumber = "PlayerOne";
+        if(numberOfPlayers == 2)
+        {
+            playerTwoController = Instantiate(playerPrefab, playerTwoSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
+            playerTwoController.playerNumber = "PlayerTwo";
         }
     }
 
