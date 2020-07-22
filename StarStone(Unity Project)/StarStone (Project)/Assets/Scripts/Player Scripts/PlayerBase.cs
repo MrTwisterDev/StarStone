@@ -328,10 +328,10 @@ public class PlayerBase : MonoBehaviour
             //Runs the UseWeapon method of the baseWeaponClass to fire the active weapon
             activeWeapon.GetComponent<baseWeaponClass>().useWeapon();
         }
-        if(Input.GetButtonUp(playerNumber + "AltFire") || Input.GetAxis(playerNumber + "Fire") == 0)
+        if(Input.GetButtonUp(playerNumber + "AltFire") && Input.GetAxis(playerNumber + "Fire") == 0)
         {
             //Thomas did this I don't know what it's for
-            if(activeWeapon.tag != "Prototype" && activeWeapon.GetComponent<build_a_weapon>().typeOfWeapon == build_a_weapon.typesOfWeapon.spreadShot)
+            if(activeWeapon.GetComponent<build_a_weapon>().typeOfWeapon == build_a_weapon.typesOfWeapon.spreadShot)
             {
                 activeWeapon.GetComponent<build_a_weapon>().spreadShotLock = false;
             }
