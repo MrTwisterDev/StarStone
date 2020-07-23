@@ -103,6 +103,8 @@ public class PlayerBase : MonoBehaviour
     public Transform adsHoldPoint;
     [Tooltip("The position at which the player's melee weapon is held.")]
     public Transform meleeHoldPoint;
+    [Tooltip("The amount of damage that the player's melee attack deals.")]
+    public float meleeDamage;
     [Tooltip("The array in which all of the player's weapons are stored.")]
     public GameObject[] weaponsArray;
     [Tooltip("The weapon the player currently has equipped.")]
@@ -177,7 +179,6 @@ public class PlayerBase : MonoBehaviour
     {
         //Checks to see if any numerical values are unassigned. If they are, they are assigned a standard value to ensure all mechanics work correctly.
         AssignNullVariables();
-        Debug.Log(playerNumber);
         isSprinting = false;
         isCrouching = false;
         if(healthRegenCutoff > maxHealth) { Debug.LogWarning("The health regen cutoff value is greater than the maximum health value of" + gameObject + ", this player's health will regen as normal."); }
@@ -196,6 +197,10 @@ public class PlayerBase : MonoBehaviour
         //Sets the player's standing and crouching sizes
         standingScale = transform.localScale;
         crouchingScale = new Vector3(transform.localScale.x, transform.localScale.y / 2, transform.localScale.z);
+        //Sets up the UI elements for the currently equipped weapon
+        uIController.activeWeaponController = activeWeapon.GetComponent<build_a_weapon>();
+        uIController.GetChangedWeapon();
+        uIController.UpdateAmmoText();
     }
 
     private void AssignNullVariables()
@@ -258,7 +263,9 @@ public class PlayerBase : MonoBehaviour
         {
             //Records the input from the left analog stick on the appropriate controller
             xInput = Input.GetAxis(playerNumber + "Horizontal");
+            Debug.Log(xInput);
             zInput = Input.GetAxis(playerNumber + "Vertical");
+            Debug.Log(zInput);
             //If this is PlayerOne, keyboard inputs are also recorded
             if(playerNumber == "PlayerOne")
             {
@@ -408,8 +415,6 @@ public class PlayerBase : MonoBehaviour
     {
         //The value of timeSinceLastPress is incremented every frame
         timeSinceLastPress += Time.deltaTime;
-        Debug.Log("Time Since Last Press:" + timeSinceLastPress);
-        Debug.Log("Timeout length:" + prototypeSwitchTimeout);
         //If it surpasses the value of prototypeSwitchTimeout, the player's weapon is swapped
         if(timeSinceLastPress > prototypeSwitchTimeout)
         {
@@ -435,12 +440,27 @@ public class PlayerBase : MonoBehaviour
 
     public virtual void UseLeftAbility()
     {
+        //Abilities should be programmed unique to a player character, using the method from the base class produces an error
         Debug.LogError("No override method has been defined for this character's left ability.");
     }
 
     public virtual void UseRightAbility()
     {
+        //Abilities should be programmed unique to a player character, using the method from the base class produces an error
         Debug.LogError("No override method has been created for this character's right ability.");
+    }
+
+    public virtual void DetectMeleeHit()
+    {
+        RaycastHit rayHit;
+        if(Physics.Raycast(meleeHoldPoint.position, transform.forward, out rayHit, 0.75f))
+        {
+            if(rayHit.collider.gameObject.tag == "Enemy")
+            {
+                enemyBase enemyController = rayHit.collider.gameObject.GetComponent<enemyBase>();
+                enemyController.takeDamage(meleeDamage);
+            }
+        }
     }
 
     public void ApplyGravity()
@@ -453,8 +473,15 @@ public class PlayerBase : MonoBehaviour
 
     public virtual void ClimbingControls()
     {
+        //Records input from the left analog stick and saved them to the necessary variables
         yInput = Input.GetAxis(playerNumber + "Vertical");
         xInput = Input.GetAxis(playerNumber + "Horizontal");
+        //If this is Player One, keyboard inputs are recorded as well
+        if(playerNumber == "PlayerOne")
+        {
+            yInput += Input.GetAxis(playerNumber + "AltVertical");
+            xInput += Input.GetAxis(playerNumber + "AltHorizontal");
+        }
 
         //Moves the player up and down the Y axis to climb ladders
         Vector3 movement = transform.right * xInput + transform.up * yInput;
@@ -463,8 +490,10 @@ public class PlayerBase : MonoBehaviour
 
     public virtual void CameraControls()
     {
+        //Input from the right analog stick is recorded and saved to the necessary variables
         mouseX = Input.GetAxis(playerNumber + "CameraX");
         mouseY = Input.GetAxis(playerNumber + "CameraY");
+        //If this is Player One, mouse inputs are recorded as well
         if (playerNumber == "PlayerOne")
         {
             mouseX += Input.GetAxis(playerNumber + "AltCameraX");
@@ -531,11 +560,11 @@ public class PlayerBase : MonoBehaviour
     {
         //A spherical area at the player's feet is checked. If it contains a GameObject on the ground layer, the player is set as grounded
         isGrounded = Physics.CheckSphere(playerFeet.position, groundDistance, groundLayer);
-        if(isGrounded && currentVelocity.y == 0)
+        if(isGrounded && currentVelocity.y < 0)
         {
             isJumping = false;
             //Prevents a downward force from being built up on the player while they are on the ground, so that if they step off of a ledge they do not plummet
-            currentVelocity.y = 2f;
+            currentVelocity.y = -2f;
         }
     }
 
@@ -562,11 +591,12 @@ public class PlayerBase : MonoBehaviour
 
     public bool CanInteract()
     {
-        //Fires out a raycast from the camera. If it collides with something on the interactive layer 
+        //Fires out a raycast from the camera. If it collides with something on the interactive layer, it returns true 
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out interactableObject, 1f, interactiveLayer))
         {
             return true;
         }
+        //If it collides with something not on the interactive layer, it returns false
         else
         {
             return false;
@@ -609,6 +639,7 @@ public class PlayerBase : MonoBehaviour
         if(currentHealth < 0)
         {
             currentHealth = 0;
+            playerState = PlayerStates.deadState;
         }
         uIController.UpdateHealthbar();
     }
