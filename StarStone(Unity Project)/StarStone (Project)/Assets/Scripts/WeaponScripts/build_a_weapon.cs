@@ -17,7 +17,7 @@ public class build_a_weapon : baseWeaponClass
     public typesOfWeapon typeOfWeapon;
 
     private GameObject parentOfWeapon; //Used for optimisation purposes. Used if the weapon itself does not rotate, but it's parent does (Effecting trajectory)
-
+    
     public float gunAccuracy; //How accurate is this weapon, 0 Being perfect dead on the crosshair, anything more will randomly veer away from the center
     public float roundsPerSecond; //How many rounds a second this gun will fire
     public float gunRecoil; //How much shooting knocks camera back
@@ -26,10 +26,12 @@ public class build_a_weapon : baseWeaponClass
     private float currentTimeTillBullet;
 
 
-    [HideInInspector]public bool spreadShotLock; //If true don't allow shooting until mouse0 is lifted
+    public bool spreadShotLock; //If true don't allow shooting until mouse0 is lifted
 
     public GameObject projectileFired; //What projectile should this weapon fire
     public int bulletsInSpread; //How many projectiles should be fired in a spreadShot
+
+    public GameObject muzzleFlashChild;//The muzzle flash of the gun
 
     UIController uiController;
 
@@ -87,6 +89,7 @@ public class build_a_weapon : baseWeaponClass
                         totalBullets--;
                         fireBullet();
                         weaponAudioSource.PlayOneShot(gunshotNoises[Random.Range(0, gunshotNoises.Length)]);
+                        muzzleFlashChild.SetActive(true);
                         break;
                     case typesOfWeapon.spreadShot:
                         if (!spreadShotLock)
@@ -94,6 +97,7 @@ public class build_a_weapon : baseWeaponClass
                             currentBullets--;
                             totalBullets--;
                             weaponAudioSource.PlayOneShot(gunshotNoises[Random.Range(0, gunshotNoises.Length)]);
+                            muzzleFlashChild.SetActive(true);
                             for (int i = 0; i < bulletsInSpread; i++)
                             {
 

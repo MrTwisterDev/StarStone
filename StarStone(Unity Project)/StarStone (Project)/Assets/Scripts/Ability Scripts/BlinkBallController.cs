@@ -11,7 +11,8 @@ public class BlinkBallController : MonoBehaviour
 
     public float heightOffset;
 
-    private GameObject playerObject;
+    [HideInInspector]
+    public GameObject playerObject;
     private Transform cameraTransform;
 
     private Rigidbody rigidBody;
@@ -19,7 +20,6 @@ public class BlinkBallController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerObject = GameObject.Find("playerCapsule");
         cameraTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
         rigidBody = gameObject.GetComponent<Rigidbody>();
         rigidBody.AddForce(cameraTransform.forward * 1000f);

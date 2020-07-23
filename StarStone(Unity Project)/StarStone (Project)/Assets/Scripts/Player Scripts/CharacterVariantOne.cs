@@ -7,7 +7,8 @@ public class CharacterVariantOne : PlayerBase
 
     public override void UseLeftAbility()
     {
-        Instantiate(leftAbilityPrefab, cameraTransform.position, Quaternion.identity);
+        BlinkBallController blinkBall = Instantiate(leftAbilityPrefab, cameraTransform.position, Quaternion.identity).GetComponent<BlinkBallController>();
+        blinkBall.playerObject = gameObject;
         canUseLeftAbility = false;
     }
 
