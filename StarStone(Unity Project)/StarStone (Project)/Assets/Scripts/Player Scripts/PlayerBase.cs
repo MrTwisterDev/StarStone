@@ -263,9 +263,7 @@ public class PlayerBase : MonoBehaviour
         {
             //Records the input from the left analog stick on the appropriate controller
             xInput = Input.GetAxis(playerNumber + "Horizontal");
-            Debug.Log(xInput);
             zInput = Input.GetAxis(playerNumber + "Vertical");
-            Debug.Log(zInput);
             //If this is PlayerOne, keyboard inputs are also recorded
             if(playerNumber == "PlayerOne")
             {
