@@ -601,6 +601,7 @@ MonoBehaviour:
   underwaterSpeedMultiplier: 0
   wadingSpeedMultiplier: 0
   climbingMultiplier: 0
+  characterController: {fileID: 5355848417490344548}
   maxHealth: 0
   currentHealth: 0
   healthRegenCutoff: 0
