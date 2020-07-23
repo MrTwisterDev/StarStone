@@ -30,6 +30,11 @@ public class UIController : MonoBehaviour
     public float initialTime;
     //Health UI Elements
     public Slider healthBar;
+    //Starstone Charge Slider
+    public Slider speedCharge;
+    public Slider healthCharge;
+    public Slider fireCharge;
+    public Slider singularityCharge;
 
     public void Start()
     {
@@ -48,6 +53,11 @@ public class UIController : MonoBehaviour
         timerBar = GameObject.Find("TimerBar").GetComponent<Image>();
 
         healthBar = GameObject.Find("HealthBar").GetComponent<Slider>();
+
+        speedCharge = GameObject.Find("SpeedCharge").GetComponent<Slider>();
+        healthCharge = GameObject.Find("HealthCharge").GetComponent<Slider>();
+        fireCharge = GameObject.Find("FireCharge").GetComponent<Slider>();
+        singularityCharge = GameObject.Find("SingularityCharge").GetComponent<Slider>();
     }
 
     public void GetChangedWeapon()
@@ -68,6 +78,26 @@ public class UIController : MonoBehaviour
         {
             blinkTimerText.text = playerController.leftAbilityCooldownRounded.ToString();
         }
+    }
+
+    public void UpdateSpeedCharge(int stoneCharge)
+    {
+        speedCharge.value = stoneCharge / 100;
+    }
+
+    public void UpdateHealthCharge(int stoneCharge)
+    {
+        healthCharge.value = stoneCharge / 100;
+    }
+
+    public void UpdateFireCharge(int stoneCharge)
+    {
+        fireCharge.value = stoneCharge / 100;
+    }
+
+    public void UpdateSingularityCharge(int stoneCharge)
+    {
+        singularityCharge.value = stoneCharge / 100;
     }
 
     public void UpdateAmmoText()

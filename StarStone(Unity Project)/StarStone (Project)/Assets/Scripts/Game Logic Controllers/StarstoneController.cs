@@ -13,6 +13,7 @@ public class StarstoneController : MonoBehaviour
     //***************************************************************|
 
     public GameController gameController;
+    public UIController uIController;
     public GameObject playerObject;
 
     [Tooltip("Boolean that determines whether or not the selected Starstone is active.")]
@@ -40,6 +41,7 @@ public class StarstoneController : MonoBehaviour
     public void Start()
     {
         if (gameController == null) { gameController = GameObject.Find("GameController").GetComponent<GameController>(); }
+        uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
         playerObject = GameObject.FindGameObjectWithTag("Player");
         starstoneCharge = 100f;
 
@@ -74,7 +76,26 @@ public class StarstoneController : MonoBehaviour
         {
             gameController.hasFoundGenerator = true;
         }
+        UpdateStoneUI();
+    }
 
+    public void UpdateStoneUI()
+    {
+        switch (starstoneType)
+        {
+            case starstoneTypes.speedStarstone:
+                uIController.UpdateSpeedCharge((int)starstoneCharge);
+                break;
+            case starstoneTypes.healthStarstone:
+                uIController.UpdateHealthCharge((int)starstoneCharge);
+                break;
+            case starstoneTypes.fireStarstone:
+                uIController.UpdateFireCharge((int)starstoneCharge);
+                break;
+            case starstoneTypes.buffStarstone:
+                uIController.UpdateSingularityCharge((int)starstoneCharge);
+                break;
+        }
     }
 
     public void ActivateEffect()
