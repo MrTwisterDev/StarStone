@@ -363,13 +363,15 @@ public class PlayerBase : MonoBehaviour
 
         }
 
-        if (Input.GetButton(playerNumber + "AltAim") && activeWeapon.tag == "Prototype" || Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.tag == "Prototype")
+        else if (Input.GetButton(playerNumber + "AltAim") && activeWeapon.tag == "Prototype" || Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.tag == "Prototype")
         {
+            Debug.Log("Trying to aim!");
             //Moves the prototype weapon to its ADS position
             activeWeapon.transform.position = adsHoldPoint.position;
         }
-        if(Input.GetButtonUp(playerNumber + "Aim") && activeWeapon.tag == "Prototype" || Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.tag == "Prototype")
+        if(Input.GetButtonUp(playerNumber + "AltAim") && activeWeapon.tag == "Prototype" && Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.tag == "Prototype")
         {
+            Debug.Log("Aiming from the hip!");
             //Moves the prototype weapon back to its hipfire location
             activeWeapon.transform.position = weaponHoldPoint.position;
         }
