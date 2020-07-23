@@ -143,8 +143,13 @@ MonoBehaviour:
   attackMinTimer: 0
   currentTimer: 0
   enemyHP: 2
-  meleeDamage: 20
+  meleeDamage: 2
   hasMelee: 1
+  burnDamage: 0
+  burnTime: 0
+  burnTimer: 0
+  isBurning: 0
+  burnParticles: {fileID: 0}
   showDebugGizmos: 0
   maxEnemyHP: 0
   healthBuffAmount: 0

@@ -4897,8 +4897,8 @@ MonoBehaviour:
   attackMaxTimer: 2
   attackMinTimer: 2
   currentTimer: 0
-  enemyHP: 12
-  meleeDamage: 10
+  enemyHP: 4
+  meleeDamage: 4
   hasMelee: 1
   burnDamage: 0
   burnTime: 0

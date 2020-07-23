@@ -4916,7 +4916,7 @@ MonoBehaviour:
   attackMinTimer: 1.5
   currentTimer: 0
   enemyHP: 3
-  meleeDamage: 15
+  meleeDamage: 2
   hasMelee: 1
   burnDamage: 0
   burnTime: 0
