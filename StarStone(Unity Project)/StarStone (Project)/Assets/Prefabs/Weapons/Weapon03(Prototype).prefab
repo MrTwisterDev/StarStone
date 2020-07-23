@@ -144,7 +144,7 @@ MonoBehaviour:
   minigunRange: 10
   minigunChargeUsage: 0.15
   minigunDamage: 0.75
-  minigunSound: {fileID: 8300000, guid: 3d0b0721c828fe347a329843502a73a4, type: 3}
+  minigunSound: {fileID: 8300000, guid: a285bd5ff317e374983ac989f77c55b8, type: 3}
   vampireRange: 15
   vampireChargeUsage: 1.5
   vampireDamage: 2

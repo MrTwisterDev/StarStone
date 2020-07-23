@@ -55,7 +55,8 @@ MonoBehaviour:
   angularSpeed: 3.92
   explosionParticles: {fileID: 0}
   targetedPlayer: {fileID: 0}
-  rocketExplosionSound: {fileID: 0}
+  rocketExplosionSound: {fileID: 8300000, guid: 6d4bf79d262762d4cb81e61705a40e5b,
+    type: 3}
   rocketFlyingSound: {fileID: 0}
 --- !u!65 &2488583777793195265
 BoxCollider:
