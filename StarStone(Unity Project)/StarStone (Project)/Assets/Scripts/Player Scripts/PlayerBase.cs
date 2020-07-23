@@ -352,7 +352,20 @@ public class PlayerBase : MonoBehaviour
                 interactableObject.collider.gameObject.GetComponent<StarStoneBase>().ActivateStarStone();
             }
         }
-        if(Input.GetButton(playerNumber + "AltAim") && activeWeapon.tag == "Prototype" || Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.tag == "Prototype")
+
+        if (Input.GetButton(playerNumber + "AltAim") && activeWeapon.GetComponent<build_a_weapon>() != null || Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.GetComponent<build_a_weapon>() != null)
+        {
+            activeWeapon.GetComponent<Animator>().Play("AdsIn");
+
+        }
+
+        if (Input.GetButtonUp(playerNumber + "AltAim") && activeWeapon.GetComponent<build_a_weapon>() != null || Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.GetComponent<build_a_weapon>() != null)
+        {
+            activeWeapon.GetComponent<Animator>().Play("AdsOut");
+
+        }
+
+        if (Input.GetButton(playerNumber + "AltAim") && activeWeapon.tag == "Prototype" || Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.tag == "Prototype")
         {
             //Moves the prototype weapon to its ADS position
             activeWeapon.transform.position = adsHoldPoint.position;
