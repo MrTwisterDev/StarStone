@@ -48,9 +48,6 @@ public class UIController : MonoBehaviour
         timerBar = GameObject.Find("TimerBar").GetComponent<Image>();
 
         healthBar = GameObject.Find("HealthBar").GetComponent<Slider>();
-
-        GetChangedWeapon();
-        UpdateAmmoText();
     }
 
     public void GetChangedWeapon()
