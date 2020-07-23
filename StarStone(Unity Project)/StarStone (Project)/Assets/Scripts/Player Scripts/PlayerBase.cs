@@ -359,7 +359,7 @@ public class PlayerBase : MonoBehaviour
 
         }
 
-        if (Input.GetButtonUp(playerNumber + "AltAim") && activeWeapon.GetComponent<build_a_weapon>() != null || Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.GetComponent<build_a_weapon>() != null)
+        if (Input.GetButtonUp(playerNumber + "AltAim") && activeWeapon.GetComponent<build_a_weapon>() != null && Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.GetComponent<build_a_weapon>() != null)
         {
             activeWeapon.GetComponent<Animator>().Play("AdsOut");
 
