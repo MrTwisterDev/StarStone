@@ -336,22 +336,7 @@ public class GameController : MonoBehaviour
         }
         else if(level == 0)
         {
-            //Resets all variables necessary for game flow that are not reset when the game level is loaded
-            isInGame = false;
-            hasFoundGenerator = false;
-            timerActive = false;
-            //Loops through the lists of enemies and clears them until the number of enemies killed no longer increases
-            //This is to ensure all null objects are removed from the lists of enemies before the game loads, as loading without this resulted in
-            //false positive killcounts
-            while (enemiesKilled > 0)
-            {
-                CheckEnemyStatus();
-                enemiesKilled = 0;
-                CheckEnemyStatus();
-            }
-            smallEnemiesSpawned = 0;
-            mediumEnemiesSpawned = 0;
-            largeEnemiesSpawned = 0;
+            ResetWaveData();
         }
         else
         {
@@ -395,6 +380,26 @@ public class GameController : MonoBehaviour
         waveTimerValue = gameWaveTime;
         currentWave++;
         uIController.UpdateWaveNumber(currentWave);
+    }
+
+    public void ResetWaveData()
+    {
+        //Resets all variables necessary for game flow that are not reset when the game level is loaded
+        isInGame = false;
+        hasFoundGenerator = false;
+        timerActive = false;
+        //Loops through the lists of enemies and clears them until the number of enemies killed no longer increases
+        //This is to ensure all null objects are removed from the lists of enemies before the game loads, as loading without this resulted in
+        //false positive killcounts
+        while (enemiesKilled > 0)
+        {
+            CheckEnemyStatus();
+            enemiesKilled = 0;
+            CheckEnemyStatus();
+        }
+        smallEnemiesSpawned = 0;
+        mediumEnemiesSpawned = 0;
+        largeEnemiesSpawned = 0;
     }
 
     public void GameTimers()

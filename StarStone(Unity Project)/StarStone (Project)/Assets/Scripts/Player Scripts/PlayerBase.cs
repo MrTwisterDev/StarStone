@@ -58,7 +58,7 @@ public class PlayerBase : MonoBehaviour
     private Vector3 movement;
     private Vector3 currentVelocity;
     private bool isSprinting, isWading, isCrouching, isJumping, isSwimming, isClimbing;
-    private CharacterController characterController;
+    public CharacterController characterController;
     [Space]
     #endregion
     //Health Management
@@ -177,6 +177,7 @@ public class PlayerBase : MonoBehaviour
     {
         //Checks to see if any numerical values are unassigned. If they are, they are assigned a standard value to ensure all mechanics work correctly.
         AssignNullVariables();
+        Debug.Log(playerNumber);
         isSprinting = false;
         isCrouching = false;
         if(healthRegenCutoff > maxHealth) { Debug.LogWarning("The health regen cutoff value is greater than the maximum health value of" + gameObject + ", this player's health will regen as normal."); }
@@ -188,9 +189,6 @@ public class PlayerBase : MonoBehaviour
         playerAnimator = gameObject.GetComponent<Animator>();
         //Finds and assigns the UIController
         uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
-        uIController.GetChangedWeapon();
-        //Assigns the CharacterController component of the player.
-        characterController = gameObject.GetComponent<CharacterController>();
         //Sets canBlink to true so that the player is able to use the ability immediately when the game loads.
         canUseLeftAbility = true;
         //Sets the player's flashlight boolean to false as the flashlight starts turned off.
@@ -205,7 +203,7 @@ public class PlayerBase : MonoBehaviour
         if (gravityForce == 0) { gravityForce = -9.81f; }
         if (gravityMultiplier == 0) { gravityMultiplier = 2f; }
         if (groundDistance == 0) { groundDistance = 0.4f; }
-        if (jumpHeight == 0) { jumpHeight = 1.5f; }
+        if (jumpHeight == 0) { jumpHeight = 0.75f; }
         if (jumpingMoveSpeed == 0) { jumpingMoveSpeed = 2f; }
         if (maxHealth == 0) { maxHealth = 100f; }
         if (regenRate == 0) { regenRate = 5f; }
@@ -216,9 +214,9 @@ public class PlayerBase : MonoBehaviour
         if (crouchSpeedMultiplier == 0) { crouchSpeedMultiplier = -0.5f; }
         if (wadingSpeedMultiplier == 0) { wadingSpeedMultiplier = -0.3f; }
         if (underwaterSpeedMultiplier == 0) { underwaterSpeedMultiplier = -0.2f; }
-        if (mouseSensitivity == 0) { mouseSensitivity = 100f; }
+        if (mouseSensitivity == 0) { mouseSensitivity = 50f; }
         if (leftAbilityCooldown == 0) { leftAbilityCooldown = 5f; }
-        if (playerNumber == null) { playerNumber = "PlayerOne"; }
+        if (string.IsNullOrEmpty(playerNumber)) { playerNumber = "PlayerOne"; }
     }
 
     // Update is called once per frame
@@ -258,14 +256,13 @@ public class PlayerBase : MonoBehaviour
     {
         if(isGrounded || (!isGrounded && !isJumping))
         {
-
+            //Records the input from the left analog stick on the appropriate controller
             xInput = Input.GetAxis(playerNumber + "Horizontal");
             zInput = Input.GetAxis(playerNumber + "Vertical");
+            //If this is PlayerOne, keyboard inputs are also recorded
             if(playerNumber == "PlayerOne")
             {
-                Debug.Log(Input.GetAxis("PlayerOneAltHorizontal"));
                 xInput += Input.GetAxis("PlayerOneAltHorizontal");
-                Debug.Log(Input.GetAxis("PlayerOneAltVertical"));
                 zInput += Input.GetAxis("PlayerOneAltVertical");
             }
             movement = transform.right * xInput + transform.forward * zInput;
@@ -328,9 +325,9 @@ public class PlayerBase : MonoBehaviour
             //Runs the UseWeapon method of the baseWeaponClass to fire the active weapon
             activeWeapon.GetComponent<baseWeaponClass>().useWeapon();
         }
+        //If the player releases the fire button and is using a spread shot weapon, the weapon fire lock is lifted
         if(Input.GetButtonUp(playerNumber + "AltFire") && Input.GetAxis(playerNumber + "Fire") == 0)
         {
-            //Thomas did this I don't know what it's for
             if(activeWeapon.GetComponent<build_a_weapon>().typeOfWeapon == build_a_weapon.typesOfWeapon.spreadShot)
             {
                 activeWeapon.GetComponent<build_a_weapon>().spreadShotLock = false;
