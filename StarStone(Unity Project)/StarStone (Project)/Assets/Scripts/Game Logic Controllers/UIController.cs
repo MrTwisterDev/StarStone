@@ -23,6 +23,7 @@ public class UIController : MonoBehaviour
     public Text prototypeChargePercent;
     //Ability UI Elements
     public Text blinkTimerText;
+    public GameObject speedLines;
     //Wave Information UI Elements
     public Text waveTimerText;
     public Text waveNumberText;
@@ -47,6 +48,8 @@ public class UIController : MonoBehaviour
         prototypeChargePercent = GameObject.Find("PrototypeChargeValue").GetComponent<Text>();
 
         blinkTimerText = GameObject.Find("BlinkCooldownTimer").GetComponent<Text>();
+        speedLines = GameObject.Find("TeleportEffect");
+        speedLines.SetActive(false);
 
         waveTimerText = GameObject.Find("WaveTimer").GetComponent<Text>();
         waveNumberText = GameObject.Find("WaveNumber").GetComponent<Text>();
@@ -78,6 +81,11 @@ public class UIController : MonoBehaviour
         {
             blinkTimerText.text = playerController.leftAbilityCooldownRounded.ToString();
         }
+    }
+
+    public void ToggleSpeedLines(bool isActive)
+    {
+        speedLines.SetActive(isActive);
     }
 
     public void UpdateSpeedCharge(int stoneCharge)

@@ -616,6 +616,7 @@ MonoBehaviour:
   weaponHoldPoint: {fileID: 5355848416004852481}
   adsHoldPoint: {fileID: 5355848417041313893}
   meleeHoldPoint: {fileID: 5355848415991071619}
+  meleeDamage: 0
   weaponsArray:
   - {fileID: 6140084841386102789}
   - {fileID: 559814509501914503}
@@ -633,11 +634,14 @@ MonoBehaviour:
   walkingSound: {fileID: 5355848417490344547}
   flashlightSound: {fileID: 8300000, guid: 5739edf863abab34890c09c7b5bc6bf6, type: 3}
   meleeSound: {fileID: 8300000, guid: 23cf5400c96ff26488454507952983bf, type: 3}
-  landingSound: {fileID: 8300000, guid: b847dbd716cd9cf40a428309c29a20b2, type: 3}
+  landingSound: {fileID: 0}
+  actionFailed: {fileID: 8300000, guid: 6d3950b1b366f58409e7e0028a0d92dd, type: 3}
   flashlight: {fileID: 5355848417578942282}
   playerNumber: 
   playerFeet: {fileID: 5355848416224099050}
   playerState: 0
+  maxActiveMines: 0
+  currentActiveMines: 0
 --- !u!1 &5355848417578942282
 GameObject:
   m_ObjectHideFlags: 0

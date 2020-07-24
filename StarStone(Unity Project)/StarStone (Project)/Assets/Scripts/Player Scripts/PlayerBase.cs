@@ -144,6 +144,8 @@ public class PlayerBase : MonoBehaviour
     public AudioClip meleeSound;
     [Tooltip("The AudioClip to play when the player falls to the ground.")]
     public AudioClip landingSound;
+    [Tooltip("The sound that plays when an action has failed.")]
+    public AudioClip actionFailed;
     [Space]
     #endregion
     //Miscellaneous Variables
@@ -212,6 +214,7 @@ public class PlayerBase : MonoBehaviour
         if (jumpingMoveSpeed == 0) { jumpingMoveSpeed = 2f; }
         if (maxHealth == 0) { maxHealth = 100f; }
         if (regenRate == 0) { regenRate = 5f; }
+        if (regenWaitAfterDamage == 0) { regenWaitAfterDamage = 5f; }
         if (prototypeSwitchTimeout == 0) { prototypeSwitchTimeout = 0.25f; }
         if (moveSpeed == 0) { moveSpeed = 4f; }
         if (moveSpeedMultiplier == 0) { moveSpeedMultiplier = 1f; }
@@ -567,6 +570,13 @@ public class PlayerBase : MonoBehaviour
                 canRegen = true;
             }
         }
+    }
+
+    public void TakeDamage(float damageDealt)
+    {
+        currentHealth -= damageDealt;
+        canRegen = false;
+        timeSinceTakenDamage = 0f;
     }
 
     public void CheckGrounded()

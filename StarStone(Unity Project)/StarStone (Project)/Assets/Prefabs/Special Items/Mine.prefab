@@ -126,6 +126,9 @@ MonoBehaviour:
   mineExplosionDistance: 1
   mineDamage: 10
   minePrimeTimer: 3
+  primedMaterial: {fileID: 2100000, guid: 63b152d48f2748a44801c78123a202bd, type: 2}
+  playerScript: {fileID: 0}
   explosionSound: {fileID: 8300000, guid: d98acc88deec6664080fc6d4bb83aa94, type: 3}
+  primedClip: {fileID: 8300000, guid: 8ae175b8c89d32c40996787297b3c012, type: 3}
   explosionEffect: {fileID: 3116116019638928491, guid: 723c90f5f841139489708a587029fc91,
     type: 3}
