@@ -29,6 +29,7 @@ public class PlayerBase : MonoBehaviour
     public LayerMask interactiveLayer;
     private RaycastHit interactableObject;
     private bool isGrounded;
+    private bool hasLanded;
     [Space]
     #endregion
     //Player Movement
@@ -225,6 +226,7 @@ public class PlayerBase : MonoBehaviour
         if (mouseSensitivity == 0) { mouseSensitivity = 50f; }
         if (leftAbilityCooldown == 0) { leftAbilityCooldown = 5f; }
         if (string.IsNullOrEmpty(playerNumber)) { playerNumber = "PlayerOne"; }
+        hasLanded = true;
     }
 
     // Update is called once per frame
@@ -303,6 +305,7 @@ public class PlayerBase : MonoBehaviour
         if(Input.GetButtonDown(playerNumber + "Jump") && isGrounded)
         {
             isJumping = true;
+            hasLanded = false;
             //Speed multiplier is saved so it can be used to move the player without them being able to change it in mid air
             multiplierBeforeJump = moveSpeedMultiplier;
             currentVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravityForce);
@@ -588,6 +591,11 @@ public class PlayerBase : MonoBehaviour
             isJumping = false;
             //Prevents a downward force from being built up on the player while they are on the ground, so that if they step off of a ledge they do not plummet
             currentVelocity.y = -2f;
+            if (!hasLanded)
+            {
+                AudioSource.PlayClipAtPoint(landingSound, transform.position);
+                hasLanded = true;
+            }
         }
     }
 
