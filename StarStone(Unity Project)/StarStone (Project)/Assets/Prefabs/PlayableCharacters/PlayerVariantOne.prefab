@@ -602,12 +602,12 @@ MonoBehaviour:
   wadingSpeedMultiplier: 0
   climbingMultiplier: 0
   characterController: {fileID: 5355848417490344548}
-  maxHealth: 0
+  maxHealth: 100
   currentHealth: 0
-  healthRegenCutoff: 0
-  regenRate: 0
+  healthRegenCutoff: 70
+  regenRate: 3
   timeSinceTakenDamage: 0
-  regenWaitAfterDamage: 0
+  regenWaitAfterDamage: 5
   canRegen: 0
   canRegenToMax: 0
   cameraTransform: {fileID: 5355848416481009272}
@@ -923,6 +923,11 @@ PrefabInstance:
       propertyPath: currentBullets
       value: 48
       objectReference: {fileID: 0}
+    - target: {fileID: 6937231501781049726, guid: 386e3b1a17e5e18448a9bfa163a884b4,
+        type: 3}
+      propertyPath: weaponDamage
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 386e3b1a17e5e18448a9bfa163a884b4, type: 3}
 --- !u!1 &559814509501914503 stripped
@@ -977,7 +982,27 @@ PrefabInstance:
     - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
         type: 3}
       propertyPath: weaponDamage
-      value: 1
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
+        type: 3}
+      propertyPath: gunAccuracy
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
+        type: 3}
+      propertyPath: gunRecoil
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
+        type: 3}
+      propertyPath: spreadShotLock
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
+        type: 3}
+      propertyPath: damageFalloff
+      value: 50000
       objectReference: {fileID: 0}
     - target: {fileID: 801569791777248055, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
         type: 3}
