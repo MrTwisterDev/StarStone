@@ -112,10 +112,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponName: Shotgun
   weaponDamage: 1
-  damageFalloff: 0
+  damageFalloff: 25
   totalBullets: 96
-  magazineCapacity: 24
-  currentBullets: 24
+  magazineCapacity: 5
+  currentBullets: 5
   canShoot: 0
   isShooting: 0
   canADS: 0
@@ -137,7 +137,7 @@ MonoBehaviour:
   gunRecoil: 0.9
   spreadShotLock: 0
   projectileFired: {fileID: 0}
-  bulletsInSpread: 6
+  bulletsInSpread: 12
   muzzleFlashChild: {fileID: 5089506431828387958}
 --- !u!95 &436743632458346021
 Animator:

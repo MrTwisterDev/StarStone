@@ -2216,7 +2216,7 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: easyBaseMaxMediumEnemies
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -2359,6 +2359,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5355848417490344555, guid: 0bfedd40c39f35b42ba56747334aceda,
         type: 3}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: maxSmallEnemies
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: maxMediumEnemies
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: maxLargeEnemies
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: enemySpawnDelay
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2858349823743127418, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: m_LocalPosition.x
