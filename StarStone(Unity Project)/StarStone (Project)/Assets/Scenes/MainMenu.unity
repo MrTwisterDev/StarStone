@@ -2211,12 +2211,12 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: easyBaseMaxSmallEnemies
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: easyBaseMaxMediumEnemies
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}

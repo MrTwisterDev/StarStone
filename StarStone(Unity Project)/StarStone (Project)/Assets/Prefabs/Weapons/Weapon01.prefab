@@ -133,7 +133,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6bf2008f5fbccf54f85f1cbe1636e8b5, type: 3}
   typeOfWeapon: 1
   gunAccuracy: 5
-  roundsPerSecond: 10
+  roundsPerSecond: 3
   gunRecoil: 0.9
   spreadShotLock: 0
   projectileFired: {fileID: 0}
