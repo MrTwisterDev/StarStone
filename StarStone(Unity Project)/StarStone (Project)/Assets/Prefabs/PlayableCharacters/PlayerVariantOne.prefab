@@ -607,7 +607,7 @@ MonoBehaviour:
   healthRegenCutoff: 70
   regenRate: 3
   timeSinceTakenDamage: 0
-  regenWaitAfterDamage: 5
+  regenWaitAfterDamage: 5000
   canRegen: 0
   canRegenToMax: 0
   cameraTransform: {fileID: 5355848416481009272}
