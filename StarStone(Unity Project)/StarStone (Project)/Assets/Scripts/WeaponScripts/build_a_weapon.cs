@@ -32,6 +32,8 @@ public class build_a_weapon : baseWeaponClass
     public int bulletsInSpread; //How many projectiles should be fired in a spreadShot
 
     public GameObject muzzleFlashChild;//The muzzle flash of the gun
+    public GameObject crossHair;//The cross hair of the gun
+    public GameObject InstancedCrossHair;//The cross hair of the gun
 
     UIController uiController;
 
@@ -40,6 +42,9 @@ public class build_a_weapon : baseWeaponClass
         timeTillBullet = 1/roundsPerSecond; //Calculates the fire rate
         currentTimeTillBullet = 0;//Makes the first show not have any fire time
         weaponAudioSource = gameObject.GetComponent<AudioSource>();
+
+        GameObject UICanvas = GameObject.FindGameObjectWithTag("UICanvas");
+        InstancedCrossHair = Instantiate(crossHair, UICanvas.transform);
 
         uiController = GameObject.Find("UI Controller").GetComponent<UIController>();
         switch (typeOfWeapon) //A case by case basis on how a weapon should be initialised
@@ -178,5 +183,15 @@ public class build_a_weapon : baseWeaponClass
     public void playReloadSound() //Animation event for specific timing
     {
         weaponAudioSource.PlayOneShot(reloadSound[Random.Range(0, reloadSound.Length)]);
+    }
+
+    private void OnDisable()
+    {
+        InstancedCrossHair.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        InstancedCrossHair.SetActive(true);
     }
 }

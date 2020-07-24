@@ -12,6 +12,7 @@ TagManager:
   - starStoneController
   - Starstone
   - UIHandler
+  - UICanvas
   layers:
   - Default
   - TransparentFX

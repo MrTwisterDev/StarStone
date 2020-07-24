@@ -139,6 +139,9 @@ MonoBehaviour:
   projectileFired: {fileID: 0}
   bulletsInSpread: 12
   muzzleFlashChild: {fileID: 5089506431828387958}
+  crossHair: {fileID: 1525204395773698044, guid: 8079516317dd1ca4ab8b9d70679dc4ca,
+    type: 3}
+  InstancedCrossHair: {fileID: 0}
 --- !u!95 &436743632458346021
 Animator:
   serializedVersion: 3
