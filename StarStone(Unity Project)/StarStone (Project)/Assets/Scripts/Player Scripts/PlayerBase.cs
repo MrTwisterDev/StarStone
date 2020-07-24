@@ -29,6 +29,7 @@ public class PlayerBase : MonoBehaviour
     public LayerMask interactiveLayer;
     private RaycastHit interactableObject;
     private bool isGrounded;
+    private bool hasLanded;
     [Space]
     #endregion
     //Player Movement
@@ -144,6 +145,8 @@ public class PlayerBase : MonoBehaviour
     public AudioClip meleeSound;
     [Tooltip("The AudioClip to play when the player falls to the ground.")]
     public AudioClip landingSound;
+    [Tooltip("The sound that plays when an action has failed.")]
+    public AudioClip actionFailed;
     [Space]
     #endregion
     //Miscellaneous Variables
@@ -212,6 +215,7 @@ public class PlayerBase : MonoBehaviour
         if (jumpingMoveSpeed == 0) { jumpingMoveSpeed = 2f; }
         if (maxHealth == 0) { maxHealth = 100f; }
         if (regenRate == 0) { regenRate = 5f; }
+        if (regenWaitAfterDamage == 0) { regenWaitAfterDamage = 5f; }
         if (prototypeSwitchTimeout == 0) { prototypeSwitchTimeout = 0.25f; }
         if (moveSpeed == 0) { moveSpeed = 4f; }
         if (moveSpeedMultiplier == 0) { moveSpeedMultiplier = 1f; }
@@ -222,6 +226,7 @@ public class PlayerBase : MonoBehaviour
         if (mouseSensitivity == 0) { mouseSensitivity = 50f; }
         if (leftAbilityCooldown == 0) { leftAbilityCooldown = 5f; }
         if (string.IsNullOrEmpty(playerNumber)) { playerNumber = "PlayerOne"; }
+        hasLanded = true;
     }
 
     // Update is called once per frame
@@ -300,6 +305,7 @@ public class PlayerBase : MonoBehaviour
         if(Input.GetButtonDown(playerNumber + "Jump") && isGrounded)
         {
             isJumping = true;
+            hasLanded = false;
             //Speed multiplier is saved so it can be used to move the player without them being able to change it in mid air
             multiplierBeforeJump = moveSpeedMultiplier;
             currentVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravityForce);
@@ -569,6 +575,13 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    public void TakeDamage(float damageDealt)
+    {
+        currentHealth -= damageDealt;
+        canRegen = false;
+        timeSinceTakenDamage = 0f;
+    }
+
     public void CheckGrounded()
     {
         //A spherical area at the player's feet is checked. If it contains a GameObject on the ground layer, the player is set as grounded
@@ -578,6 +591,11 @@ public class PlayerBase : MonoBehaviour
             isJumping = false;
             //Prevents a downward force from being built up on the player while they are on the ground, so that if they step off of a ledge they do not plummet
             currentVelocity.y = -2f;
+            if (!hasLanded)
+            {
+                AudioSource.PlayClipAtPoint(landingSound, transform.position);
+                hasLanded = true;
+            }
         }
     }
 

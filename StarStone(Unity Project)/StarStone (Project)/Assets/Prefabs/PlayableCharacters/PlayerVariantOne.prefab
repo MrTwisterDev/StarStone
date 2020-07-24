@@ -634,11 +634,14 @@ MonoBehaviour:
   walkingSound: {fileID: 5355848417490344547}
   flashlightSound: {fileID: 8300000, guid: 5739edf863abab34890c09c7b5bc6bf6, type: 3}
   meleeSound: {fileID: 8300000, guid: 23cf5400c96ff26488454507952983bf, type: 3}
-  landingSound: {fileID: 8300000, guid: b847dbd716cd9cf40a428309c29a20b2, type: 3}
+  landingSound: {fileID: 8300000, guid: 3ffdb9e4ad1b09144bec97696b3ad8cb, type: 3}
+  actionFailed: {fileID: 8300000, guid: 6d3950b1b366f58409e7e0028a0d92dd, type: 3}
   flashlight: {fileID: 5355848417578942282}
   playerNumber: 
   playerFeet: {fileID: 5355848416224099050}
   playerState: 0
+  maxActiveMines: 0
+  currentActiveMines: 0
 --- !u!1 &5355848417578942282
 GameObject:
   m_ObjectHideFlags: 0

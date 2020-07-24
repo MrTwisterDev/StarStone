@@ -21,7 +21,7 @@ public class enemyProjectile : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<PlayerBase>().currentHealth -= projectileDamage;
+            collision.gameObject.GetComponent<PlayerBase>().TakeDamage(projectileDamage);
             Destroy(gameObject);
         }
         else if(collision.gameObject.tag != "Enemy")
