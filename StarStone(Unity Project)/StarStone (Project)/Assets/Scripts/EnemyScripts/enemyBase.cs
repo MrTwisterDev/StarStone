@@ -197,7 +197,7 @@ public class enemyBase : MonoBehaviour
         getNearestPlayer();
 
         //Currently means that a player cannot avoid a melee attack once it has started. Can be improved
-        nearestPlayer.GetComponent<PlayerBase>().currentHealth -= meleeDamage;
+        nearestPlayer.GetComponent<PlayerBase>().TakeDamage(meleeDamage);
         resetTimer(true);
     }
 

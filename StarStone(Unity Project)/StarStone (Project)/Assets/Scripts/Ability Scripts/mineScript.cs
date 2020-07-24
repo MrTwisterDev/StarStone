@@ -12,18 +12,29 @@ public class mineScript : MonoBehaviour
     public float minePrimeTimer;
     private float currentMineTimer;
 
+    private bool hasChangedMaterial;
+
+    public Material primedMaterial;
+
+    [HideInInspector]
+    public CharacterVariantOne playerScript;
+
     private Rigidbody rigidBody;
     private Transform mainCamera;
+    private MeshRenderer meshRenderer;
 
     public AudioClip explosionSound;
+    public AudioClip primedClip;
 
     public GameObject explosionEffect;
     // Start is called before the first frame update
     void Start()
     {
         mainCamera = GameObject.Find("Main Camera").GetComponent<Transform>();
-
+        //James' Work\\
+        meshRenderer = gameObject.GetComponent<MeshRenderer>();
         currentMineTimer = minePrimeTimer;
+        //~~~~~~~~~~~~\\
         rigidBody = gameObject.GetComponent<Rigidbody>();
         rigidBody.AddForce(mainCamera.forward * 500f);
     }
@@ -36,6 +47,14 @@ public class mineScript : MonoBehaviour
 
         if (minePrimed)
         {
+            //James' Work\\
+            if(!hasChangedMaterial)
+            {
+                meshRenderer.material = primedMaterial;
+                AudioSource.PlayClipAtPoint(primedClip, transform.position, 0.25f);
+                hasChangedMaterial = true;
+            }
+            //~~~~~~~~~~~~\\
             foreach (Collider collider in Physics.OverlapSphere(transform.position, mineExplosionDistance))
             {
                 if(collider.gameObject.GetComponent<enemyBase>() != null)
@@ -52,6 +71,7 @@ public class mineScript : MonoBehaviour
         enemyCollided.gameObject.GetComponent<enemyBase>().takeDamage(mineDamage);
         GameObject _pSystem = Instantiate(explosionEffect, transform.position, Quaternion.identity);
         _pSystem.GetComponent<AudioSource>().PlayOneShot(explosionSound);
+        playerScript.currentActiveMines--;
         Destroy(gameObject);
 
     }
