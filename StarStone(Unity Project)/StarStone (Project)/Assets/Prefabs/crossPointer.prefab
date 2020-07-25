@@ -345,8 +345,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd6f50626dddbfc4487c597df352281d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crossHairChangeSpeed: 5
-  masterOffset: 0
+  crossHairChangeSpeed: 20
+  masterOffset: 5
   horizontalOffset: 0
   verticalOffset: 0
 --- !u!1 &1525204397034291105

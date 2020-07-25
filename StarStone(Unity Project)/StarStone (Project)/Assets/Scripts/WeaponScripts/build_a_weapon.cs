@@ -19,8 +19,12 @@ public class build_a_weapon : baseWeaponClass
     private GameObject parentOfWeapon; //Used for optimisation purposes. Used if the weapon itself does not rotate, but it's parent does (Effecting trajectory)
     
     public float gunAccuracy; //How accurate is this weapon, 0 Being perfect dead on the crosshair, anything more will randomly veer away from the center
+    private float originGunAccuracy; //The original accuracy of the gun, used so it can be reset.
     public float roundsPerSecond; //How many rounds a second this gun will fire
-    public float gunRecoil; //How much shooting knocks camera back
+    public float gunCameraRecoil; //How much shooting knocks camera back
+    public float gunAccuracyRecoil; //How much shooting affects the accuracy of the gun. Eventually resets base accuracy
+    public float gunAccuracyRecovery; //How quickly the guns accuracy resets to 0
+
 
     private float timeTillBullet;
     private float currentTimeTillBullet;
@@ -34,6 +38,7 @@ public class build_a_weapon : baseWeaponClass
     public GameObject muzzleFlashChild;//The muzzle flash of the gun
     public GameObject crossHair;//The cross hair of the gun
     public GameObject InstancedCrossHair;//The cross hair of the gun
+    public dynamicCrosshair crosshairScript;//The script of the guns crosshair.
 
     UIController uiController;
 
@@ -45,6 +50,9 @@ public class build_a_weapon : baseWeaponClass
 
         GameObject UICanvas = GameObject.FindGameObjectWithTag("UICanvas");
         InstancedCrossHair = Instantiate(crossHair, UICanvas.transform);
+        crosshairScript = InstancedCrossHair.GetComponentInChildren<dynamicCrosshair>();
+
+        originGunAccuracy = gunAccuracy;
 
         uiController = GameObject.Find("UI Controller").GetComponent<UIController>();
         switch (typeOfWeapon) //A case by case basis on how a weapon should be initialised
@@ -68,6 +76,8 @@ public class build_a_weapon : baseWeaponClass
     void Update()
     {
         canShoot = currentBullets > 0;
+        gunAccuracy = Mathf.MoveTowards(gunAccuracy, originGunAccuracy, gunAccuracyRecovery);
+        crosshairScript.masterOffset = gunAccuracy + gunAccuracyRecoil/2 + 10;
 
         switch (typeOfWeapon) //How should each weapon differ per frame
         {
@@ -93,6 +103,7 @@ public class build_a_weapon : baseWeaponClass
                         currentBullets--;
                         totalBullets--;
                         fireBullet();
+                        gunAccuracy += gunAccuracyRecoil;
                         weaponAudioSource.PlayOneShot(gunshotNoises[Random.Range(0, gunshotNoises.Length)]);
                         muzzleFlashChild.SetActive(true);
                         break;
@@ -103,13 +114,14 @@ public class build_a_weapon : baseWeaponClass
                             totalBullets--;
                             weaponAudioSource.PlayOneShot(gunshotNoises[Random.Range(0, gunshotNoises.Length)]);
                             muzzleFlashChild.SetActive(true);
+
                             for (int i = 0; i < bulletsInSpread; i++)
                             {
 
                                 fireBullet();
 
                             }
-
+                            gunAccuracy += gunAccuracyRecoil;
                             spreadShotLock = true;
                         }
                         break;
@@ -154,7 +166,7 @@ public class build_a_weapon : baseWeaponClass
 
         //Recoil Application
         // transform.parent.parent.gameObject.transform.Rotate(new Vector3(gunRecoil, 0, 0));
-        transform.parent.parent.gameObject.GetComponent<PlayerBase>().xRotation -= gunRecoil;
+        transform.parent.parent.gameObject.GetComponent<PlayerBase>().xRotation -= gunCameraRecoil;
 
         Transform _weaponHoldPoint = gameObject.transform.Find("MuzzlePosition").GetComponent<Transform>();
         GameObject _particleSystem = Instantiate(muzzleFlash, _weaponHoldPoint, false);
@@ -194,4 +206,5 @@ public class build_a_weapon : baseWeaponClass
     {
         InstancedCrossHair.SetActive(true);
     }
+
 }
