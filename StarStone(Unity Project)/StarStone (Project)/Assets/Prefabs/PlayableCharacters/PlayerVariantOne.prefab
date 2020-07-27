@@ -602,12 +602,12 @@ MonoBehaviour:
   wadingSpeedMultiplier: 0
   climbingMultiplier: 0
   characterController: {fileID: 5355848417490344548}
-  maxHealth: 100
+  maxHealth: 1000
   currentHealth: 0
   healthRegenCutoff: 70
   regenRate: 3
   timeSinceTakenDamage: 0
-  regenWaitAfterDamage: 5000
+  regenWaitAfterDamage: 3
   canRegen: 0
   canRegenToMax: 0
   cameraTransform: {fileID: 5355848416481009272}

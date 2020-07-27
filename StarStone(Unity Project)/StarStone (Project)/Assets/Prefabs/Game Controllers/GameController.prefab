@@ -46,6 +46,7 @@ MonoBehaviour:
   levelOneEnemy: {fileID: 0}
   levelTwoEnemy: {fileID: 0}
   levelThreeEnemy: {fileID: 0}
+  playerPrefab: {fileID: 0}
   maxSmallEnemies: 0
   maxMediumEnemies: 0
   maxLargeEnemies: 0
@@ -77,15 +78,20 @@ MonoBehaviour:
   smallEnemiesInHardWave: 0
   mediumEnemiesInHardWave: 0
   largeEnemiesInHardWave: 0
-  easyWaveTime: 0
+  easyWaveTime: 40
   normalWaveTime: 0
   hardWaveTime: 0
-  smallEnemiesInWave: 0
-  mediumEnemiesInWave: 0
-  largeEnemiesInWave: 0
+  smallEnemiesInWave: 6
+  mediumEnemiesInWave: 3
+  largeEnemiesInWave: 2
   intermissionLength: 0
   starstoneArray: []
   currentStarstone: 0
+  soulsInGenerator: 0
+  requiredSoulsInGenerator: 0
+  playerOneSpawnPoint: {fileID: 0}
+  playerTwoSpawnPoint: {fileID: 0}
+  numberOfPlayers: 0
   enemiesList: []
   enemiesSpawned: 0
   hasFoundGenerator: 0
