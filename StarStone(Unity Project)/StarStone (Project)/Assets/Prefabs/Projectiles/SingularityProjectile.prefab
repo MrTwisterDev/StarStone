@@ -110,11 +110,11 @@ MonoBehaviour:
   rigidBody: {fileID: 0}
   cameraTransform: {fileID: 0}
   detonationSound: {fileID: 8300000, guid: cd6df1927ea6d184ba81c3cb31442695, type: 3}
-  launchForce: 700
+  launchForce: 300
   areaOfEffect: 8
   damageToDeal: 0
   fuseLength: 1.5
-  blackHoleDuration: 10
+  blackHoleDuration: 5
 --- !u!54 &6290789156668490040
 Rigidbody:
   m_ObjectHideFlags: 0
