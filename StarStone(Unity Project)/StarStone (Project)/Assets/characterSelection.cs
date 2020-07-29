@@ -29,10 +29,19 @@ public class characterSelection : MonoBehaviour
 
     }
 
+    public void dropDownUpdate()
+    {
+        for (int i = 0; i < shownPlayers.Length; i++)
+        {
+            Destroy(shownPlayers[i]);
+            shownPlayers[i] = Instantiate(characterPrefabs[playerSelectDropDowns[i].value], playerSelectShowCaseTransforms[i].position, characterPrefabs[playerSelectDropDowns[i].value].transform.rotation, playerSelectShowCaseTransforms[i]);
+
+        }
+    }
+
+
     private void Update()
     {
-
-
 
     }
 
