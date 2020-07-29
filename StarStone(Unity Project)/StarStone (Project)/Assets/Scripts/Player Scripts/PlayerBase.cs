@@ -144,7 +144,7 @@ public class PlayerBase : MonoBehaviour
     [Tooltip("The AudioClip to play when the player uses their melee attack.")]
     public AudioClip meleeSound;
     [Tooltip("The AudioClip to play when the player falls to the ground.")]
-    public AudioClip landingSound;
+    public AudioClip[] landingSounds;
     [Tooltip("The sound that plays when an action has failed.")]
     public AudioClip actionFailed;
     [Space]
@@ -586,6 +586,7 @@ public class PlayerBase : MonoBehaviour
     {
         //A spherical area at the player's feet is checked. If it contains a GameObject on the ground layer, the player is set as grounded
         isGrounded = Physics.CheckSphere(playerFeet.position, groundDistance, groundLayer);
+        if (!isGrounded) { hasLanded = false; }
         if(isGrounded && currentVelocity.y < 0)
         {
             isJumping = false;
@@ -593,7 +594,9 @@ public class PlayerBase : MonoBehaviour
             currentVelocity.y = -2f;
             if (!hasLanded)
             {
-                AudioSource.PlayClipAtPoint(landingSound, transform.position);
+                int randInt = UnityEngine.Random.Range(0, landingSounds.Length - 1);
+                Debug.Log(randInt);
+                AudioSource.PlayClipAtPoint(landingSounds[randInt], transform.position);
                 hasLanded = true;
             }
         }
