@@ -275,6 +275,7 @@ public class GameController : MonoBehaviour
             //If the player has killed all enemies in a wave, the wave ends and an intermission starts
             if (enemiesKilled >= smallEnemiesInWave + mediumEnemiesInWave + largeEnemiesInWave)
             {
+                if (timerActive) { timerActive = false; }
                 intermissionTimerValue -= Time.deltaTime;
                 uIController.UpdateIntermissionTimer((int)intermissionTimerValue);
                 //When the intermission timer runs out, the next wave begins
@@ -440,6 +441,8 @@ public class GameController : MonoBehaviour
         uIController.UpdateWaveNumber(currentWave);
         //Plays a sound to signify the start of a new wave
         AudioSource.PlayClipAtPoint(waveStart, playerOneController.gameObject.transform.position);
+        //Starts the wave timer running
+        timerActive = true;
     }
 
     public void ResetWaveData()
