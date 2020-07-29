@@ -114,6 +114,7 @@ public class PlayerBase : MonoBehaviour
     private float timeSinceLastPress;
     private float prototypeSwitchTimeout;
     private bool preparingToSwapWeapon;
+    private bool isADS;
     #endregion
     //Abilities
     #region
@@ -260,6 +261,7 @@ public class PlayerBase : MonoBehaviour
             MovementControls();
             ApplyGravity();
         }
+        Debug.Log(Input.GetAxis(playerNumber + "Aim"));
     }
 
     public virtual void MovementControls()
@@ -270,11 +272,6 @@ public class PlayerBase : MonoBehaviour
             xInput = Input.GetAxis(playerNumber + "Horizontal");
             zInput = Input.GetAxis(playerNumber + "Vertical");
             //If this is PlayerOne, keyboard inputs are also recorded
-            if(playerNumber == "PlayerOne")
-            {
-                xInput += Input.GetAxis("PlayerOneAltHorizontal");
-                zInput += Input.GetAxis("PlayerOneAltVertical");
-            }
             movement = transform.right * xInput + transform.forward * zInput;
             //Moves the player by the newly calculated movement vector, applying the movement speed and any multipliers and using deltaTime to make movement non-framerate dependent
             characterController.Move(movement * moveSpeed * moveSpeedMultiplier * Time.deltaTime);
@@ -331,13 +328,13 @@ public class PlayerBase : MonoBehaviour
     public virtual void PlayerInput()
     {
         //Checks that the player's active weapon is not the Prototype weapon, as it has its own firing code
-        if(Input.GetButton(playerNumber + ("AltFire")) && activeWeapon.tag != "Prototype" || Input.GetAxis(playerNumber + "Fire") > 0 && activeWeapon.tag != "Prototype")
+        if(Input.GetAxis(playerNumber + "Fire") > 0 && activeWeapon.tag != "Prototype")
         {
             //Runs the UseWeapon method of the baseWeaponClass to fire the active weapon
             activeWeapon.GetComponent<baseWeaponClass>().useWeapon();
         }
         //If the player releases the fire button and is using a spread shot weapon, the weapon fire lock is lifted
-        if(Input.GetButtonUp(playerNumber + "AltFire") && Input.GetAxis(playerNumber + "Fire") == 0)
+        if(Input.GetAxis(playerNumber + "Fire") == 0 && activeWeapon.tag != "Prototype")
         {
             if(activeWeapon.GetComponent<build_a_weapon>().typeOfWeapon == build_a_weapon.typesOfWeapon.spreadShot)
             {
@@ -357,27 +354,25 @@ public class PlayerBase : MonoBehaviour
             }
         }
 
-        if (Input.GetButton(playerNumber + "AltAim") && activeWeapon.GetComponent<build_a_weapon>() != null || Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.GetComponent<build_a_weapon>() != null)
+        if (Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.GetComponent<build_a_weapon>() != null && !isADS)
         {
             activeWeapon.GetComponent<Animator>().Play("AdsIn");
-
+            isADS = true;
         }
 
-        if (Input.GetButtonUp(playerNumber + "AltAim") && activeWeapon.GetComponent<build_a_weapon>() != null && Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.GetComponent<build_a_weapon>() != null)
+        if (Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.GetComponent<build_a_weapon>() != null && isADS)
         {
             activeWeapon.GetComponent<Animator>().Play("AdsOut");
-
+            isADS = false;
         }
 
-        else if (Input.GetButton(playerNumber + "AltAim") && activeWeapon.tag == "Prototype" || Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.tag == "Prototype")
+        else if (Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.tag == "Prototype")
         {
-            Debug.Log("Trying to aim!");
             //Moves the prototype weapon to its ADS position
             activeWeapon.transform.position = adsHoldPoint.position;
         }
-        if(Input.GetButtonUp(playerNumber + "AltAim") && activeWeapon.tag == "Prototype" && Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.tag == "Prototype")
+        if(Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.tag == "Prototype")
         {
-            Debug.Log("Aiming from the hip!");
             //Moves the prototype weapon back to its hipfire location
             activeWeapon.transform.position = weaponHoldPoint.position;
         }
@@ -389,7 +384,7 @@ public class PlayerBase : MonoBehaviour
         {
             UseRightAbility();
         }
-        if(Input.GetButtonDown(playerNumber + "AltFlashlight") || Input.GetAxis(playerNumber + "Flashlight") == 1)
+        if(Input.GetAxis(playerNumber + "Flashlight") == 1)
         {
             //Toggles the flashlight boolean and plays the toggle sound, setting the flashlight to active or inactive depending on the value of flashlightToggle
             flashlightToggle = !flashlightToggle;
@@ -513,11 +508,6 @@ public class PlayerBase : MonoBehaviour
         mouseX = Input.GetAxis(playerNumber + "CameraX");
         mouseY = Input.GetAxis(playerNumber + "CameraY");
         //If this is Player One, mouse inputs are recorded as well
-        if (playerNumber == "PlayerOne")
-        {
-            mouseX += Input.GetAxis(playerNumber + "AltCameraX");
-            mouseY += Input.GetAxis(playerNumber + "AltCameraY");
-        }
         xRotation -= mouseY;
         //Locks the camera from going above or below 90 degrees in the Y direction
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);

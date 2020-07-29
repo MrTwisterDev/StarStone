@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEditor;
 
 public class GameController : MonoBehaviour
 {
@@ -406,9 +407,8 @@ public class GameController : MonoBehaviour
 
     public void UpdateChosenCharacters()
     {
-        Debug.Log("Wheeeee!");
         //If the selected character variant in Henri, then the character player one will spawn as is set to character variant one
-        if(characterSelector.shownPlayers[0] == characterSelector.characterPrefabs[0])
+        if(characterSelector.shownPlayers[0].gameObject.tag == "Henri")
         {
             playerOneCharacter = characterVariantOne;
         }
@@ -420,7 +420,7 @@ public class GameController : MonoBehaviour
         //If the game is being played in co-op mode, the same process is carried out to determine player two's chosen character
         if (isCoOp)
         {
-            if(characterSelector.shownPlayers[1] == characterSelector.characterPrefabs[0])
+            if(characterSelector.shownPlayers[1].gameObject.tag == "Henri")
             {
                 playerTwoCharacter = characterVariantOne;
             }
@@ -445,6 +445,9 @@ public class GameController : MonoBehaviour
         {
             playerTwoController = Instantiate(playerTwoCharacter, playerTwoSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
             playerTwoController.playerNumber = "PlayerTwo";
+            //playerTwoCamera = playerTwoController.gameObject.transform.Find("/MainCamera").GetComponent<Camera>();
+            //Disables the audio listener on player two's camera so that it doesn't cause issues within Unity
+            //playerTwoCamera.GetComponent<AudioListener>().enabled = false;
         }
     }
 

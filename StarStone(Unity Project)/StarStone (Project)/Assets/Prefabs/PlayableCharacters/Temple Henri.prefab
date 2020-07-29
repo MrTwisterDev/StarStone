@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 5355848417490344572}
   m_Layer: 10
   m_Name: Temple Henri
-  m_TagString: Player
+  m_TagString: Henri
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
