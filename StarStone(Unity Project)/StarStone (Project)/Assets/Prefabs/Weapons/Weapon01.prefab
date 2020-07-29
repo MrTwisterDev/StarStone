@@ -134,7 +134,7 @@ MonoBehaviour:
   typeOfWeapon: 1
   gunAccuracy: 10
   roundsPerSecond: 3
-  gunCameraRecoil: 1.5
+  gunCameraRecoil: 1.25
   gunAccuracyRecoil: 30
   gunAccuracyRecovery: 2
   spreadShotLock: 0
