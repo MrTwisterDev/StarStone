@@ -432,7 +432,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5355848417490344555}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c23c687658f6044a9297aa1d7c9b174, type: 3}
   m_Name: 
@@ -616,6 +616,7 @@ MonoBehaviour:
   weaponHoldPoint: {fileID: 5355848416004852481}
   adsHoldPoint: {fileID: 5355848417041313893}
   meleeHoldPoint: {fileID: 5355848415991071619}
+  meleeDamage: 0
   weaponsArray:
   - {fileID: 6140084841386102789}
   - {fileID: 559814509501914503}
@@ -632,6 +633,7 @@ MonoBehaviour:
   flashlightSound: {fileID: 8300000, guid: 5739edf863abab34890c09c7b5bc6bf6, type: 3}
   meleeSound: {fileID: 8300000, guid: 23cf5400c96ff26488454507952983bf, type: 3}
   landingSound: {fileID: 8300000, guid: b847dbd716cd9cf40a428309c29a20b2, type: 3}
+  actionFailed: {fileID: 0}
   flashlight: {fileID: 5355848417578942282}
   playerNumber: 
   playerFeet: {fileID: 5355848416224099050}
