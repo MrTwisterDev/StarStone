@@ -14,7 +14,6 @@ public class GameController : MonoBehaviour
     // Purpose: Handles all aspects of game logic and flow, including|
     //          difficulty levels, wave timers and enemy spawning    |
     //***************************************************************|
-    private bool isInGame;
 
     //Prefabs
     #region
@@ -25,7 +24,9 @@ public class GameController : MonoBehaviour
     public GameObject levelTwoEnemy;
     [Tooltip("The prefab GameObject for the large enemy.")]
     public GameObject levelThreeEnemy;
+    [Tooltip("The prefab for the character player one has chosen to play as.")]
     public GameObject playerOneCharacter;
+    [Tooltip("The prefab for the character player two has chosen to play as.")]
     public GameObject playerTwoCharacter;
     #endregion
     //Enemy Spawning
@@ -54,6 +55,9 @@ public class GameController : MonoBehaviour
     //Enemy Difficulty Settings
     #region
     [Header("Enemy Difficulty Settings")]
+    [Space]
+    //Easy Settings
+    [Header("Easy Settings")]
     [Tooltip("The base maximum number of small enemies that will spawn at a time in the first wave on the easy difficulty.")]
     public int easyBaseMaxSmallEnemies;
     [Tooltip("The base maximum number of medium enemies that will spawn at a time in the first wave on the easy difficulty.")]
@@ -61,6 +65,22 @@ public class GameController : MonoBehaviour
     [Tooltip("The base maximum number of large enemies that will spawn at a time in the first wave on the easy difficulty.")]
     public int easyBaseMaxLargeEnemies;
     [Space]
+    [Tooltip("The value by which the maxiumum number of small enemies spawning in a wave increases each wave on the easy difficulty.")]
+    public int easyMaxSmallEnemyIncrease;
+    [Tooltip("The value by which the maxiumum number of medium enemies spawning in a wave increases each wave on the easy difficulty.")]
+    public int easyMaxMediumEnemyIncrease;
+    [Tooltip("The value by which the maxiumum number of large enemies spawning in a wave increases each wave on the easy difficulty.")]
+    public int easyMaxLargeEnemyIncrease;
+    [Space]
+    [Tooltip("The total number of small enemies in an easy wave.")]
+    public int smallEnemiesInEasyWave;
+    [Tooltip("The total number of medium enemies in an easy wave.")]
+    public int mediumEnemiesInEasyWave;
+    [Tooltip("The total number of large enemies in an easy wave.")]
+    public int largeEnemiesInEasyWave;
+    [Space]
+    //Normal Settings
+    [Header("Normal Settings")]
     [Tooltip("The base maximum number of small enemies that will spawn at a time in the first wave on the normal difficulty.")]
     public int normalBaseMaxSmallEnemies;
     [Tooltip("The base maximum number of medium enemies that will spawn at a time in the first wave on the normal difficulty.")]
@@ -68,27 +88,29 @@ public class GameController : MonoBehaviour
     [Tooltip("The base maximum number of large enemies that will spawn at a time in the first wave on the normal difficulty.")]
     public int normalBaseMaxLargeEnemies;
     [Space]
+    [Tooltip("The value by which the maxiumum number of small enemies spawning in a wave increases each wave on the normal difficulty.")]
+    public int normalMaxSmallEnemyIncrease;
+    [Tooltip("The value by which the maxiumum number of medium enemies spawning in a wave increases each wave on the normal difficulty.")]
+    public int normalMaxMediumEnemyIncrease;
+    [Tooltip("The value by which the maxiumum number of large enemies spawning in a wave increases each wave on the normal difficulty.")]
+    public int normalMaxLargeEnemyIncrease;
+    [Space]
+    [Tooltip("The total number of small enemies in a normal wave.")]
+    public int smallEnemiesInNormalWave;
+    [Tooltip("The total number of medium enemies in a normal wave.")]
+    public int mediumEnemiesInNormalWave;
+    [Tooltip("The total number of large enemies in a normal wave.")]
+    public int largeEnemiesInNormalWave;
+    [Space]
+    //Hard Settings
+    [Header("Hard Settings")]
     [Tooltip("The base maximum number of small enemies that will spawn at a time in the first wave on the hard difficulty.")]
     public int hardBaseMaxSmallEnemies;
     [Tooltip("The base maximum number of medium enemies that will spawn at a time in the first wave on the hard difficulty.")]
     public int hardBaseMaxMediumEnemies;
     [Tooltip("The base maximum number of large enemies that will spawn at a time in the first wave on the hard difficulty.")]
     public int hardBaseMaxLargeEnemies;
-    [Space]
-    [Tooltip("The value by which the maxiumum number of small enemies spawning in a wave increases each wave on the easy difficulty.")]
-    public int easyMaxSmallEnemyIncrease;                                                  
-    [Tooltip("The value by which the maxiumum number of medium enemies spawning in a wave increases each wave on the easy difficulty.")]
-    public int easyMaxMediumEnemyIncrease;                                                 
-    [Tooltip("The value by which the maxiumum number of large enemies spawning in a wave increases each wave on the easy difficulty.")]
-    public int easyMaxLargeEnemyIncrease;                                                  
-    [Space]                                                                                
-    [Tooltip("The value by which the maxiumum number of small enemies spawning in a wave increases each wave on the normal difficulty.")]
-    public int normalMaxSmallEnemyIncrease;                                                
-    [Tooltip("The value by which the maxiumum number of medium enemies spawning in a wave increases each wave on the normal difficulty.")]
-    public int normalMaxMediumEnemyIncrease;                                               
-    [Tooltip("The value by which the maxiumum number of large enemies spawning in a wave increases each wave on the normal difficulty.")]
-    public int normalMaxLargeEnemyIncrease;
-    [Space]
+    [Space]                                                                               
     [Tooltip("The value by which the maximum number of small enemies spawning in a wave increases each wave on the hard difficulty.")]
     public int hardMaxSmallEnemyIncrease;
     [Tooltip("The value by which the maximum number of medium enemies spawning in a wave increases each wave on the hard difficulty.")]
@@ -96,22 +118,16 @@ public class GameController : MonoBehaviour
     [Tooltip("The value by which the maximum number of large enemies spawning in a wave increases each wave on the hard difficulty.")]
     public int hardMaxLargeEnemyIncrease;
     [Space]
-    public int smallEnemiesInEasyWave;
-    public int mediumEnemiesInEasyWave;
-    public int largeEnemiesInEasyWave;
-    [Space]
-    public int smallEnemiesInNormalWave;
-    public int mediumEnemiesInNormalWave;
-    public int largeEnemiesInNormalWave;
-    [Space]
+    [Tooltip("The total number of small enemies in a hard wave.")]
     public int smallEnemiesInHardWave;
+    [Tooltip("The total number of medium enemies in a hard wave.")]
     public int mediumEnemiesInHardWave;
+    [Tooltip("The total number of large enemies in a hard wave.")]
     public int largeEnemiesInHardWave;
-
+    //Current Wave Information
     private int smallEnemiesSpawned;
     private int mediumEnemiesSpawned;
     private int largeEnemiesSpawned;
-
     private int enemiesKilled;
     #endregion
     //Wave Management
@@ -147,26 +163,47 @@ public class GameController : MonoBehaviour
     public GameObject[] starstoneArray;
     [Tooltip("The currently active Starstone powerup effect.")]
     public starstoneEffects currentStarstone;
+    [Space]
     #endregion
-
-    public int soulsInGenerator;
-    public int requiredSoulsInGenerator;
-
-    public Transform playerOneSpawnPoint;
-    public Transform playerTwoSpawnPoint;
-
-    public int numberOfPlayers;
-
+    //Player Management
+    #region
+    [Header("Player Management")]
+    [Tooltip("A boolean that determines whether the game's multiplayer co-op mode is being used.")]
+    public bool isCoOp;
+    private Transform playerOneSpawnPoint;
+    private Transform playerTwoSpawnPoint;
     private PlayerBase playerOneController;
     private PlayerBase playerTwoController;
-    private Camera mainCamera;
-    private UIController uIController;
-    private GameObject victoryCanvas;
-
-    public List<GameObject> enemiesList = new List<GameObject>(); //Tom's work
-    public bool enemiesSpawned = false; //Tom's work
-
+    private Camera playerOneCamera;
+    private Camera playerTwoCamera;
+    [Space]
+    #endregion
+    //Game Management
+    #region
+    [Header("Game Management")]
+    [Tooltip("A boolean determining whether or not a player has found a generator.")]
     public bool hasFoundGenerator;
+    [Tooltip("The number of souls currently contained within the generator.")]
+    public int soulsInGenerator;
+    [Tooltip("The number of souls required inside the generator in order to win the game.")]
+    public int requiredSoulsInGenerator;
+    private GameObject victoryCanvas;
+    private UIController uIController;
+    private bool isInGame;
+    [Space]
+    [Tooltip("The current difficulty setting in the game.")]
+    public gameDifficulty currentGameDifficulty;
+    [Space]
+    #endregion
+    //Game Sounds
+    #region
+    public AudioClip waveStart;
+    #endregion
+
+    [HideInInspector]
+    public List<GameObject> enemiesList = new List<GameObject>(); //Tom's work
+    [HideInInspector]
+    public bool enemiesSpawned = false; //Tom's work
 
     public enum gameDifficulty
     {
@@ -184,9 +221,7 @@ public class GameController : MonoBehaviour
         buffEffect
     }
 
-    [Space]
-    [Tooltip("The current difficulty setting in the game.")]
-    public gameDifficulty currentGameDifficulty;
+
 
     // Start is called before the first frame update
     void Start()
@@ -207,8 +242,8 @@ public class GameController : MonoBehaviour
         canSpawnEnemy = true;
         //Sets the value of the intermission timer to the value input in the inspector
         intermissionTimerValue = intermissionLength;
-
-        numberOfPlayers = 1;
+        //Co-op mode is turned off by default
+        isCoOp = false;
 
         starstoneArray = new GameObject[4];
 
@@ -251,17 +286,18 @@ public class GameController : MonoBehaviour
             }
             if(soulsInGenerator >= requiredSoulsInGenerator)
             {
-                //Do victory stuff
-                if (Time.timeScale - 0.005f >= 0)
+                //Slowly reduced the speed at which time passes to simulate slow motion
+                if (Time.timeScale - Time.deltaTime / 2 >= 0)
                 {
-                    Time.timeScale -= 0.005f;
-                    if (Time.timeScale < 0.005f)
+                    Time.timeScale -= Time.deltaTime / 2;
+                    //Once the time scale reaches 0, the victory canvas is enabled and the cursor is freed
+                    if (Time.timeScale < 0.01)
                     {
-                        Time.timeScale = 0;
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
                         victoryCanvas.SetActive(true);
                     }
                 }
-                Debug.Log(Time.timeScale);
             }
         }
     }
@@ -275,7 +311,7 @@ public class GameController : MonoBehaviour
             victoryCanvas = GameObject.Find("VictoryCanvas");
             victoryCanvas.SetActive(false);
             spawnerParent = GameObject.Find("EnemySpawners").GetComponent<Transform>();
-            mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+            playerOneCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
             //Locks the cursor to the center of the screen to prevent it from moving outside of the playable area, ensuring the player cannot accidentall leave the game window
             Cursor.lockState = CursorLockMode.Locked;
             //Find the UI Controller object in the scene and assigns its script to the uIController variable
@@ -361,11 +397,15 @@ public class GameController : MonoBehaviour
 
     public void InstantiatePlayers()
     {
+        //Finds the transforms at which the player characters should spawn
         playerOneSpawnPoint = GameObject.Find("PlayerOneSpawnPoint").GetComponent<Transform>();
         playerTwoSpawnPoint = GameObject.Find("PlayerTwoSpawnPoint").GetComponent<Transform>();
+        //Instantiates player one at the correct position, saving its PlayerBase to the playerOneController variable
         playerOneController = Instantiate(playerOneCharacter, playerOneSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
+        //Assigns the playerNumber string as PlayerOne to ensure that inputs are read correctly
         playerOneController.playerNumber = "PlayerOne";
-        if(numberOfPlayers == 2)
+        //If the game is being played in co-op mode, a second player is spawned at the correct position
+        if(isCoOp)
         {
             playerTwoController = Instantiate(playerTwoCharacter, playerTwoSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
             playerTwoController.playerNumber = "PlayerTwo";
@@ -382,7 +422,6 @@ public class GameController : MonoBehaviour
 
     public void NextWave()
     {
-        Debug.Log("Killed: " + enemiesKilled + " In Wave: " + (smallEnemiesInWave + mediumEnemiesInWave + largeEnemiesInWave).ToString());
         //Resets variables linked to enemies in order to prevent new waves from starting immediately after
         enemiesKilled = 0;
         smallEnemiesSpawned = 0;
@@ -391,11 +430,16 @@ public class GameController : MonoBehaviour
         enemiesList.Clear();
         //Resets the game's wave timer to its initial value
         waveTimerValue = gameWaveTime;
+        //Increments the wave number by 1
         currentWave++;
+        //Increases the number of enemies of each type that will spawn in the next round by the value dictated by the difficulty
         smallEnemiesInWave += smallEnemyIncrease;
         mediumEnemiesInWave += mediumEnemyIncrease;
         largeEnemiesInWave += largeEnemyIncrease;
+        //Updates the wave information UI based on the new wave data
         uIController.UpdateWaveNumber(currentWave);
+        //Plays a sound to signify the start of a new wave
+        AudioSource.PlayClipAtPoint(waveStart, playerOneController.gameObject.transform.position);
     }
 
     public void ResetWaveData()
@@ -426,7 +470,11 @@ public class GameController : MonoBehaviour
             waveTimerValue -= Time.deltaTime;
             if (waveTimerValue <= 0)
             {
-                Debug.Log("Game Over!");
+                playerOneController.playerState = PlayerBase.PlayerStates.deadState;
+                if(isCoOp)
+                {
+                    playerTwoController.playerState = PlayerBase.PlayerStates.deadState;
+                }
             }
             uIController.UpdateWaveTimer(waveTimerValue);
         }
@@ -479,11 +527,27 @@ public class GameController : MonoBehaviour
     public bool PlayerCanSeeSpawner()
     {
         RaycastHit rayhit;
-        Vector3 direction = (pointToSpawnOn.position - mainCamera.gameObject.transform.position).normalized;
+        //Calculates the direction in which to fire a raycast from the spawn point to the player's camera
+        Vector3 direction = (pointToSpawnOn.position - playerOneCamera.gameObject.transform.position).normalized;
         Physics.Raycast(pointToSpawnOn.position, direction, out rayhit, 1000f);
-        if (rayhit.collider.gameObject.GetComponent<PlayerController>())
+        //If the spawner hits a player, it will not be able to spawn an enemy
+        if (rayhit.collider.gameObject.GetComponent<PlayerBase>())
         {
             return true;
+        }
+        //If the game is in Co-Op mode, it also checks if the spawner can be seen by player two
+        else if (isCoOp)
+        {
+            direction = (pointToSpawnOn.position - playerTwoCamera.gameObject.transform.position).normalized;
+            Physics.Raycast(pointToSpawnOn.position, direction, out rayhit, 1000f);
+            if (rayhit.collider.gameObject.GetComponent<PlayerBase>())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
