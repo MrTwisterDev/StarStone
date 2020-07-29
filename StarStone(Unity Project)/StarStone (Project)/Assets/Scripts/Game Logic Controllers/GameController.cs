@@ -25,7 +25,8 @@ public class GameController : MonoBehaviour
     public GameObject levelTwoEnemy;
     [Tooltip("The prefab GameObject for the large enemy.")]
     public GameObject levelThreeEnemy;
-    public GameObject playerPrefab;
+    public GameObject playerOneCharacter;
+    public GameObject playerTwoCharacter;
     #endregion
     //Enemy Spawning
     #region
@@ -131,6 +132,9 @@ public class GameController : MonoBehaviour
     public int mediumEnemiesInWave;
     [Tooltip("The number of large enemies in the current wave.")]
     public int largeEnemiesInWave;
+    public int smallEnemyIncrease;
+    public int mediumEnemyIncrease;
+    public int largeEnemyIncrease;
     private bool timerActive;
     [Tooltip("The duration of the intermission between waves.")]
     public float intermissionLength;
@@ -293,8 +297,11 @@ public class GameController : MonoBehaviour
                     gameWaveTime = easyWaveTime;
                     waveTimerValue = gameWaveTime;
                     maxSmallEnemies = easyBaseMaxSmallEnemies;
+                    smallEnemyIncrease = easyMaxSmallEnemyIncrease;
                     maxMediumEnemies = easyBaseMaxMediumEnemies;
+                    mediumEnemyIncrease = easyMaxMediumEnemyIncrease;
                     maxLargeEnemies = easyBaseMaxLargeEnemies;
+                    largeEnemyIncrease = easyMaxLargeEnemyIncrease;
                     smallEnemiesInWave = smallEnemiesInEasyWave;
                     mediumEnemiesInWave = mediumEnemiesInEasyWave;
                     largeEnemiesInWave = largeEnemiesInEasyWave;
@@ -304,8 +311,11 @@ public class GameController : MonoBehaviour
                     gameWaveTime = normalWaveTime;
                     waveTimerValue = gameWaveTime;
                     maxSmallEnemies = normalBaseMaxSmallEnemies;
+                    smallEnemyIncrease = normalMaxSmallEnemyIncrease;
                     maxMediumEnemies = normalBaseMaxMediumEnemies;
+                    mediumEnemyIncrease = normalMaxMediumEnemyIncrease;
                     maxLargeEnemies = normalBaseMaxLargeEnemies;
+                    largeEnemyIncrease = normalMaxLargeEnemyIncrease;
                     smallEnemiesInWave = smallEnemiesInNormalWave;
                     mediumEnemiesInWave = mediumEnemiesInNormalWave;
                     largeEnemiesInWave = largeEnemiesInNormalWave;
@@ -315,8 +325,11 @@ public class GameController : MonoBehaviour
                     gameWaveTime = hardWaveTime;
                     waveTimerValue = gameWaveTime;
                     maxSmallEnemies = hardBaseMaxSmallEnemies;
+                    smallEnemyIncrease = hardMaxSmallEnemyIncrease;
                     maxMediumEnemies = hardBaseMaxMediumEnemies;
+                    mediumEnemyIncrease = hardMaxMediumEnemyIncrease;
                     maxLargeEnemies = hardBaseMaxLargeEnemies;
+                    largeEnemyIncrease = hardMaxLargeEnemyIncrease;
                     smallEnemiesInWave = smallEnemiesInHardWave;
                     mediumEnemiesInWave = mediumEnemiesInHardWave;
                     largeEnemiesInWave = largeEnemiesInHardWave;
@@ -350,11 +363,11 @@ public class GameController : MonoBehaviour
     {
         playerOneSpawnPoint = GameObject.Find("PlayerOneSpawnPoint").GetComponent<Transform>();
         playerTwoSpawnPoint = GameObject.Find("PlayerTwoSpawnPoint").GetComponent<Transform>();
-        playerOneController = Instantiate(playerPrefab, playerOneSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
+        playerOneController = Instantiate(playerOneCharacter, playerOneSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
         playerOneController.playerNumber = "PlayerOne";
         if(numberOfPlayers == 2)
         {
-            playerTwoController = Instantiate(playerPrefab, playerTwoSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
+            playerTwoController = Instantiate(playerTwoCharacter, playerTwoSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
             playerTwoController.playerNumber = "PlayerTwo";
         }
     }
@@ -379,6 +392,9 @@ public class GameController : MonoBehaviour
         //Resets the game's wave timer to its initial value
         waveTimerValue = gameWaveTime;
         currentWave++;
+        smallEnemiesInWave += smallEnemyIncrease;
+        mediumEnemiesInWave += mediumEnemyIncrease;
+        largeEnemiesInWave += largeEnemyIncrease;
         uIController.UpdateWaveNumber(currentWave);
     }
 
