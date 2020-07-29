@@ -12,7 +12,7 @@ public class characterSelection : MonoBehaviour
 
     public Transform[] playerSelectShowCaseTransforms = new Transform[2];
 
-    private GameObject[] shownPlayers = new GameObject[2];
+    public GameObject[] shownPlayers = new GameObject[2];
     //public showCaseScript;
     void Start()
     {
