@@ -982,6 +982,9 @@ MonoBehaviour:
   playerSelectShowCaseTransforms:
   - {fileID: 51203864}
   - {fileID: 552617807}
+  shownPlayers:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!222 &110337999
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4056,6 +4059,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 488555534}
   m_CullTransparentMesh: 0
+--- !u!114 &495455079 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+    type: 3}
+  m_PrefabInstance: {fileID: 580761242}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7814467601560a4285f808f4ffa6b9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &495834118
 GameObject:
   m_ObjectHideFlags: 0
@@ -4557,6 +4572,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 540353613}
         m_MethodName: changeMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 495455079}
+        m_MethodName: ToggleCoop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5621,6 +5647,23 @@ PrefabInstance:
       propertyPath: waveStart
       value: 
       objectReference: {fileID: 8300000, guid: 5e430f5e4bca69c449bc12ef1530f5dc, type: 3}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: characterSelector
+      value: 
+      objectReference: {fileID: 110337998}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: characterVariantOne
+      value: 
+      objectReference: {fileID: 5355848417490344555, guid: 0bfedd40c39f35b42ba56747334aceda,
+        type: 3}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: characterVariantTwo
+      value: 
+      objectReference: {fileID: 5355848417490344555, guid: 5e44a8df544b4dd46add58a0fa4d24f3,
+        type: 3}
     - target: {fileID: 2858349823743127418, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10786,6 +10829,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1354804731}
         m_MethodName: changeMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 495455079}
+        m_MethodName: ToggleCoop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

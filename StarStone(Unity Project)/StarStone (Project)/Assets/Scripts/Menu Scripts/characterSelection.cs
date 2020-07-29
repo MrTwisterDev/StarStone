@@ -13,9 +13,15 @@ public class characterSelection : MonoBehaviour
     public Transform[] playerSelectShowCaseTransforms = new Transform[2];
 
     public GameObject[] shownPlayers = new GameObject[2];
+
+    private GameController gameController; //James' work
+
     //public showCaseScript;
     void Start()
     {
+
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
+
         for (int i = 0; i < shownPlayers.Length; i++)
         {
             shownPlayers[i] = Instantiate(characterPrefabs[playerSelectDropDowns[i].value], playerSelectShowCaseTransforms[i].position, characterPrefabs[playerSelectDropDowns[i].value].transform.rotation,playerSelectShowCaseTransforms[i]);
@@ -25,8 +31,6 @@ public class characterSelection : MonoBehaviour
                 playerSelectDropDowns[i].options[a].text = characterPrefabs[a].name;
             }
         }
-
-
     }
 
     public void dropDownUpdate()
@@ -37,6 +41,7 @@ public class characterSelection : MonoBehaviour
             shownPlayers[i] = Instantiate(characterPrefabs[playerSelectDropDowns[i].value], playerSelectShowCaseTransforms[i].position, characterPrefabs[playerSelectDropDowns[i].value].transform.rotation, playerSelectShowCaseTransforms[i]);
 
         }
+        gameController.UpdateChosenCharacters(); //James' work
     }
 
 

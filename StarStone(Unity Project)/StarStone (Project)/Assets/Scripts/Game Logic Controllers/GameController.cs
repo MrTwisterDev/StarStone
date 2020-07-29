@@ -24,10 +24,10 @@ public class GameController : MonoBehaviour
     public GameObject levelTwoEnemy;
     [Tooltip("The prefab GameObject for the large enemy.")]
     public GameObject levelThreeEnemy;
-    [Tooltip("The prefab for the character player one has chosen to play as.")]
-    public GameObject playerOneCharacter;
-    [Tooltip("The prefab for the character player two has chosen to play as.")]
-    public GameObject playerTwoCharacter;
+    [Tooltip("The prefab for character variant one.")]
+    public GameObject characterVariantOne;
+    [Tooltip("The prefab for character variant two.")]
+    public GameObject characterVariantTwo;
     #endregion
     //Enemy Spawning
     #region
@@ -172,10 +172,14 @@ public class GameController : MonoBehaviour
     public bool isCoOp;
     private Transform playerOneSpawnPoint;
     private Transform playerTwoSpawnPoint;
+    public GameObject playerOneCharacter;
+    public GameObject playerTwoCharacter;
     private PlayerBase playerOneController;
     private PlayerBase playerTwoController;
     private Camera playerOneCamera;
     private Camera playerTwoCamera;
+    [Tooltip("The GameObject used to handle character selection")]
+    public characterSelection characterSelector;
     [Space]
     #endregion
     //Game Management
@@ -392,6 +396,38 @@ public class GameController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;     //Unlocks the cursor so the player can select menu options
             isInGame = false;                           //Prevents game timers and enemy spawning methods from being executed
             timerActive = false;
+        }
+    }
+
+    public void ToggleCoop()
+    {
+        isCoOp = !isCoOp;
+    }
+
+    public void UpdateChosenCharacters()
+    {
+        Debug.Log("Wheeeee!");
+        //If the selected character variant in Henri, then the character player one will spawn as is set to character variant one
+        if(characterSelector.shownPlayers[0] == characterSelector.characterPrefabs[0])
+        {
+            playerOneCharacter = characterVariantOne;
+        }
+        //otherwise, it is set to character variant two as there are only two characters to choose from
+        else
+        {
+            playerOneCharacter = characterVariantTwo;
+        }
+        //If the game is being played in co-op mode, the same process is carried out to determine player two's chosen character
+        if (isCoOp)
+        {
+            if(characterSelector.shownPlayers[1] == characterSelector.characterPrefabs[0])
+            {
+                playerTwoCharacter = characterVariantOne;
+            }
+            else
+            {
+                playerTwoCharacter = characterVariantTwo;
+            }
         }
     }
 
