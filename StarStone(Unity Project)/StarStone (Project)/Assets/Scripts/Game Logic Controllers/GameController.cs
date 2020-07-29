@@ -269,7 +269,6 @@ public class GameController : MonoBehaviour
             if(hasFoundGenerator && !timerActive)
             {
                 timerActive = true;
-                enemiesKilled = 0;
                 uIController.UpdateWaveNumber(currentWave);
             }
             //If the player has killed all enemies in a wave, the wave ends and an intermission starts
@@ -460,6 +459,7 @@ public class GameController : MonoBehaviour
             enemiesKilled = 0;
             CheckEnemyStatus();
         }
+        soulsInGenerator = 0;
         smallEnemiesSpawned = 0;
         mediumEnemiesSpawned = 0;
         largeEnemiesSpawned = 0;
