@@ -4880,7 +4880,7 @@ NavMeshAgent:
   m_AgentTypeID: -1372625422
   m_Radius: 0.41698587
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 5
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -4918,8 +4918,8 @@ MonoBehaviour:
   enemyHP: 10
   meleeDamage: 2
   hasMelee: 1
-  burnDamage: 0
-  burnTime: 0
+  burnDamage: 3
+  burnTime: 3
   burnTimer: 0
   isBurning: 0
   burnParticles: {fileID: 2279863401286990534}
@@ -4940,8 +4940,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.67426634, y: 0.5756243, z: 0.83397174}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.5434799, y: 0.9417428, z: 0.84991586}
+  m_Center: {x: -0.009326935, y: 0.18305928, z: -0.007972062}
 --- !u!54 &-2141922970702255327
 Rigidbody:
   m_ObjectHideFlags: 0

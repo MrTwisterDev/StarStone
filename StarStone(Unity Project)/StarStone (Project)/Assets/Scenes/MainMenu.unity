@@ -2211,17 +2211,17 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: easyBaseMaxSmallEnemies
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: easyBaseMaxMediumEnemies
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: easyBaseMaxLargeEnemies
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -2231,12 +2231,12 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: normalBaseMaxMediumEnemies
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: normalBaseMaxLargeEnemies
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -2256,17 +2256,17 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: easyMaxSmallEnemyIncrease
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: easyMaxMediumEnemyIncrease
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: easyMaxLargeEnemyIncrease
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -2306,7 +2306,7 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: mediumEnemiesInEasyWave
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -2351,7 +2351,7 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: requiredSoulsInGenerator
-      value: 50
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -2362,37 +2362,37 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: maxSmallEnemies
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: maxMediumEnemies
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: maxLargeEnemies
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
-        type: 3}
-      propertyPath: enemySpawnDelay
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
-        type: 3}
-      propertyPath: smallEnemiesInWave
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
-        type: 3}
-      propertyPath: mediumEnemiesInWave
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
+      propertyPath: enemySpawnDelay
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: smallEnemiesInWave
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: mediumEnemiesInWave
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
       propertyPath: largeEnemiesInWave
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -2403,6 +2403,11 @@ PrefabInstance:
         type: 3}
       propertyPath: currentGameDifficulty
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: currentStarstone
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2858349823743127418, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}

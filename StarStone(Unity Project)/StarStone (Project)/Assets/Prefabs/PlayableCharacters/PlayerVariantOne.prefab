@@ -602,8 +602,8 @@ MonoBehaviour:
   wadingSpeedMultiplier: 0
   climbingMultiplier: 0
   characterController: {fileID: 5355848417490344548}
-  maxHealth: 1000
-  currentHealth: 0
+  maxHealth: 100
+  currentHealth: 100
   healthRegenCutoff: 70
   regenRate: 3
   timeSinceTakenDamage: 0
@@ -750,6 +750,34 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8290254636570083106, guid: 431047d4291366a4b8cccd14b0c46bc8,
         type: 3}
+    - target: {fileID: 778000074, guid: 669027eaf1541b14090e0815a4b415a7, type: 3}
+      propertyPath: singularityChargeUsage
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 778000074, guid: 669027eaf1541b14090e0815a4b415a7, type: 3}
+      propertyPath: grenadeLauncherChargeUsage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 778000074, guid: 669027eaf1541b14090e0815a4b415a7, type: 3}
+      propertyPath: vampireRange
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 778000074, guid: 669027eaf1541b14090e0815a4b415a7, type: 3}
+      propertyPath: minigunRange
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 778000074, guid: 669027eaf1541b14090e0815a4b415a7, type: 3}
+      propertyPath: vampireChargeUsage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 778000074, guid: 669027eaf1541b14090e0815a4b415a7, type: 3}
+      propertyPath: vampireDamage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 778000074, guid: 669027eaf1541b14090e0815a4b415a7, type: 3}
+      propertyPath: vampireDrain
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1870204686266233526, guid: 669027eaf1541b14090e0815a4b415a7,
         type: 3}
       propertyPath: m_Name
@@ -941,6 +969,36 @@ PrefabInstance:
         type: 3}
       propertyPath: gunRecoil
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
+        type: 3}
+      propertyPath: bulletsInSpread
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
+        type: 3}
+      propertyPath: weaponDamage
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
+        type: 3}
+      propertyPath: magazineCapacity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
+        type: 3}
+      propertyPath: damageFalloff
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
+        type: 3}
+      propertyPath: gunAccuracyRecoil
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
+        type: 3}
+      propertyPath: roundsPerSecond
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 801569791777248055, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
         type: 3}

@@ -129,4 +129,4 @@ MonoBehaviour:
   detonationSound: {fileID: 8300000, guid: 7fe076a7802d5894bb9ade35a25e0cfb, type: 3}
   launchForce: 600
   areaOfEffect: 20
-  damageToDeal: 5
+  damageToDeal: 15
