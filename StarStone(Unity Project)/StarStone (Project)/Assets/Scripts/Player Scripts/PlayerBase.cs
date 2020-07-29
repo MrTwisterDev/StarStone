@@ -595,7 +595,6 @@ public class PlayerBase : MonoBehaviour
             if (!hasLanded)
             {
                 int randInt = UnityEngine.Random.Range(0, landingSounds.Length - 1);
-                Debug.Log(randInt);
                 AudioSource.PlayClipAtPoint(landingSounds[randInt], transform.position);
                 hasLanded = true;
             }
