@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:StarStone(Unity Project)/StarStone (Project)/Assets/Scenes/Art assets.meta
+guid: 74636c9910b249e48a2afbfaa90606de
+folderAsset: yes
+DefaultImporter:
+=======
 guid: 101d8e62d1f241742852dd2de7f1f050
 PrefabImporter:
+>>>>>>> ea260e6d012398585fb2aa8e8843719ce9f85500:StarStone(Unity Project)/StarStone (Project)/Assets/CoOpTest.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
