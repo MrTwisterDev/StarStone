@@ -158,6 +158,7 @@ public class PlayerBase : MonoBehaviour
     [HideInInspector]
     public string playerNumber;
     private bool flashlightToggle;
+    private bool canToggleLight;
     private Animator playerAnimator;
     private GameController gameController;
     private UIController uIController;
@@ -235,8 +236,8 @@ public class PlayerBase : MonoBehaviour
     {
         if(playerState == PlayerStates.deadState || playerState == PlayerStates.pausedState)
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;                  //Makes the cursor visible and frees it so that the player can interact with any UI elements active
+            Cursor.lockState = CursorLockMode.None;
         }
         if(playerState == PlayerStates.climbingState || playerState == PlayerStates.standardState)
         {
@@ -246,7 +247,8 @@ public class PlayerBase : MonoBehaviour
             HealthManagement();
             PlayerSounds();
             CooldownTimers();
-            PlayerInput();
+            WeaponControls();
+            MiscControls();
             if (preparingToSwapWeapon)
             {
                 WeaponSwapTimer();
@@ -261,7 +263,6 @@ public class PlayerBase : MonoBehaviour
             MovementControls();
             ApplyGravity();
         }
-        Debug.Log(Input.GetAxis(playerNumber + "Aim"));
     }
 
     public virtual void MovementControls()
@@ -325,35 +326,22 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-    public virtual void PlayerInput()
+    public virtual void WeaponControls()
     {
         //Checks that the player's active weapon is not the Prototype weapon, as it has its own firing code
-        if(Input.GetAxis(playerNumber + "Fire") > 0 && activeWeapon.tag != "Prototype")
+        if (Input.GetAxis(playerNumber + "Fire") > 0 && activeWeapon.tag != "Prototype")
         {
             //Runs the UseWeapon method of the baseWeaponClass to fire the active weapon
             activeWeapon.GetComponent<baseWeaponClass>().useWeapon();
         }
         //If the player releases the fire button and is using a spread shot weapon, the weapon fire lock is lifted
-        if(Input.GetAxis(playerNumber + "Fire") == 0 && activeWeapon.tag != "Prototype")
+        if (Input.GetAxis(playerNumber + "Fire") == 0 && activeWeapon.tag != "Prototype")
         {
-            if(activeWeapon.GetComponent<build_a_weapon>().typeOfWeapon == build_a_weapon.typesOfWeapon.spreadShot)
+            if (activeWeapon.GetComponent<build_a_weapon>().typeOfWeapon == build_a_weapon.typesOfWeapon.spreadShot)
             {
                 activeWeapon.GetComponent<build_a_weapon>().spreadShotLock = false;
             }
         }
-        if(Input.GetButtonDown(playerNumber + "Interact"))
-        {
-            //Checks to see what script is attached to the object being interacted with and runs the necessary method
-            if(CanInteract() && interactableObject.collider.gameObject.GetComponent<StarstoneController>() != null)
-            {
-                interactableObject.collider.gameObject.GetComponent<StarstoneController>().ActivateEffect();
-            }
-            else if(CanInteract() && interactableObject.collider.gameObject.GetComponent<StarStoneBase>() != null)
-            {
-                interactableObject.collider.gameObject.GetComponent<StarStoneBase>().ActivateStarStone();
-            }
-        }
-
         if (Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.GetComponent<build_a_weapon>() != null && !isADS)
         {
             activeWeapon.GetComponent<Animator>().Play("AdsIn");
@@ -365,39 +353,23 @@ public class PlayerBase : MonoBehaviour
             activeWeapon.GetComponent<Animator>().Play("AdsOut");
             isADS = false;
         }
-
         else if (Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.tag == "Prototype")
         {
             //Moves the prototype weapon to its ADS position
             activeWeapon.transform.position = adsHoldPoint.position;
         }
-        if(Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.tag == "Prototype")
+        if (Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.tag == "Prototype")
         {
             //Moves the prototype weapon back to its hipfire location
             activeWeapon.transform.position = weaponHoldPoint.position;
         }
-        if(Input.GetButtonDown(playerNumber + "LeftAbility") && canUseLeftAbility)
-        {
-            UseLeftAbility();
-        }
-        if(Input.GetButtonDown(playerNumber + "RightAbility"))
-        {
-            UseRightAbility();
-        }
-        if(Input.GetAxis(playerNumber + "Flashlight") == 1)
-        {
-            //Toggles the flashlight boolean and plays the toggle sound, setting the flashlight to active or inactive depending on the value of flashlightToggle
-            flashlightToggle = !flashlightToggle;
-            AudioSource.PlayClipAtPoint(flashlightSound, flashlight.transform.position);
-            flashlight.SetActive(flashlightToggle);
-        }
-        if(Input.GetButtonDown(playerNumber + "Melee"))
+        if (Input.GetButtonDown(playerNumber + "Melee"))
         {
             //Plays the melee animation of the player and the appropriate sound
             playerAnimator.SetTrigger("Punch");
             AudioSource.PlayClipAtPoint(meleeSound, transform.position);
         }
-        if(Input.GetButtonDown(playerNumber + "ChangeWeapon"))
+        if (Input.GetButtonDown(playerNumber + "ChangeWeapon"))
         {
             //Resets the value of timeSinceLastPress so the timer can start from 0
             timeSinceLastPress = 0f;
@@ -408,7 +380,7 @@ public class PlayerBase : MonoBehaviour
             }
             //If the player is already preparing to swap their weapon, and they press the button before the time since their last press surpasses the timeout value,
             //their active weapon is changed to be the Prototype Weapon
-            else if(preparingToSwapWeapon && timeSinceLastPress <= prototypeSwitchTimeout)
+            else if (preparingToSwapWeapon && timeSinceLastPress <= prototypeSwitchTimeout)
             {
                 weaponsArray[activeWeaponIndex].SetActive(false);
                 activeWeaponIndex = weaponsArray.Length - 1;
@@ -418,10 +390,52 @@ public class PlayerBase : MonoBehaviour
                 timeSinceLastPress = 0f;
             }
         }
-        if(Input.GetButtonDown(playerNumber + "Reload"))
+        if (Input.GetButtonDown(playerNumber + "Reload"))
         {
             activeWeapon.GetComponent<Animator>().Play("Reload");
             uIController.UpdateAmmoText();
+        }
+    }
+
+    public virtual void MiscControls()
+    {
+
+        if(Input.GetButtonDown(playerNumber + "Interact"))
+        {
+            //Checks to see what script is attached to the object being interacted with and runs the necessary method
+            if(CanInteract() && interactableObject.collider.gameObject.GetComponent<StarstoneController>() != null)
+            {
+                interactableObject.collider.gameObject.GetComponent<StarstoneController>().ActivateEffect();
+            }
+            else if(CanInteract() && interactableObject.collider.gameObject.GetComponent<StarStoneBase>() != null)
+            {
+                interactableObject.collider.gameObject.GetComponent<StarStoneBase>().ActivateStarStone();
+            }
+            else if(CanInteract() && interactableObject.collider.gameObject.GetComponent<mineScript>() != null && gameObject.GetComponent<CharacterVariantOne>() != null)
+            {
+                Destroy(interactableObject.collider.gameObject);
+                gameObject.GetComponent<CharacterVariantOne>().currentActiveMines--;
+            }
+        }
+        if(Input.GetButtonDown(playerNumber + "LeftAbility") && canUseLeftAbility)
+        {
+            UseLeftAbility();
+        }
+        if(Input.GetButtonDown(playerNumber + "RightAbility"))
+        {
+            UseRightAbility();
+        }
+        if(Input.GetAxis(playerNumber + "Flashlight") == 1 && canToggleLight)
+        {
+            //Toggles the flashlight boolean and plays the toggle sound, setting the flashlight to active or inactive depending on the value of flashlightToggle
+            flashlightToggle = !flashlightToggle;
+            AudioSource.PlayClipAtPoint(flashlightSound, flashlight.transform.position);
+            flashlight.SetActive(flashlightToggle);
+            canToggleLight = false;
+        }
+        if(Input.GetAxis(playerNumber + "Flashlight") == 0 && !canToggleLight)
+        {
+            canToggleLight = true;
         }
     }
 

@@ -20,7 +20,7 @@ public class healthBox : scr_Collectable
 
     public override void pickupCollectable(GameObject playerObject)
     {
-        playerObject.GetComponent<PlayerController>().currentHealth += healthAmount;
+        playerObject.GetComponent<PlayerBase>().currentHealth += healthAmount;
         AudioSource.PlayClipAtPoint(pickupSound, gameObject.transform.position);
         Destroy(gameObject);
     }
