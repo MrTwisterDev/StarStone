@@ -20,7 +20,7 @@ public class ammoBoxes : scr_Collectable
 
     public override void pickupCollectable(GameObject playerObject)
     {
-        playerObject.GetComponent<PlayerController>().activeWeapon.GetComponent<baseWeaponClass>().totalBullets += collectableIncreaser;
+        playerObject.GetComponent<PlayerBase>().activeWeapon.GetComponent<baseWeaponClass>().totalBullets += collectableIncreaser;
         AudioSource.PlayClipAtPoint(pickupSound, gameObject.transform.position);
         Destroy(gameObject);
     }

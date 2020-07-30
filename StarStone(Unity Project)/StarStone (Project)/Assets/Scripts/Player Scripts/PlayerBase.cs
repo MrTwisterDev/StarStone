@@ -114,6 +114,7 @@ public class PlayerBase : MonoBehaviour
     private float timeSinceLastPress;
     private float prototypeSwitchTimeout;
     private bool preparingToSwapWeapon;
+    private bool isADS;
     #endregion
     //Abilities
     #region
@@ -157,6 +158,7 @@ public class PlayerBase : MonoBehaviour
     [HideInInspector]
     public string playerNumber;
     private bool flashlightToggle;
+    private bool canToggleLight;
     private Animator playerAnimator;
     private GameController gameController;
     private UIController uIController;
@@ -234,8 +236,8 @@ public class PlayerBase : MonoBehaviour
     {
         if(playerState == PlayerStates.deadState || playerState == PlayerStates.pausedState)
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;                  //Makes the cursor visible and frees it so that the player can interact with any UI elements active
+            Cursor.lockState = CursorLockMode.None;
         }
         if(playerState == PlayerStates.climbingState || playerState == PlayerStates.standardState)
         {
@@ -245,7 +247,8 @@ public class PlayerBase : MonoBehaviour
             HealthManagement();
             PlayerSounds();
             CooldownTimers();
-            PlayerInput();
+            WeaponControls();
+            MiscControls();
             if (preparingToSwapWeapon)
             {
                 WeaponSwapTimer();
@@ -270,11 +273,6 @@ public class PlayerBase : MonoBehaviour
             xInput = Input.GetAxis(playerNumber + "Horizontal");
             zInput = Input.GetAxis(playerNumber + "Vertical");
             //If this is PlayerOne, keyboard inputs are also recorded
-            if(playerNumber == "PlayerOne")
-            {
-                xInput += Input.GetAxis("PlayerOneAltHorizontal");
-                zInput += Input.GetAxis("PlayerOneAltVertical");
-            }
             movement = transform.right * xInput + transform.forward * zInput;
             //Moves the player by the newly calculated movement vector, applying the movement speed and any multipliers and using deltaTime to make movement non-framerate dependent
             characterController.Move(movement * moveSpeed * moveSpeedMultiplier * Time.deltaTime);
@@ -328,22 +326,80 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-    public virtual void PlayerInput()
+    public virtual void WeaponControls()
     {
         //Checks that the player's active weapon is not the Prototype weapon, as it has its own firing code
-        if(Input.GetButton(playerNumber + ("AltFire")) && activeWeapon.tag != "Prototype" || Input.GetAxis(playerNumber + "Fire") > 0 && activeWeapon.tag != "Prototype")
+        if (Input.GetAxis(playerNumber + "Fire") > 0 && activeWeapon.tag != "Prototype")
         {
             //Runs the UseWeapon method of the baseWeaponClass to fire the active weapon
             activeWeapon.GetComponent<baseWeaponClass>().useWeapon();
         }
         //If the player releases the fire button and is using a spread shot weapon, the weapon fire lock is lifted
-        if(Input.GetButtonUp(playerNumber + "AltFire") && Input.GetAxis(playerNumber + "Fire") == 0)
+        if (Input.GetAxis(playerNumber + "Fire") == 0 && activeWeapon.tag != "Prototype")
         {
-            if(activeWeapon.GetComponent<build_a_weapon>().typeOfWeapon == build_a_weapon.typesOfWeapon.spreadShot)
+            if (activeWeapon.GetComponent<build_a_weapon>().typeOfWeapon == build_a_weapon.typesOfWeapon.spreadShot)
             {
                 activeWeapon.GetComponent<build_a_weapon>().spreadShotLock = false;
             }
         }
+        if (Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.GetComponent<build_a_weapon>() != null && !isADS)
+        {
+            activeWeapon.GetComponent<Animator>().Play("AdsIn");
+            isADS = true;
+        }
+
+        if (Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.GetComponent<build_a_weapon>() != null && isADS)
+        {
+            activeWeapon.GetComponent<Animator>().Play("AdsOut");
+            isADS = false;
+        }
+        else if (Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.tag == "Prototype")
+        {
+            //Moves the prototype weapon to its ADS position
+            activeWeapon.transform.position = adsHoldPoint.position;
+        }
+        if (Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.tag == "Prototype")
+        {
+            //Moves the prototype weapon back to its hipfire location
+            activeWeapon.transform.position = weaponHoldPoint.position;
+        }
+        if (Input.GetButtonDown(playerNumber + "Melee"))
+        {
+            //Plays the melee animation of the player and the appropriate sound
+            playerAnimator.SetTrigger("Punch");
+            AudioSource.PlayClipAtPoint(meleeSound, transform.position);
+        }
+        if (Input.GetButtonDown(playerNumber + "ChangeWeapon"))
+        {
+            //Resets the value of timeSinceLastPress so the timer can start from 0
+            timeSinceLastPress = 0f;
+            //If the player isn't already preparing to swap their weapon, they are now
+            if (!preparingToSwapWeapon)
+            {
+                preparingToSwapWeapon = true;
+            }
+            //If the player is already preparing to swap their weapon, and they press the button before the time since their last press surpasses the timeout value,
+            //their active weapon is changed to be the Prototype Weapon
+            else if (preparingToSwapWeapon && timeSinceLastPress <= prototypeSwitchTimeout)
+            {
+                weaponsArray[activeWeaponIndex].SetActive(false);
+                activeWeaponIndex = weaponsArray.Length - 1;
+                weaponsArray[activeWeaponIndex].SetActive(true);
+                activeWeapon = weaponsArray[activeWeaponIndex];
+                preparingToSwapWeapon = false;
+                timeSinceLastPress = 0f;
+            }
+        }
+        if (Input.GetButtonDown(playerNumber + "Reload"))
+        {
+            activeWeapon.GetComponent<Animator>().Play("Reload");
+            uIController.UpdateAmmoText();
+        }
+    }
+
+    public virtual void MiscControls()
+    {
+
         if(Input.GetButtonDown(playerNumber + "Interact"))
         {
             //Checks to see what script is attached to the object being interacted with and runs the necessary method
@@ -355,31 +411,11 @@ public class PlayerBase : MonoBehaviour
             {
                 interactableObject.collider.gameObject.GetComponent<StarStoneBase>().ActivateStarStone();
             }
-        }
-
-        if (Input.GetButton(playerNumber + "AltAim") && activeWeapon.GetComponent<build_a_weapon>() != null || Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.GetComponent<build_a_weapon>() != null)
-        {
-            activeWeapon.GetComponent<Animator>().Play("AdsIn");
-
-        }
-
-        if (Input.GetButtonUp(playerNumber + "AltAim") && activeWeapon.GetComponent<build_a_weapon>() != null && Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.GetComponent<build_a_weapon>() != null)
-        {
-            activeWeapon.GetComponent<Animator>().Play("AdsOut");
-
-        }
-
-        else if (Input.GetButton(playerNumber + "AltAim") && activeWeapon.tag == "Prototype" || Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.tag == "Prototype")
-        {
-            Debug.Log("Trying to aim!");
-            //Moves the prototype weapon to its ADS position
-            activeWeapon.transform.position = adsHoldPoint.position;
-        }
-        if(Input.GetButtonUp(playerNumber + "AltAim") && activeWeapon.tag == "Prototype" && Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.tag == "Prototype")
-        {
-            Debug.Log("Aiming from the hip!");
-            //Moves the prototype weapon back to its hipfire location
-            activeWeapon.transform.position = weaponHoldPoint.position;
+            else if(CanInteract() && interactableObject.collider.gameObject.GetComponent<mineScript>() != null && gameObject.GetComponent<CharacterVariantOne>() != null)
+            {
+                Destroy(interactableObject.collider.gameObject);
+                gameObject.GetComponent<CharacterVariantOne>().currentActiveMines--;
+            }
         }
         if(Input.GetButtonDown(playerNumber + "LeftAbility") && canUseLeftAbility)
         {
@@ -389,44 +425,17 @@ public class PlayerBase : MonoBehaviour
         {
             UseRightAbility();
         }
-        if(Input.GetButtonDown(playerNumber + "AltFlashlight") || Input.GetAxis(playerNumber + "Flashlight") == 1)
+        if(Input.GetAxis(playerNumber + "Flashlight") == 1 && canToggleLight)
         {
             //Toggles the flashlight boolean and plays the toggle sound, setting the flashlight to active or inactive depending on the value of flashlightToggle
             flashlightToggle = !flashlightToggle;
             AudioSource.PlayClipAtPoint(flashlightSound, flashlight.transform.position);
             flashlight.SetActive(flashlightToggle);
+            canToggleLight = false;
         }
-        if(Input.GetButtonDown(playerNumber + "Melee"))
+        if(Input.GetAxis(playerNumber + "Flashlight") == 0 && !canToggleLight)
         {
-            //Plays the melee animation of the player and the appropriate sound
-            playerAnimator.SetTrigger("Punch");
-            AudioSource.PlayClipAtPoint(meleeSound, transform.position);
-        }
-        if(Input.GetButtonDown(playerNumber + "ChangeWeapon"))
-        {
-            //Resets the value of timeSinceLastPress so the timer can start from 0
-            timeSinceLastPress = 0f;
-            //If the player isn't already preparing to swap their weapon, they are now
-            if (!preparingToSwapWeapon)
-            {
-                preparingToSwapWeapon = true;
-            }
-            //If the player is already preparing to swap their weapon, and they press the button before the time since their last press surpasses the timeout value,
-            //their active weapon is changed to be the Prototype Weapon
-            else if(preparingToSwapWeapon && timeSinceLastPress <= prototypeSwitchTimeout)
-            {
-                weaponsArray[activeWeaponIndex].SetActive(false);
-                activeWeaponIndex = weaponsArray.Length - 1;
-                weaponsArray[activeWeaponIndex].SetActive(true);
-                activeWeapon = weaponsArray[activeWeaponIndex];
-                preparingToSwapWeapon = false;
-                timeSinceLastPress = 0f;
-            }
-        }
-        if(Input.GetButtonDown(playerNumber + "Reload"))
-        {
-            activeWeapon.GetComponent<Animator>().Play("Reload");
-            uIController.UpdateAmmoText();
+            canToggleLight = true;
         }
     }
 
@@ -513,11 +522,6 @@ public class PlayerBase : MonoBehaviour
         mouseX = Input.GetAxis(playerNumber + "CameraX");
         mouseY = Input.GetAxis(playerNumber + "CameraY");
         //If this is Player One, mouse inputs are recorded as well
-        if (playerNumber == "PlayerOne")
-        {
-            mouseX += Input.GetAxis(playerNumber + "AltCameraX");
-            mouseY += Input.GetAxis(playerNumber + "AltCameraY");
-        }
         xRotation -= mouseY;
         //Locks the camera from going above or below 90 degrees in the Y direction
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);

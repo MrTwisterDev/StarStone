@@ -13,6 +13,8 @@ TagManager:
   - Starstone
   - UIHandler
   - UICanvas
+  - Henri
+  - Marn
   layers:
   - Default
   - TransparentFX

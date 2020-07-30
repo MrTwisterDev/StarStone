@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEditor;
 
 public class GameController : MonoBehaviour
 {
@@ -24,10 +25,10 @@ public class GameController : MonoBehaviour
     public GameObject levelTwoEnemy;
     [Tooltip("The prefab GameObject for the large enemy.")]
     public GameObject levelThreeEnemy;
-    [Tooltip("The prefab for the character player one has chosen to play as.")]
-    public GameObject playerOneCharacter;
-    [Tooltip("The prefab for the character player two has chosen to play as.")]
-    public GameObject playerTwoCharacter;
+    [Tooltip("The prefab for character variant one.")]
+    public GameObject characterVariantOne;
+    [Tooltip("The prefab for character variant two.")]
+    public GameObject characterVariantTwo;
     #endregion
     //Enemy Spawning
     #region
@@ -172,10 +173,14 @@ public class GameController : MonoBehaviour
     public bool isCoOp;
     private Transform playerOneSpawnPoint;
     private Transform playerTwoSpawnPoint;
+    public GameObject playerOneCharacter;
+    public GameObject playerTwoCharacter;
     private PlayerBase playerOneController;
     private PlayerBase playerTwoController;
     private Camera playerOneCamera;
     private Camera playerTwoCamera;
+    [Tooltip("The GameObject used to handle character selection")]
+    public characterSelection characterSelector;
     [Space]
     #endregion
     //Game Management
@@ -395,6 +400,37 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void ToggleCoop()
+    {
+        isCoOp = !isCoOp;
+    }
+
+    public void UpdateChosenCharacters()
+    {
+        //If the selected character variant in Henri, then the character player one will spawn as is set to character variant one
+        if(characterSelector.shownPlayers[0].gameObject.tag == "Henri")
+        {
+            playerOneCharacter = characterVariantOne;
+        }
+        //otherwise, it is set to character variant two as there are only two characters to choose from
+        else
+        {
+            playerOneCharacter = characterVariantTwo;
+        }
+        //If the game is being played in co-op mode, the same process is carried out to determine player two's chosen character
+        if (isCoOp)
+        {
+            if(characterSelector.shownPlayers[1].gameObject.tag == "Henri")
+            {
+                playerTwoCharacter = characterVariantOne;
+            }
+            else
+            {
+                playerTwoCharacter = characterVariantTwo;
+            }
+        }
+    }
+
     public void InstantiatePlayers()
     {
         //Finds the transforms at which the player characters should spawn
@@ -409,6 +445,9 @@ public class GameController : MonoBehaviour
         {
             playerTwoController = Instantiate(playerTwoCharacter, playerTwoSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
             playerTwoController.playerNumber = "PlayerTwo";
+            //playerTwoCamera = playerTwoController.gameObject.transform.Find("/MainCamera").GetComponent<Camera>();
+            //Disables the audio listener on player two's camera so that it doesn't cause issues within Unity
+            //playerTwoCamera.GetComponent<AudioListener>().enabled = false;
         }
     }
 
