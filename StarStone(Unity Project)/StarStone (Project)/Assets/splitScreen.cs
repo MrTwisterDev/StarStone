@@ -5,6 +5,7 @@ using UnityEngine;
 public class splitScreen : MonoBehaviour
 {
     public bool isHorizontalSplit; //Is the screen split horizontally or vertically (Used in two player scenario's)
+    private bool isHorizontalSplitOriginal; //Used to check against self so that the camera's can reset if the split is changed
 
     public Camera[] playerCharacters; //The cameras of each playable character
 
@@ -17,14 +18,26 @@ public class splitScreen : MonoBehaviour
     {
         screenWidth = Screen.width;
         screenHeight = Screen.height;
+        isHorizontalSplitOriginal = isHorizontalSplit;
 
 
-
-        for (int i = 0; i < playerCharacters.Length; i++)
+        if (isHorizontalSplit)
         {
-            playerCharacters[i].rect = new Rect((float)i/playerCharacters.Length, 0f, 1.0f / playerCharacters.Length, 1.0f);
+            for (int i = 0; i < playerCharacters.Length; i++)
+            {
+                playerCharacters[i].rect = new Rect((float)i / playerCharacters.Length, 0f, 1.0f / playerCharacters.Length, 1.0f);
 
-        }       
+            }
+        }
+        else
+        {
+
+            for (int i = 0; i < playerCharacters.Length; i++)
+            {
+                playerCharacters[i].rect = new Rect(0f, (float)i / playerCharacters.Length, 1.0f, 1.0f / playerCharacters.Length);
+
+            }
+        }
     }
 
     // Update is called once per frame
@@ -32,7 +45,7 @@ public class splitScreen : MonoBehaviour
     {
         //Update the screen resolution values if the resolution changes
         //Allows the multiple cameras to dynamically resize themselves depending on resolution
-        if (screenHeight != Screen.height || screenWidth != Screen.width)
+        if (screenHeight != Screen.height || screenWidth != Screen.width || isHorizontalSplit != isHorizontalSplitOriginal)
         {
             updateScreenResolution();
         }
@@ -45,10 +58,23 @@ public class splitScreen : MonoBehaviour
         screenWidth = Screen.width;
         screenHeight = Screen.height;
 
-        for (int i = 0; i < playerCharacters.Length; i++)
-        {
-            playerCharacters[i].rect = new Rect((float)i / playerCharacters.Length, 0f, 1.0f / playerCharacters.Length, 1.0f);
+        isHorizontalSplitOriginal = isHorizontalSplit;
 
+        if (isHorizontalSplit)
+        {
+            for (int i = 0; i < playerCharacters.Length; i++)
+            {
+                playerCharacters[i].rect = new Rect((float)i / playerCharacters.Length, 0f, 1.0f / playerCharacters.Length, 1.0f);
+
+            }
+        }
+        else
+        {
+            for (int i = 0; i < playerCharacters.Length; i++)
+            {
+                playerCharacters[i].rect = new Rect(0f, (float)i / playerCharacters.Length, 1.0f, 1.0f / playerCharacters.Length);
+
+            }
         }
     }
 
