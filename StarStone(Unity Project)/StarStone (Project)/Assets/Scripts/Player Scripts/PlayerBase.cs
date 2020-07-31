@@ -193,6 +193,8 @@ public class PlayerBase : MonoBehaviour
         activeWeapon = weaponsArray[activeWeaponIndex];
         //Assigns the animator component to the player.
         playerAnimator = gameObject.GetComponent<Animator>();
+        //Finds and assigns the GameController
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
         //Finds and assigns the UIController
         uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
         //Sets canBlink to true so that the player is able to use the ability immediately when the game loads.
@@ -263,6 +265,7 @@ public class PlayerBase : MonoBehaviour
             MovementControls();
             ApplyGravity();
         }
+        PauseControls();
     }
 
     public virtual void MovementControls()
@@ -412,7 +415,7 @@ public class PlayerBase : MonoBehaviour
 
     public virtual void MiscControls()
     {
-
+        //Interacting Controls
         if(Input.GetButtonDown(playerNumber + "Interact"))
         {
             //Checks to see what script is attached to the object being interacted with and runs the necessary method
@@ -430,14 +433,17 @@ public class PlayerBase : MonoBehaviour
                 gameObject.GetComponent<CharacterVariantOne>().currentActiveMines--;
             }
         }
+        //Left Ability controls
         if(Input.GetButtonDown(playerNumber + "LeftAbility") && canUseLeftAbility)
         {
             UseLeftAbility();
         }
+        //Right Ability Controls
         if(Input.GetButtonDown(playerNumber + "RightAbility"))
         {
             UseRightAbility();
         }
+        //Flashlight Controls
         if(Input.GetAxis(playerNumber + "Flashlight") == 1 && canToggleLight)
         {
             //Toggles the flashlight boolean and plays the toggle sound, setting the flashlight to active or inactive depending on the value of flashlightToggle
@@ -449,6 +455,28 @@ public class PlayerBase : MonoBehaviour
         if(Input.GetAxis(playerNumber + "Flashlight") == 0 && !canToggleLight)
         {
             canToggleLight = true;
+        }
+    }
+
+    public virtual void PauseControls()
+    {
+        //Pausing Controls
+        if (Input.GetButtonDown(playerNumber + "StartButton"))
+        {
+            if (playerState == PlayerStates.pausedState)
+            {
+                //Sets the timescale back to 1 so that time will pass in the game
+                Time.timeScale = 1;
+                //Sets the players back to their standard state so their inputs will be recorded
+                gameController.UnpauseAllPlayers();
+            }
+            else if (playerState != PlayerStates.deadState)
+            {
+                //Sets the timescale to 0 to pause the game
+                Time.timeScale = 0;
+                //Sets the player's state to paused so they cannot use any controls other than unpausing
+                gameController.PauseAllPlayers();
+            }
         }
     }
 

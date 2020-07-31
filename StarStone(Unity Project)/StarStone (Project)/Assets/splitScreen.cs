@@ -6,7 +6,7 @@ public class splitScreen : MonoBehaviour
 {
     public bool isHorizontalSplit; //Is the screen split horizontally or vertically (Used in two player scenario's)
 
-    public Camera[] playerCharacters; //The camera's of each playable character
+    public Camera[] playerCharacters; //The cameras of each playable character
 
     [SerializeField] private float screenWidth;
     [SerializeField] private float screenHeight;

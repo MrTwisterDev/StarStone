@@ -179,6 +179,7 @@ public class GameController : MonoBehaviour
     private PlayerBase playerTwoController;
     private Camera playerOneCamera;
     private Camera playerTwoCamera;
+    public PlayerBase[] playerControllers;
     [Tooltip("The GameObject used to handle character selection")]
     public characterSelection characterSelector;
     [Space]
@@ -194,6 +195,7 @@ public class GameController : MonoBehaviour
     public int requiredSoulsInGenerator;
     private GameObject victoryCanvas;
     private UIController uIController;
+    private splitScreen splitSceenController;
     private bool isInGame;
     [Space]
     [Tooltip("The current difficulty setting in the game.")]
@@ -250,6 +252,7 @@ public class GameController : MonoBehaviour
         //Co-op mode is turned off by default
         isCoOp = false;
 
+        playerControllers = new PlayerBase[2];
         starstoneArray = new GameObject[4];
 
         //Thomas' Work//
@@ -405,6 +408,22 @@ public class GameController : MonoBehaviour
         isCoOp = !isCoOp;
     }
 
+    public void PauseAllPlayers()
+    {
+        for(int i = 0; i < playerControllers.Length; i++)
+        {
+            playerControllers[i].playerState = PlayerBase.PlayerStates.pausedState;
+        }
+    }
+
+    public void UnpauseAllPlayers()
+    {
+        for(int i = 0; i < playerControllers.Length; i++)
+        {
+            playerControllers[i].playerState = PlayerBase.PlayerStates.standardState;
+        }
+    }
+
     public void UpdateChosenCharacters()
     {
         //If the selected character variant in Henri, then the character player one will spawn as is set to character variant one
@@ -438,6 +457,7 @@ public class GameController : MonoBehaviour
         playerTwoSpawnPoint = GameObject.Find("PlayerTwoSpawnPoint").GetComponent<Transform>();
         //Instantiates player one at the correct position, saving its PlayerBase to the playerOneController variable
         playerOneController = Instantiate(playerOneCharacter, playerOneSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
+        playerControllers[0] = playerOneController;
         playerOneController.gameObject.name = "PlayerOne";
         //Assigns the playerNumber string as PlayerOne to ensure that inputs are read correctly
         playerOneController.playerNumber = "PlayerOne";
@@ -445,11 +465,15 @@ public class GameController : MonoBehaviour
         if(isCoOp)
         {
             playerTwoController = Instantiate(playerTwoCharacter, playerTwoSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
+            playerControllers[1] = playerTwoController;
             playerTwoController.gameObject.name = "PlayerTwo";
             playerTwoController.playerNumber = "PlayerTwo";
             playerTwoCamera = playerTwoController.gameObject.GetComponentInChildren<Camera>();
             //Disables the audio listener on player two's camera so that it doesn't cause issues within Unity
             playerTwoCamera.GetComponent<AudioListener>().enabled = false;
+            splitSceenController = FindObjectOfType<splitScreen>();
+            splitSceenController.playerCharacters[0] = playerOneCamera;
+            splitSceenController.playerCharacters[1] = playerTwoCamera;
         }
     }
 
