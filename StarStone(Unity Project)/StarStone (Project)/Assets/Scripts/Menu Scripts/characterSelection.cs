@@ -31,6 +31,7 @@ public class characterSelection : MonoBehaviour
                 playerSelectDropDowns[i].options[a].text = characterPrefabs[a].name;
             }
         }
+        gameController.UpdateChosenCharacters(); //James' work
     }
 
     public void dropDownUpdate()
