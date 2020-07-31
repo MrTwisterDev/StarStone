@@ -438,16 +438,18 @@ public class GameController : MonoBehaviour
         playerTwoSpawnPoint = GameObject.Find("PlayerTwoSpawnPoint").GetComponent<Transform>();
         //Instantiates player one at the correct position, saving its PlayerBase to the playerOneController variable
         playerOneController = Instantiate(playerOneCharacter, playerOneSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
+        playerOneController.gameObject.name = "PlayerOne";
         //Assigns the playerNumber string as PlayerOne to ensure that inputs are read correctly
         playerOneController.playerNumber = "PlayerOne";
         //If the game is being played in co-op mode, a second player is spawned at the correct position
         if(isCoOp)
         {
             playerTwoController = Instantiate(playerTwoCharacter, playerTwoSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
+            playerTwoController.gameObject.name = "PlayerTwo";
             playerTwoController.playerNumber = "PlayerTwo";
-            //playerTwoCamera = playerTwoController.gameObject.transform.Find("/MainCamera").GetComponent<Camera>();
+            playerTwoCamera = playerTwoController.gameObject.GetComponentInChildren<Camera>();
             //Disables the audio listener on player two's camera so that it doesn't cause issues within Unity
-            //playerTwoCamera.GetComponent<AudioListener>().enabled = false;
+            playerTwoCamera.GetComponent<AudioListener>().enabled = false;
         }
     }
 
@@ -563,7 +565,6 @@ public class GameController : MonoBehaviour
                 enemiesKilled++;
             }
         }
-        Debug.Log(enemiesKilled);
     }
 
     public bool PlayerCanSeeSpawner()

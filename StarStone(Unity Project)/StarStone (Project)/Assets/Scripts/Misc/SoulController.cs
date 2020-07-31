@@ -51,7 +51,6 @@ public class SoulController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collided!" + other);
         if(other.transform.position == soulDestination.transform.position)
         {
             gameController.soulsInGenerator++;
