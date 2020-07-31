@@ -12,14 +12,17 @@ public class StarstoneController : MonoBehaviour
     //          well as their charge level                           |
     //***************************************************************|
 
+    //External Scripts
+    #region
     public GameController gameController;
     public UIController uIController;
-    public GameObject playerObject;
-
-    [Tooltip("Boolean that determines whether or not the selected Starstone is active.")]
-    public bool isActiveStarstone;
-    [Space]
-
+    #endregion
+    //GameObjects
+    #region
+    public GameObject[] playerObjects;
+    #endregion
+    //Starstone Charge Variables
+    #region
     [Header("Starstone Charge Variables")]
     [Tooltip("The current charge level of the selected Starstone.")]
     public float starstoneCharge;
@@ -27,6 +30,11 @@ public class StarstoneController : MonoBehaviour
     public float dischargeMultiplier;
     [Tooltip("The multiplier used to calculate the recharge rate of the selected Starstone.")]
     public float rechargeMultiplier;
+    [Tooltip("Boolean that determines whether or not the selected Starstone is active.")]
+    public bool isActiveStarstone;
+    [Tooltip("The type this Starstone is.")]
+    public starstoneTypes starstoneType;
+    #endregion
 
     public enum starstoneTypes
     {
@@ -36,13 +44,11 @@ public class StarstoneController : MonoBehaviour
         buffStarstone
     }
 
-    public starstoneTypes starstoneType;
-
     public void Start()
     {
         if (gameController == null) { gameController = GameObject.Find("GameController").GetComponent<GameController>(); }
         uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
-        playerObject = GameObject.FindGameObjectWithTag("Player");
+        playerObjects = GameObject.FindGameObjectsWithTag("Player");
         starstoneCharge = 100f;
 
         if(dischargeMultiplier == 0) { dischargeMultiplier = 1; }
@@ -72,9 +78,16 @@ public class StarstoneController : MonoBehaviour
                 starstoneCharge = 100f;
             }
         }
-        if(Vector3.Distance(gameObject.transform.position, playerObject.transform.position) <= 5f && !gameController.hasFoundGenerator)
+        //Checks to see if Player One has gotten close enough for a generator for the game to start
+        if (!gameController.hasFoundGenerator)
         {
-            gameController.hasFoundGenerator = true;
+            for (int i = 0; i < playerObjects.Length; i++)
+            {
+                if (Vector3.Distance(playerObjects[i].transform.position, gameObject.transform.position) <= 5f)
+                {
+                    gameController.hasFoundGenerator = true;
+                }
+            }
         }
         UpdateStoneUI();
     }
@@ -82,7 +95,7 @@ public class StarstoneController : MonoBehaviour
     public void UpdateStoneUI()
     {
         switch (starstoneType)
-        {
+        {   //Updates the UI Slider relating to this Starstone with its latest charge value
             case starstoneTypes.speedStarstone:
                 uIController.UpdateSpeedCharge((int)starstoneCharge);
                 break;

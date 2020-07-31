@@ -87,6 +87,8 @@ public class PrototypeWeapon : MonoBehaviour
     [Tooltip("The current mode the prototype weapon is in.")]
     public weaponModes currentWeaponMode;
     private weaponModes newWeaponMode;
+    [HideInInspector]
+    public bool singleShotLock;
     #endregion
     //UI Colours
     #region
@@ -167,7 +169,7 @@ public class PrototypeWeapon : MonoBehaviour
     public void FireVampireMode()
     {
         //If the weapon's charge minus the discharge rate is greater than or equal to 0, then a raycast is sent out
-        if (weaponCharge - vampireChargeUsage >= 0)
+        if (weaponCharge - vampireChargeUsage >= 0 && !singleShotLock)
         {
             //The sound of the weapon siring is played
             weaponSound.Play();
@@ -182,13 +184,15 @@ public class PrototypeWeapon : MonoBehaviour
             }
             //The weapon's charge is reduced by the set value
             weaponCharge -= vampireChargeUsage;
+            //Locks the weapon from firing while the fire button is held
+            singleShotLock = true;
         }
     }
 
     public void FireGrenade()
     {
         //If the weapon's charge minus the discharge rate is greater than or equal to 0, then a projectile is launched
-        if (weaponCharge - grenadeLauncherChargeUsage >= 0)
+        if (weaponCharge - grenadeLauncherChargeUsage >= 0 && !singleShotLock)
         {
             //The sound of the weapon firing is played
             weaponSound.Play();
@@ -196,13 +200,14 @@ public class PrototypeWeapon : MonoBehaviour
             Instantiate(grenadeProjectile, muzzleTransform.position, Quaternion.identity);
             //The weapon's charge is reduced by the set value
             weaponCharge -= grenadeLauncherChargeUsage;
+            singleShotLock = true;
         }
     }
 
     public void FireSingularity()
     {
         //If the weapon's charge minus the discharge rate is greater than or equal to 0, then a projectile is fired
-        if (weaponCharge - singularityChargeUsage >= 0)
+        if (weaponCharge - singularityChargeUsage >= 0 && !singleShotLock)
         {
             //The sound of the weapon firing is played
             weaponSound.Play();
@@ -210,6 +215,7 @@ public class PrototypeWeapon : MonoBehaviour
             Instantiate(singularityProjectile, muzzleTransform.position, Quaternion.identity);
             //The weapon's charge is reduced by the set value
             weaponCharge -= singularityChargeUsage;
+            singleShotLock = true;
         }
     }
 

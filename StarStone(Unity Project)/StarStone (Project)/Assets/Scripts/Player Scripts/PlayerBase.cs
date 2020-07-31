@@ -269,10 +269,9 @@ public class PlayerBase : MonoBehaviour
     {
         if(isGrounded || (!isGrounded && !isJumping))
         {
-            //Records the input from the left analog stick on the appropriate controller
+            //Records the input from the keyboard, or left analog stick on the appropriate controller
             xInput = Input.GetAxis(playerNumber + "Horizontal");
             zInput = Input.GetAxis(playerNumber + "Vertical");
-            //If this is PlayerOne, keyboard inputs are also recorded
             movement = transform.right * xInput + transform.forward * zInput;
             //Moves the player by the newly calculated movement vector, applying the movement speed and any multipliers and using deltaTime to make movement non-framerate dependent
             characterController.Move(movement * moveSpeed * moveSpeedMultiplier * Time.deltaTime);
@@ -342,6 +341,19 @@ public class PlayerBase : MonoBehaviour
                 activeWeapon.GetComponent<build_a_weapon>().spreadShotLock = false;
             }
         }
+        else if(Input.GetAxis(playerNumber + "Fire") > 0 && activeWeapon.tag == "Prototype")
+        {
+            activeWeapon.GetComponent<PrototypeWeapon>().Fire();
+        }
+        if(Input.GetAxis(playerNumber + "Fire") == 0 && activeWeapon.tag == "Prototype")
+        {
+            activeWeapon.GetComponent<PrototypeWeapon>().singleShotLock = false;
+            if (activeWeapon.GetComponent<PrototypeWeapon>().weaponSound.isPlaying && activeWeapon.GetComponent<PrototypeWeapon>().weaponSound.loop == true)
+            {
+                activeWeapon.GetComponent<PrototypeWeapon>().GetComponent<PrototypeWeapon>().weaponSound.Stop();
+            }
+            
+        }
         if (Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.GetComponent<build_a_weapon>() != null && !isADS)
         {
             activeWeapon.GetComponent<Animator>().Play("AdsIn");
@@ -357,6 +369,7 @@ public class PlayerBase : MonoBehaviour
         {
             //Moves the prototype weapon to its ADS position
             activeWeapon.transform.position = adsHoldPoint.position;
+            activeWeapon.GetComponent<PrototypeWeapon>().AimingIn();
         }
         if (Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.tag == "Prototype")
         {
