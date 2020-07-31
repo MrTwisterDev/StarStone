@@ -458,12 +458,14 @@ public class GameController : MonoBehaviour
         //Instantiates player one at the correct position, saving its PlayerBase to the playerOneController variable
         playerOneController = Instantiate(playerOneCharacter, playerOneSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
         playerControllers[0] = playerOneController;
+        playerOneCamera = playerOneController.gameObject.GetComponentInChildren<Camera>();
         playerOneController.gameObject.name = "PlayerOne";
         //Assigns the playerNumber string as PlayerOne to ensure that inputs are read correctly
         playerOneController.playerNumber = "PlayerOne";
         //If the game is being played in co-op mode, a second player is spawned at the correct position
         if(isCoOp)
         {
+            //Instantiates player two and assigns the necessary variables
             playerTwoController = Instantiate(playerTwoCharacter, playerTwoSpawnPoint.position, Quaternion.identity).GetComponent<PlayerBase>();
             playerControllers[1] = playerTwoController;
             playerTwoController.gameObject.name = "PlayerTwo";
@@ -471,9 +473,11 @@ public class GameController : MonoBehaviour
             playerTwoCamera = playerTwoController.gameObject.GetComponentInChildren<Camera>();
             //Disables the audio listener on player two's camera so that it doesn't cause issues within Unity
             playerTwoCamera.GetComponent<AudioListener>().enabled = false;
+            //Finds the split screen controller and adds the player cameras to its array before updating the screen resolution
             splitSceenController = FindObjectOfType<splitScreen>();
             splitSceenController.playerCharacters[0] = playerOneCamera;
             splitSceenController.playerCharacters[1] = playerTwoCamera;
+            splitSceenController.updateScreenResolution();
         }
     }
 

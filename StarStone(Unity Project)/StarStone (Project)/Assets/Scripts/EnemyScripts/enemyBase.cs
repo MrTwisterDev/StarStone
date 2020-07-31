@@ -104,18 +104,26 @@ public class enemyBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //James' work\\
         if (isBurning)
         {
             TakeFireDamage();
         }
+        //~~~~~~~~~~~\\
     }
 
     public void takeDamage(float damageAmount)
     {
-        enemyHP -= damageAmount;
-        if(enemyHP <= 0)
+        //James' work - checks the enemy has more than 0 health before they take damage, otherwise with spreadshot weapons they can be "killed" multiple times
+        //and spawn multiple souls
+        if (enemyHP > 0)
         {
-            destroyEnemy();
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+            enemyHP -= damageAmount;
+            if (enemyHP <= 0)
+            {
+                destroyEnemy();
+            }
         }
     }
 
@@ -167,7 +175,7 @@ public class enemyBase : MonoBehaviour
             }
             else
             {
-                Debug.Log(gameObject.name + "Cannot see player!" + "Enemy hunger for food grr");
+                Debug.Log(gameObject.name + "Cannot see player! " + "Enemy hunger for food grr");
                 return false;
             }
         }
