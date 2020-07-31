@@ -74,7 +74,7 @@ public class UIController : MonoBehaviour
         //If the blink timer reaches 5, the timer stops and is replaced with "Blink Ready" to show the player they can use their ability again
         if (playerController.leftAbilityCooldown == 5)
         {
-            blinkTimerText.text = "Blink Ready";
+            blinkTimerText.text = "Ready";
         }
         //If the blink timer is still running, the value of the timer is updated on the UI
         else

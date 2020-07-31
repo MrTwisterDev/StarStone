@@ -199,7 +199,10 @@ public class build_a_weapon : baseWeaponClass
 
     private void OnDisable()
     {
-        InstancedCrossHair.SetActive(false);
+        if (InstancedCrossHair != null)
+        {
+            InstancedCrossHair.SetActive(false);
+        }
     }
 
     private void OnEnable()
