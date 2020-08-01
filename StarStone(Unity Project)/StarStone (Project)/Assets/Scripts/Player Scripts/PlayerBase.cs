@@ -670,7 +670,7 @@ public class PlayerBase : MonoBehaviour
     public bool CanInteract()
     {
         //Fires out a raycast from the camera. If it collides with something on the interactive layer, it returns true 
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out interactableObject, 1f, interactiveLayer))
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out interactableObject, 2f, interactiveLayer))
         {
             return true;
         }

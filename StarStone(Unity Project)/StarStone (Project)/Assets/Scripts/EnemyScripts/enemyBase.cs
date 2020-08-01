@@ -10,6 +10,10 @@ public class enemyBase : MonoBehaviour
 
     //~James' Work~\\
     public GameObject soulParticles;
+    public GameObject healthPack;
+    public GameObject ammoBox;
+    [Tooltip("The % chance that an enemy will drop a health pack or ammo box when they die.")]
+    public int chanceToDropPickup;
     //~~~~~~~~~~~~~~\\
     public GameObject projectileToFire;
     public GameObject nearestPlayer;
@@ -95,6 +99,7 @@ public class enemyBase : MonoBehaviour
         getNearestPlayer();
         resetTimer(false);
         //James' Work\\
+        if(chanceToDropPickup == 0){ chanceToDropPickup = 25; }
         if(burnTime == 0) { burnTime = 5f; }
         if(burnDamage == 0) { burnDamage = 0.5f; }
         isBurning = false;
@@ -148,8 +153,30 @@ public class enemyBase : MonoBehaviour
     {
         //James' work\\
         Instantiate(soulParticles, transform.position, soulParticles.transform.rotation);
+        DropPowerUp();
         //~~~~~~~~~~~~\\
         Destroy(gameObject);
+    }
+
+    //James' work\\
+    public void DropPowerUp()
+    {
+        //Generates a random number between 1 and 100
+       int randInt = Random.Range(1, 100);
+        //There is a 25% chance of the 
+        if(randInt <= chanceToDropPickup)
+        {
+            //If the value generated is even, a healthpack is dropped
+            if(randInt % 2 == 0)
+            {
+                Instantiate(healthPack, transform.position, Quaternion.identity);
+            }
+            //if it is odd, an ammo box is dropped
+            else
+            {
+                Instantiate(ammoBox, transform.position, Quaternion.identity);
+            }
+        }
     }
 
     public GameObject fireProjectile()
