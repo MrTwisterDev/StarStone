@@ -40,6 +40,7 @@ public class build_a_weapon : baseWeaponClass
     public GameObject crossHair;//The cross hair of the gun
     public GameObject InstancedCrossHair;//The cross hair of the gun
     public dynamicCrosshair crosshairScript;//The script of the guns crosshair.
+    public float crosshairMultiplier; //How much to shrink or expand the crosshair
 
     UIController uiController;
 
@@ -87,7 +88,7 @@ public class build_a_weapon : baseWeaponClass
     {
         canShoot = currentBullets > 0;
         gunAccuracy = Mathf.MoveTowards(gunAccuracy, originGunAccuracy, gunAccuracyRecovery);
-        crosshairScript.masterOffset = gunAccuracy + gunAccuracyRecoil/2 + 10;
+        crosshairScript.masterOffset = (gunAccuracy + gunAccuracyRecoil/2 + 10) * crosshairMultiplier ;
 
         switch (typeOfWeapon) //How should each weapon differ per frame
         {
