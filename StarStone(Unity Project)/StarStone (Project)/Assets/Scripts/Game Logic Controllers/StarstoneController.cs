@@ -7,7 +7,7 @@ public class StarstoneController : MonoBehaviour
     //***************************************************************|
     // Project Name: Temple Imperium                                 |
     // Script Name: Starstone Controller                             |
-    // Script Author: James Smale                                    |
+    // Script Author: James Smale +Thomas Lang (Co-op Implementation)|
     // Purpose: Controls the active effects of the starstones, as    |
     //          well as their charge level                           |
     //***************************************************************|
@@ -15,7 +15,7 @@ public class StarstoneController : MonoBehaviour
     //External Scripts
     #region
     public GameController gameController;
-    public UIController uIController;
+    public UIController[] uIController;
     #endregion
     //GameObjects
     #region
@@ -47,7 +47,7 @@ public class StarstoneController : MonoBehaviour
     public void Start()
     {
         if (gameController == null) { gameController = GameObject.Find("GameController").GetComponent<GameController>(); }
-        uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
+        uIController = gameController.uIController;
         playerObjects = GameObject.FindGameObjectsWithTag("Player");
         starstoneCharge = 100f;
 
@@ -97,16 +97,28 @@ public class StarstoneController : MonoBehaviour
         switch (starstoneType)
         {   //Updates the UI Slider relating to this Starstone with its latest charge value
             case starstoneTypes.speedStarstone:
-                uIController.UpdateSpeedCharge((int)starstoneCharge);
+                foreach (var controller in uIController)
+                {
+                    controller.UpdateSpeedCharge((int)starstoneCharge);
+                }
                 break;
             case starstoneTypes.healthStarstone:
-                uIController.UpdateHealthCharge((int)starstoneCharge);
+                foreach (var controller in uIController)
+                {
+                    controller.UpdateHealthCharge((int)starstoneCharge);
+                }
                 break;
             case starstoneTypes.fireStarstone:
-                uIController.UpdateFireCharge((int)starstoneCharge);
+                foreach (var controller in uIController)
+                {
+                    controller.UpdateFireCharge((int)starstoneCharge);
+                }
                 break;
             case starstoneTypes.buffStarstone:
-                uIController.UpdateSingularityCharge((int)starstoneCharge);
+                foreach (var controller in uIController)
+                {
+                    controller.UpdateSingularityCharge((int)starstoneCharge);
+                }
                 break;
         }
     }

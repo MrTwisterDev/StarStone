@@ -8,7 +8,7 @@ public class UIController : MonoBehaviour
     //***************************************************************|
     // Project Name: Temple Imperium                                 |
     // Script Name: UI Controller                                    |
-    // Script Author: James Smale                                    |
+    // Script Author: James Smale + Thomas Lang (Re-write for co-op) |
     // Purpose: Handles updates of the User Interface                |
     //***************************************************************|
 
@@ -39,28 +39,11 @@ public class UIController : MonoBehaviour
 
     public void Start()
     {
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBase>();
+        playerController = gameObject.GetComponent<PlayerBase>();
+        GetChangedWeapon();
 
-        totalAmmoText = GameObject.Find("TotalAmmoValue").GetComponent<Text>();
-        currentMagazineAmmoText = GameObject.Find("CurrentMagazineAmmo").GetComponent<Text>();
 
-        prototypeChargeSlider = GameObject.Find("PrototypeCharge").GetComponent<Slider>();
-        prototypeChargePercent = GameObject.Find("PrototypeChargeValue").GetComponent<Text>();
-
-        blinkTimerText = GameObject.Find("BlinkCooldownTimer").GetComponent<Text>();
-        speedLines = GameObject.Find("TeleportEffect");
-        speedLines.SetActive(false);
-
-        waveTimerText = GameObject.Find("WaveTimer").GetComponent<Text>();
-        waveNumberText = GameObject.Find("WaveNumber").GetComponent<Text>();
-        timerBar = GameObject.Find("TimerBar").GetComponent<Image>();
-
-        healthBar = GameObject.Find("HealthBar").GetComponent<Slider>();
-
-        speedCharge = GameObject.Find("SpeedCharge").GetComponent<Slider>();
-        healthCharge = GameObject.Find("HealthCharge").GetComponent<Slider>();
-        fireCharge = GameObject.Find("FireCharge").GetComponent<Slider>();
-        singularityCharge = GameObject.Find("SingularityCharge").GetComponent<Slider>();
+      
     }
 
     public void GetChangedWeapon()

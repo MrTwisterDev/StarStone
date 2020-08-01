@@ -194,7 +194,7 @@ public class GameController : MonoBehaviour
     [Tooltip("The number of souls required inside the generator in order to win the game.")]
     public int requiredSoulsInGenerator;
     private GameObject victoryCanvas;
-    private UIController uIController;
+    public UIController[] uIController;
     private splitScreen splitSceenController;
     private bool isInGame;
     [Space]
@@ -259,6 +259,8 @@ public class GameController : MonoBehaviour
         activeSmallEnemies = new List<GameObject>();
         activeMediumEnemies = new List<GameObject>();
         activeLargeEnemies = new List<GameObject>();
+
+
         //End of work//
     }
 
@@ -277,14 +279,20 @@ public class GameController : MonoBehaviour
             if(hasFoundGenerator && !timerActive)
             {
                 timerActive = true;
-                uIController.UpdateWaveNumber(currentWave);
+                for (int i = 0; i < playerControllers.Length; i++)
+                {
+                    uIController[i].UpdateWaveNumber(currentWave);
+                }
             }
             //If the player has killed all enemies in a wave, the wave ends and an intermission starts
             if (enemiesKilled >= smallEnemiesInWave + mediumEnemiesInWave + largeEnemiesInWave)
             {
                 if (timerActive) { timerActive = false; }
                 intermissionTimerValue -= Time.deltaTime;
-                uIController.UpdateIntermissionTimer((int)intermissionTimerValue);
+                for (int i = 0; i < playerControllers.Length; i++)
+                {
+                uIController[i].UpdateIntermissionTimer((int)intermissionTimerValue);
+                }
                 //When the intermission timer runs out, the next wave begins
                 if (intermissionTimerValue <= 0) 
                 {
@@ -323,7 +331,10 @@ public class GameController : MonoBehaviour
             //Locks the cursor to the center of the screen to prevent it from moving outside of the playable area, ensuring the player cannot accidentall leave the game window
             Cursor.lockState = CursorLockMode.Locked;
             //Find the UI Controller object in the scene and assigns its script to the uIController variable
-            uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
+            for (int i = 0; i < playerControllers.Length; i++)
+            {
+                uIController[i] = playerControllers[i].gameObject.GetComponent<UIController>();
+            }
             //Sets the length of the spawn point array
             enemySpawnPoints = new Transform[spawnerParent.childCount];
             FindStarstones();
@@ -386,7 +397,10 @@ public class GameController : MonoBehaviour
                 timerActive = true;
             }
             //Updates the wave timer UI element
-            uIController.SetBaseTimerValue(waveTimerValue);
+            for (int i = 0; i < playerControllers.Length; i++)
+            {
+                uIController[i].SetBaseTimerValue(waveTimerValue);
+            }
             //Generates a random number used as an array index and activates the relevant Starstone
             int starstoneIndex = UnityEngine.Random.Range(0, 4);
             starstoneArray[starstoneIndex].GetComponent<StarstoneController>().ActivateEffect();
@@ -506,7 +520,10 @@ public class GameController : MonoBehaviour
         mediumEnemiesInWave += mediumEnemyIncrease;
         largeEnemiesInWave += largeEnemyIncrease;
         //Updates the wave information UI based on the new wave data
-        uIController.UpdateWaveNumber(currentWave);
+        for (int i = 0; i < playerControllers.Length; i++)
+        {
+            uIController[i].UpdateWaveNumber(currentWave);
+        }
         //Plays a sound to signify the start of a new wave
         AudioSource.PlayClipAtPoint(waveStart, playerOneController.gameObject.transform.position);
         //Starts the wave timer running
@@ -548,7 +565,10 @@ public class GameController : MonoBehaviour
                     playerTwoController.playerState = PlayerBase.PlayerStates.deadState;
                 }
             }
-            uIController.UpdateWaveTimer(waveTimerValue);
+            for (int i = 0; i < playerControllers.Length; i++)
+            {
+                uIController[i].UpdateWaveTimer(waveTimerValue);
+            }
         }
         //Enemy spawning cooldown timer
         if (!canSpawnEnemy)

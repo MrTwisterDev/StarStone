@@ -349,6 +349,7 @@ MonoBehaviour:
   masterOffset: 5
   horizontalOffset: 0
   verticalOffset: 0
+  crosshairCentre: {fileID: 1525204395773698044}
 --- !u!1 &1525204397034291105
 GameObject:
   m_ObjectHideFlags: 0

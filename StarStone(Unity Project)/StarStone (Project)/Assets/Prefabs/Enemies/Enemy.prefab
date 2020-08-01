@@ -4888,6 +4888,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soulParticles: {fileID: 7636042114336898745, guid: 62227d390de06c04194ddd68c0c5e457,
     type: 3}
+  healthPack: {fileID: 5150274718591927208, guid: f948cbbde67d8fa4fadca9db77f92895,
+    type: 3}
+  ammoBox: {fileID: 1524184592698953100, guid: 24f866eb37756c24dbee5aafebf39035, type: 3}
+  chanceToDropPickup: 25
   projectileToFire: {fileID: 0}
   nearestPlayer: {fileID: 0}
   detectionRadius: 0

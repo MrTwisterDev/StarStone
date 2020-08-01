@@ -196,7 +196,7 @@ public class PlayerBase : MonoBehaviour
         //Finds and assigns the GameController
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
         //Finds and assigns the UIController
-        uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
+        uIController = gameObject.GetComponent<UIController>();
         //Sets canBlink to true so that the player is able to use the ability immediately when the game loads.
         canUseLeftAbility = true;
         //Sets the player's flashlight boolean to false as the flashlight starts turned off.
@@ -419,13 +419,13 @@ public class PlayerBase : MonoBehaviour
         if(Input.GetButtonDown(playerNumber + "Interact"))
         {
             //Checks to see what script is attached to the object being interacted with and runs the necessary method
-            if(CanInteract() && interactableObject.collider.gameObject.GetComponent<StarstoneController>() != null)
+            if(CanInteract() && interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>() != null)
             {
-                interactableObject.collider.gameObject.GetComponent<StarstoneController>().ActivateEffect();
+                interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>().ActivateEffect();
             }
-            else if(CanInteract() && interactableObject.collider.gameObject.GetComponent<StarStoneBase>() != null)
+            else if(CanInteract() && interactableObject.collider.gameObject.GetComponentInParent<StarStoneBase>() != null)
             {
-                interactableObject.collider.gameObject.GetComponent<StarStoneBase>().ActivateStarStone();
+                interactableObject.collider.gameObject.GetComponentInParent<StarStoneBase>().ActivateStarStone();
             }
             else if(CanInteract() && interactableObject.collider.gameObject.GetComponent<mineScript>() != null && gameObject.GetComponent<CharacterVariantOne>() != null)
             {
@@ -670,7 +670,7 @@ public class PlayerBase : MonoBehaviour
     public bool CanInteract()
     {
         //Fires out a raycast from the camera. If it collides with something on the interactive layer, it returns true 
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out interactableObject, 1f, interactiveLayer))
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out interactableObject, 2f, interactiveLayer))
         {
             return true;
         }

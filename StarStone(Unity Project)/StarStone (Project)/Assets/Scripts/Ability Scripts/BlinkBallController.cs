@@ -28,8 +28,8 @@ public class BlinkBallController : MonoBehaviour
     void Start()
     {
         if(teleportSpeed == 0) { teleportSpeed = 200f; }
-        uiController = GameObject.Find("UI Controller").GetComponent<UIController>();
-        cameraTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
+        uiController = playerObject.GetComponent<UIController>();
+        cameraTransform = playerObject.GetComponentInChildren<Camera>().transform;
         rigidBody = gameObject.GetComponent<Rigidbody>();
         rigidBody.AddForce(cameraTransform.forward * 1000f);
     }

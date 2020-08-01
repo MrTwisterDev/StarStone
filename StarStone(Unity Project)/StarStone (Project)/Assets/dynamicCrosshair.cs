@@ -17,6 +17,8 @@ public class dynamicCrosshair : MonoBehaviour
     [Tooltip("Affects the vertical parts of the crosshair")]
     public float verticalOffset;
 
+    public GameObject crosshairCentre;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,8 +68,8 @@ public class dynamicCrosshair : MonoBehaviour
             _AddedMaster = -masterOffset;
 
         }
-        crossHairParts[I].transform.position = 
-        Vector2.MoveTowards(crossHairParts[I].transform.position, (Vector2)crossHairOrigins[I] + new Vector2(offSetX + _AddedMaster,0),crossHairChangeSpeed);
+        crossHairParts[I].GetComponent<RectTransform>().localPosition =
+        Vector3.Slerp(crossHairParts[I].transform.position, (Vector2)crossHairOrigins[I] + new Vector2(offSetX + _AddedMaster,0),crossHairChangeSpeed);
     }
 
     void verticalChange(float offSetY, int I)
@@ -84,8 +86,8 @@ public class dynamicCrosshair : MonoBehaviour
         }
 
 
-        crossHairParts[I].transform.position =
-        Vector2.MoveTowards(crossHairParts[I].transform.position, (Vector2)crossHairOrigins[I] + new Vector2(0, offSetY + _AddedMaster), crossHairChangeSpeed);
+        crossHairParts[I].GetComponent<RectTransform>().localPosition =
+        Vector3.Slerp(crossHairParts[I].transform.position, (Vector2)crossHairOrigins[I] + new Vector2(0, offSetY + _AddedMaster), crossHairChangeSpeed);
 
     }
 
