@@ -161,7 +161,7 @@ public class PlayerBase : MonoBehaviour
     private bool canToggleLight;
     private Animator playerAnimator;
     private GameController gameController;
-    private UIController uIController;
+    public UIController uIController;
     private Vector3 standingScale, crouchingScale;
     public Transform playerFeet;
     #endregion

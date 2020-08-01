@@ -43,7 +43,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
-  m_Intensity: 5.32
+  m_Intensity: 75
   m_Range: 12.9
   m_SpotAngle: 110.62
   m_InnerSpotAngle: 21.80208
@@ -110,7 +110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7658129227873751468
 Transform:
   m_ObjectHideFlags: 0
