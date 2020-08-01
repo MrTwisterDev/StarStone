@@ -39,7 +39,7 @@ public class UIController : MonoBehaviour
 
     public void Start()
     {
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBase>();
+        playerController = gameObject.GetComponentInParent<PlayerBase>();
 
         totalAmmoText = GameObject.Find("TotalAmmoValue").GetComponent<Text>();
         currentMagazineAmmoText = GameObject.Find("CurrentMagazineAmmo").GetComponent<Text>();
