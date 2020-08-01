@@ -419,13 +419,13 @@ public class PlayerBase : MonoBehaviour
         if(Input.GetButtonDown(playerNumber + "Interact"))
         {
             //Checks to see what script is attached to the object being interacted with and runs the necessary method
-            if(CanInteract() && interactableObject.collider.gameObject.GetComponent<StarstoneController>() != null)
+            if(CanInteract() && interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>() != null)
             {
-                interactableObject.collider.gameObject.GetComponent<StarstoneController>().ActivateEffect();
+                interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>().ActivateEffect();
             }
-            else if(CanInteract() && interactableObject.collider.gameObject.GetComponent<StarStoneBase>() != null)
+            else if(CanInteract() && interactableObject.collider.gameObject.GetComponentInParent<StarStoneBase>() != null)
             {
-                interactableObject.collider.gameObject.GetComponent<StarStoneBase>().ActivateStarStone();
+                interactableObject.collider.gameObject.GetComponentInParent<StarStoneBase>().ActivateStarStone();
             }
             else if(CanInteract() && interactableObject.collider.gameObject.GetComponent<mineScript>() != null && gameObject.GetComponent<CharacterVariantOne>() != null)
             {
