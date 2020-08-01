@@ -5501,12 +5501,12 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: normalBaseMaxSmallEnemies
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: normalBaseMaxMediumEnemies
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -5526,7 +5526,7 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: hardBaseMaxMediumEnemies
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -5546,12 +5546,12 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: normalMaxSmallEnemyIncrease
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: normalMaxMediumEnemyIncrease
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -5591,12 +5591,12 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: smallEnemiesInNormalWave
-      value: 15
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: mediumEnemiesInNormalWave
-      value: 8
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -5637,22 +5637,22 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: maxSmallEnemies
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: maxMediumEnemies
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: maxLargeEnemies
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: enemySpawnDelay
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -5672,12 +5672,12 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: easyWaveTime
-      value: 40
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: currentGameDifficulty
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -5707,6 +5707,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5355848417490344555, guid: 5e44a8df544b4dd46add58a0fa4d24f3,
         type: 3}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: normalWaveTime
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: hardWaveTime
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 2858349823743127418, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponName: Rifle
-  weaponDamage: 12
+  weaponDamage: 7
   damageFalloff: 0
   totalBullets: 500
   magazineCapacity: 12
