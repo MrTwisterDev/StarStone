@@ -111,11 +111,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponName: Shotgun
-  weaponDamage: 6
+  weaponDamage: 3
   damageFalloff: 50000
   totalBullets: 500
-  magazineCapacity: 10
-  currentBullets: 10
+  magazineCapacity: 2
+  currentBullets: 2
   canShoot: 0
   isShooting: 0
   canADS: 0
@@ -133,13 +133,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6bf2008f5fbccf54f85f1cbe1636e8b5, type: 3}
   typeOfWeapon: 1
   gunAccuracy: 10
-  roundsPerSecond: 3
+  roundsPerSecond: 2
   gunCameraRecoil: 1.25
   gunAccuracyRecoil: 30
   gunAccuracyRecovery: 2
   spreadShotLock: 0
   projectileFired: {fileID: 0}
-  bulletsInSpread: 24
+  bulletsInSpread: 16
   muzzleFlashChild: {fileID: 5089506431828387958}
   crossHair: {fileID: 1525204395773698044, guid: 8079516317dd1ca4ab8b9d70679dc4ca,
     type: 3}
