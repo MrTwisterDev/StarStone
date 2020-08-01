@@ -196,7 +196,7 @@ public class PlayerBase : MonoBehaviour
         //Finds and assigns the GameController
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
         //Finds and assigns the UIController
-        uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
+        uIController = gameObject.GetComponent<UIController>();
         //Sets canBlink to true so that the player is able to use the ability immediately when the game loads.
         canUseLeftAbility = true;
         //Sets the player's flashlight boolean to false as the flashlight starts turned off.

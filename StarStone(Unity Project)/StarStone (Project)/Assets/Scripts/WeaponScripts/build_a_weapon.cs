@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class build_a_weapon : baseWeaponClass
 {
@@ -47,14 +48,23 @@ public class build_a_weapon : baseWeaponClass
         timeTillBullet = 1/roundsPerSecond; //Calculates the fire rate
         currentTimeTillBullet = 0;//Makes the first show not have any fire time
         weaponAudioSource = gameObject.GetComponent<AudioSource>();
+        uiController = gameObject.GetComponentInParent<UIController>();
 
-        GameObject UICanvas = GameObject.FindGameObjectWithTag("UICanvas");
-        InstancedCrossHair = Instantiate(crossHair, UICanvas.transform);
+        GameObject UICanvas = null;
+
+        foreach (var canvas in uiController.gameObject.GetComponentsInChildren<Canvas>())
+        {
+            if(canvas.tag == "UICanvas")
+            {
+                UICanvas = canvas.gameObject;
+            }
+        }
+        
+        InstancedCrossHair = Instantiate(crossHair, UICanvas.transform,false);
         crosshairScript = InstancedCrossHair.GetComponentInChildren<dynamicCrosshair>();
 
         originGunAccuracy = gunAccuracy;
 
-        uiController = GameObject.Find("UI Controller").GetComponent<UIController>();
         switch (typeOfWeapon) //A case by case basis on how a weapon should be initialised
         {
             case typesOfWeapon.singleShot:
@@ -207,7 +217,10 @@ public class build_a_weapon : baseWeaponClass
 
     private void OnEnable()
     {
-        InstancedCrossHair.SetActive(true);
+        if (InstancedCrossHair != null)
+        {
+            InstancedCrossHair.SetActive(true);
+        }
     }
 
 }
