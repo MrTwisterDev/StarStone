@@ -4473,6 +4473,7 @@ MonoBehaviour:
   actionFailed: {fileID: 8300000, guid: 6d3950b1b366f58409e7e0028a0d92dd, type: 3}
   flashlight: {fileID: 5355848417578942282}
   playerNumber: 
+  uIController: {fileID: 0}
   playerFeet: {fileID: 5355848416224099050}
   playerState: 0
 --- !u!114 &6908223567716421930
@@ -4495,6 +4496,7 @@ MonoBehaviour:
   prototypeChargePercent: {fileID: 5327007307477446706}
   blinkTimerText: {fileID: 5327007308311907378}
   speedLines: {fileID: 5327007307290928010}
+  mineCounters: []
   waveTimerText: {fileID: 5327007306942022224}
   waveNumberText: {fileID: 5327007308427217024}
   timerBar: {fileID: 5327007307052752805}
@@ -4937,7 +4939,7 @@ PrefabInstance:
     - target: {fileID: 2262563361867456817, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3572022881594290483, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
         type: 3}
