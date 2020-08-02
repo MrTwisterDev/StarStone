@@ -6803,7 +6803,7 @@ PrefabInstance:
         type: 3}
       propertyPath: playerOneCharacter
       value: 
-      objectReference: {fileID: 5355848417490344555, guid: 0bfedd40c39f35b42ba56747334aceda,
+      objectReference: {fileID: 6594952470049551619, guid: 0bfedd40c39f35b42ba56747334aceda,
         type: 3}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -6837,6 +6837,12 @@ PrefabInstance:
       propertyPath: hardWaveTime
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: playerTwoCharacter
+      value: 
+      objectReference: {fileID: 5355848417490344555, guid: 5e44a8df544b4dd46add58a0fa4d24f3,
+        type: 3}
     - target: {fileID: 2858349823743127418, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: m_LocalPosition.x
