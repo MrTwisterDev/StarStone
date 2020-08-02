@@ -60,6 +60,10 @@ public class PlayerBase : MonoBehaviour
     private Vector3 currentVelocity;
     private bool isSprinting, isWading, isCrouching, isJumping, isSwimming, isClimbing;
     public CharacterController characterController;
+    public GameObject playerModel;
+    public GameObject movingPartsParent;
+    private Vector3 standingEyePosition;
+    public Transform crouchingEyePosition;
     [Space]
     #endregion
     //Health Management
@@ -201,9 +205,10 @@ public class PlayerBase : MonoBehaviour
         canUseLeftAbility = true;
         //Sets the player's flashlight boolean to false as the flashlight starts turned off.
         flashlightToggle = false;
-        //Sets the player's standing and crouching sizes
-        standingScale = transform.localScale;
-        crouchingScale = new Vector3(transform.localScale.x, transform.localScale.y / 2, transform.localScale.z);
+        //Sets the player's standing and crouching sizes and positions
+        standingScale = playerModel.transform.localScale;
+        standingEyePosition = new Vector3(0, 0, 0);
+        crouchingScale = new Vector3(playerModel.transform.localScale.x, playerModel.transform.localScale.y / 2, playerModel.transform.localScale.z);
         //Sets up the UI elements for the currently equipped weapon
         uIController.activeWeaponController = activeWeapon.GetComponent<build_a_weapon>();
         uIController.GetChangedWeapon();
@@ -315,7 +320,9 @@ public class PlayerBase : MonoBehaviour
         if(Input.GetButtonDown(playerNumber + "Crouch") && !isCrouching)
         {
             isCrouching = true;
-            transform.localScale = crouchingScale;
+            playerModel.transform.localScale = crouchingScale;
+            characterController.height /= 2;
+            movingPartsParent.transform.position = crouchingEyePosition.transform.position;
             moveSpeedMultiplier += crouchSpeedMultiplier;
         }
         //When the player releases the crouch button, their scale is reseting to full size and the crouching speed modifier is subtracted from their speed multiplier
@@ -323,7 +330,9 @@ public class PlayerBase : MonoBehaviour
         if(Input.GetButtonUp(playerNumber + "Crouch") && isCrouching)
         {
             isCrouching = false;
-            transform.localScale = standingScale;
+            playerModel.transform.localScale = standingScale;
+            characterController.height *= 2;
+            movingPartsParent.transform.localPosition = standingEyePosition;
             moveSpeedMultiplier -= crouchSpeedMultiplier;
         }
     }
