@@ -177,7 +177,7 @@ public class build_a_weapon : baseWeaponClass
 
         //Recoil Application
         // transform.parent.parent.gameObject.transform.Rotate(new Vector3(gunRecoil, 0, 0));
-        transform.parent.parent.gameObject.GetComponent<PlayerBase>().xRotation -= gunCameraRecoil;
+        transform.parent.parent.parent.gameObject.GetComponent<PlayerBase>().xRotation -= gunCameraRecoil;
 
         Transform _weaponHoldPoint = gameObject.transform.Find("MuzzlePosition").GetComponent<Transform>();
         GameObject _particleSystem = Instantiate(muzzleFlash, _weaponHoldPoint, false);
