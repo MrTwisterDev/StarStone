@@ -122,7 +122,7 @@ public class PrototypeWeapon : MonoBehaviour
     {
         //Finds the player and UI controller scripts
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBase>();
-        uIController = GameObject.Find("UI Controller").GetComponent<UIController>();
+        uIController = gameObject.GetComponentInParent<UIController>();
         //Assigns the colours used for the prototype weapon UI slider
         speedColour = Color.cyan;
         healthColour = Color.green;
