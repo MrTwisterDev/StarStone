@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d7beab987e28d444bb8b99faad920104, type: 2}
+  - {fileID: 2100000, guid: 69fe5dc365c90194dab8ca0becf7c364, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -129,11 +129,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   lifeTimeRemaining: 5
-  teleportSound: {fileID: 8300000, guid: 990cf6d7246caff4cbc597839e0e1857, type: 3}
-  speedLines: {fileID: 1123758976478694771, guid: 937c8905be80f284e96df9d281f6848e,
-    type: 3}
   heightOffset: 1.5
   teleportSpeed: 0
+  teleportSound: {fileID: 8300000, guid: 990cf6d7246caff4cbc597839e0e1857, type: 3}
   playerObject: {fileID: 0}
 --- !u!198 &6072278953875463825
 ParticleSystem:

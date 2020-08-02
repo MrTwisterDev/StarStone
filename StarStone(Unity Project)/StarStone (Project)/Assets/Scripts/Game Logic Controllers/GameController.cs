@@ -251,8 +251,16 @@ public class GameController : MonoBehaviour
         intermissionTimerValue = intermissionLength;
         //Co-op mode is turned off by default
         isCoOp = false;
-
-        playerControllers = new PlayerBase[2];
+        if (isCoOp) 
+        { 
+            playerControllers = new PlayerBase[2];
+            uIController = new UIController[2];
+        }
+        else
+        { 
+            playerControllers = new PlayerBase[1];
+            uIController = new UIController[1];
+        }
         starstoneArray = new GameObject[4];
 
         //Thomas' Work//
@@ -267,6 +275,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Timer active: " + timerActive + "Is in game: " + isInGame);
         //If the game is not paused or in a menu, the game timers and enemy spawning will run
         if (isInGame)
         {
@@ -324,8 +333,6 @@ public class GameController : MonoBehaviour
         if(level == 1)
         {
             InstantiatePlayers();
-            victoryCanvas = GameObject.Find("VictoryCanvas");
-            victoryCanvas.SetActive(false);
             spawnerParent = GameObject.Find("EnemySpawners").GetComponent<Transform>();
             playerOneCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
             //Locks the cursor to the center of the screen to prevent it from moving outside of the playable area, ensuring the player cannot accidentall leave the game window

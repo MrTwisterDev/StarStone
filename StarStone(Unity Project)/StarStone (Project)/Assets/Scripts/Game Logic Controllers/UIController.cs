@@ -24,6 +24,7 @@ public class UIController : MonoBehaviour
     //Ability UI Elements
     public Text blinkTimerText;
     public GameObject speedLines;
+    public Image[] mineCounters;
     //Wave Information UI Elements
     public Text waveTimerText;
     public Text waveNumberText;
@@ -50,6 +51,11 @@ public class UIController : MonoBehaviour
     {
         //Assigns the script of the currently equipped weapon to the variable activeWeaponController so that the correct ammo values can be pulled from it
         activeWeaponController = playerController.activeWeapon.GetComponent<build_a_weapon>();
+    }
+
+    public void UpdateMineCounter(int mineImage, Color newColour)
+    {
+        mineCounters[mineImage - 1].color = newColour;
     }
 
     public void UpdateBlinkTimer()

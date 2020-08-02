@@ -126,7 +126,12 @@ MonoBehaviour:
   mineExplosionDistance: 1
   mineDamage: 10
   minePrimeTimer: 3
+  mineNumber: 0
+  unThrownColour: {r: 0.9528302, g: 0.92136884, b: 0.92136884, a: 1}
+  unarmedMineUIColour: {r: 0.028924897, g: 0.4716981, b: 0.034975585, a: 1}
+  armedMineUIColour: {r: 0.6886792, g: 0.34814095, b: 0.04223035, a: 1}
   primedMaterial: {fileID: 2100000, guid: 63b152d48f2748a44801c78123a202bd, type: 2}
+  uiController: {fileID: 0}
   playerScript: {fileID: 0}
   explosionSound: {fileID: 8300000, guid: d98acc88deec6664080fc6d4bb83aa94, type: 3}
   primedClip: {fileID: 8300000, guid: 8ae175b8c89d32c40996787297b3c012, type: 3}

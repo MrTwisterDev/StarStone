@@ -26,7 +26,9 @@ public class CharacterVariantOne : PlayerBase
         {
             mineScript newMine = Instantiate(rightAbilityPrefab, cameraTransform.position, Quaternion.identity).GetComponent<mineScript>();
             newMine.playerScript = this;
+            newMine.uiController = gameObject.GetComponent<UIController>();
             currentActiveMines++;
+            newMine.GetComponent<mineScript>().mineNumber = currentActiveMines;
         }
         else
         {
