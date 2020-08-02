@@ -53,6 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rocketSpeed: 12.02
   angularSpeed: 3.92
+  rocketExplosionRadius: 3
+  rocketExplosionDamage: 45
   explosionParticles: {fileID: 0}
   targetedPlayer: {fileID: 0}
   rocketExplosionSound: {fileID: 8300000, guid: 6d4bf79d262762d4cb81e61705a40e5b,
