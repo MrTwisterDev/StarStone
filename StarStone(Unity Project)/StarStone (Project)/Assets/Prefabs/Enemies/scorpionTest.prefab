@@ -4908,7 +4908,13 @@ MonoBehaviour:
   healthPack: {fileID: 5150274718591927208, guid: f948cbbde67d8fa4fadca9db77f92895,
     type: 3}
   ammoBox: {fileID: 1524184592698953100, guid: 24f866eb37756c24dbee5aafebf39035, type: 3}
-  chanceToDropPickup: 0
+  invulnerabilityDrop: {fileID: 132003862453747733, guid: ad6e6d1183b6ef24196243aa876f0ff9,
+    type: 3}
+  speedBoostDrop: {fileID: 3981474882622574581, guid: 6bd8bf333a7fd744dbe777a822f63f0a,
+    type: 3}
+  chanceToDrop: 25
+  chanceToDropPickup: 25
+  chanceToDropPowerUp: 10
   projectileToFire: {fileID: 1835150139197045866, guid: 43b4515ea9b5c9d4e82bd33ddc1381bc,
     type: 3}
   nearestPlayer: {fileID: 0}

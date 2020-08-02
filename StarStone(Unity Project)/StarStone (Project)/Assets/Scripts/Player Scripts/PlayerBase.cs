@@ -72,7 +72,8 @@ public class PlayerBase : MonoBehaviour
     [Tooltip("The maximum amount of health the player can have.")]
     public float maxHealth;
     [Tooltip("The current amount of health the player has.")]
-    public float currentHealth;
+    [SerializeField]
+    private float currentHealth;
     [Tooltip("The amount of health that, after dropping below, the player's health will not regenerate past.")]
     public float healthRegenCutoff;
     [Tooltip("The rate at which the player's health regenerates.")]
@@ -139,6 +140,23 @@ public class PlayerBase : MonoBehaviour
     public GameObject rightAbilityPrefab;
     [Space]
     #endregion
+    //Powerup Variables
+    #region
+    [Header("Speedboost Stats")]
+    [Tooltip("A boolean determining whether or not the player is currently under the effect of a speedboost.")]
+    public bool hasSpeedBoost;
+    private bool hasHadSpeedBoosted;
+    [Tooltip("The value added to the movement multiplier while the player has gained the speedboost powerup.")]
+    public float speedBoostMultiplier;
+    public float speedBoostDuration;
+    public float speedBoostTimer;
+    [Header("Invulnerability Stats")]
+    [Tooltip("A boolean determining whether or not the player is currently invulnerable.")]
+    public bool isInvulnerable;
+    [Tooltip("The length of time for which the player is invulnerable after picking up a power-up.")]
+    public float invunlerabilityLength;
+    private float invulnerabilityTimer;
+    #endregion
     //Sounds
     #region
     [Header("Sounds")]
@@ -152,6 +170,8 @@ public class PlayerBase : MonoBehaviour
     public AudioClip[] landingSounds;
     [Tooltip("The sound that plays when an action has failed.")]
     public AudioClip actionFailed;
+    [Tooltip("The sound played when the player is attacked while invulnerable.")]
+    public AudioClip[] hitWhileInvulnerable;
     [Space]
     #endregion
     //Miscellaneous Variables
@@ -234,8 +254,18 @@ public class PlayerBase : MonoBehaviour
         if (underwaterSpeedMultiplier == 0) { underwaterSpeedMultiplier = -0.2f; }
         if (mouseSensitivity == 0) { mouseSensitivity = 50f; }
         if (leftAbilityCooldown == 0) { leftAbilityCooldown = 5f; }
+        if (invunlerabilityLength == 0) { invunlerabilityLength = 15f; }
+        invulnerabilityTimer = invunlerabilityLength;
+        if (speedBoostMultiplier == 0) { speedBoostMultiplier = 5f; }
+        if (speedBoostDuration == 0) { speedBoostDuration = 15f; }
+        speedBoostTimer = speedBoostDuration;
         if (string.IsNullOrEmpty(playerNumber)) { playerNumber = "PlayerOne"; }
         hasLanded = true;
+    }
+
+    public float GetHealth()
+    {
+        return currentHealth;
     }
 
     // Update is called once per frame
@@ -254,6 +284,7 @@ public class PlayerBase : MonoBehaviour
             HealthManagement();
             PlayerSounds();
             CooldownTimers();
+            PowerupTimers();
             WeaponControls();
             MiscControls();
             if (preparingToSwapWeapon)
@@ -628,11 +659,47 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    public void PowerupTimers()
+    {
+        if (isInvulnerable)
+        {
+            invulnerabilityTimer -= Time.deltaTime;
+            if(invulnerabilityTimer <= 0f)
+            {
+                isInvulnerable = false;
+                invulnerabilityTimer = invunlerabilityLength;
+            }
+        }
+        if (hasSpeedBoost)
+        {
+            speedBoostTimer -= Time.deltaTime;
+            if(speedBoostTimer <= 0)
+            {
+                moveSpeedMultiplier -= speedBoostMultiplier;
+                hasSpeedBoost = false;
+                speedBoostTimer = speedBoostDuration;
+            }
+        }
+    }
+
     public void TakeDamage(float damageDealt)
     {
-        currentHealth -= damageDealt;
-        canRegen = false;
-        timeSinceTakenDamage = 0f;
+        if (!isInvulnerable)
+        {
+            currentHealth -= damageDealt;
+            canRegen = false;
+            timeSinceTakenDamage = 0f;
+        }
+        else
+        {
+            int randInt = UnityEngine.Random.Range(0, hitWhileInvulnerable.Length - 1);
+            AudioSource.PlayClipAtPoint(hitWhileInvulnerable[randInt], transform.position);
+        }
+    }
+
+    public void RestoreHealth(int restoreAmount)
+    {
+        currentHealth += restoreAmount;
     }
 
     public void CheckGrounded()

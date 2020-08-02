@@ -146,7 +146,7 @@ public class UIController : MonoBehaviour
     public void UpdateHealthbar()
     {
         //Updates the value of the slider to reflect the amount of health the player has left
-        healthBar.value = playerController.currentHealth / 100;
+        healthBar.value = playerController.GetHealth() / 100;
     }
 
 }

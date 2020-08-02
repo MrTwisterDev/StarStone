@@ -45,8 +45,7 @@ public class PrototypeWeapon : MonoBehaviour
     [Tooltip("The amount of damage the vampire mode does per shot.")]
     public float vampireDamage;
     [Tooltip("The amount of health the player regains upon hittin an enemy with the vampire mode.")]
-    public float vampireDrain;
-    public bool isVampireSingleShot;
+    public int vampireDrain;
     public AudioClip vampireSound;
     [Space]
     #endregion
@@ -180,7 +179,7 @@ public class PrototypeWeapon : MonoBehaviour
             {
                 rayHit.collider.gameObject.GetComponent<enemyBase>().takeDamage(vampireDamage);
                 //Increases the player's health by the value of vampireDrain
-                playerController.currentHealth += vampireDrain;
+                playerController.RestoreHealth(vampireDrain);
             }
             //The weapon's charge is reduced by the set value
             weaponCharge -= vampireChargeUsage;
