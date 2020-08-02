@@ -10,6 +10,9 @@ public class rocketProjectile : MonoBehaviour
     [Range(0,5)]
     public float angularSpeed;
 
+    public float rocketExplosionRadius;
+    public float rocketExplosionDamage;
+
     public GameObject explosionParticles;
     public GameObject targetedPlayer;
     public AudioClip rocketExplosionSound;
@@ -40,6 +43,13 @@ public class rocketProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        foreach (var Object in Physics.OverlapSphere(gameObject.transform.position,rocketExplosionRadius))
+        {
+            if (Object.tag == "Player")
+            {
+                Object.GetComponent<PlayerBase>().TakeDamage(rocketExplosionDamage);
+            }
+        }
         try
         {
            GameObject _pSystem = Instantiate(explosionParticles,transform.position,Quaternion.identity);
@@ -49,5 +59,11 @@ public class rocketProjectile : MonoBehaviour
         {
         Destroy(gameObject);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(gameObject.transform.position, rocketExplosionRadius);
     }
 }
