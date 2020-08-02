@@ -28,7 +28,7 @@ public class CharacterVariantOne : PlayerBase
             newMine.playerScript = this;
             newMine.uiController = gameObject.GetComponent<UIController>();
             currentActiveMines++;
-            newMine.GetComponent<mineScript>().mineNumber = currentActiveMines;
+            Debug.Log(currentActiveMines);
         }
         else
         {

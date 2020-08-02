@@ -14,7 +14,6 @@ public class mineScript : MonoBehaviour
 
     private bool hasChangedMaterial;
     [HideInInspector]
-    public int mineNumber;
     public Color unThrownColour;
     public Color unarmedMineUIColour;
     public Color armedMineUIColour;
@@ -40,7 +39,7 @@ public class mineScript : MonoBehaviour
         //James' Work\\
         meshRenderer = gameObject.GetComponent<MeshRenderer>();
         currentMineTimer = minePrimeTimer;
-        uiController.UpdateMineCounter(mineNumber, unarmedMineUIColour);
+        uiController.UpdateMineCounter(playerScript.currentActiveMines, unarmedMineUIColour);
         //~~~~~~~~~~~~\\
         rigidBody = gameObject.GetComponent<Rigidbody>();
         rigidBody.AddForce(mainCamera.forward * 500f);
@@ -59,7 +58,7 @@ public class mineScript : MonoBehaviour
             {
                 meshRenderer.material = primedMaterial;
                 AudioSource.PlayClipAtPoint(primedClip, transform.position, 0.25f);
-                uiController.UpdateMineCounter(mineNumber, armedMineUIColour);
+                uiController.UpdateMineCounter(playerScript.currentActiveMines, armedMineUIColour);
                 hasChangedMaterial = true;
             }
             //~~~~~~~~~~~~\\
@@ -85,8 +84,8 @@ public class mineScript : MonoBehaviour
 
     private void OnDestroy()
     {
+        uiController.UpdateMineCounter(playerScript.currentActiveMines, unThrownColour);
         playerScript.currentActiveMines--;
-        uiController.UpdateMineCounter(mineNumber, unThrownColour);
     }
 
     private void OnDrawGizmos()

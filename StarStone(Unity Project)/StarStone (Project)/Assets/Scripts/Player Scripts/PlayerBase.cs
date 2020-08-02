@@ -430,7 +430,6 @@ public class PlayerBase : MonoBehaviour
             else if(CanInteract() && interactableObject.collider.gameObject.GetComponent<mineScript>() != null && gameObject.GetComponent<CharacterVariantOne>() != null)
             {
                 Destroy(interactableObject.collider.gameObject);
-                gameObject.GetComponent<CharacterVariantOne>().currentActiveMines--;
             }
         }
         //Left Ability controls
