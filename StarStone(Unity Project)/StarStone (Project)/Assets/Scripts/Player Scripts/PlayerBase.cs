@@ -193,6 +193,7 @@ public class PlayerBase : MonoBehaviour
     private Animator playerAnimator;
     private GameController gameController;
     public UIController uIController;
+    public GameObject pauseMenu;
     private Vector3 standingScale, crouchingScale;
     public Transform playerFeet;
     #endregion
@@ -554,6 +555,7 @@ public class PlayerBase : MonoBehaviour
                 Time.timeScale = 0;
                 //Sets the player's state to paused so they cannot use any controls other than unpausing
                 gameController.PauseAllPlayers();
+                
             }
         }
     }

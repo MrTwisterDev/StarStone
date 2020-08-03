@@ -2197,7 +2197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ee100110c0374743980b40f0ef88755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fullscreenToggle: 0
+  fullscreenToggle: 1
 --- !u!1 &2984802534146746702
 GameObject:
   m_ObjectHideFlags: 0
@@ -5760,6 +5760,7 @@ MonoBehaviour:
   flashlight: {fileID: 6594952469315031074}
   playerNumber: 
   uIController: {fileID: 0}
+  pauseMenu: {fileID: 3738511801133396624}
   playerFeet: {fileID: 6594952468631311746}
   playerState: 0
   maxActiveMines: 0

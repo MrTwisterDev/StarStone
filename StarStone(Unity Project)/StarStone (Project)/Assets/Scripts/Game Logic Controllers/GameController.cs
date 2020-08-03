@@ -430,6 +430,7 @@ public class GameController : MonoBehaviour
         for(int i = 0; i < playerControllers.Length; i++)
         {
             playerControllers[i].playerState = PlayerBase.PlayerStates.pausedState;
+            playerControllers[i].pauseMenu.SetActive(true);
         }
     }
 
@@ -438,6 +439,8 @@ public class GameController : MonoBehaviour
         for(int i = 0; i < playerControllers.Length; i++)
         {
             playerControllers[i].playerState = PlayerBase.PlayerStates.standardState;
+            playerControllers[i].pauseMenu.SetActive(false);
+
         }
     }
 
