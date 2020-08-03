@@ -264,12 +264,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 2915040097671354969, guid: 357b6c536cb82fe4ebd0a7a3370cc88c,
+          type: 3}
+        m_MethodName: UnpauseAllPlayers
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2428,6 +2429,83 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuController: {fileID: 0}
   screenToChange: {fileID: 0}
+--- !u!1 &3483432730510030191
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8010810072606951298}
+  - component: {fileID: 7574425403667840007}
+  - component: {fileID: 331488091661704815}
+  m_Layer: 5
+  m_Name: SwapWeaponAlert
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &8010810072606951298
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3483432730510030191}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8186320746585029288}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0000076294, y: -140}
+  m_SizeDelta: {x: 360.2, y: 67.5}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7574425403667840007
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3483432730510030191}
+  m_CullTransparentMesh: 0
+--- !u!114 &331488091661704815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3483432730510030191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Out of ammo! Swap weapon!
 --- !u!1 &3574172545275932602
 GameObject:
   m_ObjectHideFlags: 0
@@ -2464,6 +2542,83 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &3586315470601463186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8434545197775256608}
+  - component: {fileID: 5455120145103215247}
+  - component: {fileID: 1031793276413995154}
+  m_Layer: 5
+  m_Name: ReloadAlert
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &8434545197775256608
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3586315470601463186}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8186320746585029288}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0000076294, y: -140}
+  m_SizeDelta: {x: 360.2, y: 67.5}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5455120145103215247
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3586315470601463186}
+  m_CullTransparentMesh: 0
+--- !u!114 &1031793276413995154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3586315470601463186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Low on ammo! Reload!
 --- !u!1 &3634771669105339521
 GameObject:
   m_ObjectHideFlags: 0
@@ -2652,7 +2807,7 @@ RectTransform:
   - {fileID: 8421386066679463380}
   - {fileID: 8511975655710541850}
   m_Father: {fileID: 1577536980411765986}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5781,7 +5936,8 @@ MonoBehaviour:
   activeWeaponController: {fileID: 0}
   totalAmmoText: {fileID: 8186320747355060217}
   currentMagazineAmmoText: {fileID: 8186320747211022877}
-  reloadAlert: {fileID: 0}
+  reloadAlert: {fileID: 3586315470601463186}
+  swapWeaponAlert: {fileID: 3483432730510030191}
   prototypeChargeSlider: {fileID: 8186320748287102664}
   prototypeChargePercent: {fileID: 8186320748271164834}
   blinkTimerText: {fileID: 8186320746420756898}
@@ -6927,7 +7083,7 @@ RectTransform:
   - {fileID: 8186320747174988440}
   - {fileID: 8186320747419094219}
   m_Father: {fileID: 1577536980411765986}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7698,6 +7854,8 @@ RectTransform:
   - {fileID: 8186320747211022866}
   - {fileID: 8186320746286724668}
   - {fileID: 8186320747686402443}
+  - {fileID: 8434545197775256608}
+  - {fileID: 8010810072606951298}
   m_Father: {fileID: 8186320746249106510}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8623,8 +8781,8 @@ Transform:
   m_Children:
   - {fileID: 8186320746791360004}
   - {fileID: 6571700591453830255}
-  - {fileID: 5393531407741768415}
   - {fileID: 8186320746249106510}
+  - {fileID: 5393531407741768415}
   - {fileID: 8186320747477924058}
   - {fileID: 8186320747691099696}
   - {fileID: 6115364754751162512}
@@ -8978,7 +9136,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 798.9, y: -135.40001}
+  m_AnchoredPosition: {x: 798.9, y: -135.4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8186320747477924057
