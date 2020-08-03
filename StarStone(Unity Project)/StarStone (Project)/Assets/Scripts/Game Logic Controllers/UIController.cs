@@ -19,6 +19,7 @@ public class UIController : MonoBehaviour
     public Text totalAmmoText;
     public Text currentMagazineAmmoText;
     public GameObject reloadAlert;
+    public GameObject swapWeaponAlert;
     //Prototype Weapon UI Elements
     public Slider prototypeChargeSlider;
     public Text prototypeChargePercent;
@@ -83,7 +84,12 @@ public class UIController : MonoBehaviour
 
     public void ToggleReloadAlert(bool isActive)
     {
+        reloadAlert.SetActive(isActive);
+    }
 
+    public void ToggleChangeWeaponAlert(bool isActive)
+    {
+        swapWeaponAlert.SetActive(isActive);
     }
 
     public void ToggleSpeedLines(bool isActive)

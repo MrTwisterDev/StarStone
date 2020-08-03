@@ -296,6 +296,7 @@ public class PlayerBase : MonoBehaviour
             PowerupTimers();
             WeaponControls();
             MiscControls();
+            AmmoAlerts();
             if (preparingToSwapWeapon)
             {
                 WeaponSwapTimer();
@@ -792,6 +793,30 @@ public class PlayerBase : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    public void AmmoAlerts()
+    {
+        if(activeWeapon.GetComponent<baseWeaponClass>() != null)
+        {
+            baseWeaponClass activeWeaponScript = activeWeapon.GetComponent<baseWeaponClass>();
+            if (activeWeaponScript.currentBullets <= activeWeaponScript.magazineCapacity * 0.25 && activeWeaponScript.totalBullets > 0 && uIController.reloadAlert.activeSelf == false)
+            {
+                uIController.ToggleReloadAlert(true);
+            }
+            else if(activeWeaponScript.currentBullets > activeWeaponScript.magazineCapacity * 0.25 && uIController.reloadAlert.activeSelf == true)
+            {
+                uIController.ToggleReloadAlert(false);
+            }
+            if(activeWeaponScript.totalBullets == 0)
+            {
+                uIController.ToggleChangeWeaponAlert(true);
+            }
+            else if(activeWeaponScript.totalBullets > 0 && uIController.swapWeaponAlert.activeSelf == true)
+            {
+                uIController.ToggleChangeWeaponAlert(false);
+            }
         }
     }
 
