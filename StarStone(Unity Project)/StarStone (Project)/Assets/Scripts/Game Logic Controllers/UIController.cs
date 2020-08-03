@@ -18,6 +18,7 @@ public class UIController : MonoBehaviour
     //Ammo UI Elements
     public Text totalAmmoText;
     public Text currentMagazineAmmoText;
+    public GameObject reloadAlert;
     //Prototype Weapon UI Elements
     public Slider prototypeChargeSlider;
     public Text prototypeChargePercent;
@@ -78,6 +79,11 @@ public class UIController : MonoBehaviour
     public void UpdateBloodAlpha(Color newAlpha)
     {
         bloodOverlay.color = newAlpha;
+    }
+
+    public void ToggleReloadAlert(bool isActive)
+    {
+
     }
 
     public void ToggleSpeedLines(bool isActive)

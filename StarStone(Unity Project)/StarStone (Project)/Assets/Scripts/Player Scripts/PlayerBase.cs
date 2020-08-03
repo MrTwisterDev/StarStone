@@ -839,9 +839,9 @@ public class PlayerBase : MonoBehaviour
         }
         if (bloodOverlayActive)
         {
-            float alphaValue = (255 + 50) - 50 / ((currentHealth + 0) * (maxHealth + 0));
-            if(alphaValue > 255) { alphaValue = 255; }
-            Color newAlpha = new Color(85, 80, 80, alphaValue);
+            float alphaValue = 1 - currentHealth / 100;
+            Color newAlpha = new Color(0.85f, 0.8f, 0.8f, alphaValue);
+            uIController.UpdateBloodAlpha(newAlpha);
         }
         //If the player's health drops past 0, it is set to equal 0
         if(currentHealth < 0)
