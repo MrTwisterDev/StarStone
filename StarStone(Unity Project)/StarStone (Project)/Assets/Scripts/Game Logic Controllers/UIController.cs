@@ -18,6 +18,8 @@ public class UIController : MonoBehaviour
     //Ammo UI Elements
     public Text totalAmmoText;
     public Text currentMagazineAmmoText;
+    public GameObject reloadAlert;
+    public GameObject swapWeaponAlert;
     //Prototype Weapon UI Elements
     public Slider prototypeChargeSlider;
     public Text prototypeChargePercent;
@@ -32,6 +34,7 @@ public class UIController : MonoBehaviour
     public float initialTime;
     //Health UI Elements
     public Slider healthBar;
+    public Image bloodOverlay;
     //Starstone Charge Slider
     public Slider speedCharge;
     public Slider healthCharge;
@@ -42,9 +45,6 @@ public class UIController : MonoBehaviour
     {
         playerController = gameObject.GetComponent<PlayerBase>();
         GetChangedWeapon();
-
-
-      
     }
 
     public void GetChangedWeapon()
@@ -70,6 +70,26 @@ public class UIController : MonoBehaviour
         {
             blinkTimerText.text = playerController.leftAbilityCooldownRounded.ToString();
         }
+    }
+
+    public void ActivateBloodOverlay(bool isActive)
+    {
+        bloodOverlay.gameObject.SetActive(isActive);
+    }
+
+    public void UpdateBloodAlpha(Color newAlpha)
+    {
+        bloodOverlay.color = newAlpha;
+    }
+
+    public void ToggleReloadAlert(bool isActive)
+    {
+        reloadAlert.SetActive(isActive);
+    }
+
+    public void ToggleChangeWeaponAlert(bool isActive)
+    {
+        swapWeaponAlert.SetActive(isActive);
     }
 
     public void ToggleSpeedLines(bool isActive)

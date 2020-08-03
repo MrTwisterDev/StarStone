@@ -5121,18 +5121,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 488555534}
   m_CullTransparentMesh: 0
---- !u!114 &495455079 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
-    type: 3}
-  m_PrefabInstance: {fileID: 580761242}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7814467601560a4285f808f4ffa6b9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &495834118
 GameObject:
   m_ObjectHideFlags: 0
@@ -5764,8 +5752,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 495455079}
-        m_MethodName: ToggleCoop
+      - m_Target: {fileID: 1670212841}
+        m_MethodName: ToggleCoOp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13352,8 +13340,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 495455079}
-        m_MethodName: ToggleCoop
+      - m_Target: {fileID: 1670212841}
+        m_MethodName: ToggleCoOp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

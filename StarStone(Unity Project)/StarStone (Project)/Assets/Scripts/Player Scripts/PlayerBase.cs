@@ -86,6 +86,13 @@ public class PlayerBase : MonoBehaviour
     public bool canRegen;
     [Tooltip("A boolean determining whether or not the player's health can regeneate to the maximum health value.")]
     public bool canRegenToMax;
+    [Tooltip("The amount of time it takes to revive this player.")]
+    public float reviveTime;
+    [HideInInspector]
+    public float reviveTimer;
+    [Tooltip("The amount of health another player will regain when this player revives them.")]
+    public float reviveHealthIncrease;
+    public bool bloodOverlayActive;
     [Space]
     #endregion
     //Camera Controls
@@ -186,6 +193,7 @@ public class PlayerBase : MonoBehaviour
     private Animator playerAnimator;
     private GameController gameController;
     public UIController uIController;
+    public GameObject pauseMenu;
     private Vector3 standingScale, crouchingScale;
     public Transform playerFeet;
     #endregion
@@ -245,6 +253,8 @@ public class PlayerBase : MonoBehaviour
         if (maxHealth == 0) { maxHealth = 100f; }
         if (regenRate == 0) { regenRate = 5f; }
         if (regenWaitAfterDamage == 0) { regenWaitAfterDamage = 5f; }
+        if (reviveTime == 0) { reviveTime = 5f; }
+        if (reviveHealthIncrease == 0) { reviveHealthIncrease = 25f; }
         if (prototypeSwitchTimeout == 0) { prototypeSwitchTimeout = 0.25f; }
         if (moveSpeed == 0) { moveSpeed = 4f; }
         if (moveSpeedMultiplier == 0) { moveSpeedMultiplier = 1f; }
@@ -287,6 +297,7 @@ public class PlayerBase : MonoBehaviour
             PowerupTimers();
             WeaponControls();
             MiscControls();
+            AmmoAlerts();
             if (preparingToSwapWeapon)
             {
                 WeaponSwapTimer();
@@ -458,18 +469,48 @@ public class PlayerBase : MonoBehaviour
         //Interacting Controls
         if(Input.GetButtonDown(playerNumber + "Interact"))
         {
-            //Checks to see what script is attached to the object being interacted with and runs the necessary method
-            if(CanInteract() && interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>() != null)
+            if (CanInteract())
             {
-                interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>().ActivateEffect();
+                //Checks to see what script is attached to the object being interacted with and runs the necessary method
+                if (interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>() != null)
+                {
+                    //Activates the effect of the Starstone the player has interacted with, buffing all of the enemies in the scene and those that spawn later on
+                    interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>().ActivateEffect();
+                }
+                else if (interactableObject.collider.gameObject.GetComponentInParent<StarStoneBase>() != null)
+                {
+                    //Activates the effect of the Starstone the player has interacted with, buffing all of the enemies in the scene and those that spawn later on
+                    interactableObject.collider.gameObject.GetComponentInParent<StarStoneBase>().ActivateStarStone();
+                }
+                else if (interactableObject.collider.gameObject.GetComponent<mineScript>() != null && gameObject.GetComponent<CharacterVariantOne>() != null)
+                {
+                    //Destroys the mine being interacted with so that the player can throw another down elsewhere
+                    Destroy(interactableObject.collider.gameObject);
+                }
             }
-            else if(CanInteract() && interactableObject.collider.gameObject.GetComponentInParent<StarStoneBase>() != null)
+        }
+        if(Input.GetButton(playerNumber + "Interact"))
+        {
+            if (CanInteract())
             {
-                interactableObject.collider.gameObject.GetComponentInParent<StarStoneBase>().ActivateStarStone();
-            }
-            else if(CanInteract() && interactableObject.collider.gameObject.GetComponent<mineScript>() != null && gameObject.GetComponent<CharacterVariantOne>() != null)
-            {
-                Destroy(interactableObject.collider.gameObject);
+                //If the player is trying to interact with another player and that player is currently dead, they can be revived
+                if(interactableObject.collider.gameObject.GetComponentInParent<PlayerBase>() != null)
+                {
+                    PlayerBase player = interactableObject.collider.gameObject.GetComponentInParent<PlayerBase>();
+                    if(player.playerState == PlayerStates.deadState)
+                    {
+                        //Increases the value of the reviveTimer by the amount of time passed since the last frame
+                        player.reviveTimer += Time.deltaTime;
+                        //If the revive timer reaches the value of reviveTime, the player has health restored and is set to the standard state
+                        //The value of the reviveTimer is also reset to 0 so it can be used again
+                        if(player.reviveTimer >= player.reviveTime)
+                        {
+                            player.RestoreHealth(reviveHealthIncrease);
+                            player.playerState = PlayerStates.standardState;
+                            player.reviveTimer = 0f;
+                        }
+                    }
+                }
             }
         }
         //Left Ability controls
@@ -515,6 +556,7 @@ public class PlayerBase : MonoBehaviour
                 Time.timeScale = 0;
                 //Sets the player's state to paused so they cannot use any controls other than unpausing
                 gameController.PauseAllPlayers();
+                
             }
         }
     }
@@ -697,7 +739,7 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-    public void RestoreHealth(int restoreAmount)
+    public void RestoreHealth(float restoreAmount)
     {
         currentHealth += restoreAmount;
     }
@@ -744,8 +786,8 @@ public class PlayerBase : MonoBehaviour
 
     public bool CanInteract()
     {
-        //Fires out a raycast from the camera. If it collides with something on the interactive layer, it returns true 
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out interactableObject, 2f, interactiveLayer))
+        //Fires out a raycast from the camera. If it collides with something, it returns true 
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out interactableObject, 2f))
         {
             return true;
         }
@@ -753,6 +795,30 @@ public class PlayerBase : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    public void AmmoAlerts()
+    {
+        if(activeWeapon.GetComponent<baseWeaponClass>() != null)
+        {
+            baseWeaponClass activeWeaponScript = activeWeapon.GetComponent<baseWeaponClass>();
+            if (activeWeaponScript.currentBullets <= activeWeaponScript.magazineCapacity * 0.25 && activeWeaponScript.totalBullets > 0 && uIController.reloadAlert.activeSelf == false)
+            {
+                uIController.ToggleReloadAlert(true);
+            }
+            else if(activeWeaponScript.currentBullets > activeWeaponScript.magazineCapacity * 0.25 && uIController.reloadAlert.activeSelf == true)
+            {
+                uIController.ToggleReloadAlert(false);
+            }
+            if(activeWeaponScript.totalBullets == 0)
+            {
+                uIController.ToggleChangeWeaponAlert(true);
+            }
+            else if(activeWeaponScript.totalBullets > 0 && uIController.swapWeaponAlert.activeSelf == true)
+            {
+                uIController.ToggleChangeWeaponAlert(false);
+            }
         }
     }
 
@@ -787,6 +853,22 @@ public class PlayerBase : MonoBehaviour
             {
                 currentHealth = healthRegenCutoff;
             }
+        }
+        if(currentHealth <= 50 && !bloodOverlayActive)
+        {
+            bloodOverlayActive = true;
+            uIController.ActivateBloodOverlay(true);
+        }
+        else if(currentHealth > 50 && bloodOverlayActive)
+        {
+            bloodOverlayActive = false;
+            uIController.ActivateBloodOverlay(false);
+        }
+        if (bloodOverlayActive)
+        {
+            float alphaValue = 1 - currentHealth / 100;
+            Color newAlpha = new Color(0.85f, 0.8f, 0.8f, alphaValue);
+            uIController.UpdateBloodAlpha(newAlpha);
         }
         //If the player's health drops past 0, it is set to equal 0
         if(currentHealth < 0)

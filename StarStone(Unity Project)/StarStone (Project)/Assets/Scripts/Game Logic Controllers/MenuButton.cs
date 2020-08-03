@@ -15,6 +15,11 @@ public class MenuButton : MonoBehaviour
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
     }
 
+    public void ToggleCoOp()
+    {
+        gameController.isCoOp = !gameController.isCoOp;
+    }
+
     public void LoadNextLevel()
     {
         levelManager.LoadNextLevel();

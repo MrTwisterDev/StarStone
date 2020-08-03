@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class menuSwitcher : MonoBehaviour
 {
+    public bool firstNotActive;
     [Header("Screens, the first is set active")]
     public GameObject[] menuScreens;
-
+   
 
     // Start is called before the first frame update
     void Start()
     {
-        menuScreens[0].SetActive(true);
         foreach (var screen in menuScreens)
         {
             screen.SetActive(false);
         }
-        menuScreens[0].SetActive(true);
+        if (!firstNotActive)
+        {
+            menuScreens[0].SetActive(true);
+        }
     }
 
     // Update is called once per frame
