@@ -32,6 +32,7 @@ public class UIController : MonoBehaviour
     public float initialTime;
     //Health UI Elements
     public Slider healthBar;
+    public Image bloodOverlay;
     //Starstone Charge Slider
     public Slider speedCharge;
     public Slider healthCharge;
@@ -42,9 +43,6 @@ public class UIController : MonoBehaviour
     {
         playerController = gameObject.GetComponent<PlayerBase>();
         GetChangedWeapon();
-
-
-      
     }
 
     public void GetChangedWeapon()
@@ -70,6 +68,16 @@ public class UIController : MonoBehaviour
         {
             blinkTimerText.text = playerController.leftAbilityCooldownRounded.ToString();
         }
+    }
+
+    public void ActivateBloodOverlay(bool isActive)
+    {
+        bloodOverlay.gameObject.SetActive(isActive);
+    }
+
+    public void UpdateBloodAlpha(Color newAlpha)
+    {
+        bloodOverlay.color = newAlpha;
     }
 
     public void ToggleSpeedLines(bool isActive)

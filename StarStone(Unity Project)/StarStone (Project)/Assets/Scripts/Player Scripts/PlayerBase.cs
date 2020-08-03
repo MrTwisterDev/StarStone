@@ -92,6 +92,7 @@ public class PlayerBase : MonoBehaviour
     public float reviveTimer;
     [Tooltip("The amount of health another player will regain when this player revives them.")]
     public float reviveHealthIncrease;
+    public bool bloodOverlayActive;
     [Space]
     #endregion
     //Camera Controls
@@ -825,6 +826,22 @@ public class PlayerBase : MonoBehaviour
             {
                 currentHealth = healthRegenCutoff;
             }
+        }
+        if(currentHealth <= 50 && !bloodOverlayActive)
+        {
+            bloodOverlayActive = true;
+            uIController.ActivateBloodOverlay(true);
+        }
+        else if(currentHealth > 50 && bloodOverlayActive)
+        {
+            bloodOverlayActive = false;
+            uIController.ActivateBloodOverlay(false);
+        }
+        if (bloodOverlayActive)
+        {
+            float alphaValue = (255 + 50) - 50 / ((currentHealth + 0) * (maxHealth + 0));
+            if(alphaValue > 255) { alphaValue = 255; }
+            Color newAlpha = new Color(85, 80, 80, alphaValue);
         }
         //If the player's health drops past 0, it is set to equal 0
         if(currentHealth < 0)
