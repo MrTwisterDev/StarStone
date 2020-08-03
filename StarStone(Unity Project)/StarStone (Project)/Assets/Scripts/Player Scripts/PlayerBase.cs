@@ -72,7 +72,8 @@ public class PlayerBase : MonoBehaviour
     [Tooltip("The maximum amount of health the player can have.")]
     public float maxHealth;
     [Tooltip("The current amount of health the player has.")]
-    public float currentHealth;
+    [SerializeField]
+    private float currentHealth;
     [Tooltip("The amount of health that, after dropping below, the player's health will not regenerate past.")]
     public float healthRegenCutoff;
     [Tooltip("The rate at which the player's health regenerates.")]
@@ -85,6 +86,13 @@ public class PlayerBase : MonoBehaviour
     public bool canRegen;
     [Tooltip("A boolean determining whether or not the player's health can regeneate to the maximum health value.")]
     public bool canRegenToMax;
+    [Tooltip("The amount of time it takes to revive this player.")]
+    public float reviveTime;
+    [HideInInspector]
+    public float reviveTimer;
+    [Tooltip("The amount of health another player will regain when this player revives them.")]
+    public float reviveHealthIncrease;
+    public bool bloodOverlayActive;
     [Space]
     #endregion
     //Camera Controls
@@ -139,6 +147,23 @@ public class PlayerBase : MonoBehaviour
     public GameObject rightAbilityPrefab;
     [Space]
     #endregion
+    //Powerup Variables
+    #region
+    [Header("Speedboost Stats")]
+    [Tooltip("A boolean determining whether or not the player is currently under the effect of a speedboost.")]
+    public bool hasSpeedBoost;
+    private bool hasHadSpeedBoosted;
+    [Tooltip("The value added to the movement multiplier while the player has gained the speedboost powerup.")]
+    public float speedBoostMultiplier;
+    public float speedBoostDuration;
+    public float speedBoostTimer;
+    [Header("Invulnerability Stats")]
+    [Tooltip("A boolean determining whether or not the player is currently invulnerable.")]
+    public bool isInvulnerable;
+    [Tooltip("The length of time for which the player is invulnerable after picking up a power-up.")]
+    public float invunlerabilityLength;
+    private float invulnerabilityTimer;
+    #endregion
     //Sounds
     #region
     [Header("Sounds")]
@@ -152,6 +177,8 @@ public class PlayerBase : MonoBehaviour
     public AudioClip[] landingSounds;
     [Tooltip("The sound that plays when an action has failed.")]
     public AudioClip actionFailed;
+    [Tooltip("The sound played when the player is attacked while invulnerable.")]
+    public AudioClip[] hitWhileInvulnerable;
     [Space]
     #endregion
     //Miscellaneous Variables
@@ -225,6 +252,8 @@ public class PlayerBase : MonoBehaviour
         if (maxHealth == 0) { maxHealth = 100f; }
         if (regenRate == 0) { regenRate = 5f; }
         if (regenWaitAfterDamage == 0) { regenWaitAfterDamage = 5f; }
+        if (reviveTime == 0) { reviveTime = 5f; }
+        if (reviveHealthIncrease == 0) { reviveHealthIncrease = 25f; }
         if (prototypeSwitchTimeout == 0) { prototypeSwitchTimeout = 0.25f; }
         if (moveSpeed == 0) { moveSpeed = 4f; }
         if (moveSpeedMultiplier == 0) { moveSpeedMultiplier = 1f; }
@@ -234,8 +263,18 @@ public class PlayerBase : MonoBehaviour
         if (underwaterSpeedMultiplier == 0) { underwaterSpeedMultiplier = -0.2f; }
         if (mouseSensitivity == 0) { mouseSensitivity = 50f; }
         if (leftAbilityCooldown == 0) { leftAbilityCooldown = 5f; }
+        if (invunlerabilityLength == 0) { invunlerabilityLength = 15f; }
+        invulnerabilityTimer = invunlerabilityLength;
+        if (speedBoostMultiplier == 0) { speedBoostMultiplier = 5f; }
+        if (speedBoostDuration == 0) { speedBoostDuration = 15f; }
+        speedBoostTimer = speedBoostDuration;
         if (string.IsNullOrEmpty(playerNumber)) { playerNumber = "PlayerOne"; }
         hasLanded = true;
+    }
+
+    public float GetHealth()
+    {
+        return currentHealth;
     }
 
     // Update is called once per frame
@@ -254,6 +293,7 @@ public class PlayerBase : MonoBehaviour
             HealthManagement();
             PlayerSounds();
             CooldownTimers();
+            PowerupTimers();
             WeaponControls();
             MiscControls();
             if (preparingToSwapWeapon)
@@ -427,18 +467,48 @@ public class PlayerBase : MonoBehaviour
         //Interacting Controls
         if(Input.GetButtonDown(playerNumber + "Interact"))
         {
-            //Checks to see what script is attached to the object being interacted with and runs the necessary method
-            if(CanInteract() && interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>() != null)
+            if (CanInteract())
             {
-                interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>().ActivateEffect();
+                //Checks to see what script is attached to the object being interacted with and runs the necessary method
+                if (interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>() != null)
+                {
+                    //Activates the effect of the Starstone the player has interacted with, buffing all of the enemies in the scene and those that spawn later on
+                    interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>().ActivateEffect();
+                }
+                else if (interactableObject.collider.gameObject.GetComponentInParent<StarStoneBase>() != null)
+                {
+                    //Activates the effect of the Starstone the player has interacted with, buffing all of the enemies in the scene and those that spawn later on
+                    interactableObject.collider.gameObject.GetComponentInParent<StarStoneBase>().ActivateStarStone();
+                }
+                else if (interactableObject.collider.gameObject.GetComponent<mineScript>() != null && gameObject.GetComponent<CharacterVariantOne>() != null)
+                {
+                    //Destroys the mine being interacted with so that the player can throw another down elsewhere
+                    Destroy(interactableObject.collider.gameObject);
+                }
             }
-            else if(CanInteract() && interactableObject.collider.gameObject.GetComponentInParent<StarStoneBase>() != null)
+        }
+        if(Input.GetButton(playerNumber + "Interact"))
+        {
+            if (CanInteract())
             {
-                interactableObject.collider.gameObject.GetComponentInParent<StarStoneBase>().ActivateStarStone();
-            }
-            else if(CanInteract() && interactableObject.collider.gameObject.GetComponent<mineScript>() != null && gameObject.GetComponent<CharacterVariantOne>() != null)
-            {
-                Destroy(interactableObject.collider.gameObject);
+                //If the player is trying to interact with another player and that player is currently dead, they can be revived
+                if(interactableObject.collider.gameObject.GetComponentInParent<PlayerBase>() != null)
+                {
+                    PlayerBase player = interactableObject.collider.gameObject.GetComponentInParent<PlayerBase>();
+                    if(player.playerState == PlayerStates.deadState)
+                    {
+                        //Increases the value of the reviveTimer by the amount of time passed since the last frame
+                        player.reviveTimer += Time.deltaTime;
+                        //If the revive timer reaches the value of reviveTime, the player has health restored and is set to the standard state
+                        //The value of the reviveTimer is also reset to 0 so it can be used again
+                        if(player.reviveTimer >= player.reviveTime)
+                        {
+                            player.RestoreHealth(reviveHealthIncrease);
+                            player.playerState = PlayerStates.standardState;
+                            player.reviveTimer = 0f;
+                        }
+                    }
+                }
             }
         }
         //Left Ability controls
@@ -628,11 +698,47 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    public void PowerupTimers()
+    {
+        if (isInvulnerable)
+        {
+            invulnerabilityTimer -= Time.deltaTime;
+            if(invulnerabilityTimer <= 0f)
+            {
+                isInvulnerable = false;
+                invulnerabilityTimer = invunlerabilityLength;
+            }
+        }
+        if (hasSpeedBoost)
+        {
+            speedBoostTimer -= Time.deltaTime;
+            if(speedBoostTimer <= 0)
+            {
+                moveSpeedMultiplier -= speedBoostMultiplier;
+                hasSpeedBoost = false;
+                speedBoostTimer = speedBoostDuration;
+            }
+        }
+    }
+
     public void TakeDamage(float damageDealt)
     {
-        currentHealth -= damageDealt;
-        canRegen = false;
-        timeSinceTakenDamage = 0f;
+        if (!isInvulnerable)
+        {
+            currentHealth -= damageDealt;
+            canRegen = false;
+            timeSinceTakenDamage = 0f;
+        }
+        else
+        {
+            int randInt = UnityEngine.Random.Range(0, hitWhileInvulnerable.Length - 1);
+            AudioSource.PlayClipAtPoint(hitWhileInvulnerable[randInt], transform.position);
+        }
+    }
+
+    public void RestoreHealth(float restoreAmount)
+    {
+        currentHealth += restoreAmount;
     }
 
     public void CheckGrounded()
@@ -677,8 +783,8 @@ public class PlayerBase : MonoBehaviour
 
     public bool CanInteract()
     {
-        //Fires out a raycast from the camera. If it collides with something on the interactive layer, it returns true 
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out interactableObject, 2f, interactiveLayer))
+        //Fires out a raycast from the camera. If it collides with something, it returns true 
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out interactableObject, 2f))
         {
             return true;
         }
@@ -720,6 +826,22 @@ public class PlayerBase : MonoBehaviour
             {
                 currentHealth = healthRegenCutoff;
             }
+        }
+        if(currentHealth <= 50 && !bloodOverlayActive)
+        {
+            bloodOverlayActive = true;
+            uIController.ActivateBloodOverlay(true);
+        }
+        else if(currentHealth > 50 && bloodOverlayActive)
+        {
+            bloodOverlayActive = false;
+            uIController.ActivateBloodOverlay(false);
+        }
+        if (bloodOverlayActive)
+        {
+            float alphaValue = (255 + 50) - 50 / ((currentHealth + 0) * (maxHealth + 0));
+            if(alphaValue > 255) { alphaValue = 255; }
+            Color newAlpha = new Color(85, 80, 80, alphaValue);
         }
         //If the player's health drops past 0, it is set to equal 0
         if(currentHealth < 0)

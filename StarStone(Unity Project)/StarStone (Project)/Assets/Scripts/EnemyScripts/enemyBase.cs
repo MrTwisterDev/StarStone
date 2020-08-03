@@ -12,8 +12,14 @@ public class enemyBase : MonoBehaviour
     public GameObject soulParticles;
     public GameObject healthPack;
     public GameObject ammoBox;
+    public GameObject invulnerabilityDrop;
+    public GameObject speedBoostDrop;
+    [Tooltip("The chance of the enemy dropping anything at all when they die.")]
+    public int chanceToDrop;
     [Tooltip("The % chance that an enemy will drop a health pack or ammo box when they die.")]
     public int chanceToDropPickup;
+    [Tooltip("The chance that the enemy will drop a powerup on death.")]
+    public int chanceToDropPowerUp;
     //~~~~~~~~~~~~~~\\
     public GameObject projectileToFire;
     public GameObject nearestPlayer;
@@ -163,18 +169,26 @@ public class enemyBase : MonoBehaviour
     {
         //Generates a random number between 1 and 100
        int randInt = Random.Range(1, 100);
-        //There is a 25% chance of the 
-        if(randInt <= chanceToDropPickup)
+        //If the random number is less than the value of the chance to drop, a drop is spawned
+        if(randInt <= chanceToDrop)
         {
             //If the value generated is even, a healthpack is dropped
-            if(randInt % 2 == 0)
+            if(randInt <= chanceToDropPickup && randInt > chanceToDropPowerUp && randInt % 2 == 0)
             {
                 Instantiate(healthPack, transform.position, Quaternion.identity);
             }
             //if it is odd, an ammo box is dropped
-            else
+            else if(randInt <= chanceToDropPickup && randInt > chanceToDropPowerUp && randInt % 2 != 0)
             {
                 Instantiate(ammoBox, transform.position, Quaternion.identity);
+            }
+            else if(randInt <= chanceToDropPowerUp && randInt % 2 == 0)
+            {
+                Instantiate(invulnerabilityDrop, transform.position, Quaternion.identity);
+            }
+            else if(randInt <= chanceToDropPowerUp && randInt % 2 != 0)
+            {
+                Instantiate(speedBoostDrop, transform.position, Quaternion.identity);
             }
         }
     }

@@ -19,13 +19,11 @@ public class scr_Collectable : MonoBehaviour
         Destroy(gameObject);
     }
 
-
-
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
-            pickupCollectable(collision.gameObject);
+            pickupCollectable(other.gameObject);
         }
     }
 }

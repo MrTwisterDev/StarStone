@@ -251,24 +251,12 @@ public class GameController : MonoBehaviour
         intermissionTimerValue = intermissionLength;
         //Co-op mode is turned off by default
         isCoOp = false;
-        if (isCoOp) 
-        { 
-            playerControllers = new PlayerBase[2];
-            uIController = new UIController[2];
-        }
-        else
-        { 
-            playerControllers = new PlayerBase[1];
-            uIController = new UIController[1];
-        }
         starstoneArray = new GameObject[4];
 
         //Thomas' Work//
         activeSmallEnemies = new List<GameObject>();
         activeMediumEnemies = new List<GameObject>();
         activeLargeEnemies = new List<GameObject>();
-
-
         //End of work//
     }
 
@@ -332,6 +320,16 @@ public class GameController : MonoBehaviour
         //If the level loaded is the playable level, all of the necessary variables are assigned depending on the currently selected difficulty
         if(level == 1)
         {
+            if (isCoOp)
+            {
+                playerControllers = new PlayerBase[2];
+                uIController = new UIController[2];
+            }
+            else
+            {
+                playerControllers = new PlayerBase[1];
+                uIController = new UIController[1];
+            }
             InstantiatePlayers();
             spawnerParent = GameObject.Find("EnemySpawners").GetComponent<Transform>();
             playerOneCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
@@ -415,9 +413,7 @@ public class GameController : MonoBehaviour
         else if(level == 0)
         {
             ResetWaveData();
-        }
-        else
-        {
+            isCoOp = false;
             Cursor.lockState = CursorLockMode.None;     //Unlocks the cursor so the player can select menu options
             isInGame = false;                           //Prevents game timers and enemy spawning methods from being executed
             timerActive = false;
