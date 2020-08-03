@@ -143,9 +143,9 @@ MonoBehaviour:
   WeaponName: Rifle
   weaponDamage: 7
   damageFalloff: 0
-  totalBullets: 500
+  totalBullets: 72
   magazineCapacity: 12
-  currentBullets: 32
+  currentBullets: 12
   canShoot: 1
   isShooting: 0
   canADS: 1
@@ -176,6 +176,7 @@ MonoBehaviour:
     type: 3}
   InstancedCrossHair: {fileID: 0}
   crosshairScript: {fileID: 0}
+  crosshairMultiplier: 0
 --- !u!95 &-3259342573864531404
 Animator:
   serializedVersion: 3
