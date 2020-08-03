@@ -3948,7 +3948,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5355848415991071618}
   m_LocalRotation: {x: 0.7071068, y: 0.000000029802322, z: -0.000000029802322, w: 0.7071068}
-  m_LocalPosition: {x: -0.43199974, y: 0.23000002, z: 0.38100183}
+  m_LocalPosition: {x: -0.719, y: 0.125, z: 0.413}
   m_LocalScale: {x: 0.15000002, y: 0.25, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1189484565874491692}
@@ -4265,7 +4265,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5355848417041313892}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0.4999995}
+  m_LocalPosition: {x: 0, y: -0.08, z: 0.4999995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1189484565874491692}
@@ -4503,6 +4503,9 @@ MonoBehaviour:
   regenWaitAfterDamage: 0
   canRegen: 0
   canRegenToMax: 0
+  reviveTime: 5
+  reviveTimer: 0
+  reviveHealthIncrease: 25
   cameraTransform: {fileID: 5355848416481009272}
   mouseSensitivity: 0
   xRotation: 0
@@ -4522,6 +4525,12 @@ MonoBehaviour:
   rightAbilityCooldownRounded: 0
   leftAbilityPrefab: {fileID: 0}
   rightAbilityPrefab: {fileID: 0}
+  hasSpeedBoost: 0
+  speedBoostMultiplier: 0
+  speedBoostDuration: 0
+  speedBoostTimer: 0
+  isInvulnerable: 0
+  invunlerabilityLength: 0
   walkingSound: {fileID: 5355848417490344547}
   flashlightSound: {fileID: 8300000, guid: 5739edf863abab34890c09c7b5bc6bf6, type: 3}
   meleeSound: {fileID: 8300000, guid: 23cf5400c96ff26488454507952983bf, type: 3}
@@ -4532,6 +4541,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8a64f0b56f282f54495c79e58caa5820, type: 3}
   - {fileID: 8300000, guid: abc1b9e007689fc40930763af5d4f639, type: 3}
   actionFailed: {fileID: 8300000, guid: 6d3950b1b366f58409e7e0028a0d92dd, type: 3}
+  hitWhileInvulnerable: []
   flashlight: {fileID: 5355848417578942282}
   playerNumber: 
   uIController: {fileID: 0}

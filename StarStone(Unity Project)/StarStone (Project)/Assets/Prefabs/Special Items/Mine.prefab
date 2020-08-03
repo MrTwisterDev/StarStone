@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1943939131926532235}
   - component: {fileID: 3180357636567360000}
   - component: {fileID: -7142099952280441258}
-  m_Layer: 14
+  m_Layer: 9
   m_Name: Mine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,6 @@ MonoBehaviour:
   mineExplosionDistance: 1
   mineDamage: 10
   minePrimeTimer: 3
-  mineNumber: 0
   unThrownColour: {r: 0.9528302, g: 0.92136884, b: 0.92136884, a: 1}
   unarmedMineUIColour: {r: 0.028924897, g: 0.4716981, b: 0.034975585, a: 1}
   armedMineUIColour: {r: 0.6886792, g: 0.34814095, b: 0.04223035, a: 1}
