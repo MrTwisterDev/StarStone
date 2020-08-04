@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class dynamicCrosshair : MonoBehaviour
 {
-
+    
     private GameObject[] crossHairParts = new GameObject[4];
     private Vector3[] crossHairOrigins = new Vector3[4];
     public float crossHairChangeSpeed;
