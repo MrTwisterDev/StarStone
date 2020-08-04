@@ -7,13 +7,19 @@ using TMPro;
 using System;
 
 public class uiCutscene : MonoBehaviour
-{
-    public Image imageCanvas; //Canvas to draw cutSceneImages to
-    public TextMeshProUGUI cutsceneTextObj; //Text to draw the cutscene text to
+{    
+    [Header ("Cutscene Creator")]
+    public cutScene_Scene[] scenes = new cutScene_Scene[0];
 
+    [Header ("What scene and text is the cutscene currently displaying")]
     public int stringIndex = 0;
     public int sceneIndex = 0;
 
+    [Header ("Cutscene gameobjects")]
+    public Image imageCanvas; //Canvas to draw cutSceneImages to
+    public TextMeshProUGUI cutsceneTextObj; //Text to draw the cutscene text to
+
+    [Header ("Cutscene events")]
     public UnityEvent onCutsceneFinish;
 
 
@@ -25,7 +31,6 @@ public class uiCutscene : MonoBehaviour
     }
 
 
-    public cutScene_Scene[] scenes = new cutScene_Scene[0];
 
 
     // Start is called before the first frame update
