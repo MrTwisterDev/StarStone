@@ -68,8 +68,8 @@ MonoBehaviour:
   weaponDamage: 3
   damageFalloff: 0
   totalBullets: 30
-  magazineCapacity: 2
-  currentBullets: 2
+  magazineCapacity: 6
+  currentBullets: 6
   canShoot: 0
   isShooting: 0
   canADS: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
   gunAccuracyRecovery: 2
   spreadShotLock: 0
   projectileFired: {fileID: 0}
-  bulletsInSpread: 16
+  bulletsInSpread: 12
   muzzleFlashChild: {fileID: 5089506431828387958}
   crossHair: {fileID: 1525204395773698044, guid: 8079516317dd1ca4ab8b9d70679dc4ca,
     type: 3}
