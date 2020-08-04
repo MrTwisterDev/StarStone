@@ -1077,9 +1077,9 @@ MonoBehaviour:
   WeaponName: Rifle
   weaponDamage: 12
   damageFalloff: 0
-  totalBullets: 500
-  magazineCapacity: 32
-  currentBullets: 32
+  totalBullets: 72
+  magazineCapacity: 12
+  currentBullets: 12
   canShoot: 1
   isShooting: 0
   canADS: 1

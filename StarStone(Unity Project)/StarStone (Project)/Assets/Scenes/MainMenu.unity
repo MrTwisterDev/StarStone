@@ -8264,6 +8264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a65327d67bdc64d8dc77c4916fa91b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstNotActive: 0
   menuScreens:
   - {fileID: 686108453}
   - {fileID: 50227521}
@@ -19775,6 +19776,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MusicManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1638820603467563939, guid: 06d106bc8a12c0c428b562945d38ad22,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1638820603467563964, guid: 06d106bc8a12c0c428b562945d38ad22,
         type: 3}
