@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class MenuButton : MonoBehaviour
 {
 
-    private LevelManager levelManager;
-    private GameController gameController;
+    public LevelManager levelManager;
+    public GameController gameController;
 
     // Start is called before the first frame update
     void Start()

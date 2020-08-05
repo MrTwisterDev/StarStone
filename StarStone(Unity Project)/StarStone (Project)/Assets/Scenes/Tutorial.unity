@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -20019,6 +20019,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2133736626}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2032887149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2032887150}
+  m_Layer: 10
+  m_Name: HolsterPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2032887150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032887149}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.4, y: -0.22, z: 0.38}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6594952469970030784}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2036466329 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1211422973146384520, guid: b2db5a079ab024441a98b2b2299b0fa6,
@@ -21179,6 +21209,7 @@ MonoBehaviour:
     the spacebar to hide this text.
   tutorialText: {fileID: 785114415}
   textIndex: 0
+  tutorialTextUpdateDelayLength: 0
   firstSectionDoors:
   - {fileID: 1912448412}
   - {fileID: 1165318789}
@@ -22075,6 +22106,21 @@ PrefabInstance:
       propertyPath: crosshairMultiplier
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
+        type: 3}
+      propertyPath: playerObject
+      value: 
+      objectReference: {fileID: 6594952468966134995}
+    - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
+        type: 3}
+      propertyPath: holsterLocation
+      value: 
+      objectReference: {fileID: 2032887150}
+    - target: {fileID: -3736052613932842741, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
+        type: 3}
+      propertyPath: aimLocation
+      value: 
+      objectReference: {fileID: 6594952468784987869}
     - target: {fileID: 801569791777248055, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -24617,13 +24663,15 @@ MonoBehaviour:
   gunCameraRecoil: 1
   gunAccuracyRecoil: 25
   gunAccuracyRecovery: 4.25
+  gunAimSpeed: 0
   spreadShotLock: 0
   projectileFired: {fileID: 0}
   bulletsInSpread: 1
-  aimLocation: {fileID: 0}
-  playerObject: {fileID: 0}
+  aimLocation: {fileID: 6594952468784987869}
+  holsterLocation: {fileID: 2032887150}
+  playerObject: {fileID: 6594952468966134995}
   muzzleFlashChild: {fileID: 1642937079845136091}
-  crossHair: {fileID: 1525204395773698044, guid: 8079516317dd1ca4ab8b9d70679dc4ca,
+  crossHair: {fileID: 6560627645290821212, guid: 2ab750c2b1187f843b04ad821c8d5d34,
     type: 3}
   InstancedCrossHair: {fileID: 0}
   crosshairScript: {fileID: 0}
@@ -26408,11 +26456,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6594952468784987868}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.087, z: 0.5000033}
+  m_LocalPosition: {x: 0, y: -0.05, z: 0.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 7350087217110717233}
-  m_RootOrder: 2
+  m_Father: {fileID: 6594952469970030784}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6594952468966134995
 GameObject:
@@ -26745,7 +26793,7 @@ Transform:
   m_LocalScale: {x: 0.15000002, y: 0.25, z: 0.15}
   m_Children: []
   m_Father: {fileID: 7350087217110717233}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &6594952469897840056
 GameObject:
@@ -26779,7 +26827,7 @@ Transform:
   - {fileID: 2166691772529372401}
   - {fileID: 6594952468251488755}
   m_Father: {fileID: 7350087217110717233}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &6594952469970030784
 Transform:
@@ -26791,7 +26839,9 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.62000036, z: 0.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2032887150}
+  - {fileID: 6594952468784987869}
   m_Father: {fileID: 7350087217110717233}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -27347,7 +27397,6 @@ Transform:
   m_Children:
   - {fileID: 1577536981491053874}
   - {fileID: 6594952469970030784}
-  - {fileID: 6594952468784987869}
   - {fileID: 6594952469897840057}
   - {fileID: 6594952469882260795}
   m_Father: {fileID: 6594952468966135007}
@@ -31243,6 +31292,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6d6c9432ee0b6a4bbe2c56fb77bce7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelManager: {fileID: 0}
+  gameController: {fileID: 0}
 --- !u!224 &8186320747869892264
 RectTransform:
   m_ObjectHideFlags: 0
