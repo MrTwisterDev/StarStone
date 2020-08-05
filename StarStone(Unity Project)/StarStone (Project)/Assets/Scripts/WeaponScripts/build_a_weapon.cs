@@ -26,6 +26,7 @@ public class build_a_weapon : baseWeaponClass
     public float gunAccuracyRecoil; //How much shooting affects the accuracy of the gun. Eventually resets base accuracy
     public float gunAccuracyRecovery; //How quickly the guns accuracy resets to 0
 
+    public float gunAimSpeed; //How quick does the gun aim/ go between the two modes
 
     private float timeTillBullet;
     private float currentTimeTillBullet;
@@ -36,8 +37,9 @@ public class build_a_weapon : baseWeaponClass
     public GameObject projectileFired; //What projectile should this weapon fire
     public int bulletsInSpread; //How many projectiles should be fired in a spreadShot
 
-    private Transform originPosition;
+
     public Transform aimLocation;
+    public Transform holsterLocation;
 
     public GameObject playerObject;
 
@@ -56,7 +58,6 @@ public class build_a_weapon : baseWeaponClass
         weaponAudioSource = gameObject.GetComponent<AudioSource>();
         uiController = gameObject.GetComponentInParent<UIController>();
 
-        originPosition = transform.parent;
 
         GameObject UICanvas = null;
 
@@ -236,19 +237,26 @@ public class build_a_weapon : baseWeaponClass
         if (AimingIn)
         {
             Debug.Log("Aiming!");
-            Vector3.MoveTowards(transform.position, aimLocation.transform.TransformPoint(aimLocation.position), 1f);
-           /* gameObject.transform.parent = aimLocation;
-            gameObject.transform.position = aimLocation.position;
-            gameObject.transform.rotation = aimLocation.rotation;
-            InstancedCrossHair.SetActive(false);*/
+            if (transform.parent.position != aimLocation.position)
+            {
+                transform.parent.position = Vector3.MoveTowards(transform.parent.position, aimLocation.position, gunAimSpeed * Time.deltaTime);
+            }
+
+       
+            InstancedCrossHair.SetActive(false);
             //transform.position = Vector3.zero;
   
         }
         else
         {
-            gameObject.transform.parent = originPosition;
-            gameObject.transform.position = originPosition.position;
-            gameObject.transform.rotation = originPosition.rotation;
+
+            //         gameObject.transform.rotation = originPosition.rotation;
+            if (transform.parent.position != holsterLocation.position)
+            {
+                transform.parent.position = Vector3.MoveTowards(transform.parent.position, holsterLocation.position, gunAimSpeed * Time.deltaTime);
+            }
+
+
             InstancedCrossHair.SetActive(true);
 
         }

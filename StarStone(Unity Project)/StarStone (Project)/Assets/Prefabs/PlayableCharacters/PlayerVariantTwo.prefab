@@ -599,10 +599,12 @@ MonoBehaviour:
   gunCameraRecoil: 1.1
   gunAccuracyRecoil: 40
   gunAccuracyRecovery: 2
+  gunAimSpeed: 1.5
   spreadShotLock: 0
   projectileFired: {fileID: 0}
   bulletsInSpread: 12
   aimLocation: {fileID: 9034534156951355067}
+  holsterLocation: {fileID: 4791110135440788165}
   playerObject: {fileID: 5355848417490344555}
   muzzleFlashChild: {fileID: 6717253699166892979}
   crossHair: {fileID: 1525204395773698044, guid: 8079516317dd1ca4ab8b9d70679dc4ca,
@@ -1437,6 +1439,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1783169096189162790}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1229723816131174178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4791110135440788165}
+  m_Layer: 10
+  m_Name: HolsterPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4791110135440788165
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229723816131174178}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.4000006, y: -0.22000036, z: 0.38000226}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2196660661508443601}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1269722518722142371
 GameObject:
@@ -4527,6 +4559,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9034534156951355067}
+  - {fileID: 4791110135440788165}
   m_Father: {fileID: 8305862119271635461}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6701,7 +6734,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 798.9, y: -135.3999}
+  m_AnchoredPosition: {x: 798.9, y: -135.39993}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5233514559932113983
@@ -7621,10 +7654,12 @@ MonoBehaviour:
   gunCameraRecoil: 1
   gunAccuracyRecoil: 25
   gunAccuracyRecovery: 4.25
+  gunAimSpeed: 2
   spreadShotLock: 0
   projectileFired: {fileID: 0}
   bulletsInSpread: 1
   aimLocation: {fileID: 9034534156951355067}
+  holsterLocation: {fileID: 4791110135440788165}
   playerObject: {fileID: 0}
   muzzleFlashChild: {fileID: 2804215311008081316}
   crossHair: {fileID: 1525204395773698044, guid: 8079516317dd1ca4ab8b9d70679dc4ca,
@@ -8501,7 +8536,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7738067611821506976
 Transform:
   m_ObjectHideFlags: 0

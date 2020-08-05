@@ -408,13 +408,13 @@ public class PlayerBase : MonoBehaviour
             }
             
         }
-        if (Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.GetComponent<build_a_weapon>() != null && !isADS)
+        if (Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.GetComponent<build_a_weapon>())
         {
             activeWeapon.GetComponent<build_a_weapon>().aimWeapon(true);
             isADS = true;
         }
 
-        if (Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.GetComponent<build_a_weapon>() != null && isADS)
+        if (Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.GetComponent<build_a_weapon>())
         {
             activeWeapon.GetComponent<build_a_weapon>().aimWeapon(false);
             isADS = false;
