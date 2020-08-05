@@ -236,10 +236,11 @@ public class build_a_weapon : baseWeaponClass
         if (AimingIn)
         {
             Debug.Log("Aiming!");
-            gameObject.transform.parent = aimLocation;
+            Vector3.MoveTowards(transform.position, aimLocation.transform.TransformPoint(aimLocation.position), 1f);
+           /* gameObject.transform.parent = aimLocation;
             gameObject.transform.position = aimLocation.position;
             gameObject.transform.rotation = aimLocation.rotation;
-            InstancedCrossHair.SetActive(false);
+            InstancedCrossHair.SetActive(false);*/
             //transform.position = Vector3.zero;
   
         }
