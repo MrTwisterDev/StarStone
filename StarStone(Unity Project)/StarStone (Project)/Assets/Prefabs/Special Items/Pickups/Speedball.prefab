@@ -110,7 +110,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.16838734, g: 0.5799309, b: 0.8301887, a: 1}
-  m_Intensity: 10
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -170,7 +170,7 @@ Halo:
   m_Color:
     serializedVersion: 2
     rgba: 4290343947
-  m_Size: 10
+  m_Size: 3
 --- !u!135 &-7318588185158972492
 SphereCollider:
   m_ObjectHideFlags: 0
