@@ -239,6 +239,7 @@ public class build_a_weapon : baseWeaponClass
             gameObject.transform.parent = aimLocation;
             gameObject.transform.position = aimLocation.position;
             gameObject.transform.rotation = aimLocation.rotation;
+            InstancedCrossHair.SetActive(false);
             //transform.position = Vector3.zero;
   
         }
@@ -247,6 +248,7 @@ public class build_a_weapon : baseWeaponClass
             gameObject.transform.parent = originPosition;
             gameObject.transform.position = originPosition.position;
             gameObject.transform.rotation = originPosition.rotation;
+            InstancedCrossHair.SetActive(true);
 
         }
     }
