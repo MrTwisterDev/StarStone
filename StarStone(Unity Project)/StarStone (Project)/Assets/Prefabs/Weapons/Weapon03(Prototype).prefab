@@ -148,8 +148,7 @@ MonoBehaviour:
   vampireRange: 15
   vampireChargeUsage: 1.5
   vampireDamage: 2
-  vampireDrain: 10
-  isVampireSingleShot: 1
+  vampireDrain: 0
   vampireSound: {fileID: 8300000, guid: 8e9e9fdad277a2a408056bf4e02f2703, type: 3}
   grenadeLauncherChargeUsage: 25
   grenadeProjectile: {fileID: 8290254636570083106, guid: 431047d4291366a4b8cccd14b0c46bc8,
@@ -167,11 +166,12 @@ MonoBehaviour:
     m_Bits: 65536
   weaponSound: {fileID: 0}
   muzzleTransform: {fileID: 2090666062332639981}
+  currentWeaponMode: 0
+  singleShotLock: 0
   speedColour: {r: 0, g: 0, b: 0, a: 0}
   healthColour: {r: 0, g: 0, b: 0, a: 0}
   fireColour: {r: 0, g: 0, b: 0, a: 0}
   singularityColor: {r: 0, g: 0, b: 0, a: 0}
-  currentWeaponMode: 0
 --- !u!82 &-8621572060297191785
 AudioSource:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.28
   m_Pitch: 1
   Loop: 1
   Mute: 0
