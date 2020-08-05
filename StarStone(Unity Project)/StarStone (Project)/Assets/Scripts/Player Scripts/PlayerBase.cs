@@ -302,6 +302,9 @@ public class PlayerBase : MonoBehaviour
             {
                 WeaponSwapTimer();
             }
+            //Locks the player's cursor to the center of the screen while they play
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
         if(playerState == PlayerStates.climbingState)
         {
@@ -556,6 +559,7 @@ public class PlayerBase : MonoBehaviour
                 {
                     playerState = PlayerStates.standardState;
                 }
+                pauseMenu.SetActive(false);
             }
             else if (playerState != PlayerStates.deadState)
             {
@@ -570,6 +574,7 @@ public class PlayerBase : MonoBehaviour
                 {
                     playerState = PlayerStates.pausedState;
                 }
+                pauseMenu.SetActive(true);
             }
         }
     }
