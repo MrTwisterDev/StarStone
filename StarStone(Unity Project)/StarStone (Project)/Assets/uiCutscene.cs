@@ -26,7 +26,7 @@ public class uiCutscene : MonoBehaviour
     [Serializable]
     public class cutScene_Scene //Custom class
     {
-        public Image cutSceneImage;
+        public Sprite cutSceneImage;
         public string[] cutSceneText;
     }
 
@@ -36,7 +36,7 @@ public class uiCutscene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        imageCanvas = scenes[sceneIndex].cutSceneImage;
+        imageCanvas.sprite = scenes[sceneIndex].cutSceneImage;
         cutsceneTextObj.text = scenes[sceneIndex].cutSceneText[stringIndex];
     }
 
@@ -45,32 +45,41 @@ public class uiCutscene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if(sceneIndex > scenes.Length)
+            if (sceneIndex + 1 == scenes.Length && stringIndex + 1 == scenes[sceneIndex].cutSceneText.Length)
             {
                 onCutsceneFinish.Invoke();
+                Debug.Log("Cutscene end invoked!");
                 sceneIndex = 0;
                 stringIndex = 0;
             }
-            if (stringIndex + 1 < scenes[sceneIndex].cutSceneText.Length)
-            {
-                stringIndex++;
-                loadScene(sceneIndex, stringIndex);
-            }
             else
             {
-                sceneIndex++;
-                stringIndex = 0;
-                loadScene(sceneIndex, stringIndex);
+                if (stringIndex + 1 < scenes[sceneIndex].cutSceneText.Length)
+                {
+                    stringIndex++;
+                    loadScene(sceneIndex, stringIndex);
+                }
+                else
+                {
+                    sceneIndex++;
+                    stringIndex = 0;
+                    loadScene(sceneIndex, stringIndex);
+                }
             }
         }
     }
 
     void loadScene(int sceneToLoad, int stringToLoad)
     {
-        imageCanvas = scenes[sceneToLoad].cutSceneImage;
+        imageCanvas.sprite = scenes[sceneToLoad].cutSceneImage;
         cutsceneTextObj.text = scenes[sceneToLoad].cutSceneText[stringToLoad];
     }
 
+    public void beginCutScene()
+    {
+        gameObject.SetActive(true);
+        loadScene(0, 0);
+    }
     
 
 }
