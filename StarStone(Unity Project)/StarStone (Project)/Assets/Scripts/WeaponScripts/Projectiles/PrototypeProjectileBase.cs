@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class PrototypeProjectileBase : MonoBehaviour
 {
+    //***************************************************************|
+    // Project Name: Temple Imperium                                 |
+    // Script Name: PrototypeProjectileBase                          |
+    // Script Author: James Smale                                    |
+    // Purpose: A base class for the two different prototype weapon  |
+    //          projectiles
+    //***************************************************************|
+
     [HideInInspector]
     public Rigidbody rigidBody;
     [HideInInspector]
@@ -28,9 +36,5 @@ public class PrototypeProjectileBase : MonoBehaviour
         cameraTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
         //Launches the projectile in the direction the player is facing with the appropriate amount of force
         rigidBody.AddForce(cameraTransform.forward * launchForce);
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, areaOfEffect);
     }
 }

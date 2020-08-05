@@ -5,7 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class MenuButton : MonoBehaviour
 {
+    //***************************************************************|
+    // Project Name: Temple Imperium                                 |
+    // Script Name: MenuButton                                       |
+    // Script Author: James Smale                                    |
+    // Purpose: Manages button functions related to GameObjects that |
+    //          persist through scenes
+    //***************************************************************|
 
+    [Header("Logic Controllers")]
     public LevelManager levelManager;
     public GameController gameController;
 

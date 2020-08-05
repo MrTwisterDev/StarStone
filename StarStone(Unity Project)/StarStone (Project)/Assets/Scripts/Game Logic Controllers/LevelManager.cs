@@ -12,12 +12,6 @@ public class LevelManager : MonoBehaviour
     // Purpose: Handle scene management and level loading            |
     //***************************************************************|
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     public void LoadTutorial()
     {
         SceneManager.LoadScene(2);

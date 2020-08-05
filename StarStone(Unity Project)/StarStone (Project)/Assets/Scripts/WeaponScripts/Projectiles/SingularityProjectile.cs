@@ -4,19 +4,33 @@ using UnityEngine;
 
 public class SingularityProjectile : PrototypeProjectileBase
 {
+    //***************************************************************|
+    // Project Name: Temple Imperium                                 |
+    // Script Name: PrototypeWeapon                                  |
+    // Script Author: James Smale                                    |
+    // Purpose: Manages the detonation effects of the Singularity    |
+    //          projectile
+    //***************************************************************|
+
+    [Header("Detonation")]
+    [Tooltip("The amount of time it takes for the projectile to detonate.")]
     public float fuseLength;
+    [Tooltip("The duration of the black hole effects.")]
     public float blackHoleDuration;
     private bool hasDetonated;
 
     // Update is called once per frame
     void Update()
     {
+        //If the projectile has not yet detonated, its fuse length is reduced by the amount of time passed since the last frame
         if (!hasDetonated)
         {
             fuseLength -= Time.deltaTime;
+            //When the fuse length reaches zero, the projectile detonates
             if(fuseLength <= 0)
             {
                 hasDetonated = true;
+                //It stops simulating physics and detecting collisions and plays the detonation audioclip
                 rigidBody.isKinematic = true;
                 rigidBody.detectCollisions = false;
                 AudioSource.PlayClipAtPoint(detonationSound, transform.position);
@@ -30,6 +44,7 @@ public class SingularityProjectile : PrototypeProjectileBase
 
     private void Detonate()
     {
+        //Reduces the duration of the black hole effect by the amount of time passed since the last frame each update
         blackHoleDuration -= Time.deltaTime;
         if(blackHoleDuration <= 0)
         {
