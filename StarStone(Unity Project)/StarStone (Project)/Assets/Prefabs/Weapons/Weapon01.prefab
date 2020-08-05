@@ -90,10 +90,13 @@ MonoBehaviour:
   gunCameraRecoil: 1.25
   gunAccuracyRecoil: 30
   gunAccuracyRecovery: 2
+  gunAimSpeed: 1.5
   spreadShotLock: 0
   projectileFired: {fileID: 0}
   bulletsInSpread: 12
   aimLocation: {fileID: 0}
+  holsterLocation: {fileID: 0}
+  playerObject: {fileID: 0}
   muzzleFlashChild: {fileID: 5089506431828387958}
   crossHair: {fileID: 1525204395773698044, guid: 8079516317dd1ca4ab8b9d70679dc4ca,
     type: 3}
