@@ -36,6 +36,11 @@ public class build_a_weapon : baseWeaponClass
     public GameObject projectileFired; //What projectile should this weapon fire
     public int bulletsInSpread; //How many projectiles should be fired in a spreadShot
 
+    private Transform originPosition;
+    public Transform aimLocation;
+
+    public GameObject playerObject;
+
     public GameObject muzzleFlashChild;//The muzzle flash of the gun
     public GameObject crossHair;//The cross hair of the gun
     public GameObject InstancedCrossHair;//The cross hair of the gun
@@ -50,6 +55,8 @@ public class build_a_weapon : baseWeaponClass
         currentTimeTillBullet = 0;//Makes the first show not have any fire time
         weaponAudioSource = gameObject.GetComponent<AudioSource>();
         uiController = gameObject.GetComponentInParent<UIController>();
+
+        originPosition = transform.parent;
 
         GameObject UICanvas = null;
 
@@ -177,7 +184,7 @@ public class build_a_weapon : baseWeaponClass
 
         //Recoil Application
         // transform.parent.parent.gameObject.transform.Rotate(new Vector3(gunRecoil, 0, 0));
-        transform.parent.parent.parent.gameObject.GetComponent<PlayerBase>().xRotation -= gunCameraRecoil;
+        playerObject.GetComponent<PlayerBase>().xRotation -= gunCameraRecoil;
 
         Transform _weaponHoldPoint = gameObject.transform.Find("MuzzlePosition").GetComponent<Transform>();
         GameObject _particleSystem = Instantiate(muzzleFlash, _weaponHoldPoint, false);
@@ -224,4 +231,23 @@ public class build_a_weapon : baseWeaponClass
         }
     }
 
+    public void aimWeapon(bool AimingIn)
+    {
+        if (AimingIn)
+        {
+            Debug.Log("Aiming!");
+            gameObject.transform.parent = aimLocation;
+            gameObject.transform.position = aimLocation.position;
+            gameObject.transform.rotation = aimLocation.rotation;
+            //transform.position = Vector3.zero;
+  
+        }
+        else
+        {
+            gameObject.transform.parent = originPosition;
+            gameObject.transform.position = originPosition.position;
+            gameObject.transform.rotation = originPosition.rotation;
+
+        }
+    }
 }

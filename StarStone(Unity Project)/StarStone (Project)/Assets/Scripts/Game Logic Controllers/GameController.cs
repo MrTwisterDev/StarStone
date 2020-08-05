@@ -263,7 +263,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Timer active: " + timerActive + "Is in game: " + isInGame);
+       // Debug.Log("Timer active: " + timerActive + "Is in game: " + isInGame);
         //If the game is not paused or in a menu, the game timers and enemy spawning will run
         if (isInGame)
         {
