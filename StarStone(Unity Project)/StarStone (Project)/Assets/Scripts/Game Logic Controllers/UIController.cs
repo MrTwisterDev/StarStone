@@ -44,11 +44,11 @@ public class UIController : MonoBehaviour
     public void Start()
     {
         playerController = gameObject.GetComponent<PlayerBase>();
-        GetChangedWeapon();
     }
 
     public void GetChangedWeapon()
     {
+        if(playerController == null) { playerController = gameObject.GetComponent<PlayerBase>(); }
         //Assigns the script of the currently equipped weapon to the variable activeWeaponController so that the correct ammo values can be pulled from it
         activeWeaponController = playerController.activeWeapon.GetComponent<build_a_weapon>();
     }
