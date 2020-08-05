@@ -410,13 +410,13 @@ public class PlayerBase : MonoBehaviour
         }
         if (Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.GetComponent<build_a_weapon>() != null && !isADS)
         {
-            activeWeapon.GetComponent<Animator>().Play("AdsIn");
+            activeWeapon.GetComponent<build_a_weapon>().aimWeapon(true);
             isADS = true;
         }
 
         if (Input.GetAxis(playerNumber + "Aim") == 0 && activeWeapon.GetComponent<build_a_weapon>() != null && isADS)
         {
-            activeWeapon.GetComponent<Animator>().Play("AdsOut");
+            activeWeapon.GetComponent<build_a_weapon>().aimWeapon(false);
             isADS = false;
         }
         else if (Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.tag == "Prototype")
@@ -663,7 +663,7 @@ public class PlayerBase : MonoBehaviour
         //Rotates all of the necessary GameObjects to match camera rotation
         cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         weaponHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        adsHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+       // adsHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         meleeHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         //Rotates the player object left and right based on player input
         transform.Rotate(Vector3.up * mouseX);
