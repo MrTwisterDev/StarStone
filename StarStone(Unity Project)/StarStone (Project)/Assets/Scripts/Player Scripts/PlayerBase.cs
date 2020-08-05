@@ -547,16 +547,29 @@ public class PlayerBase : MonoBehaviour
             {
                 //Sets the timescale back to 1 so that time will pass in the game
                 Time.timeScale = 1;
-                //Sets the players back to their standard state so their inputs will be recorded
-                gameController.UnpauseAllPlayers();
+                if (gameController != null)
+                {
+                    //Sets the players back to their standard state so their inputs will be recorded
+                    gameController.UnpauseAllPlayers();
+                }
+                else
+                {
+                    playerState = PlayerStates.standardState;
+                }
             }
             else if (playerState != PlayerStates.deadState)
             {
                 //Sets the timescale to 0 to pause the game
                 Time.timeScale = 0;
                 //Sets the player's state to paused so they cannot use any controls other than unpausing
-                gameController.PauseAllPlayers();
-                
+                if (gameController != null)
+                {
+                    gameController.PauseAllPlayers();
+                }
+                else
+                {
+                    playerState = PlayerStates.pausedState;
+                }
             }
         }
     }

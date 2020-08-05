@@ -20,6 +20,5 @@ public class TutorialTextController : MonoBehaviour
         {
             textObject.SetActive(false);
         }
-        Debug.Log(distanceFromPlayer);
     }
 }
