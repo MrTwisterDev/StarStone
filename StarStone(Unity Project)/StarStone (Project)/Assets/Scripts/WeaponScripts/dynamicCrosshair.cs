@@ -26,7 +26,7 @@ public class dynamicCrosshair : MonoBehaviour
         for (int i = 0; i < crossHairParts.Length; i++)
         {
             crossHairParts[i] = transform.GetChild(i).gameObject;
-            crossHairOrigins[i] = crossHairParts[i].transform.position;
+            crossHairOrigins[i] = crossHairParts[i].transform.localPosition;
             Debug.Log("Got " + crossHairParts[i].name + " and assigned it to crossHairParts!");
         }
     }
@@ -68,7 +68,7 @@ public class dynamicCrosshair : MonoBehaviour
             _AddedMaster = -masterOffset;
 
         }
-        crossHairParts[I].GetComponent<RectTransform>().localPosition =
+        crossHairParts[I].GetComponent<RectTransform>().anchoredPosition =
         Vector3.Slerp(crossHairParts[I].transform.position, (Vector2)crossHairOrigins[I] + new Vector2(offSetX + _AddedMaster,0),crossHairChangeSpeed);
     }
 
@@ -86,7 +86,7 @@ public class dynamicCrosshair : MonoBehaviour
         }
 
 
-        crossHairParts[I].GetComponent<RectTransform>().localPosition =
+        crossHairParts[I].GetComponent<RectTransform>().anchoredPosition =
         Vector3.Slerp(crossHairParts[I].transform.position, (Vector2)crossHairOrigins[I] + new Vector2(0, offSetY + _AddedMaster), crossHairChangeSpeed);
 
     }

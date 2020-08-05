@@ -607,7 +607,7 @@ MonoBehaviour:
   holsterLocation: {fileID: 4791110135440788165}
   playerObject: {fileID: 5355848417490344555}
   muzzleFlashChild: {fileID: 6717253699166892979}
-  crossHair: {fileID: 1525204395773698044, guid: 8079516317dd1ca4ab8b9d70679dc4ca,
+  crossHair: {fileID: 6560627645290821212, guid: 2ab750c2b1187f843b04ad821c8d5d34,
     type: 3}
   InstancedCrossHair: {fileID: 0}
   crosshairScript: {fileID: 0}
@@ -7662,7 +7662,7 @@ MonoBehaviour:
   holsterLocation: {fileID: 4791110135440788165}
   playerObject: {fileID: 0}
   muzzleFlashChild: {fileID: 2804215311008081316}
-  crossHair: {fileID: 1525204395773698044, guid: 8079516317dd1ca4ab8b9d70679dc4ca,
+  crossHair: {fileID: 6560627645290821212, guid: 2ab750c2b1187f843b04ad821c8d5d34,
     type: 3}
   InstancedCrossHair: {fileID: 0}
   crosshairScript: {fileID: 0}

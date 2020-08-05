@@ -96,7 +96,7 @@ public class build_a_weapon : baseWeaponClass
     {
         canShoot = currentBullets > 0;
         gunAccuracy = Mathf.MoveTowards(gunAccuracy, originGunAccuracy, gunAccuracyRecovery);
-        crosshairScript.masterOffset = (gunAccuracy + gunAccuracyRecoil/2 + 10) * crosshairMultiplier ;
+        crosshairScript.masterOffset = (gunAccuracy * 2.5f + gunAccuracyRecoil/2);
 
         switch (typeOfWeapon) //How should each weapon differ per frame
         {
