@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuButton : MonoBehaviour
 {
@@ -23,6 +24,11 @@ public class MenuButton : MonoBehaviour
     public void LoadNextLevel()
     {
         levelManager.LoadNextLevel();
+    }
+
+    public void LoadTutorial()
+    {
+        levelManager.LoadTutorial();
     }
 
     public void ChangeDifficulty(int i)

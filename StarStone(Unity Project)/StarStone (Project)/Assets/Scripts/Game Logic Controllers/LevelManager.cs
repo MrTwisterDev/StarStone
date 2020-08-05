@@ -18,6 +18,11 @@ public class LevelManager : MonoBehaviour
         
     }
 
+    public void LoadTutorial()
+    {
+        SceneManager.LoadScene(2);
+    }
+
     public void LoadNextLevel()
     {
         int levelToLoad = SceneManager.GetActiveScene().buildIndex + 1;
