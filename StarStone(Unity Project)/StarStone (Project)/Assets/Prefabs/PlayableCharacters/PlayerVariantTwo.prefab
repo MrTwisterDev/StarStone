@@ -7217,6 +7217,7 @@ MonoBehaviour:
   weaponsArray:
   - {fileID: 360227393498741492}
   - {fileID: 5595834779727672595}
+  - {fileID: 7012087629534289943}
   activeWeapon: {fileID: 0}
   leftAbilityCooldown: 0
   canUseLeftAbility: 0
@@ -7527,7 +7528,6 @@ GameObject:
   - component: {fileID: 8836209437599380088}
   - component: {fileID: 6883468914133111119}
   - component: {fileID: 2822158394364635124}
-  - component: {fileID: 1974597524306363574}
   - component: {fileID: 9181332705318961005}
   - component: {fileID: 4871969533716994699}
   - component: {fileID: 5715466440460380642}
@@ -7601,19 +7601,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1974597524306363574
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5595834779727672595}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &9181332705318961005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7660,7 +7647,7 @@ MonoBehaviour:
   bulletsInSpread: 1
   aimLocation: {fileID: 9034534156951355067}
   holsterLocation: {fileID: 4791110135440788165}
-  playerObject: {fileID: 0}
+  playerObject: {fileID: 5355848417490344555}
   muzzleFlashChild: {fileID: 2804215311008081316}
   crossHair: {fileID: 6560627645290821212, guid: 2ab750c2b1187f843b04ad821c8d5d34,
     type: 3}

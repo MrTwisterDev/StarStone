@@ -668,12 +668,6 @@ public class PlayerBase : MonoBehaviour
         //Records input from the left analog stick and saved them to the necessary variables
         yInput = Input.GetAxis(playerNumber + "Vertical");
         xInput = Input.GetAxis(playerNumber + "Horizontal");
-        //If this is Player One, keyboard inputs are recorded as well
-        if(playerNumber == "PlayerOne")
-        {
-            yInput += Input.GetAxis(playerNumber + "AltVertical");
-            xInput += Input.GetAxis(playerNumber + "AltHorizontal");
-        }
 
         //Moves the player up and down the Y axis to climb ladders
         Vector3 movement = transform.right * xInput + transform.up * yInput;
