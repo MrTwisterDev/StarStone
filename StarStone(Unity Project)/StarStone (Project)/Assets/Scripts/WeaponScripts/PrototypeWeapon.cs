@@ -236,18 +236,23 @@ public class PrototypeWeapon : MonoBehaviour
                     //If the parent object is the Speed Starstone, the new weapon mode is set to minigun
                     case StarstoneController.starstoneTypes.speedStarstone:
                         newWeaponMode = weaponModes.minigunMode;
+                        starstoneToChargeFrom.chargePrototypeWeapon(newWeaponMode);
                         break;
                     //If the parent object is the Health Starstone, the new weapon mode is set to vampire
                     case StarstoneController.starstoneTypes.healthStarstone:                                        //newWeaponMode is used to compare between the current weapon mode, and the one 
-                        newWeaponMode = weaponModes.vampireMode;                                                    //set by the Starstone being aimed at to determine if the weapon should switch mode
+                        newWeaponMode = weaponModes.vampireMode;
+                        starstoneToChargeFrom.chargePrototypeWeapon(newWeaponMode);
+                        //set by the Starstone being aimed at to determine if the weapon should switch mode
                         break;
                     //If the parent object is the Fire Starstone, the new weapon mode is set to grenade launcher
                     case StarstoneController.starstoneTypes.fireStarstone:
                         newWeaponMode = weaponModes.grenadeLauncherMode;
+                        starstoneToChargeFrom.chargePrototypeWeapon(newWeaponMode);
                         break;
                     //If the parent object is the Buff Starstone, the new weapon mode is set to singularity
                     case StarstoneController.starstoneTypes.buffStarstone:
                         newWeaponMode = weaponModes.singularityMode;
+                        starstoneToChargeFrom.chargePrototypeWeapon(newWeaponMode);
                         break;
                 }
                 //Returns the boolean as true

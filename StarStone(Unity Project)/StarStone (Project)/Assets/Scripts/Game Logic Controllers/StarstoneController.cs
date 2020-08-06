@@ -20,6 +20,7 @@ public class StarstoneController : MonoBehaviour
     //GameObjects
     #region
     public GameObject[] playerObjects;
+    public GameObject selectedObject;
     #endregion
     //Starstone Charge Variables
     #region
@@ -32,10 +33,20 @@ public class StarstoneController : MonoBehaviour
     public float rechargeMultiplier;
     [Tooltip("Boolean that determines whether or not the selected Starstone is active.")]
     public bool isActiveStarstone;
+    [Tooltip("Is the generator enabled?")]
+    public bool genEnabled; //Thomas
+    [Tooltip("This generator has been selected for disconnection")]
+    public selectionType selectedGenerator; //Thomas
     [Tooltip("The type this Starstone is.")]
     public starstoneTypes starstoneType;
     #endregion
 
+    public enum selectionType
+    {
+        notSelected,
+        isSelected,
+        disconnecting
+    }
     public enum starstoneTypes
     {
         speedStarstone,
@@ -57,8 +68,17 @@ public class StarstoneController : MonoBehaviour
 
     public void Update()
     {
+        if(this.selectedGenerator == selectionType.notSelected)
+        {
+            selectedObject.SetActive(false);
+        }
+        else
+        {
+            selectedObject.SetActive(true);
+
+        }
         //If the startsone the script is attached to is the active starstone, its charge is drained each frame
-        if (isActiveStarstone)
+        if (isActiveStarstone && genEnabled)
         {
             starstoneCharge -= Time.deltaTime * dischargeMultiplier;
             //If the charge reaches 0, the starstone is deactivated, its charge is set to 0, and the Game Controller chooses the next highest charged starstone to activate
@@ -70,7 +90,7 @@ public class StarstoneController : MonoBehaviour
             }
         }
         //If the starstone is not active, and its charge is less than 100, it regains charge every frame until it is at 100% charge
-        else if(starstoneCharge < 100f)
+        else if(starstoneCharge < 100f && genEnabled)
         {
             starstoneCharge += Time.deltaTime * rechargeMultiplier;
             if(starstoneCharge > 100f)
@@ -144,6 +164,22 @@ public class StarstoneController : MonoBehaviour
                 break;
         }
         gameController.BuffEnemies();
+    }
+
+    public void chargePrototypeWeapon(PrototypeWeapon.weaponModes typeToCharge) //Possibly unneeded
+    {
+        if(genEnabled == true)
+        {
+            foreach (var player in playerObjects)
+            {
+                if(player.GetComponent<PlayerBase>().activeWeapon.GetComponent<PrototypeWeapon>() != null)
+                {
+                    PrototypeWeapon proto = player.GetComponent<PlayerBase>().activeWeapon.GetComponent<PrototypeWeapon>();
+                    //JAMES DO STUFF HERE TO MAKE IT CHARGE :D
+                   
+                }
+            }
+        }
     }
 
 }

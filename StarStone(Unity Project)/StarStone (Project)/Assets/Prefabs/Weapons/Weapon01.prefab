@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponName: Shotgun
-  weaponDamage: 3
+  weaponDamage: 4
   damageFalloff: 0
   totalBullets: 30
   magazineCapacity: 6

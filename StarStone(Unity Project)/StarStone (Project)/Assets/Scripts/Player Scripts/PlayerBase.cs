@@ -466,6 +466,12 @@ public class PlayerBase : MonoBehaviour
 
     public virtual void MiscControls()
     {
+
+        if(Input.GetKeyDown(KeyCode.O) && gameObject.GetComponent<CharacterVariantOne>() != null)
+        {
+            bool toggleBool = gameObject.GetComponent<CharacterVariantOne>().pixelMode.activeSelf;
+            gameObject.GetComponent<CharacterVariantOne>().pixelMode.SetActive(!toggleBool);
+        }
         //Interacting Controls
         if(Input.GetButtonDown(playerNumber + "Interact"))
         {
@@ -474,8 +480,16 @@ public class PlayerBase : MonoBehaviour
                 //Checks to see what script is attached to the object being interacted with and runs the necessary method
                 if (interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>() != null)
                 {
-                    //Activates the effect of the Starstone the player has interacted with, buffing all of the enemies in the scene and those that spawn later on
-                    interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>().ActivateEffect();
+                    if (interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>().genEnabled == true)
+                    {
+                        //Activates the effect of the Starstone the player has interacted with, buffing all of the enemies in the scene and those that spawn later on
+                        interactableObject.collider.gameObject.GetComponentInParent<StarstoneController>().ActivateEffect();
+
+                    }
+                    else
+                    {
+                        gameController.connectNewGenerator(interactableObject.collider.gameObject.transform.parent.gameObject);
+                    }
                 }
                 else if (interactableObject.collider.gameObject.GetComponentInParent<StarStoneBase>() != null)
                 {

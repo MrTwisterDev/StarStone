@@ -8,13 +8,13 @@ using UnityEditor;
 
 public class GameController : MonoBehaviour
 {
-    //***************************************************************|
-    // Project Name: Temple Imperium                                 |
-    // Script Name: Game Controller                                  |
-    // Script Author: James Smale                                    |
-    // Purpose: Handles all aspects of game logic and flow, including|
-    //          difficulty levels, wave timers and enemy spawning    |
-    //***************************************************************|
+    //**********************************************************************|
+    // Project Name: Temple Imperium                                        |
+    // Script Name: Game Controller                                         |
+    // Script Author: James Smale + Thomas Lang (Win state functionality)   |
+    // Purpose: Handles all aspects of game logic and flow, including       |
+    //          difficulty levels, wave timers and enemy spawning           |
+    //**********************************************************************|
 
     //Prefabs
     #region
@@ -225,7 +225,8 @@ public class GameController : MonoBehaviour
         speedEffect,
         healthEffect,
         fireEffect,
-        buffEffect
+        buffEffect,
+        noEffect
     }
 
 
@@ -257,6 +258,8 @@ public class GameController : MonoBehaviour
         activeSmallEnemies = new List<GameObject>();
         activeMediumEnemies = new List<GameObject>();
         activeLargeEnemies = new List<GameObject>();
+
+        currentStarstone = starstoneEffects.noEffect;
         //End of work//
     }
 
@@ -297,21 +300,21 @@ public class GameController : MonoBehaviour
                     intermissionTimerValue = intermissionLength;
                 }
             }
-            if(soulsInGenerator >= requiredSoulsInGenerator)
+            //Thomas
+            int connectedGenerators = 0;
+            foreach (var generator in starstoneArray)
             {
-                //Slowly reduced the speed at which time passes to simulate slow motion
-                if (Time.timeScale - Time.deltaTime / 2 >= 0)
+                if (generator.GetComponent<StarstoneController>().genEnabled)
                 {
-                    Time.timeScale -= Time.deltaTime / 2;
-                    //Once the time scale reaches 0, the victory canvas is enabled and the cursor is freed
-                    if (Time.timeScale < 0.01)
-                    {
-                        Cursor.lockState = CursorLockMode.None;
-                        Cursor.visible = true;
-                        victoryCanvas.SetActive(true);
-                    }
+                    connectedGenerators++;
                 }
             }
+            if(connectedGenerators == starstoneArray.Length)
+            {
+                //FINAL WAVE
+                Debug.Log("FINAL WAVE");
+            }
+            //End of Thomas
         }
     }
 
@@ -347,7 +350,7 @@ public class GameController : MonoBehaviour
             //Finds all of the enemy spawners in the scene and adds them to the array so they can be accessed randomly in the enemy spawning method
             for (int i = 0; i < enemySpawnPoints.Length; i++)
             {
-                enemySpawnPoints[i] = GameObject.Find("EnemySpawner" + i).GetComponent<Transform>();
+                enemySpawnPoints[i] = spawnerParent.Find("EnemySpawner" + i).GetComponent<Transform>();
             }
             //Assigns the variables used for enemy spawning and health regeneration to the values assigned in the inspector depending on the current game difficulty
             switch (currentGameDifficulty)
@@ -406,9 +409,7 @@ public class GameController : MonoBehaviour
             {
                 uIController[i].SetBaseTimerValue(waveTimerValue);
             }
-            //Generates a random number used as an array index and activates the relevant Starstone
-            int starstoneIndex = UnityEngine.Random.Range(0, 4);
-            starstoneArray[starstoneIndex].GetComponent<StarstoneController>().ActivateEffect();
+
         }
         else if(level == 0)
         {
@@ -438,8 +439,8 @@ public class GameController : MonoBehaviour
     {
         for(int i = 0; i < playerControllers.Length; i++)
         {
-            playerControllers[i].playerState = PlayerBase.PlayerStates.standardState;
             playerControllers[i].pauseMenu.SetActive(false);
+            playerControllers[i].playerState = PlayerBase.PlayerStates.standardState;
 
         }
     }
@@ -529,6 +530,25 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < playerControllers.Length; i++)
         {
             uIController[i].UpdateWaveNumber(currentWave);
+        }
+
+        foreach (var generator in starstoneArray)
+        {
+            if (generator.GetComponent<StarstoneController>().selectedGenerator == StarstoneController.selectionType.disconnecting)
+            {
+                generator.GetComponent<StarstoneController>().genEnabled = true;
+                generator.GetComponent<StarstoneController>().selectedGenerator = StarstoneController.selectionType.notSelected;
+            }
+        }
+
+        foreach (var generator in starstoneArray)
+        {
+            if(generator.GetComponent<StarstoneController>().selectedGenerator == StarstoneController.selectionType.isSelected)
+            {
+                generator.GetComponent<StarstoneController>().ActivateEffect();
+                BuffEnemies();
+                generator.GetComponent<StarstoneController>().selectedGenerator = StarstoneController.selectionType.disconnecting;
+            }
         }
         //Plays a sound to signify the start of a new wave
         AudioSource.PlayClipAtPoint(waveStart, playerOneController.gameObject.transform.position);
@@ -689,6 +709,31 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void connectNewGenerator(GameObject starstoneGenerator)
+    {
+        bool disconnectPhase = false;
+        foreach(var generator in starstoneArray)
+        {
+            if(generator.GetComponent<StarstoneController>().selectedGenerator == StarstoneController.selectionType.disconnecting)
+            {
+                disconnectPhase = true;
+            }
+        }
+        if (disconnectPhase)
+        {
+            Debug.Log("Cannot connect a new generator, finish the one disconnecting first!");
+        }
+        else
+        {
+            foreach (var generator in starstoneArray)
+            {
+
+                generator.GetComponent<StarstoneController>().selectedGenerator = StarstoneController.selectionType.notSelected;
+            }
+            starstoneGenerator.GetComponent<StarstoneController>().selectedGenerator = StarstoneController.selectionType.isSelected;
+        }
+    }
+
     public void ApplyNewEnemyBuff(enemyBase newEnemy)
     {
         //Applies the currently activate Starstone powerup to the newly spawned enemy
@@ -704,6 +749,9 @@ public class GameController : MonoBehaviour
                 newEnemy.changePowerup(enemyBase.stoneBuffs.fireBuff);
                 break;
             case starstoneEffects.buffEffect:
+                newEnemy.changePowerup(enemyBase.stoneBuffs.noBuff);
+                break;
+            case starstoneEffects.noEffect:
                 newEnemy.changePowerup(enemyBase.stoneBuffs.noBuff);
                 break;
         }
@@ -757,6 +805,20 @@ public class GameController : MonoBehaviour
                 }
                 break;
             case starstoneEffects.buffEffect:
+                for (int i = 0; i <= activeSmallEnemies.Count - 1; i++)
+                {
+                    activeSmallEnemies[i].GetComponent<enemyBase>().changePowerup(enemyBase.stoneBuffs.noBuff);
+                }
+                for (int j = 0; j <= activeMediumEnemies.Count - 1; j++)
+                {
+                    activeMediumEnemies[j].GetComponent<enemyBase>().changePowerup(enemyBase.stoneBuffs.noBuff);
+                }
+                for (int k = 0; k <= activeLargeEnemies.Count - 1; k++)
+                {
+                    activeLargeEnemies[k].GetComponent<enemyBase>().changePowerup(enemyBase.stoneBuffs.noBuff);
+                }
+                break;
+            case starstoneEffects.noEffect:
                 for (int i = 0; i <= activeSmallEnemies.Count - 1; i++)
                 {
                     activeSmallEnemies[i].GetComponent<enemyBase>().changePowerup(enemyBase.stoneBuffs.noBuff);

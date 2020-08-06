@@ -8,6 +8,7 @@ public class CharacterVariantOne : PlayerBase
     public int maxActiveMines;
     public int currentActiveMines;
 
+    public GameObject pixelMode;
     public void Awake()
     {
         maxActiveMines = 3;
@@ -35,5 +36,6 @@ public class CharacterVariantOne : PlayerBase
             AudioSource.PlayClipAtPoint(actionFailed, transform.position);
         }
     }
+
 
 }
