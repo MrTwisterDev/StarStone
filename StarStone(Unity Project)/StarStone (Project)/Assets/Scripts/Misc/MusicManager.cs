@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
+    //***************************************************************|
+    // Project Name: Temple Imperium                                 |
+    // Script Name: Music Manager                                    |
+    // Script Author: James Smale                                    |
+    // Purpose: Manages the music played throughout the game.        |
+    //***************************************************************|
+
     //Audio Elements
     #region
     [Header("Music Tracks")]

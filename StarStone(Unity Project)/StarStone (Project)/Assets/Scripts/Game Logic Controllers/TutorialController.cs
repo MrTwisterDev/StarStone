@@ -5,6 +5,14 @@ using UnityEngine.UI;
 
 public class TutorialController : MonoBehaviour
 {
+    //***************************************************************|
+    // Project Name: Temple Imperium                                 |
+    // Script Name: Tutorial Controller                              |
+    // Script Author: James Smale                                    |
+    // Purpose: Manages the text prompts within the tutorial scene,  |
+    //          as well as the moveable objects in the scene.        |
+    //***************************************************************|
+
     [Header("Tutorial Text")]
     [Tooltip("An array containing the texts that should be displayed during the tutorial.")]
     public string[] tutorialTexts;

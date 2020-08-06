@@ -4,22 +4,39 @@ using UnityEngine;
 
 public class MovingObjectController : MonoBehaviour
 {
+    //***************************************************************|
+    // Project Name: Temple Imperium                                 |
+    // Script Name: MovingObjectController                           |
+    // Script Author: James Smale                                    |
+    // Purpose: Manages the different fire modes and charge level of |
+    //          the game's prototype weapon                          |
+    //***************************************************************|
+
     //Destination Vectors
+    [Header("Destination Vectors")]
     [Tooltip("An array containing all of the destination vectors that the object should move towards. If the movement is looping, the first entry should be the objects initial position.")]
     public Vector3[] destinationVectors;
+    [Space]
     //Booleans
+    [Header("Booleans")]
     [Tooltip("Dictates whether or not the object's movement should be looping. Setting this to true after movement has ended will not work.")]
     public bool loopingMovement;
     [Tooltip("Dictates whether or not the object should currently be moving.")]
     public bool isMoving;
     private bool hasAudio;
+    [Space]
     //Integers
+    [Header("Integers")]
     [Tooltip("The array index used to determine the object's current destination.")]
     public int destinationIndex;
+    [Space]
     //Floats
+    [Header("Floats")]
     [Tooltip("The speed at which the object moves.")]
     public float moveSpeed;
+    [Space]
     //Sound
+    [Header("Sounds")]
     [Tooltip("The audiosource attached to this object.")]
     public AudioSource audioSource;
 
