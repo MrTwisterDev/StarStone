@@ -182,6 +182,8 @@ public class GameController : MonoBehaviour
     public PlayerBase[] playerControllers;
     [Tooltip("The GameObject used to handle character selection")]
     public characterSelection characterSelector;
+    [Tooltip("The number of players that are currently dead.")]
+    public int deadPlayers;
     [Space]
     #endregion
     //Game Management
@@ -271,6 +273,7 @@ public class GameController : MonoBehaviour
         if (isInGame)
         {
             GameTimers();
+            CheckDeadPlayers();
             if (timerActive)
             {
                 EnemySpawning();
@@ -416,10 +419,13 @@ public class GameController : MonoBehaviour
         else if(level == 0)
         {
             ResetWaveData();
+            //Resets the number of dead players to keep the value accurate
+            deadPlayers = 0;
             isCoOp = false;
             Cursor.lockState = CursorLockMode.None;     //Unlocks the cursor so the player can select menu options
             isInGame = false;                           //Prevents game timers and enemy spawning methods from being executed
             timerActive = false;
+            Time.timeScale = 1;
         }
     }
 
@@ -430,6 +436,7 @@ public class GameController : MonoBehaviour
 
     public void PauseAllPlayers()
     {
+        //Sets all players to be paused
         for(int i = 0; i < playerControllers.Length; i++)
         {
             Time.timeScale = 0;
@@ -440,6 +447,7 @@ public class GameController : MonoBehaviour
 
     public void UnpauseAllPlayers()
     {
+        //Sets all players to their standard state
         for(int i = 0; i < playerControllers.Length; i++)
         {
             Time.timeScale = 1;
@@ -672,6 +680,20 @@ public class GameController : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    public void CheckDeadPlayers()
+    {
+        //If all of the players in the game are dead, then the death canvas for each of them is activated and time is stopped
+        if(deadPlayers == playerControllers.Length)
+        {
+            Debug.Log(deadPlayers);
+            foreach(PlayerBase player in playerControllers)
+            {
+                player.uIController.ToggleDeathCanvas(true);
+            }
+            Time.timeScale = 0;
         }
     }
 

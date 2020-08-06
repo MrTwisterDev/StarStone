@@ -35,6 +35,7 @@ public class UIController : MonoBehaviour
     //Health UI Elements
     public Slider healthBar;
     public Image bloodOverlay;
+    public GameObject deathCanvas;
     //Starstone Charge Slider
     public Slider speedCharge;
     public Slider healthCharge;
@@ -75,6 +76,11 @@ public class UIController : MonoBehaviour
     public void ActivateBloodOverlay(bool isActive)
     {
         bloodOverlay.gameObject.SetActive(isActive);
+    }
+
+    public void ToggleDeathCanvas(bool isActive)
+    {
+        deathCanvas.SetActive(isActive);
     }
 
     public void UpdateBloodAlpha(Color newAlpha)

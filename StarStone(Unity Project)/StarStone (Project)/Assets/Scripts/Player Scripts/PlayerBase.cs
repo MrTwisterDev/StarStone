@@ -93,6 +93,7 @@ public class PlayerBase : MonoBehaviour
     [Tooltip("The amount of health another player will regain when this player revives them.")]
     public float reviveHealthIncrease;
     public bool bloodOverlayActive;
+    public bool isDead;
     [Space]
     #endregion
     //Camera Controls
@@ -315,6 +316,13 @@ public class PlayerBase : MonoBehaviour
             MovementControls();
             ApplyGravity();
         }
+        if(playerState == PlayerStates.deadState)
+        {
+            if (!isDead)
+            {
+                KillPlayer();
+            }
+        }
         PauseControls();
     }
 
@@ -525,6 +533,9 @@ public class PlayerBase : MonoBehaviour
                             player.RestoreHealth(reviveHealthIncrease);
                             player.playerState = PlayerStates.standardState;
                             player.reviveTimer = 0f;
+                            player.uIController.ToggleDeathCanvas(false);
+                            player.isDead = false;
+                            gameController.deadPlayers--;
                         }
                     }
                 }
@@ -601,6 +612,20 @@ public class PlayerBase : MonoBehaviour
             playerState = PlayerStates.pausedState;
             pauseMenu.SetActive(true);
         }
+    }
+
+    public void KillPlayer()
+    {
+        if(gameController != null)
+        {
+            gameController.deadPlayers++;
+        }
+        else
+        {
+            Time.timeScale = 0;
+            uIController.ToggleDeathCanvas(true);
+        }
+        isDead = true;
     }
 
     public void WeaponSwapTimer()
