@@ -266,7 +266,7 @@ public class PlayerBase : MonoBehaviour
         if (leftAbilityCooldown == 0) { leftAbilityCooldown = 5f; }
         if (invunlerabilityLength == 0) { invunlerabilityLength = 15f; }
         invulnerabilityTimer = invunlerabilityLength;
-        if (speedBoostMultiplier == 0) { speedBoostMultiplier = 5f; }
+        if (speedBoostMultiplier == 0) { speedBoostMultiplier = 2f; }
         if (speedBoostDuration == 0) { speedBoostDuration = 15f; }
         speedBoostTimer = speedBoostDuration;
         if (string.IsNullOrEmpty(playerNumber)) { playerNumber = "PlayerOne"; }
@@ -562,34 +562,44 @@ public class PlayerBase : MonoBehaviour
         {
             if (playerState == PlayerStates.pausedState)
             {
-                //Sets the timescale back to 1 so that time will pass in the game
-                Time.timeScale = 1;
-                if (gameController != null)
-                {
-                    //Sets the players back to their standard state so their inputs will be recorded
-                    gameController.UnpauseAllPlayers();
-                }
-                else
-                {
-                    playerState = PlayerStates.standardState;
-                }
-                pauseMenu.SetActive(false);
+                UnpausePlayer();
             }
             else if (playerState != PlayerStates.deadState)
             {
-                //Sets the timescale to 0 to pause the game
-                Time.timeScale = 0;
-                //Sets the player's state to paused so they cannot use any controls other than unpausing
-                if (gameController != null)
-                {
-                    gameController.PauseAllPlayers();
-                }
-                else
-                {
-                    playerState = PlayerStates.pausedState;
-                }
-                pauseMenu.SetActive(true);
+                PausePlayer();
             }
+        }
+    }
+
+    public void UnpausePlayer()
+    {
+        //If the player has a gamecontroller attached, the UnpauseAllPlayers method is run
+        if (gameController != null)
+        {
+            gameController.UnpauseAllPlayers();
+        }
+        else
+        {
+            //Otherwise, the passage of time continues, the player returns to its standard state and the pause menu is closed
+            Time.timeScale = 1;
+            playerState = PlayerStates.standardState;
+            pauseMenu.SetActive(false);
+        }
+    }
+
+    public void PausePlayer()
+    {
+        //If the player has a gamecontroller attached, the PauseAllPlayers method is run
+        if (gameController != null)
+        {
+            gameController.PauseAllPlayers();
+        }
+        else
+        {
+            //Otherwise, the passage of time is paused, the player enters the paused state and the pause menu opens
+            Time.timeScale = 0;
+            playerState = PlayerStates.pausedState;
+            pauseMenu.SetActive(true);
         }
     }
 
@@ -735,19 +745,23 @@ public class PlayerBase : MonoBehaviour
 
     public void PowerupTimers()
     {
+        //If the player is invulnerable, then a timer is run each frame
         if (isInvulnerable)
         {
             invulnerabilityTimer -= Time.deltaTime;
+            //When the timer reaches zero, their invulnerability wears off and the timer is reset
             if(invulnerabilityTimer <= 0f)
             {
                 isInvulnerable = false;
                 invulnerabilityTimer = invunlerabilityLength;
             }
         }
+        //If the player has a speed boost, a timer is run each frame
         if (hasSpeedBoost)
         {
             speedBoostTimer -= Time.deltaTime;
-            if(speedBoostTimer <= 0)
+            //When the timer reaches zero, their speed bost is removed and the timer is reset
+            if(speedBoostTimer <= 0f)
             {
                 moveSpeedMultiplier -= speedBoostMultiplier;
                 hasSpeedBoost = false;

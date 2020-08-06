@@ -24,7 +24,7 @@ public class SoulController : MonoBehaviour
     void Start()
     {
         //If the soul's destination is undefined, it finds the object in the scene
-        if (soulDestination == null) { soulDestination = GameObject.Find("SoulSuckOMatic3000").transform; }
+        if (soulDestination == null) { soulDestination = GameObject.FindGameObjectWithTag("MainGenerator").transform; }
         //Finds and assigns the game controller's script to the soul
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
         //Sets the initial transform as the starting position

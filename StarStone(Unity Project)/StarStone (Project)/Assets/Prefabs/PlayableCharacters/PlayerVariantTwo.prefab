@@ -2218,9 +2218,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2915040097671354969, guid: 357b6c536cb82fe4ebd0a7a3370cc88c,
-          type: 3}
-        m_MethodName: UnpauseAllPlayers
+      - m_Target: {fileID: 1830114500888559481}
+        m_MethodName: UnpausePlayer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9724,6 +9723,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6d6c9432ee0b6a4bbe2c56fb77bce7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelManager: {fileID: 0}
+  gameController: {fileID: 0}
 --- !u!114 &3769351950908910260
 MonoBehaviour:
   m_ObjectHideFlags: 0

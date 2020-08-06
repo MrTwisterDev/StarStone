@@ -19,25 +19,6 @@ public class splitScreen : MonoBehaviour
         screenWidth = Screen.width;
         screenHeight = Screen.height;
         isHorizontalSplitOriginal = isHorizontalSplit;
-
-
-        if (isHorizontalSplit)
-        {
-            for (int i = 0; i < playerCharacters.Length; i++)
-            {
-                playerCharacters[i].rect = new Rect((float)i / playerCharacters.Length, 0f, 1.0f / playerCharacters.Length, 1.0f);
-
-            }
-        }
-        else
-        {
-
-            for (int i = 0; i < playerCharacters.Length; i++)
-            {
-                playerCharacters[i].rect = new Rect(0f, (float)i / playerCharacters.Length, 1.0f, 1.0f / playerCharacters.Length);
-
-            }
-        }
     }
 
     // Update is called once per frame

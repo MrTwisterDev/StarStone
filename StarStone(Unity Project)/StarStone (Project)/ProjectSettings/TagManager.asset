@@ -15,6 +15,7 @@ TagManager:
   - UICanvas
   - Henri
   - Marn
+  - MainGenerator
   layers:
   - Default
   - TransparentFX

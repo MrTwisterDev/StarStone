@@ -15,8 +15,17 @@ public class Speedball : scr_Collectable
     {
         //Finds and assigns the PlayerBase of the character that collided with the object
         PlayerBase player = playerObject.GetComponent<PlayerBase>();
-        //Adds the speedboost value to the player's speed multiplier and sets the speedBoost boolean to true in the player
-        player.moveSpeedMultiplier += player.speedBoostMultiplier;
-        player.hasSpeedBoost = true;
+        if (!player.hasSpeedBoost)
+        {
+            //Adds the speedboost value to the player's speed multiplier and sets the speedBoost boolean to true in the player
+            player.moveSpeedMultiplier += player.speedBoostMultiplier;
+            player.hasSpeedBoost = true;
+        }
+        else
+        {
+            //if the player already has the speed boost, the timer for it is reset
+            player.speedBoostTimer = player.speedBoostDuration;
+        }
+        Destroy(gameObject);
     }
 }

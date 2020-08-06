@@ -323,6 +323,7 @@ public class GameController : MonoBehaviour
         //If the level loaded is the playable level, all of the necessary variables are assigned depending on the currently selected difficulty
         if(level == 1)
         {
+            splitSceenController = FindObjectOfType<splitScreen>();
             if (isCoOp)
             {
                 playerControllers = new PlayerBase[2];
@@ -332,6 +333,7 @@ public class GameController : MonoBehaviour
             {
                 playerControllers = new PlayerBase[1];
                 uIController = new UIController[1];
+                splitSceenController.gameObject.SetActive(false);
             }
             InstantiatePlayers();
             spawnerParent = GameObject.Find("EnemySpawners").GetComponent<Transform>();
@@ -430,6 +432,7 @@ public class GameController : MonoBehaviour
     {
         for(int i = 0; i < playerControllers.Length; i++)
         {
+            Time.timeScale = 0;
             playerControllers[i].playerState = PlayerBase.PlayerStates.pausedState;
             playerControllers[i].pauseMenu.SetActive(true);
         }
@@ -439,6 +442,7 @@ public class GameController : MonoBehaviour
     {
         for(int i = 0; i < playerControllers.Length; i++)
         {
+            Time.timeScale = 1;
             playerControllers[i].pauseMenu.SetActive(false);
             playerControllers[i].playerState = PlayerBase.PlayerStates.standardState;
 
@@ -495,7 +499,6 @@ public class GameController : MonoBehaviour
             //Disables the audio listener on player two's camera so that it doesn't cause issues within Unity
             playerTwoCamera.GetComponent<AudioListener>().enabled = false;
             //Finds the split screen controller and adds the player cameras to its array before updating the screen resolution
-            splitSceenController = FindObjectOfType<splitScreen>();
             splitSceenController.playerCharacters[0] = playerOneCamera;
             splitSceenController.playerCharacters[1] = playerTwoCamera;
             splitSceenController.updateScreenResolution();
