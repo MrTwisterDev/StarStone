@@ -699,8 +699,8 @@ public class GameController : MonoBehaviour
 
     public void EnemySpawning()
     {
-        //Generates a random number between 0 and 4 which is used to pick a random spawn point from the array
-        int arrayIndex = UnityEngine.Random.Range(0, spawnerParent.childCount - 1);
+        //Generates a random number between 0 and the number of spawner objects there are which is used to pick a random spawn point from the array
+        int arrayIndex = UnityEngine.Random.Range(0, spawnerParent.childCount);
         pointToSpawnOn = enemySpawnPoints[arrayIndex];
         if (!PlayerCanSeeSpawner())
         {
