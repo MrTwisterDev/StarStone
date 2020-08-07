@@ -313,7 +313,7 @@ public class GameController : MonoBehaviour
                     connectedGenerators++;
                 }
             }
-            if(connectedGenerators == starstoneArray.Length)
+            if(connectedGenerators == starstoneArray.Length && finalWaveDone != true)
             {
                 //FINAL WAVE
                 Debug.Log("FINAL WAVE");
