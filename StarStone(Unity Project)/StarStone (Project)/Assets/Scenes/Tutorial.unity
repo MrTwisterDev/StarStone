@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -16121,6 +16121,81 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1346431548}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1711210379
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1981500780}
+    m_Modifications:
+    - target: {fileID: 9185140326828649222, guid: 23e3206d108637f4886ce4171277fca7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185140326828649222, guid: 23e3206d108637f4886ce4171277fca7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185140326828649222, guid: 23e3206d108637f4886ce4171277fca7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185140326828649222, guid: 23e3206d108637f4886ce4171277fca7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.52511346
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185140326828649222, guid: 23e3206d108637f4886ce4171277fca7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.47355652
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185140326828649222, guid: 23e3206d108637f4886ce4171277fca7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.47355664
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185140326828649222, guid: 23e3206d108637f4886ce4171277fca7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5251135
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185140326828649222, guid: 23e3206d108637f4886ce4171277fca7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185140326828649222, guid: 23e3206d108637f4886ce4171277fca7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 5.9110003
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185140326828649222, guid: 23e3206d108637f4886ce4171277fca7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185140326828649222, guid: 23e3206d108637f4886ce4171277fca7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185140326828649272, guid: 23e3206d108637f4886ce4171277fca7,
+        type: 3}
+      propertyPath: m_Name
+      value: PLEASE_WORK
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 23e3206d108637f4886ce4171277fca7, type: 3}
+--- !u!4 &1711210380 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9185140326828649222, guid: 23e3206d108637f4886ce4171277fca7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1711210379}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1711381650 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: d9b68b3b5a2cdbe4ab4cdc439f3dfd0d,
@@ -19462,6 +19537,7 @@ Transform:
   - {fileID: 1625461285}
   - {fileID: 517966640}
   - {fileID: 766055478}
+  - {fileID: 1711210380}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -24911,6 +24987,7 @@ MonoBehaviour:
   reviveTimer: 0
   reviveHealthIncrease: 25
   bloodOverlayActive: 0
+  isDead: 0
   cameraTransform: {fileID: 6594952469970030784}
   mouseSensitivity: 0
   xRotation: 0
@@ -26516,6 +26593,7 @@ MonoBehaviour:
   initialTime: 0
   healthBar: {fileID: 8186320746299441834}
   bloodOverlay: {fileID: 1282191466968073757}
+  deathCanvas: {fileID: 0}
   speedCharge: {fileID: 8186320746885542119}
   healthCharge: {fileID: 8186320747152987290}
   fireCharge: {fileID: 8186320747962002484}

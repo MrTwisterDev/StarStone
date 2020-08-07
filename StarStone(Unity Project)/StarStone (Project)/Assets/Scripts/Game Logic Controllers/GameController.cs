@@ -320,7 +320,7 @@ public class GameController : MonoBehaviour
                 smallEnemiesInWave *= 2;
                 mediumEnemiesInWave *= 2;
                 largeEnemiesInWave *= 2;
-                finalWaveDone;
+                finalWaveDone = true;
             }
             //End of Thomas
         }
