@@ -284,8 +284,11 @@ public class PlayerBase : MonoBehaviour
     {
         if(playerState == PlayerStates.deadState || playerState == PlayerStates.pausedState)
         {
-            Cursor.visible = true;                  //Makes the cursor visible and frees it so that the player can interact with any UI elements active
-            Cursor.lockState = CursorLockMode.None;
+            if (playerNumber == "PlayerOne")
+            {
+                Cursor.visible = true;                  //Makes the cursor visible and frees it so that the player can interact with any UI elements active
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
         if(playerState == PlayerStates.climbingState || playerState == PlayerStates.standardState)
         {

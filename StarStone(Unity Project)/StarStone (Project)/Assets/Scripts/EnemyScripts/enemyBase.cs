@@ -228,7 +228,7 @@ public class enemyBase : MonoBehaviour
         float _farthestDistance = Mathf.Infinity;
         foreach (GameObject player in players) //
         {
-            if (_farthestDistance >= Vector3.Distance(transform.position, player.transform.position))
+            if (_farthestDistance >= Vector3.Distance(transform.position, player.transform.position) && player.GetComponent<PlayerBase>().playerState != PlayerBase.PlayerStates.deadState)
             {
                 _farthestDistance = Vector3.Distance(transform.position, player.transform.position);
 
