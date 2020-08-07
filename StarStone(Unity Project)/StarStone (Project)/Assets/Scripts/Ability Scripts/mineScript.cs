@@ -4,34 +4,34 @@ using UnityEngine;
 
 public class mineScript : MonoBehaviour
 {
-    private bool minePrimed;
-    public float mineExplosionDistance;
+    private bool minePrimed;//Is the mine primed and ready to explode
+    public float mineExplosionDistance; //The distance a mine explosion affects
 
-    public float mineDamage;
+    public float mineDamage; //The amount of damage a mine explosion causes
 
-    public float minePrimeTimer;
-    private float currentMineTimer;
+    public float minePrimeTimer; //How long it takes for a mine to prime itself
+    private float currentMineTimer; //The current timer until the mine is primed
 
-    private bool hasChangedMaterial;
+    private bool hasChangedMaterial; //Has the mine changed it's material
     [HideInInspector]
-    public Color unThrownColour;
-    public Color unarmedMineUIColour;
-    public Color armedMineUIColour;
-    public Material primedMaterial;
+    public Color unThrownColour; //What color is the mine if it is static
+    public Color unarmedMineUIColour; //What color is the mine in the UI when it is unarmed
+    public Color armedMineUIColour; //What color is the mine in the UI when it is armed
+    public Material primedMaterial; //What material should be applied when the mine is armed
     [HideInInspector]
-    public UIController uiController;
+    public UIController uiController; //What UI should this script update
 
     [HideInInspector]
-    public CharacterVariantOne playerScript;
+    public CharacterVariantOne playerScript; //What player uses these mines
 
     private Rigidbody rigidBody;
     private Transform mainCamera;
     private MeshRenderer meshRenderer;
 
-    public AudioClip explosionSound;
-    public AudioClip primedClip;
+    public AudioClip explosionSound; //Sound when a mine explodes
+    public AudioClip primedClip; //Sound when a mine is primed
 
-    public GameObject explosionEffect;
+    public GameObject explosionEffect; //What particle effect should the mine have when it explodes
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +48,7 @@ public class mineScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Mine timer
         currentMineTimer -= Time.deltaTime;
         minePrimed = currentMineTimer <= 0;
 
@@ -64,7 +65,7 @@ public class mineScript : MonoBehaviour
             //~~~~~~~~~~~~\\
             foreach (Collider collider in Physics.OverlapSphere(transform.position, mineExplosionDistance))
             {
-                if(collider.gameObject.GetComponent<enemyBase>() != null)
+                if(collider.gameObject.GetComponent<enemyBase>() != null) //If an enemy is nearby then do, tests if an overlapped object has the enemy script
                 {
                     detonateMine(collider);
                 }
@@ -73,7 +74,7 @@ public class mineScript : MonoBehaviour
 
     }
 
-    void detonateMine(Collider enemyCollided)
+    void detonateMine(Collider enemyCollided) //Explode the mine
     {
         enemyCollided.gameObject.GetComponent<enemyBase>().takeDamage(mineDamage);
         GameObject _pSystem = Instantiate(explosionEffect, transform.position, Quaternion.identity);
@@ -84,6 +85,7 @@ public class mineScript : MonoBehaviour
 
     private void OnDestroy()
     {
+        //Update the ui to reflect the loss of an active mine
         uiController.UpdateMineCounter(playerScript.currentActiveMines, unThrownColour);
         playerScript.currentActiveMines--;
     }

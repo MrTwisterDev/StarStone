@@ -5,9 +5,9 @@ using UnityEngine;
 public class dynamicCrosshair : MonoBehaviour
 {
     
-    private GameObject[] crossHairParts = new GameObject[4];
-    private Vector3[] crossHairOrigins = new Vector3[4];
-    public float crossHairChangeSpeed;
+    private GameObject[] crossHairParts = new GameObject[4]; //All the four parts of the crosshair
+    private Vector3[] crossHairOrigins = new Vector3[4]; //The original point of the crosshair parts
+    public float crossHairChangeSpeed; //The speed of which the crosshair parts update their positions
     [Header("CrosshairOffsets")]
     [Tooltip("Affects all of the crosshair")]
     public float masterOffset;
@@ -55,6 +55,7 @@ public class dynamicCrosshair : MonoBehaviour
         }
     }
 
+    //Change the left and right crosshair parts
     void horizontalChange(float offSetX, int I)
     {
         float _AddedMaster;
@@ -72,6 +73,7 @@ public class dynamicCrosshair : MonoBehaviour
         Vector3.Slerp(crossHairParts[I].transform.position, (Vector2)crossHairOrigins[I] + new Vector2(offSetX + _AddedMaster,0),crossHairChangeSpeed);
     }
 
+    //Change the top and bottom crosshair parts
     void verticalChange(float offSetY, int I)
     {
         float _AddedMaster;

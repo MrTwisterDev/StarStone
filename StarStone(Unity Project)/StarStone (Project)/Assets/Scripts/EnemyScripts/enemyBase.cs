@@ -193,22 +193,22 @@ public class enemyBase : MonoBehaviour
         }
     }
 
-    public GameObject fireProjectile()
+    public GameObject fireProjectile() //Fire a projectile
     {
         GameObject instancedProjectile = Instantiate(projectileToFire, transform.position + new Vector3(0, 0.5f), transform.rotation);
         instancedProjectile.GetComponent<Rigidbody>().AddForce((nearestPlayer.transform.position - transform.position).normalized * (projectileSpeed * 100));
-        instancedProjectile.GetComponent<Rigidbody>().AddForce((Physics.gravity/2));
+        instancedProjectile.GetComponent<Rigidbody>().AddForce((Physics.gravity/2)); //Fire a projectile in the direction of the main player
         return instancedProjectile;
 
     }
 
-    public bool detectPlayer()
+    public bool detectPlayer() //Detect the nearest player with sight
     {
         if (detectionRadius >= getNearestPlayer())
         {
             Vector3 _Direction = nearestPlayer.transform.position - transform.position;
             RaycastHit hitObject;
-            Physics.Raycast(transform.position, _Direction, out hitObject);
+            Physics.Raycast(transform.position, _Direction, out hitObject); //Raycast checks to "see" the player
             if (hitObject.collider.gameObject.tag == "Player")
             {
                 Debug.Log(gameObject.name + "Found Player: " + hitObject.collider.gameObject.name);
@@ -239,7 +239,7 @@ public class enemyBase : MonoBehaviour
         return _farthestDistance;
     }
 
-    protected void meleePlayer()
+    protected void meleePlayer() //Melee attack the player
     {
         //Play Melee Animation
 
@@ -250,7 +250,7 @@ public class enemyBase : MonoBehaviour
         resetTimer(true);
     }
 
-    protected void resetTimer(bool meleeAttack)
+    protected void resetTimer(bool meleeAttack) //Reset the melee attack cooldown
     {
         if (meleeAttack)
         {
@@ -262,6 +262,7 @@ public class enemyBase : MonoBehaviour
         }
     }
 
+    //Change the powerup on the specific enemy
     public void changePowerup(stoneBuffs newBuff)
     {
         Debug.Log("Buffing an enemy with " + newBuff.ToString());
@@ -282,7 +283,7 @@ public class enemyBase : MonoBehaviour
             gameObject.GetComponent<NavMeshAgent>().angularSpeed -= (speedBuffAmount*3);
         }
 
-        switch (newBuff)
+        switch (newBuff) //Change enemy buff to new buff and apply changes
         {
             case stoneBuffs.noBuff:
                 enemyPowerup = stoneBuffs.noBuff;
