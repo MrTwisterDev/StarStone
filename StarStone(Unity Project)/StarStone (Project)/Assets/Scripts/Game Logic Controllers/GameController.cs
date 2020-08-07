@@ -213,6 +213,7 @@ public class GameController : MonoBehaviour
     public List<GameObject> enemiesList = new List<GameObject>(); //Tom's work
     [HideInInspector]
     public bool enemiesSpawned = false; //Tom's work
+    private bool finalWaveDone = false; //Tom's work
 
     public enum gameDifficulty
     {
@@ -316,6 +317,10 @@ public class GameController : MonoBehaviour
             {
                 //FINAL WAVE
                 Debug.Log("FINAL WAVE");
+                smallEnemiesInWave *= 2;
+                mediumEnemiesInWave *= 2;
+                largeEnemiesInWave *= 2;
+                finalWaveDone;
             }
             //End of Thomas
         }
@@ -560,6 +565,12 @@ public class GameController : MonoBehaviour
                 BuffEnemies();
                 generator.GetComponent<StarstoneController>().selectedGenerator = StarstoneController.selectionType.disconnecting;
             }
+        }
+
+        if (finalWaveDone)
+        {
+            Time.timeScale = 0;
+            victoryCanvas.SetActive(true);
         }
         //Plays a sound to signify the start of a new wave
         AudioSource.PlayClipAtPoint(waveStart, playerOneController.gameObject.transform.position);
