@@ -116,6 +116,7 @@ public class build_a_weapon : baseWeaponClass
             {
                 currentTimeTillBullet = timeTillBullet; //Resets the time before the next "bullet"
 
+                //Depending on the type of weapon fire with unique properties
                 switch (typeOfWeapon)
                 {
                     case typesOfWeapon.singleShot:
@@ -134,6 +135,7 @@ public class build_a_weapon : baseWeaponClass
                             weaponAudioSource.PlayOneShot(gunshotNoises[Random.Range(0, gunshotNoises.Length)]);
                             muzzleFlashChild.SetActive(true);
 
+                            //Fire lots of bullets in one frame to emulate a shotgun blast
                             for (int i = 0; i < bulletsInSpread; i++)
                             {
 
@@ -192,6 +194,8 @@ public class build_a_weapon : baseWeaponClass
 
     }
 
+
+    //Reloads the weapon
     public void reloadWeapon()
     {
         if (magazineCapacity == currentBullets)
@@ -232,6 +236,8 @@ public class build_a_weapon : baseWeaponClass
         }
     }
 
+
+    //Interpolates the weapon between two seperate points for aiming and for holstering
     public void aimWeapon(bool AimingIn)
     {
         if (AimingIn)

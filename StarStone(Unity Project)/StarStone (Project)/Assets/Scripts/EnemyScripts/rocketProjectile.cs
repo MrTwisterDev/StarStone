@@ -5,15 +5,15 @@ using UnityEngine;
 public class rocketProjectile : MonoBehaviour
 {
    [Range(0,20)]
-    public float rocketSpeed;
+    public float rocketSpeed; //What speed does the rocket fly at
 
     [Range(0,5)]
-    public float angularSpeed;
+    public float angularSpeed; //How quickly does the rocket turn
 
-    public float rocketExplosionRadius;
-    public float rocketExplosionDamage;
+    public float rocketExplosionRadius; //How large is the explosion radius of the rocket
+    public float rocketExplosionDamage; //How much damage does the rocket deal
 
-    public GameObject explosionParticles;
+    public GameObject explosionParticles; //Particles of the explosion
     public GameObject targetedPlayer;
     public AudioClip rocketExplosionSound;
     public AudioClip rocketFlyingSound;
@@ -34,10 +34,10 @@ public class rocketProjectile : MonoBehaviour
     void Update()
     {
 
-        Quaternion rotationToPlayer = Quaternion.LookRotation(targetedPlayer.transform.position - transform.position);
+        Quaternion rotationToPlayer = Quaternion.LookRotation(targetedPlayer.transform.position - transform.position); 
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotationToPlayer, (angularSpeed) * Time.deltaTime);
-        transform.Translate(Vector3.forward * rocketSpeed *Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotationToPlayer, (angularSpeed) * Time.deltaTime);//Look towards the player
+        transform.Translate(Vector3.forward * rocketSpeed *Time.deltaTime); //Fly towards the player
     }
 
 
@@ -47,7 +47,7 @@ public class rocketProjectile : MonoBehaviour
         {
             if (Object.tag == "Player")
             {
-                Object.GetComponent<PlayerBase>().TakeDamage(rocketExplosionDamage);
+                Object.GetComponent<PlayerBase>().TakeDamage(rocketExplosionDamage); //If a player is in the explosion radius damage the player
             }
         }
         try

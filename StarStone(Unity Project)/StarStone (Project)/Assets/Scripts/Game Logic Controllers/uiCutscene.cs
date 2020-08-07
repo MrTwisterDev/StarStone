@@ -20,7 +20,7 @@ public class uiCutscene : MonoBehaviour
     public TextMeshProUGUI cutsceneTextObj; //Text to draw the cutscene text to
 
     [Header ("Cutscene events")]
-    public UnityEvent onCutsceneFinish;
+    public UnityEvent onCutsceneFinish; //What will the cutscene do when it ends?
 
 
     [Serializable]
@@ -54,12 +54,12 @@ public class uiCutscene : MonoBehaviour
             }
             else
             {
-                if (stringIndex + 1 < scenes[sceneIndex].cutSceneText.Length)
+                if (stringIndex + 1 < scenes[sceneIndex].cutSceneText.Length) //Go to next piece of dialogue
                 {
                     stringIndex++;
                     loadScene(sceneIndex, stringIndex);
                 }
-                else
+                else //Go to the next scene if the previous scene has ran out of text
                 {
                     sceneIndex++;
                     stringIndex = 0;
@@ -69,7 +69,7 @@ public class uiCutscene : MonoBehaviour
         }
     }
 
-    void loadScene(int sceneToLoad, int stringToLoad)
+    void loadScene(int sceneToLoad, int stringToLoad) //Load in the new scenes text and image
     {
         imageCanvas.sprite = scenes[sceneToLoad].cutSceneImage;
         cutsceneTextObj.text = scenes[sceneToLoad].cutSceneText[stringToLoad];

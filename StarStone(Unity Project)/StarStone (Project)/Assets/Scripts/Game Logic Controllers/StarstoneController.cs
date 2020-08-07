@@ -166,7 +166,7 @@ public class StarstoneController : MonoBehaviour
         gameController.BuffEnemies();
     }
 
-    public void chargePrototypeWeapon(PrototypeWeapon.weaponModes typeToCharge) //Possibly unneeded
+    public void chargePrototypeWeapon(PrototypeWeapon.weaponModes typeToCharge) //Depricated
     {
         if(genEnabled == true)
         {
@@ -175,7 +175,6 @@ public class StarstoneController : MonoBehaviour
                 if(player.GetComponent<PlayerBase>().activeWeapon.GetComponent<PrototypeWeapon>() != null)
                 {
                     PrototypeWeapon proto = player.GetComponent<PlayerBase>().activeWeapon.GetComponent<PrototypeWeapon>();
-                    //JAMES DO STUFF HERE TO MAKE IT CHARGE :D
                    
                 }
             }
