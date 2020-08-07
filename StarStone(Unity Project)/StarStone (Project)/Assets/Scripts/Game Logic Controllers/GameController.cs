@@ -432,6 +432,13 @@ public class GameController : MonoBehaviour
             timerActive = false;
             Time.timeScale = 1;
         }
+        else if(level == 2)
+        {
+            playerControllers = new PlayerBase[1];
+            uIController = new UIController[1];
+            playerControllers[0] = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBase>();
+            uIController[0] = GameObject.FindGameObjectWithTag("Player").GetComponent<UIController>();
+        }
     }
 
     public void ToggleCoop()
