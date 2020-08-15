@@ -14,7 +14,7 @@ public class Speedball : scr_Collectable
     public override void pickupCollectable(GameObject playerObject)
     {
 
-        UIController.isFast = true;
+        UIController.isFast = true; // Lewis' work
         //Finds and assigns the PlayerBase of the character that collided with the object
         PlayerBase player = playerObject.GetComponent<PlayerBase>();
         if (!player.hasSpeedBoost)
