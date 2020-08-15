@@ -71,6 +71,10 @@ public class enemyBase : MonoBehaviour
     [HideInInspector]public float maxEnemyHP;
 
 
+    // Lewis' work//
+    public AudioClip deathSound;
+    
+ 
 
     public enum enemyStates
     {
@@ -133,6 +137,7 @@ public class enemyBase : MonoBehaviour
             enemyHP -= damageAmount;
             if (enemyHP <= 0)
             {
+                AudioSource.PlayClipAtPoint(deathSound, .9f * Camera.main.transform.position + 0.1f * transform.position, 1f);
                 destroyEnemy();
             }
         }
@@ -157,10 +162,13 @@ public class enemyBase : MonoBehaviour
 
     public virtual void destroyEnemy() //Method virtual so enemies can have unique death animations, however if not overriden destroy the enemy
     {
+       
         //James' work\\
         Instantiate(soulParticles, transform.position, soulParticles.transform.rotation);
         DropPowerUp();
         //~~~~~~~~~~~~\\
+        
+        
         Destroy(gameObject);
     }
 

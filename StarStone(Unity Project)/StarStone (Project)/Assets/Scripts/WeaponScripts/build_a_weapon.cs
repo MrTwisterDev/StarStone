@@ -124,7 +124,7 @@ public class build_a_weapon : baseWeaponClass
                         totalBullets--;
                         fireBullet();
                         gunAccuracy += gunAccuracyRecoil;
-                        weaponAudioSource.PlayOneShot(gunshotNoises[Random.Range(0, gunshotNoises.Length)]);
+                        weaponAudioSource.PlayOneShot(gunshotNoises[Random.Range(0, gunshotNoises.Length)], 0.5f);
                         muzzleFlashChild.SetActive(true);
                         break;
                     case typesOfWeapon.spreadShot:
@@ -132,7 +132,7 @@ public class build_a_weapon : baseWeaponClass
                         {
                             currentBullets--;
                             totalBullets--;
-                            weaponAudioSource.PlayOneShot(gunshotNoises[Random.Range(0, gunshotNoises.Length)]);
+                            weaponAudioSource.PlayOneShot(gunshotNoises[Random.Range(0, gunshotNoises.Length)], 0.5f);
                             muzzleFlashChild.SetActive(true);
 
                             //Fire lots of bullets in one frame to emulate a shotgun blast
@@ -217,7 +217,7 @@ public class build_a_weapon : baseWeaponClass
 
     public void playReloadSound() //Animation event for specific timing
     {
-        weaponAudioSource.PlayOneShot(reloadSound[Random.Range(0, reloadSound.Length)]);
+        weaponAudioSource.PlayOneShot(reloadSound[Random.Range(0, reloadSound.Length)], 0.5f);
     }
 
     private void OnDisable()

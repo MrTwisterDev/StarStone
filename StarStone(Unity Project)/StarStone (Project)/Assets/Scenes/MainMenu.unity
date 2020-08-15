@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: e9527ca7f0fe5274f8196fa3368d3bc3,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -6896,12 +6896,12 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: normalBaseMaxSmallEnemies
-      value: 9
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: normalBaseMaxMediumEnemies
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -6916,37 +6916,37 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: hardBaseMaxSmallEnemies
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: hardBaseMaxMediumEnemies
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
-        type: 3}
-      propertyPath: easyMaxSmallEnemyIncrease
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
-        type: 3}
-      propertyPath: easyMaxMediumEnemyIncrease
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
-        type: 3}
-      propertyPath: easyMaxLargeEnemyIncrease
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
-        type: 3}
-      propertyPath: normalMaxSmallEnemyIncrease
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
-      propertyPath: normalMaxMediumEnemyIncrease
+      propertyPath: easyMaxSmallEnemyIncrease
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: easyMaxMediumEnemyIncrease
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: easyMaxLargeEnemyIncrease
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: normalMaxSmallEnemyIncrease
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
+        type: 3}
+      propertyPath: normalMaxMediumEnemyIncrease
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -6961,12 +6961,12 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: hardMaxSmallEnemyIncrease
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: hardMaxMediumEnemyIncrease
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -6986,12 +6986,12 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: smallEnemiesInNormalWave
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: mediumEnemiesInNormalWave
-      value: 4
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -7001,12 +7001,12 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: smallEnemiesInHardWave
-      value: 18
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: mediumEnemiesInHardWave
-      value: 12
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -7021,7 +7021,7 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: requiredSoulsInGenerator
-      value: 5000
+      value: 148
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -7047,7 +7047,7 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: enemySpawnDelay
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -7110,7 +7110,7 @@ PrefabInstance:
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
       propertyPath: hardWaveTime
-      value: 80
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2858349822893192815, guid: 5fb40fc5760edb64096d8ec44572b59a,
         type: 3}
@@ -21734,7 +21734,12 @@ PrefabInstance:
     - target: {fileID: 1638820603467563965, guid: 06d106bc8a12c0c428b562945d38ad22,
         type: 3}
       propertyPath: m_Volume
-      value: 0.17
+      value: 0.177
+      objectReference: {fileID: 0}
+    - target: {fileID: 1638820603467563965, guid: 06d106bc8a12c0c428b562945d38ad22,
+        type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[0].value
+      value: 1.065
       objectReference: {fileID: 0}
     - target: {fileID: 1638820603467563966, guid: 06d106bc8a12c0c428b562945d38ad22,
         type: 3}
@@ -21999,7 +22004,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bb1ed320c13e5564197df75eac3ae3b6, type: 2}
+  - {fileID: 2100000, guid: e04caa55aa6943343b9412eb15328ef6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

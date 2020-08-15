@@ -265,10 +265,10 @@ public class PlayerBase : MonoBehaviour
         if (underwaterSpeedMultiplier == 0) { underwaterSpeedMultiplier = -0.2f; }
         if (mouseSensitivity == 0) { mouseSensitivity = 50f; }
         if (leftAbilityCooldown == 0) { leftAbilityCooldown = 5f; }
-        if (invunlerabilityLength == 0) { invunlerabilityLength = 15f; }
+        if (invunlerabilityLength == 0) { invunlerabilityLength = 7f; }
         invulnerabilityTimer = invunlerabilityLength;
         if (speedBoostMultiplier == 0) { speedBoostMultiplier = 2f; }
-        if (speedBoostDuration == 0) { speedBoostDuration = 15f; }
+        if (speedBoostDuration == 0) { speedBoostDuration = 7f; }
         speedBoostTimer = speedBoostDuration;
         if (string.IsNullOrEmpty(playerNumber)) { playerNumber = "PlayerOne"; }
         hasLanded = true;
@@ -796,6 +796,7 @@ public class PlayerBase : MonoBehaviour
     {
         if (!isInvulnerable)
         {
+           
             currentHealth -= damageDealt;
             canRegen = false;
             timeSinceTakenDamage = 0f;

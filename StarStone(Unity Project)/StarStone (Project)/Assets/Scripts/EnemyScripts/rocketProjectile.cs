@@ -43,6 +43,9 @@ public class rocketProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+
+        AudioSource.PlayClipAtPoint(rocketExplosionSound, gameObject.transform.position, 0.1f); // Lewis' code 
+
         foreach (var Object in Physics.OverlapSphere(gameObject.transform.position,rocketExplosionRadius))
         {
             if (Object.tag == "Player")

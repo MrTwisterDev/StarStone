@@ -5,10 +5,12 @@ using UnityEngine;
 public class enemyProjectile : MonoBehaviour
 {
     public float projectileDamage;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+  
     }
 
     // Update is called once per frame

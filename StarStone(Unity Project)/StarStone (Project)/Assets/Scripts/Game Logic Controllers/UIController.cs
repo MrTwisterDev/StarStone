@@ -42,9 +42,17 @@ public class UIController : MonoBehaviour
     public Slider fireCharge;
     public Slider singularityCharge;
 
+
+    //Lewis' work
+    public Text Immune;
+   public static bool isImmune;
+
+    public Text Speed;
+    public static bool isFast;
     public void Start()
     {
         playerController = gameObject.GetComponent<PlayerBase>();
+      
     }
 
     public void GetChangedWeapon()
@@ -175,4 +183,84 @@ public class UIController : MonoBehaviour
         healthBar.value = playerController.GetHealth() / 100;
     }
 
+
+
+    // Lewis' work 
+    public void IsImmune(bool isActive) // Method that enables Text that says "you are immune "
+    {
+        Immune.gameObject.SetActive(true);
+       
+    }
+
+    public void IsNotImmune(bool isActive) // Method that disables Text that says "you are immune "
+    {
+        Immune.gameObject.SetActive(false);
+
+    }
+
+
+    public void IsFast(bool isActive) // Method that enables Text that says "you are fast "
+    {
+        Speed.gameObject.SetActive(true);
+    }
+
+
+    public void IsNotFast(bool isActive) // Method that disables Text that says "you are fast "
+    {
+        Speed.gameObject.SetActive(false);
+    }
+
+    
+
+    private void Update()
+    {
+         if (isImmune == true) // Checks the static bool to see if the player has picked up a invulnerball
+        {
+
+            StartCoroutine(SevenSeconds()); // waits for the duration of the immunity buff 
+            IsImmune(true); // runs the method that enables the immune text 
+            
+           
+
+            
+        }
+
+
+         if (isFast == true) // checks the static bool to see if the player has picked up the speedball 
+        {
+
+            StartCoroutine(SevenSecondsForSpeed());  // waits for the duration of the speed buff 
+            IsFast(true);  // runs the method that enables the speed text 
+
+
+        }
+
+
+
+
+    }
+
+    IEnumerator SevenSeconds()
+    {
+
+        yield return new WaitForSeconds(7f);
+     
+        IsNotImmune(true); // runs the method that disables the immune text 
+        isImmune = false; // sets the static bool to false, so that the update method doesn't continously run the code
+        IsNotImmune(false); // runs the method that disables the immune text for sure 
+
+
+    }
+
+    IEnumerator SevenSecondsForSpeed()
+    {
+
+        yield return new WaitForSeconds(7f);
+        
+        IsNotFast(true);// runs the method that disables the speed text 
+        isFast = false;// sets the static bool to false, so that the update method doesn't continously run the code
+        IsNotFast(false);// runs the method that disables the speed text for sure 
+
+
+    }
 }

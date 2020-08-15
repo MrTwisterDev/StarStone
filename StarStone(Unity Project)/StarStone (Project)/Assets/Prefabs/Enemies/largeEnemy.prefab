@@ -164,6 +164,8 @@ MonoBehaviour:
   burnParticles: {fileID: 2033962852999733121}
   showDebugGizmos: 0
   maxEnemyHP: 0
+  deathSound: {fileID: 8300000, guid: ddf6f3310e7a0ed489ae4e1b3966c44f, type: 3}
+  deathSoundMulitplier: 15
   healthBuffAmount: 0
   speedBuffAmount: 0
   enemyState: 0
