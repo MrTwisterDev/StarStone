@@ -51,8 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c6989307ae1fb44a3217b34864825c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rocketSpeed: 12.02
-  angularSpeed: 3.36
+  rocketSpeed: 8.84
+  angularSpeed: 2.4
   rocketExplosionRadius: 3
   rocketExplosionDamage: 25
   explosionParticles: {fileID: 0}
@@ -71,8 +71,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.8, y: 0.6, z: 3.46}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 4.4392037, y: 1.2448918, z: 3.46}
+  m_Center: {x: -0.051765874, y: -0.05633961, z: 0}
 --- !u!54 &4836667623296247682
 Rigidbody:
   m_ObjectHideFlags: 0

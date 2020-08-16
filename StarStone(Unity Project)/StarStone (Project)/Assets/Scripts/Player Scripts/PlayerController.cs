@@ -361,6 +361,11 @@ public class PlayerController : MonoBehaviour
             uiController.UpdateAmmoText();
         }
 
+        // if (input Getkeydown.Q)
+        //{ baseWeaponClass _currentWeaponScript = weaponsArray[activeWeaponIndex].GetComponent<baseWeaponClass>();
+       // weaponsArray[activeWeaponIndex].GetComponent<Animator>().Play("Reload");
+   // }
+
         if (Input.GetKeyDown(KeyCode.G))
         {
             Instantiate(proxMine, cameraTransform.position, cameraTransform.rotation);

@@ -36,8 +36,18 @@ public class uiCutscene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+
+        // Lewis' code. Please don't shoot me
+        GameObject glass = GameObject.Find("GeneratorGlass");
+        glass.SetActive(false); // the glass caused a visual glitch with the cutscenes, so this disables the glass. 
+
+
         imageCanvas.sprite = scenes[sceneIndex].cutSceneImage;
         cutsceneTextObj.text = scenes[sceneIndex].cutSceneText[stringIndex];
+
+
+
     }
 
     // Update is called once per frame
