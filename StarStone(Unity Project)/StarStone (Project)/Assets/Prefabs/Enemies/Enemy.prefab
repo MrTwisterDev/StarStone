@@ -4919,6 +4919,7 @@ MonoBehaviour:
   showDebugGizmos: 1
   maxEnemyHP: 0
   deathSound: {fileID: 8300000, guid: 560580770e585e54da30f81fda03061b, type: 3}
+  hitSound: {fileID: 8300000, guid: 7fe076a7802d5894bb9ade35a25e0cfb, type: 3}
   healthBuffAmount: 10
   speedBuffAmount: 4
   enemyState: 0

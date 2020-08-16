@@ -49,7 +49,7 @@ public class enemyBase : MonoBehaviour
     [Tooltip("The amount of Health this enemy has")]
     public float enemyHP;
     [Tooltip("The amount of damage this enemies melee attack deals")]
-    public int meleeDamage;
+    public float meleeDamage;
 
     public bool hasMelee;
 
@@ -73,7 +73,8 @@ public class enemyBase : MonoBehaviour
 
     // Lewis' work//
     public AudioClip deathSound;
-    
+    public AudioClip hitSound;
+    public AudioClip meleeSound;
  
 
     public enum enemyStates
@@ -125,6 +126,10 @@ public class enemyBase : MonoBehaviour
             TakeFireDamage();
         }
         //~~~~~~~~~~~\\
+
+
+    
+        
     }
 
     public void takeDamage(float damageAmount)
@@ -135,6 +140,7 @@ public class enemyBase : MonoBehaviour
         {
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
             enemyHP -= damageAmount;
+             AudioSource.PlayClipAtPoint(hitSound, nearestPlayer.transform.position);
             if (enemyHP <= 0)
             {
                 AudioSource.PlayClipAtPoint(deathSound, .9f * Camera.main.transform.position + 0.1f * transform.position, 1f);
@@ -252,9 +258,14 @@ public class enemyBase : MonoBehaviour
         //Play Melee Animation
 
         getNearestPlayer();
-
+      
+        
+            AudioSource.PlayClipAtPoint(meleeSound, transform.position);
+        
         //Currently means that a player cannot avoid a melee attack once it has started. Can be improved
         nearestPlayer.GetComponent<PlayerBase>().TakeDamage(meleeDamage);
+         
+        
         resetTimer(true);
     }
 
@@ -263,10 +274,12 @@ public class enemyBase : MonoBehaviour
         if (meleeAttack)
         {
             currentTimer = attackMinTimer;
+            AudioSource.PlayClipAtPoint(meleeSound, transform.position);
         }
         else
         {
             currentTimer = Random.Range(attackMinTimer, attackMaxTimer);
+            
         }
     }
 
@@ -328,4 +341,6 @@ public class enemyBase : MonoBehaviour
         }
     }
 
+  
+    
 }

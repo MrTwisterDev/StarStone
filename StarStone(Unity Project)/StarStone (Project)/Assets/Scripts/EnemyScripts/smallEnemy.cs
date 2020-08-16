@@ -16,6 +16,9 @@ public class smallEnemy : enemyBase
     void Update()
     {
 
+
+
+
         switch (enemyState)
         {
             case enemyStates.idleState:
@@ -36,7 +39,7 @@ public class smallEnemy : enemyBase
                     fireProjectile();
                     resetTimer(false);
                 }
-                else if(hasMelee && currentTimer <= 0 && getNearestPlayer() <= minimumProjectileRadius)
+                else if (hasMelee && currentTimer <= 0 && getNearestPlayer() <= minimumProjectileRadius)
                 {
                     Debug.Log(gameObject.name + " Attacks dealing: " + meleeDamage + " Damage!!");
                     meleePlayer();
@@ -45,6 +48,5 @@ public class smallEnemy : enemyBase
                 break;
         }
     }
-
 
 }

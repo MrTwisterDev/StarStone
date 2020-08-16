@@ -361,10 +361,8 @@ public class PlayerController : MonoBehaviour
             uiController.UpdateAmmoText();
         }
 
-        // if (input Getkeydown.Q)
-        //{ baseWeaponClass _currentWeaponScript = weaponsArray[activeWeaponIndex].GetComponent<baseWeaponClass>();
-       // weaponsArray[activeWeaponIndex].GetComponent<Animator>().Play("Reload");
-   // }
+    
+    
 
         if (Input.GetKeyDown(KeyCode.G))
         {
@@ -385,8 +383,18 @@ public class PlayerController : MonoBehaviour
             AudioSource.PlayClipAtPoint(punchSound, transform.position);
         }
 
+      
+
+
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
+
+
+
+           
+
+
             timeSinceLastPress = 0f;
             if (!preparingToSwap)
             {

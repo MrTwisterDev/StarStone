@@ -24,6 +24,7 @@ public class PlayerBase : MonoBehaviour
     public float groundDistance;
     [Tooltip("The layer that, if the player lands on it, will trigger isGrounded to return true.")]
     public LayerMask groundLayer;
+
     [Tooltip("The layer the ladders are assigned to in the game.")]
     public LayerMask ladderLayer;
     public LayerMask interactiveLayer;
@@ -219,7 +220,7 @@ public class PlayerBase : MonoBehaviour
         AssignNullVariables();
         isSprinting = false;
         isCrouching = false;
-        if(healthRegenCutoff > maxHealth) { Debug.LogWarning("The health regen cutoff value is greater than the maximum health value of" + gameObject + ", this player's health will regen as normal."); }
+        if (healthRegenCutoff > maxHealth) { Debug.LogWarning("The health regen cutoff value is greater than the maximum health value of" + gameObject + ", this player's health will regen as normal."); }
         currentHealth = maxHealth;
         //Sets the first weapon in the array of weapons to active, and sets it as the player's active weapon to feed information through to the weapon and the UI Controller.
         weaponsArray[activeWeaponIndex].SetActive(true);
@@ -282,7 +283,7 @@ public class PlayerBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerState == PlayerStates.deadState || playerState == PlayerStates.pausedState)
+        if (playerState == PlayerStates.deadState || playerState == PlayerStates.pausedState)
         {
             if (playerNumber == "PlayerOne")
             {
@@ -290,7 +291,7 @@ public class PlayerBase : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
             }
         }
-        if(playerState == PlayerStates.climbingState || playerState == PlayerStates.standardState)
+        if (playerState == PlayerStates.climbingState || playerState == PlayerStates.standardState)
         {
             CameraControls();
             CheckCanClimb();
@@ -310,16 +311,16 @@ public class PlayerBase : MonoBehaviour
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
-        if(playerState == PlayerStates.climbingState)
+        if (playerState == PlayerStates.climbingState)
         {
             ClimbingControls();
         }
-        if(playerState == PlayerStates.standardState)
+        if (playerState == PlayerStates.standardState)
         {
             MovementControls();
             ApplyGravity();
         }
-        if(playerState == PlayerStates.deadState)
+        if (playerState == PlayerStates.deadState)
         {
             if (!isDead)
             {
@@ -331,7 +332,7 @@ public class PlayerBase : MonoBehaviour
 
     public virtual void MovementControls()
     {
-        if(isGrounded || (!isGrounded && !isJumping))
+        if (isGrounded || (!isGrounded && !isJumping))
         {
             //Records the input from the keyboard, or left analog stick on the appropriate controller
             xInput = Input.GetAxis(playerNumber + "Horizontal");
@@ -340,7 +341,7 @@ public class PlayerBase : MonoBehaviour
             //Moves the player by the newly calculated movement vector, applying the movement speed and any multipliers and using deltaTime to make movement non-framerate dependent
             characterController.Move(movement * moveSpeed * moveSpeedMultiplier * Time.deltaTime);
         }
-        else if(!isGrounded && isJumping)
+        else if (!isGrounded && isJumping)
         {
             //Doesn't get the current input values to ensure the player can't change direction or strafe mid-jump
             movement = transform.right * xInput + transform.forward * zInput;
@@ -350,20 +351,20 @@ public class PlayerBase : MonoBehaviour
         //If the sprint button is held and the player is not already sprinting, the sprint speed modifier is added to the movement speed multiplier and the isSprinting is set to true
         //Checking to see if the player is already sprinting prevents the speed from being added more than once
         if (Input.GetButtonDown(playerNumber + "Sprint") && !isSprinting)
-        { 
+        {
             moveSpeedMultiplier += sprintSpeedMultiplier;
             isSprinting = true;
         }
         //If the player release the sprint button while they are sprinting, the sprint speed modifier is subtracted from the movement speed multiplier and isSprinting is set to false
         //Checking to see if the player is already sprinting prevents the modifier from being subtracted more than once
-        if(Input.GetButtonUp(playerNumber + "Sprint") && isSprinting)
+        if (Input.GetButtonUp(playerNumber + "Sprint") && isSprinting)
         {
             moveSpeedMultiplier -= sprintSpeedMultiplier;
             isSprinting = false;
         }
         //If the player presses the jump button and are currently standing on the ground, their current movement speed multiplier is saved and their vertical velocity is set to
         //the square root of the player's jumpheight doubled, multiplied by the gravity force in order to create a more realistic jump without using Unity physics
-        if(Input.GetButtonDown(playerNumber + "Jump") && isGrounded)
+        if (Input.GetButtonDown(playerNumber + "Jump") && isGrounded)
         {
             isJumping = true;
             hasLanded = false;
@@ -373,7 +374,7 @@ public class PlayerBase : MonoBehaviour
         }
         //If the player presses the crouch button, their scale is set to the crouching scale, and the crouching speed modifier is added to their speed multiplier
         //Checking to see if the player is already crouching prevents the modifier from being added multiple times
-        if(Input.GetButtonDown(playerNumber + "Crouch") && !isCrouching)
+        if (Input.GetButtonDown(playerNumber + "Crouch") && !isCrouching)
         {
             isCrouching = true;
             playerModel.transform.localScale = crouchingScale;
@@ -383,7 +384,7 @@ public class PlayerBase : MonoBehaviour
         }
         //When the player releases the crouch button, their scale is reseting to full size and the crouching speed modifier is subtracted from their speed multiplier
         //Checking to see if the player is already crouching prevents the modifier from being subtracted multiple times
-        if(Input.GetButtonUp(playerNumber + "Crouch") && isCrouching)
+        if (Input.GetButtonUp(playerNumber + "Crouch") && isCrouching)
         {
             isCrouching = false;
             playerModel.transform.localScale = standingScale;
@@ -409,18 +410,18 @@ public class PlayerBase : MonoBehaviour
                 activeWeapon.GetComponent<build_a_weapon>().spreadShotLock = false;
             }
         }
-        else if(Input.GetAxis(playerNumber + "Fire") > 0 && activeWeapon.tag == "Prototype")
+        else if (Input.GetAxis(playerNumber + "Fire") > 0 && activeWeapon.tag == "Prototype")
         {
             activeWeapon.GetComponent<PrototypeWeapon>().Fire();
         }
-        if(Input.GetAxis(playerNumber + "Fire") == 0 && activeWeapon.tag == "Prototype")
+        if (Input.GetAxis(playerNumber + "Fire") == 0 && activeWeapon.tag == "Prototype")
         {
             activeWeapon.GetComponent<PrototypeWeapon>().singleShotLock = false;
             if (activeWeapon.GetComponent<PrototypeWeapon>().weaponSound.isPlaying && activeWeapon.GetComponent<PrototypeWeapon>().weaponSound.loop == true)
             {
                 activeWeapon.GetComponent<PrototypeWeapon>().GetComponent<PrototypeWeapon>().weaponSound.Stop();
             }
-            
+
         }
         if (Input.GetAxis(playerNumber + "Aim") > 0 && activeWeapon.GetComponent<build_a_weapon>())
         {
@@ -452,6 +453,9 @@ public class PlayerBase : MonoBehaviour
         }
         if (Input.GetButtonDown(playerNumber + "ChangeWeapon"))
         {
+
+
+
             //Resets the value of timeSinceLastPress so the timer can start from 0
             timeSinceLastPress = 0f;
             //If the player isn't already preparing to swap their weapon, they are now
@@ -470,6 +474,8 @@ public class PlayerBase : MonoBehaviour
                 preparingToSwapWeapon = false;
                 timeSinceLastPress = 0f;
             }
+
+
         }
         if (Input.GetButtonDown(playerNumber + "Reload"))
         {
@@ -481,13 +487,13 @@ public class PlayerBase : MonoBehaviour
     public virtual void MiscControls()
     {
 
-        if(Input.GetKeyDown(KeyCode.O) && gameObject.GetComponent<CharacterVariantOne>() != null)
+        if (Input.GetKeyDown(KeyCode.O) && gameObject.GetComponent<CharacterVariantOne>() != null)
         {
             bool toggleBool = gameObject.GetComponent<CharacterVariantOne>().pixelMode.activeSelf;
             gameObject.GetComponent<CharacterVariantOne>().pixelMode.SetActive(!toggleBool);
         }
         //Interacting Controls
-        if(Input.GetButtonDown(playerNumber + "Interact"))
+        if (Input.GetButtonDown(playerNumber + "Interact"))
         {
             if (CanInteract())
             {
@@ -517,21 +523,21 @@ public class PlayerBase : MonoBehaviour
                 }
             }
         }
-        if(Input.GetButton(playerNumber + "Interact"))
+        if (Input.GetButton(playerNumber + "Interact"))
         {
             if (CanInteract())
             {
                 //If the player is trying to interact with another player and that player is currently dead, they can be revived
-                if(interactableObject.collider.gameObject.GetComponentInParent<PlayerBase>() != null)
+                if (interactableObject.collider.gameObject.GetComponentInParent<PlayerBase>() != null)
                 {
                     PlayerBase player = interactableObject.collider.gameObject.GetComponentInParent<PlayerBase>();
-                    if(player.playerState == PlayerStates.deadState)
+                    if (player.playerState == PlayerStates.deadState)
                     {
                         //Increases the value of the reviveTimer by the amount of time passed since the last frame
                         player.reviveTimer += Time.deltaTime;
                         //If the revive timer reaches the value of reviveTime, the player has health restored and is set to the standard state
                         //The value of the reviveTimer is also reset to 0 so it can be used again
-                        if(player.reviveTimer >= player.reviveTime)
+                        if (player.reviveTimer >= player.reviveTime)
                         {
                             player.RestoreHealth(reviveHealthIncrease);
                             player.playerState = PlayerStates.standardState;
@@ -545,17 +551,17 @@ public class PlayerBase : MonoBehaviour
             }
         }
         //Left Ability controls
-        if(Input.GetButtonDown(playerNumber + "LeftAbility") && canUseLeftAbility)
+        if (Input.GetButtonDown(playerNumber + "LeftAbility") && canUseLeftAbility)
         {
             UseLeftAbility();
         }
         //Right Ability Controls
-        if(Input.GetButtonDown(playerNumber + "RightAbility"))
+        if (Input.GetButtonDown(playerNumber + "RightAbility"))
         {
             UseRightAbility();
         }
         //Flashlight Controls
-        if(Input.GetAxis(playerNumber + "Flashlight") == 1 && canToggleLight)
+        if (Input.GetAxis(playerNumber + "Flashlight") == 1 && canToggleLight)
         {
             //Toggles the flashlight boolean and plays the toggle sound, setting the flashlight to active or inactive depending on the value of flashlightToggle
             flashlightToggle = !flashlightToggle;
@@ -563,7 +569,7 @@ public class PlayerBase : MonoBehaviour
             flashlight.SetActive(flashlightToggle);
             canToggleLight = false;
         }
-        if(Input.GetAxis(playerNumber + "Flashlight") == 0 && !canToggleLight)
+        if (Input.GetAxis(playerNumber + "Flashlight") == 0 && !canToggleLight)
         {
             canToggleLight = true;
         }
@@ -619,7 +625,7 @@ public class PlayerBase : MonoBehaviour
 
     public void KillPlayer()
     {
-        if(gameController != null)
+        if (gameController != null)
         {
             gameController.deadPlayers++;
         }
@@ -636,13 +642,13 @@ public class PlayerBase : MonoBehaviour
         //The value of timeSinceLastPress is incremented every frame
         timeSinceLastPress += Time.deltaTime;
         //If it surpasses the value of prototypeSwitchTimeout, the player's weapon is swapped
-        if(timeSinceLastPress > prototypeSwitchTimeout)
+        if (timeSinceLastPress > prototypeSwitchTimeout)
         {
             //The currently active weapon is disabled, and the array index is incremented by 1
             weaponsArray[activeWeaponIndex].SetActive(false);
             activeWeaponIndex++;
             //If the index matches that of the prototype weapon or is out of range, it is set to 0
-            if(activeWeaponIndex >= weaponsArray.Length - 1)
+            if (activeWeaponIndex >= weaponsArray.Length - 1)
             {
                 activeWeaponIndex = 0;
             }
@@ -673,9 +679,9 @@ public class PlayerBase : MonoBehaviour
     public virtual void DetectMeleeHit()
     {
         RaycastHit rayHit;
-        if(Physics.Raycast(meleeHoldPoint.position, transform.forward, out rayHit, 0.75f))
+        if (Physics.Raycast(meleeHoldPoint.position, transform.forward, out rayHit, 0.75f))
         {
-            if(rayHit.collider.gameObject.tag == "Enemy")
+            if (rayHit.collider.gameObject.tag == "Enemy")
             {
                 enemyBase enemyController = rayHit.collider.gameObject.GetComponent<enemyBase>();
                 enemyController.takeDamage(meleeDamage);
@@ -714,7 +720,7 @@ public class PlayerBase : MonoBehaviour
         //Rotates all of the necessary GameObjects to match camera rotation
         cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         weaponHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-       // adsHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        // adsHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         meleeHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         //Rotates the player object left and right based on player input
         transform.Rotate(Vector3.up * mouseX);
@@ -725,7 +731,7 @@ public class PlayerBase : MonoBehaviour
         //The pitch of the AudioSource is changed to match the tempo with the movement speed
         walkingSound.pitch = moveSpeedMultiplier;
         //If the player is moving in any direction, the walking sound is played
-        if(Input.GetAxis(playerNumber + "Horizontal") != 0 || Input.GetAxis(playerNumber + "Vertical") != 0 && isGrounded && !walkingSound.isPlaying)
+        if (Input.GetAxis(playerNumber + "Horizontal") != 0 || Input.GetAxis(playerNumber + "Vertical") != 0 && isGrounded && !walkingSound.isPlaying)
         {
             walkingSound.Play();
         }
@@ -745,7 +751,7 @@ public class PlayerBase : MonoBehaviour
             //The value is rounded to two decimal places so that it can be used in the ability's UI element
             leftAbilityCooldownRounded = Mathf.Round(leftAbilityCooldown * 100) / 100;
             //Once the timer reaches 0, the player is able to use their ability again
-            if(leftAbilityCooldown <= 0)
+            if (leftAbilityCooldown <= 0)
             {
                 canUseLeftAbility = true;
                 leftAbilityCooldown = 5f;
@@ -758,7 +764,7 @@ public class PlayerBase : MonoBehaviour
             //The time since they last took damage is incremented each frame
             timeSinceTakenDamage += Time.deltaTime;
             //If the time since the player last took damage reaches the value of regenWaitAfterDamage, the player is then able to regen health again
-            if(timeSinceTakenDamage >= regenWaitAfterDamage)
+            if (timeSinceTakenDamage >= regenWaitAfterDamage)
             {
                 canRegen = true;
             }
@@ -772,7 +778,7 @@ public class PlayerBase : MonoBehaviour
         {
             invulnerabilityTimer -= Time.deltaTime;
             //When the timer reaches zero, their invulnerability wears off and the timer is reset
-            if(invulnerabilityTimer <= 0f)
+            if (invulnerabilityTimer <= 0f)
             {
                 isInvulnerable = false;
                 invulnerabilityTimer = invunlerabilityLength;
@@ -783,7 +789,7 @@ public class PlayerBase : MonoBehaviour
         {
             speedBoostTimer -= Time.deltaTime;
             //When the timer reaches zero, their speed bost is removed and the timer is reset
-            if(speedBoostTimer <= 0f)
+            if (speedBoostTimer <= 0f)
             {
                 moveSpeedMultiplier -= speedBoostMultiplier;
                 hasSpeedBoost = false;
@@ -796,7 +802,7 @@ public class PlayerBase : MonoBehaviour
     {
         if (!isInvulnerable)
         {
-           
+
             currentHealth -= damageDealt;
             canRegen = false;
             timeSinceTakenDamage = 0f;
@@ -813,12 +819,12 @@ public class PlayerBase : MonoBehaviour
         currentHealth += restoreAmount;
     }
 
-    public void CheckGrounded()
+  public void CheckGrounded()
     {
         //A spherical area at the player's feet is checked. If it contains a GameObject on the ground layer, the player is set as grounded
         isGrounded = Physics.CheckSphere(playerFeet.position, groundDistance, groundLayer);
         if (!isGrounded) { hasLanded = false; }
-        if(isGrounded && currentVelocity.y < 0)
+        if (isGrounded && currentVelocity.y < 0)
         {
             isJumping = false;
             //Prevents a downward force from being built up on the player while they are on the ground, so that if they step off of a ledge they do not plummet
@@ -826,11 +832,11 @@ public class PlayerBase : MonoBehaviour
             if (!hasLanded)
             {
                 int randInt = UnityEngine.Random.Range(0, landingSounds.Length - 1);
-                AudioSource.PlayClipAtPoint(landingSounds[randInt], transform.position);
+                AudioSource.PlayClipAtPoint(landingSounds[randInt], transform.position, 0f);
                 hasLanded = true;
             }
-        }
-    }
+        } }
+    
 
     public void CheckCanClimb()
     {
@@ -869,22 +875,22 @@ public class PlayerBase : MonoBehaviour
 
     public void AmmoAlerts()
     {
-        if(activeWeapon.GetComponent<baseWeaponClass>() != null)
+        if (activeWeapon.GetComponent<baseWeaponClass>() != null)
         {
             baseWeaponClass activeWeaponScript = activeWeapon.GetComponent<baseWeaponClass>();
             if (activeWeaponScript.currentBullets <= activeWeaponScript.magazineCapacity * 0.25 && activeWeaponScript.totalBullets > 0 && uIController.reloadAlert.activeSelf == false)
             {
                 uIController.ToggleReloadAlert(true);
             }
-            else if(activeWeaponScript.currentBullets > activeWeaponScript.magazineCapacity * 0.25 && uIController.reloadAlert.activeSelf == true)
+            else if (activeWeaponScript.currentBullets > activeWeaponScript.magazineCapacity * 0.25 && uIController.reloadAlert.activeSelf == true)
             {
                 uIController.ToggleReloadAlert(false);
             }
-            if(activeWeaponScript.totalBullets == 0)
+            if (activeWeaponScript.totalBullets == 0)
             {
                 uIController.ToggleChangeWeaponAlert(true);
             }
-            else if(activeWeaponScript.totalBullets > 0 && uIController.swapWeaponAlert.activeSelf == true)
+            else if (activeWeaponScript.totalBullets > 0 && uIController.swapWeaponAlert.activeSelf == true)
             {
                 uIController.ToggleChangeWeaponAlert(false);
             }
@@ -894,7 +900,7 @@ public class PlayerBase : MonoBehaviour
     public void HealthManagement()
     {
         //If the player's health is reduced past the regen cutoff, they can no longer regenerate to maximum health
-        if(currentHealth <= healthRegenCutoff)
+        if (currentHealth <= healthRegenCutoff)
         {
             canRegenToMax = false;
         }
@@ -904,31 +910,31 @@ public class PlayerBase : MonoBehaviour
             canRegenToMax = true;
         }
         //If the player is able to regenerate their health to the maximum value, it is incremented by the regen rate every frame
-        if(canRegen && currentHealth < maxHealth && canRegenToMax)
+        if (canRegen && currentHealth < maxHealth && canRegenToMax)
         {
             currentHealth += regenRate * Time.deltaTime;
             //If it surpasses the maximum health the player can have, it is set to the maximum value
-            if(currentHealth > maxHealth)
+            if (currentHealth > maxHealth)
             {
                 currentHealth = maxHealth;
             }
         }
         //If the player is only able to regenerate their health to the cutoff point, it is still incremented every frame
-        else if(canRegen && currentHealth < healthRegenCutoff)
+        else if (canRegen && currentHealth < healthRegenCutoff)
         {
             currentHealth += regenRate * Time.deltaTime;
             //But if it surpasses the cutoff point, it is set to that value
-            if(currentHealth > healthRegenCutoff)
+            if (currentHealth > healthRegenCutoff)
             {
                 currentHealth = healthRegenCutoff;
             }
         }
-        if(currentHealth <= 50 && !bloodOverlayActive)
+        if (currentHealth <= 50 && !bloodOverlayActive)
         {
             bloodOverlayActive = true;
             uIController.ActivateBloodOverlay(true);
         }
-        else if(currentHealth > 50 && bloodOverlayActive)
+        else if (currentHealth > 50 && bloodOverlayActive)
         {
             bloodOverlayActive = false;
             uIController.ActivateBloodOverlay(false);
@@ -940,11 +946,13 @@ public class PlayerBase : MonoBehaviour
             uIController.UpdateBloodAlpha(newAlpha);
         }
         //If the player's health drops past 0, it is set to equal 0
-        if(currentHealth < 0)
+        if (currentHealth < 0)
         {
             currentHealth = 0;
             playerState = PlayerStates.deadState;
         }
         uIController.UpdateHealthbar();
     }
+
 }
+

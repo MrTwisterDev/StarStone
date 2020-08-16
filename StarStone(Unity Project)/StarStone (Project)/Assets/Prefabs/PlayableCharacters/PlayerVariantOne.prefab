@@ -3915,7 +3915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2166691771465288993
 Transform:
   m_ObjectHideFlags: 0
@@ -6147,13 +6147,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5a3037647010fc745acd5c3deb010261, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.124
+  m_Volume: 0.034
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 23
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -9501,7 +9501,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 798.9, y: -135.4}
+  m_AnchoredPosition: {x: 798.9, y: -135.40002}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8186320747477924057
@@ -12087,7 +12087,7 @@ PrefabInstance:
     - target: {fileID: 2262563361867456817, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3700757048053744130, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
         type: 3}
@@ -12358,7 +12358,7 @@ PrefabInstance:
     - target: {fileID: 5240140451465009752, guid: 52036d8a519a6454bb0cfd1a9d56e30c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6565210214536488317, guid: 52036d8a519a6454bb0cfd1a9d56e30c,
         type: 3}

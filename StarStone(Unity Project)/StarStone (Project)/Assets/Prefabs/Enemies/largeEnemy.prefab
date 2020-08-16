@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 5943778680241642368}
   - component: {fileID: -590713126386003380}
   - component: {fileID: 6364114335264817523}
+  - component: {fileID: 3237415221229586551}
   m_Layer: 16
   m_Name: largeEnemy
   m_TagString: Enemy
@@ -175,10 +176,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.47723198
+  m_Height: 3.9285126
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.03415186}
 --- !u!195 &5943778680241642368
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -246,6 +247,8 @@ MonoBehaviour:
   showDebugGizmos: 0
   maxEnemyHP: 0
   deathSound: {fileID: 8300000, guid: ddf6f3310e7a0ed489ae4e1b3966c44f, type: 3}
+  hitSound: {fileID: 8300000, guid: 5f86c9b83dd4b82418458d897cde8243, type: 3}
+  meleeSound: {fileID: 8300000, guid: a13785688edca4241aa25413796f8852, type: 3}
   healthBuffAmount: 0
   speedBuffAmount: 0
   enemyState: 0
@@ -266,6 +269,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &3237415221229586551
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5943778680241642370}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.7613506, z: 1}
+  m_Center: {x: 0, y: 0.8806753, z: 0}
 --- !u!1 &8149220642241224762
 GameObject:
   m_ObjectHideFlags: 0

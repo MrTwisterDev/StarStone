@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 6827110524629695837}
   - component: {fileID: 8290338404318866339}
   - component: {fileID: 1898909905060698670}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: S_Enemy_Scorpion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4878,7 +4878,7 @@ GameObject:
   - component: {fileID: 8472320929289863072}
   - component: {fileID: 8472320929289863073}
   - component: {fileID: 187219280486179381}
-  - component: {fileID: -2141922970702255327}
+  - component: {fileID: -3144930126146931594}
   m_Layer: 16
   m_Name: scorpionTest
   m_TagString: Enemy
@@ -5007,7 +5007,7 @@ MonoBehaviour:
   attackMinTimer: 1.5
   currentTimer: 0
   enemyHP: 10
-  meleeDamage: 2
+  meleeDamage: 0.5
   hasMelee: 1
   burnDamage: 3
   burnTime: 3
@@ -5017,6 +5017,8 @@ MonoBehaviour:
   showDebugGizmos: 0
   maxEnemyHP: 0
   deathSound: {fileID: 8300000, guid: e4ad8b270d49339478ea93a5791c75a8, type: 3}
+  hitSound: {fileID: 8300000, guid: e4ad8b270d49339478ea93a5791c75a8, type: 3}
+  meleeSound: {fileID: 8300000, guid: ddf6f3310e7a0ed489ae4e1b3966c44f, type: 3}
   healthBuffAmount: 5
   speedBuffAmount: 6
   enemyState: 0
@@ -5034,19 +5036,99 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5434799, y: 0.9417428, z: 0.84991586}
   m_Center: {x: -0.009326935, y: 0.18305928, z: -0.007972062}
---- !u!54 &-2141922970702255327
-Rigidbody:
+--- !u!82 &-3144930126146931594
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8472320929289863086}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 899f0ad2c38a36040a11f06ee8a2939b, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 0.4
+  MaxDistance: 0.8
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
