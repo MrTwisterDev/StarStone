@@ -134,13 +134,19 @@ public class enemyBase : MonoBehaviour
 
     public void takeDamage(float damageAmount)
     {
+
+        UIController.hitMarkerHasHit = true;
+        Debug.Log("hello");
         //James' work - checks the enemy has more than 0 health before they take damage, otherwise with spreadshot weapons they can be "killed" multiple times
         //and spawn multiple souls
         if (enemyHP > 0)
         {
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+          
             enemyHP -= damageAmount;
              AudioSource.PlayClipAtPoint(hitSound, nearestPlayer.transform.position);
+            
+
             if (enemyHP <= 0)
             {
                 AudioSource.PlayClipAtPoint(deathSound, .9f * Camera.main.transform.position + 0.1f * transform.position, 1f);

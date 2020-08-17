@@ -45,19 +45,24 @@ public class UIController : MonoBehaviour
 
     //Lewis' work
     public Text Immune;
-   public static bool isImmune;
+    public static bool isImmune;
+
+
 
     public Text Speed;
     public static bool isFast;
+
+    public GameObject hitMarker;
+    public static bool hitMarkerHasHit;
     public void Start()
     {
         playerController = gameObject.GetComponent<PlayerBase>();
-      
+
     }
 
     public void GetChangedWeapon()
     {
-        if(playerController == null) { playerController = gameObject.GetComponent<PlayerBase>(); }
+        if (playerController == null) { playerController = gameObject.GetComponent<PlayerBase>(); }
         //Assigns the script of the currently equipped weapon to the variable activeWeaponController so that the correct ammo values can be pulled from it
         activeWeaponController = playerController.activeWeapon.GetComponent<build_a_weapon>();
     }
@@ -161,7 +166,7 @@ public class UIController : MonoBehaviour
 
     public void UpdateWaveNumber(int waveNumber)
     {
-        waveNumberText.text = "Wave " + waveNumber; 
+        waveNumberText.text = "Wave " + waveNumber;
     }
 
     public void UpdatePrototypeCharge(int charge)
@@ -189,7 +194,7 @@ public class UIController : MonoBehaviour
     public void IsImmune(bool isActive) // Method that enables Text that says "you are immune "
     {
         Immune.gameObject.SetActive(true);
-       
+
     }
 
     public void IsNotImmune(bool isActive) // Method that disables Text that says "you are immune "
@@ -210,27 +215,47 @@ public class UIController : MonoBehaviour
         Speed.gameObject.SetActive(false);
     }
 
-    
+    public void HitMarkerIsActive(bool isActive)
+    {
+        hitMarker.gameObject.SetActive(true);
+    }
+
+    public void HitMarkerIsNotActive(bool isActive)
+    {
+        hitMarker.gameObject.SetActive(false);
+    }
 
     private void Update()
     {
-         if (isImmune == true) // Checks the static bool to see if the player has picked up a invulnerball
+        if (isImmune == true) // Checks the static bool to see if the player has picked up a invulnerball
         {
 
             StartCoroutine(SevenSeconds()); // waits for the duration of the immunity buff 
             IsImmune(true); // runs the method that enables the immune text 
-            
-           
 
-            
+
+
+
         }
 
 
-         if (isFast == true) // checks the static bool to see if the player has picked up the speedball 
+        if (isFast == true) // checks the static bool to see if the player has picked up the speedball 
         {
 
             StartCoroutine(SevenSecondsForSpeed());  // waits for the duration of the speed buff 
             IsFast(true);  // runs the method that enables the speed text 
+
+
+        }
+
+
+        if (hitMarkerHasHit == true)
+        {
+          
+            HitMarkerIsActive(true);
+            StartCoroutine(HalfASecond());
+            
+
 
 
         }
@@ -244,7 +269,7 @@ public class UIController : MonoBehaviour
     {
 
         yield return new WaitForSeconds(7f);
-     
+
         IsNotImmune(true); // runs the method that disables the immune text 
         isImmune = false; // sets the static bool to false, so that the update method doesn't continously run the code
         IsNotImmune(false); // runs the method that disables the immune text for sure 
@@ -256,11 +281,21 @@ public class UIController : MonoBehaviour
     {
 
         yield return new WaitForSeconds(7f);
-        
+
         IsNotFast(true);// runs the method that disables the speed text 
         isFast = false;// sets the static bool to false, so that the update method doesn't continously run the code
         IsNotFast(false);// runs the method that disables the speed text for sure 
 
 
+    }
+
+    IEnumerator HalfASecond()
+    {
+
+        yield return new WaitForSeconds(0.1f);
+        Debug.Log("Do I work?");
+        HitMarkerIsActive(false);
+        HitMarkerIsNotActive(true);
+        hitMarkerHasHit = false;
     }
 }
