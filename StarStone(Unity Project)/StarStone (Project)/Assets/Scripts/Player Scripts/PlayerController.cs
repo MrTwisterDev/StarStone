@@ -390,7 +390,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
 
-
+            enemyBase.shutUp = false; // enemies will make sounds when taking damage again
 
            
 

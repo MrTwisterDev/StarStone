@@ -4919,9 +4919,9 @@ MonoBehaviour:
   burnParticles: {fileID: 2516200454078055704}
   showDebugGizmos: 1
   maxEnemyHP: 0
-  deathSound: {fileID: 8300000, guid: 560580770e585e54da30f81fda03061b, type: 3}
-  hitSound: {fileID: 8300000, guid: 7fe076a7802d5894bb9ade35a25e0cfb, type: 3}
-  meleeSound: {fileID: 8300000, guid: 8cb9f808beb761442aab5c6f42b6be56, type: 3}
+  deathSound: {fileID: 8300000, guid: 3c7b8878e5858fb4e8e7afe8d3dbb044, type: 3}
+  hitSound: {fileID: 8300000, guid: d6e040f86e9b6ce4e87bd36e8c742e7f, type: 3}
+  meleeSound: {fileID: 8300000, guid: b2c8e99f70797f14b8e9d86bdd7adc96, type: 3}
   healthBuffAmount: 10
   speedBuffAmount: 4
   enemyState: 0
@@ -4952,7 +4952,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8cb9f808beb761442aab5c6f42b6be56, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 666c2599a4df13047a1cd81412382aff, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.332
   m_Pitch: 1

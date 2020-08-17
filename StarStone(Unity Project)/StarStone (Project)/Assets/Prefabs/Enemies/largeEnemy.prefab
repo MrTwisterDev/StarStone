@@ -247,9 +247,9 @@ MonoBehaviour:
   burnParticles: {fileID: 2033962852999733121}
   showDebugGizmos: 0
   maxEnemyHP: 0
-  deathSound: {fileID: 8300000, guid: ddf6f3310e7a0ed489ae4e1b3966c44f, type: 3}
-  hitSound: {fileID: 8300000, guid: 5f86c9b83dd4b82418458d897cde8243, type: 3}
-  meleeSound: {fileID: 8300000, guid: a13785688edca4241aa25413796f8852, type: 3}
+  deathSound: {fileID: 8300000, guid: c423415b1964187408c68f9d16c5ed06, type: 3}
+  hitSound: {fileID: 8300000, guid: a28f290ea889eb74fa73f62023c841fc, type: 3}
+  meleeSound: {fileID: 0}
   healthBuffAmount: 0
   speedBuffAmount: 0
   enemyState: 0

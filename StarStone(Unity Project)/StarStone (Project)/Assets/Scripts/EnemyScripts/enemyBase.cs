@@ -75,6 +75,10 @@ public class enemyBase : MonoBehaviour
     public AudioClip deathSound;
     public AudioClip hitSound;
     public AudioClip meleeSound;
+
+
+    public static bool shutUp;
+    private float damageSound; 
  
 
     public enum enemyStates
@@ -115,6 +119,9 @@ public class enemyBase : MonoBehaviour
         if(burnDamage == 0) { burnDamage = 0.5f; }
         isBurning = false;
         //~~~~~~~~~~~\\
+
+
+        shutUp = false;
     }
 
     // Update is called once per frame
@@ -127,9 +134,7 @@ public class enemyBase : MonoBehaviour
         }
         //~~~~~~~~~~~\\
 
-
-    
-        
+       
     }
 
     public void takeDamage(float damageAmount)
@@ -144,8 +149,18 @@ public class enemyBase : MonoBehaviour
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
           
             enemyHP -= damageAmount;
-             AudioSource.PlayClipAtPoint(hitSound, nearestPlayer.transform.position);
             
+            if (shutUp == true)
+            { // shutup is true while the minigun is firing. It prevents the sound from being spammed 
+                
+            }
+
+            if (shutUp == false)
+            { // shutup is false while any other gun is firing. 
+                AudioSource.PlayClipAtPoint(hitSound, nearestPlayer.transform.position);
+            }
+
+
 
             if (enemyHP <= 0)
             {
