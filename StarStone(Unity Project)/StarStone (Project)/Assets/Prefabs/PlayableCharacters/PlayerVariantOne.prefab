@@ -1687,7 +1687,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3805681338497782206}
   - component: {fileID: 7945872019906734902}
-  - component: {fileID: 6200976849605940111}
+  - component: {fileID: 7445535915878908825}
   m_Layer: 5
   m_Name: Hit marker
   m_TagString: Untagged
@@ -1711,7 +1711,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 136, y: -95}
+  m_AnchoredPosition: {x: 135.99579, y: -95.007324}
   m_SizeDelta: {x: 16, y: 16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7945872019906734902
@@ -1722,7 +1722,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2457623420994319635}
   m_CullTransparentMesh: 0
---- !u!114 &6200976849605940111
+--- !u!114 &7445535915878908825
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
