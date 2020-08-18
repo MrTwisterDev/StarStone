@@ -65,10 +65,6 @@ public class PlayerBase : MonoBehaviour
     public GameObject movingPartsParent;
     private Vector3 standingEyePosition;
     public Transform crouchingEyePosition;
-    public bool canSprint;
-    public float sprintStamina;
-    public bool isExhausted;
-
     [Space]
     #endregion
     //Health Management
@@ -186,7 +182,6 @@ public class PlayerBase : MonoBehaviour
     [Tooltip("The sound played when the player is attacked while invulnerable.")]
     public AudioClip[] hitWhileInvulnerable;
     public AudioClip[] hitWhileNotInvulnrable;
-    public AudioClip dead;
     [Space]
     #endregion
     //Miscellaneous Variables
@@ -286,51 +281,9 @@ public class PlayerBase : MonoBehaviour
         return currentHealth;
     }
 
-    public float GetStamina()
-    {
-        return sprintStamina;
-    }
-    public void Rest()
-    {
-        // play out of breath sounds 
-        isExhausted = false; // player can sprint again 
-        sprintStamina = 2f; // player has some stamina 
-    }
     // Update is called once per frame
     void Update()
     {
-        if(currentHealth > maxHealth)
-        {
-            currentHealth = maxHealth;
-        }
-
-        if(isSprinting == true) // while sprinting 
-        {
-
-
-            if(sprintStamina > 0) // if stamina is above 1 
-            {
-                sprintStamina -= Time.deltaTime; // reduce stamina 
-            }
-
-           
-            // change UI sprint bar 
-
-        }
-        if (sprintStamina <= 0 ) // if stamina is empty
-        {
-            
-            isExhausted = true; // player becomes exhausted (cannot regen stamina)
-            sprintStamina = 0; // (player cannot sprint)
-            Invoke("Rest", 2f); // (after 3 seconds do to)
-        }
-
-        if (isSprinting == false && isExhausted == false) // while not sprinting and not exhuasted 
-        { sprintStamina += Time.deltaTime; } // regen stamina 
-        if(sprintStamina > 10) { sprintStamina = 10; } // stops stamina from pooling up 
-      
-
-
         if (playerState == PlayerStates.deadState || playerState == PlayerStates.pausedState)
         {
             if (playerNumber == "PlayerOne")
@@ -398,17 +351,10 @@ public class PlayerBase : MonoBehaviour
         }
         //If the sprint button is held and the player is not already sprinting, the sprint speed modifier is added to the movement speed multiplier and the isSprinting is set to true
         //Checking to see if the player is already sprinting prevents the speed from being added more than once
-        if (Input.GetButtonDown(playerNumber + "Sprint") && !isSprinting && isExhausted == false) 
+        if (Input.GetButtonDown(playerNumber + "Sprint") && !isSprinting)
         {
             moveSpeedMultiplier += sprintSpeedMultiplier;
             isSprinting = true;
-
-
-            if(isExhausted == true)
-            {
-                moveSpeedMultiplier -= sprintSpeedMultiplier;
-                isSprinting = true;
-            }
         }
         //If the player release the sprint button while they are sprinting, the sprint speed modifier is subtracted from the movement speed multiplier and isSprinting is set to false
         //Checking to see if the player is already sprinting prevents the modifier from being subtracted more than once
@@ -416,25 +362,10 @@ public class PlayerBase : MonoBehaviour
         {
             moveSpeedMultiplier -= sprintSpeedMultiplier;
             isSprinting = false;
-
-         
         }
-
-        if (Input.GetButton(playerNumber + "Sprint") && isSprinting && isExhausted == true) // while the player is spritning and becomes exhausted
-        {
-            
-                moveSpeedMultiplier -= sprintSpeedMultiplier;
-                isSprinting = false;
-            
-
-        }
-
-
-
-
         //If the player presses the jump button and are currently standing on the ground, their current movement speed multiplier is saved and their vertical velocity is set to
         //the square root of the player's jumpheight doubled, multiplied by the gravity force in order to create a more realistic jump without using Unity physics
-            if (Input.GetButtonDown(playerNumber + "Jump") && isGrounded)
+        if (Input.GetButtonDown(playerNumber + "Jump") && isGrounded)
         {
             isJumping = true;
             hasLanded = false;
@@ -872,8 +803,7 @@ public class PlayerBase : MonoBehaviour
     {
         if (!isInvulnerable)
         {
-            int randIntSecond = UnityEngine.Random.Range(0, hitWhileNotInvulnrable.Length - 1);
-            AudioSource.PlayClipAtPoint(hitWhileNotInvulnrable[randIntSecond], transform.position);
+            // play sound 
             currentHealth -= damageDealt;
             canRegen = false;
             timeSinceTakenDamage = 0f;

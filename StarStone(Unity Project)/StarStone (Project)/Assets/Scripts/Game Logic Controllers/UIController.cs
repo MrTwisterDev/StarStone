@@ -46,16 +46,11 @@ public class UIController : MonoBehaviour
     //Lewis' work
     public Text Immune;
     public static bool isImmune;
-    public GameObject ImmuneVignette; 
-
 
 
 
     public Text Speed;
     public static bool isFast;
-    public GameObject SpeedVignette;
-
-    public Slider staminaBar;
 
     public GameObject hitMarker;
     public static bool hitMarkerHasHit;
@@ -193,24 +188,18 @@ public class UIController : MonoBehaviour
         healthBar.value = playerController.GetHealth() / 100;
     }
 
-    public void UpdateStaminabar()
-    {
-        staminaBar.value = playerController.GetStamina() / 10;
-    }
 
 
     // Lewis' work 
     public void IsImmune(bool isActive) // Method that enables Text that says "you are immune "
     {
         Immune.gameObject.SetActive(true);
-        ImmuneVignette.gameObject.SetActive(true);
 
     }
 
     public void IsNotImmune(bool isActive) // Method that disables Text that says "you are immune "
     {
         Immune.gameObject.SetActive(false);
-        ImmuneVignette.gameObject.SetActive(false);
 
     }
 
@@ -218,14 +207,12 @@ public class UIController : MonoBehaviour
     public void IsFast(bool isActive) // Method that enables Text that says "you are fast "
     {
         Speed.gameObject.SetActive(true);
-        SpeedVignette.gameObject.SetActive(true);
     }
 
 
     public void IsNotFast(bool isActive) // Method that disables Text that says "you are fast "
     {
         Speed.gameObject.SetActive(false);
-        SpeedVignette.gameObject.SetActive(false);
     }
 
     public void HitMarkerIsActive(bool isActive)
@@ -240,9 +227,6 @@ public class UIController : MonoBehaviour
 
     private void Update()
     {
-        UpdateStaminabar();
-
-
         if (isImmune == true) // Checks the static bool to see if the player has picked up a invulnerball
         {
 
@@ -265,10 +249,10 @@ public class UIController : MonoBehaviour
         }
 
 
-        if (hitMarkerHasHit == true) // checks the static bool in enemy base to see if the enemy has taken damage 
+        if (hitMarkerHasHit == true)
         {
           
-            HitMarkerIsActive(true); // sets the hitmarker to active
+            HitMarkerIsActive(true);
             StartCoroutine(HalfASecond());
             
 
@@ -308,10 +292,10 @@ public class UIController : MonoBehaviour
     IEnumerator HalfASecond()
     {
 
-        yield return new WaitForSeconds(0.1f); // waits this long for the hitmarker to be on the screen 
-        
-        HitMarkerIsActive(false); // deactivates hitmarker 
+        yield return new WaitForSeconds(0.1f);
+        Debug.Log("Do I work?");
+        HitMarkerIsActive(false);
         HitMarkerIsNotActive(true);
-        hitMarkerHasHit = false; // allows if statement to run again 
+        hitMarkerHasHit = false;
     }
 }
