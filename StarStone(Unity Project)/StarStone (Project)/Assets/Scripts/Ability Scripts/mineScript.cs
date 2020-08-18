@@ -35,6 +35,9 @@ public class mineScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Invoke("ReturnMine", 15f); // Lewis' work. Mines that are stuck will  return to the player. 
+
+
         mainCamera = GameObject.Find("Main Camera").GetComponent<Transform>();
         //James' Work\\
         meshRenderer = gameObject.GetComponent<MeshRenderer>();
@@ -43,6 +46,9 @@ public class mineScript : MonoBehaviour
         //~~~~~~~~~~~~\\
         rigidBody = gameObject.GetComponent<Rigidbody>();
         rigidBody.AddForce(mainCamera.forward * 500f);
+
+
+
     }
 
     // Update is called once per frame
@@ -81,6 +87,11 @@ public class mineScript : MonoBehaviour
         _pSystem.GetComponent<AudioSource>().PlayOneShot(explosionSound);
         Destroy(gameObject);
 
+    }
+
+    void ReturnMine()
+    {
+        Destroy(gameObject);
     }
 
     private void OnDestroy()

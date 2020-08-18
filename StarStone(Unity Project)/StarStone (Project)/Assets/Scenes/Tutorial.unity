@@ -996,6 +996,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5101231596128008790, guid: 7b07fd1ba60b81d4bbfe3e2a6189caf5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5943778680241642368, guid: 7b07fd1ba60b81d4bbfe3e2a6189caf5,
         type: 3}
       propertyPath: m_Enabled
@@ -1457,6 +1462,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8094287236899115007, guid: 1477549b445bae347b5071e872ab88d2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1477549b445bae347b5071e872ab88d2, type: 3}
@@ -3837,31 +3847,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -3144930126146931594, guid: 3b0c9ec7163b40b4b8dac497cd7206de,
-        type: 3}
-      propertyPath: MaxDistance
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -3144930126146931594, guid: 3b0c9ec7163b40b4b8dac497cd7206de,
-        type: 3}
-      propertyPath: m_Volume
-      value: 0.311
-      objectReference: {fileID: 0}
-    - target: {fileID: -3144930126146931594, guid: 3b0c9ec7163b40b4b8dac497cd7206de,
-        type: 3}
-      propertyPath: MinDistance
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -3144930126146931594, guid: 3b0c9ec7163b40b4b8dac497cd7206de,
-        type: 3}
-      propertyPath: Loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -3144930126146931594, guid: 3b0c9ec7163b40b4b8dac497cd7206de,
-        type: 3}
-      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4884403556200418749, guid: 3b0c9ec7163b40b4b8dac497cd7206de,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27224,6 +27209,7 @@ MonoBehaviour:
   singularityCharge: {fileID: 8186320747181732369}
   Immune: {fileID: 0}
   Speed: {fileID: 0}
+  hitMarker: {fileID: 0}
 --- !u!114 &6594952468966135001
 MonoBehaviour:
   m_ObjectHideFlags: 0

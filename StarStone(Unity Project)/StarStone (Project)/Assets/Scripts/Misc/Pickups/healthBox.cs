@@ -14,7 +14,8 @@ public class healthBox : scr_Collectable
     protected override void Start()
     {
         base.Start();
-        collectableIncreaser = healthAmount;   
+        collectableIncreaser = healthAmount;
+        Invoke("destoryMe", 10f);
     }
 
     // Update is called once per frame
@@ -30,4 +31,10 @@ public class healthBox : scr_Collectable
         AudioSource.PlayClipAtPoint(pickupSound, gameObject.transform.position);
         Destroy(gameObject);
     }
+
+    public void destoryMe()
+    {
+        Destroy(gameObject);
+    }
+
 }

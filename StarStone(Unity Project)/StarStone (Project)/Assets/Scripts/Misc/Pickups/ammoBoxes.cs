@@ -13,6 +13,7 @@ public class ammoBoxes : scr_Collectable
     {
         base.Start();
         collectableIncreaser = ammoAmount;
+        Invoke("destoryMe", 10f);
     }
 
     // Update is called once per frame
@@ -27,6 +28,11 @@ public class ammoBoxes : scr_Collectable
     {
         playerObject.GetComponent<PlayerBase>().activeWeapon.GetComponent<baseWeaponClass>().totalBullets += collectableIncreaser;
         AudioSource.PlayClipAtPoint(pickupSound, gameObject.transform.position);
+        Destroy(gameObject);
+    }
+
+    public void destoryMe()
+    {
         Destroy(gameObject);
     }
 

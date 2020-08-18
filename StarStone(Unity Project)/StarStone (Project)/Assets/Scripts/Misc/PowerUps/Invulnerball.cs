@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Invulnerball : scr_Collectable
 {
-    
+
     //***************************************************************|
     // Project Name: Temple Imperium                                 |
     // Script Name: Invulneraball                                    |
@@ -13,8 +13,11 @@ public class Invulnerball : scr_Collectable
     //          the game's prototype weapon                          |
     //***************************************************************|
 
+    private void Start()
+    {
+        Invoke("destoryMe", 10f);
+    }
 
- 
 
     public override void pickupCollectable(GameObject playerObject)
     {
@@ -26,5 +29,11 @@ public class Invulnerball : scr_Collectable
         Destroy(gameObject);
         
     }
+
+    public void destoryMe()
+    {
+        Destroy(gameObject);
+    }
+
 
 }

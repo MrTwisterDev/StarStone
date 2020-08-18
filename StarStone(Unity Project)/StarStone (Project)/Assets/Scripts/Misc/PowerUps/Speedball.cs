@@ -10,7 +10,10 @@ public class Speedball : scr_Collectable
     // Script Author: James Smale                                    |
     // Purpose: Handles the effects of the Speedball powerup         |
     //***************************************************************|
-
+    private void Start()
+    {
+        Invoke("destroyMe", 10f);
+    }
     public override void pickupCollectable(GameObject playerObject)
     {
 
@@ -30,4 +33,13 @@ public class Speedball : scr_Collectable
         }
         Destroy(gameObject);
     }
+
+    public void destoryMe()
+    {
+        Destroy(gameObject);
+    }
+
 }
+
+
+
