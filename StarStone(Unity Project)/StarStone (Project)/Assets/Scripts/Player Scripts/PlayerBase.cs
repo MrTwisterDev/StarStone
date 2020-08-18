@@ -181,6 +181,7 @@ public class PlayerBase : MonoBehaviour
     public AudioClip actionFailed;
     [Tooltip("The sound played when the player is attacked while invulnerable.")]
     public AudioClip[] hitWhileInvulnerable;
+    public AudioClip[] hitWhileNotInvulnrable;
     [Space]
     #endregion
     //Miscellaneous Variables
@@ -477,7 +478,7 @@ public class PlayerBase : MonoBehaviour
 
 
         }
-        if (Input.GetButtonDown(playerNumber + "Reload"))
+        if (Input.GetButtonDown(playerNumber + "Reload") ) 
         {
             activeWeapon.GetComponent<Animator>().Play("Reload");
             uIController.UpdateAmmoText();
@@ -802,7 +803,7 @@ public class PlayerBase : MonoBehaviour
     {
         if (!isInvulnerable)
         {
-
+            // play sound 
             currentHealth -= damageDealt;
             canRegen = false;
             timeSinceTakenDamage = 0f;

@@ -3925,7 +3925,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -726, y: 445.9}
+  m_AnchoredPosition: {x: -726, y: 445.89996}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4750066288182513286
@@ -6361,11 +6361,11 @@ MonoBehaviour:
   interactiveLayer:
     serializedVersion: 2
     m_Bits: 16384
-  moveSpeed: 0
+  moveSpeed: 7
   jumpingMoveSpeed: 0
   jumpHeight: 0
-  moveSpeedMultiplier: 0
-  sprintSpeedMultiplier: 0
+  moveSpeedMultiplier: 1
+  sprintSpeedMultiplier: 0.5
   crouchSpeedMultiplier: 0
   underwaterSpeedMultiplier: 0
   wadingSpeedMultiplier: 0
@@ -6424,7 +6424,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8a64f0b56f282f54495c79e58caa5820, type: 3}
   - {fileID: 8300000, guid: abc1b9e007689fc40930763af5d4f639, type: 3}
   actionFailed: {fileID: 8300000, guid: 6d3950b1b366f58409e7e0028a0d92dd, type: 3}
-  hitWhileInvulnerable: []
+  hitWhileInvulnerable:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  hitWhileNotInvulnrable:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   flashlight: {fileID: 6594952469315031074}
   playerNumber: 
   uIController: {fileID: 0}
@@ -9609,7 +9616,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 798.9, y: -135.40002}
+  m_AnchoredPosition: {x: 798.9, y: -135.40001}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8186320747477924057
