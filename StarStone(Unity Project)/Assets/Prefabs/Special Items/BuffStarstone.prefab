@@ -551,7 +551,7 @@ PrefabInstance:
     - target: {fileID: 1976270528400622885, guid: 1ed5d82b340929146a5245be8f80a9ff,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3257868671723403062, guid: 1ed5d82b340929146a5245be8f80a9ff,
         type: 3}
@@ -698,6 +698,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InteractionMesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7922581125599858062, guid: 90931571ba9694045a3b4d96c2b92abb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90931571ba9694045a3b4d96c2b92abb, type: 3}
