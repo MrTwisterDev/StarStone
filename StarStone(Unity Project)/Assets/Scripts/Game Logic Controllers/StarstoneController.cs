@@ -20,7 +20,10 @@ public class StarstoneController : MonoBehaviour
     //GameObjects
     #region
     public GameObject[] playerObjects;
-    public GameObject selectedObject;
+
+    [SerializeField]
+    private GameObject interactionBand, disconnectionBand;
+
     #endregion
     //Starstone Charge Variables
     #region
@@ -68,15 +71,23 @@ public class StarstoneController : MonoBehaviour
 
     public void Update()
     {
-        if(this.selectedGenerator == selectionType.notSelected)
+        switch (this.selectedGenerator)
         {
-            selectedObject.SetActive(false);
-        }
-        else
-        {
-            selectedObject.SetActive(true);
+            case selectionType.isSelected: interactionBand.SetActive(true);
+                disconnectionBand.SetActive(false);
+                break;
+            case selectionType.disconnecting: disconnectionBand.SetActive(true);
+                interactionBand.SetActive(false);
+                break;
+            default:
+                disconnectionBand.SetActive(false);
+                interactionBand.SetActive(false);
+                break;
 
+      
         }
+
+
         //If the startsone the script is attached to is the active starstone, its charge is drained each frame
         if (isActiveStarstone && genEnabled)
         {
