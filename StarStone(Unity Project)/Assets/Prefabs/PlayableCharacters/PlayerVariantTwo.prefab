@@ -670,6 +670,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0a646c02c5a461345bf16b212d04bcc3, type: 3}
   reloadSound:
   - {fileID: 8300000, guid: 6bf2008f5fbccf54f85f1cbe1636e8b5, type: 3}
+  emptyAmmo: {fileID: 8300000, guid: d073ad84290efb749ae384739c479b3b, type: 3}
   typeOfWeapon: 1
   gunAccuracy: 1
   roundsPerSecond: 4
@@ -867,7 +868,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 389488168930431941}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.05, z: 0.37}
+  m_LocalPosition: {x: 0, y: -0.265, z: 0.538}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2196660661508443601}
@@ -4615,7 +4616,6 @@ GameObject:
   - component: {fileID: 2196660661508443601}
   - component: {fileID: 8435190067109988971}
   - component: {fileID: 6063527128597479708}
-  - component: {fileID: 2521591654650811865}
   - component: {fileID: 512697933380529747}
   m_Layer: 10
   m_Name: Main Camera
@@ -4691,66 +4691,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3471717970030004876}
   m_Enabled: 1
---- !u!114 &2521591654650811865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3471717970030004876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  volumeTrigger: {fileID: 2196660661508443601}
-  volumeLayer:
-    serializedVersion: 2
-    m_Bits: 8192
-  stopNaNPropagation: 1
-  finalBlitToCameraTarget: 0
-  antialiasingMode: 1
-  temporalAntialiasing:
-    jitterSpread: 0.75
-    sharpness: 0.25
-    stationaryBlending: 0.95
-    motionBlending: 0.85
-  subpixelMorphologicalAntialiasing:
-    quality: 2
-  fastApproximateAntialiasing:
-    fastMode: 1
-    keepAlpha: 1
-  fog:
-    enabled: 1
-    excludeSkybox: 1
-  debugLayer:
-    lightMeter:
-      width: 512
-      height: 256
-      showCurves: 1
-    histogram:
-      width: 512
-      height: 256
-      channel: 3
-    waveform:
-      exposure: 0.12
-      height: 256
-    vectorscope:
-      size: 256
-      exposure: 0.12
-    overlaySettings:
-      linearDepth: 0
-      motionColorIntensity: 4
-      motionGridSize: 64
-      colorBlindnessType: 0
-      colorBlindnessStrength: 1
-  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
-  m_ShowToolkit: 0
-  m_ShowCustomSorter: 0
-  breakBeforeColorGrading: 0
-  m_BeforeTransparentBundles: []
-  m_BeforeStackBundles: []
-  m_AfterStackBundles: []
 --- !u!114 &512697933380529747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4767,6 +4707,7 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
+  m_CameraOutput: 0
   m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
@@ -4778,7 +4719,6 @@ MonoBehaviour:
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
-  m_ClearDepth: 1
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
@@ -6811,7 +6751,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 798.9, y: -135.39993}
+  m_AnchoredPosition: {x: 798.9, y: -135.39987}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5233514559932113983
@@ -7285,6 +7225,7 @@ MonoBehaviour:
   reviveTimer: 0
   reviveHealthIncrease: 25
   bloodOverlayActive: 0
+  isDead: 0
   cameraTransform: {fileID: 2196660661508443601}
   mouseSensitivity: 0
   xRotation: 0
@@ -7320,7 +7261,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8a64f0b56f282f54495c79e58caa5820, type: 3}
   - {fileID: 8300000, guid: abc1b9e007689fc40930763af5d4f639, type: 3}
   actionFailed: {fileID: 8300000, guid: 6d3950b1b366f58409e7e0028a0d92dd, type: 3}
-  hitWhileInvulnerable: []
+  hitWhileInvulnerable:
+  - {fileID: 8300000, guid: 9f5b60e9db8d750498b057be933cb6ff, type: 3}
+  - {fileID: 8300000, guid: 7a06f651e70d3d541a7a089593f06ba9, type: 3}
+  - {fileID: 8300000, guid: 4cd08023d0302a94195e4f108a32a150, type: 3}
+  - {fileID: 8300000, guid: 2fdf97d5a02fa4048842ed11542a139e, type: 3}
+  hitWhileNotInvulnrable: []
   flashlight: {fileID: 147136272754166379}
   playerNumber: 
   uIController: {fileID: 0}
@@ -7364,6 +7310,9 @@ MonoBehaviour:
   healthCharge: {fileID: 2318208402239447816}
   fireCharge: {fileID: 3327795119079206917}
   singularityCharge: {fileID: 8377037357966497078}
+  Immune: {fileID: 0}
+  Speed: {fileID: 0}
+  hitMarker: {fileID: 0}
 --- !u!1 &5453251584428203776
 GameObject:
   m_ObjectHideFlags: 0
@@ -7714,6 +7663,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a13785688edca4241aa25413796f8852, type: 3}
   reloadSound:
   - {fileID: 8300000, guid: 59b684f6ff82a944b90acfbf7dd673d3, type: 3}
+  emptyAmmo: {fileID: 8300000, guid: d073ad84290efb749ae384739c479b3b, type: 3}
   typeOfWeapon: 0
   gunAccuracy: 0.2
   roundsPerSecond: 10
@@ -7762,7 +7712,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d073ad84290efb749ae384739c479b3b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -9534,6 +9484,7 @@ MonoBehaviour:
   weaponSound: {fileID: 6168995394896909890}
   muzzleTransform: {fileID: 6072956105412042346}
   currentWeaponMode: 0
+  lowPower: {fileID: 8300000, guid: 3ef457d91f81e6948bf116b64f782b7c, type: 3}
   singleShotLock: 0
   speedColour: {r: 0, g: 0, b: 0, a: 0}
   healthColour: {r: 0, g: 0, b: 0, a: 0}

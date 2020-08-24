@@ -863,7 +863,7 @@ public class PlayerBase : MonoBehaviour
     public bool CanInteract()
     {
         //Fires out a raycast from the camera. If it collides with something, it returns true 
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out interactableObject, 2f))
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out interactableObject, 2.5f))
         {
             return true;
         }
@@ -890,6 +890,7 @@ public class PlayerBase : MonoBehaviour
             if (activeWeaponScript.totalBullets == 0)
             {
                 uIController.ToggleChangeWeaponAlert(true);
+                uIController.ToggleReloadAlert(false);
             }
             else if (activeWeaponScript.totalBullets > 0 && uIController.swapWeaponAlert.activeSelf == true)
             {
