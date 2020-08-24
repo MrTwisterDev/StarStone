@@ -480,8 +480,11 @@ public class PlayerBase : MonoBehaviour
         }
         if (Input.GetButtonDown(playerNumber + "Reload") ) 
         {
+            if(activeWeapon.tag != "Prototype" && activeWeapon.GetComponent<baseWeaponClass>().currentBullets != activeWeapon.GetComponent<baseWeaponClass>().magazineCapacity)
+            {
             activeWeapon.GetComponent<Animator>().Play("Reload");
             uIController.UpdateAmmoText();
+            }
         }
     }
 
