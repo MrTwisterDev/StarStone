@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 6937231501781049726}
   - component: {fileID: -3259342573864531404}
   - component: {fileID: 7973309961781309675}
+  - component: {fileID: 3865153120663187575}
   m_Layer: 10
   m_Name: Weapon02
   m_TagString: Untagged
@@ -287,6 +288,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!33 &3865153120663187575
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5590963399543002241}
+  m_Mesh: {fileID: 0}
 --- !u!1001 &1249013221907464922
 PrefabInstance:
   m_ObjectHideFlags: 0
