@@ -7,7 +7,7 @@ public class build_a_weapon : baseWeaponClass
 {
     public AudioClip[] gunshotNoises;
     public AudioClip[] reloadSound;
-
+    public AudioClip emptyAmmo;
     public enum typesOfWeapon
     {
         singleShot, //Rifles, Pistols, SMG's, Assault Rifles, Miniguns
@@ -150,6 +150,11 @@ public class build_a_weapon : baseWeaponClass
                 }
                 uiController.UpdateAmmoText();
             }
+        }
+        else if(!weaponAudioSource.isPlaying)
+        {
+            weaponAudioSource.clip = emptyAmmo;
+            weaponAudioSource.Play();
         }
     }
 

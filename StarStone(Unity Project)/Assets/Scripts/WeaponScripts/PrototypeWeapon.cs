@@ -86,6 +86,7 @@ public class PrototypeWeapon : MonoBehaviour
     [Tooltip("The current mode the prototype weapon is in.")]
     public weaponModes currentWeaponMode;
     private weaponModes newWeaponMode;
+    public AudioClip lowPower;
     [HideInInspector]
     public bool singleShotLock;
     #endregion
@@ -166,6 +167,10 @@ public class PrototypeWeapon : MonoBehaviour
                 weaponSound.Stop();
             }
         }
+        else
+        {
+            AudioSource.PlayClipAtPoint(lowPower, transform.position, 1);
+        }
     }
 
     public void FireVampireMode()
@@ -189,6 +194,10 @@ public class PrototypeWeapon : MonoBehaviour
             //Locks the weapon from firing while the fire button is held
             singleShotLock = true;
         }
+        else
+        {
+            AudioSource.PlayClipAtPoint(lowPower, transform.position, 1);
+        }
     }
 
     public void FireGrenade()
@@ -204,6 +213,10 @@ public class PrototypeWeapon : MonoBehaviour
             weaponCharge -= grenadeLauncherChargeUsage;
             singleShotLock = true;
         }
+        else
+        {
+            AudioSource.PlayClipAtPoint(lowPower, transform.position, 1);
+        }
     }
 
     public void FireSingularity()
@@ -218,6 +231,10 @@ public class PrototypeWeapon : MonoBehaviour
             //The weapon's charge is reduced by the set value
             weaponCharge -= singularityChargeUsage;
             singleShotLock = true;
+        }
+        else
+        {
+            AudioSource.PlayClipAtPoint(lowPower, transform.position, 1);
         }
     }
 
