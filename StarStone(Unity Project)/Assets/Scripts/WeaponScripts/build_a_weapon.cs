@@ -97,6 +97,8 @@ public class build_a_weapon : baseWeaponClass
         canShoot = currentBullets > 0;
         gunAccuracy = Mathf.MoveTowards(gunAccuracy, originGunAccuracy, gunAccuracyRecovery);
         crosshairScript.masterOffset = (gunAccuracy * 2.5f + gunAccuracyRecoil/2);
+        currentTimeTillBullet -= Time.deltaTime; //Counts down the timer until the next "bullet" is fired
+
 
         switch (typeOfWeapon) //How should each weapon differ per frame
         {
@@ -111,7 +113,6 @@ public class build_a_weapon : baseWeaponClass
         if (canShoot)
         {
 
-            currentTimeTillBullet -= Time.deltaTime; //Counts down the timer until the next "bullet" is fired
             if (currentTimeTillBullet <= 0) //Bullet Fired
             {
                 currentTimeTillBullet = timeTillBullet; //Resets the time before the next "bullet"
