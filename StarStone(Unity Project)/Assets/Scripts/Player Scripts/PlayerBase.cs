@@ -47,6 +47,9 @@ public class PlayerBase : MonoBehaviour
     public float moveSpeedMultiplier;
     [Tooltip("The value added to the movement multiplier while the player is sprinting.")]
     public float sprintSpeedMultiplier;
+    public float maxSprintStamina;
+    public float staminaDrainRate;
+    public float sprintStamina;
     [Tooltip("The value added to the movement multiplier while the player is crouching")]
     public float crouchSpeedMultiplier;
     [Tooltip("The value added to the movement multiplier while the player is fully submerged.")]
@@ -116,14 +119,11 @@ public class PlayerBase : MonoBehaviour
     public Transform weaponHoldPoint;
     [Tooltip("The position at which the player's weapon is help while aiming in.")]
     public Transform adsHoldPoint;
-    [Tooltip("The position at which the player's melee weapon is held.")]
-    public Transform meleeHoldPoint;
-    [Tooltip("The amount of damage that the player's melee attack deals.")]
-    public float meleeDamage;
     [Tooltip("The array in which all of the player's weapons are stored.")]
     public GameObject[] weaponsArray;
     [Tooltip("The weapon the player currently has equipped.")]
     public GameObject activeWeapon;
+    public GameObject meleeWeapon;
     private int activeWeaponIndex;
     private float timeSinceLastPress;
     private float prototypeSwitchTimeout;
@@ -262,6 +262,9 @@ public class PlayerBase : MonoBehaviour
         if (moveSpeed == 0) { moveSpeed = 4f; }
         if (moveSpeedMultiplier == 0) { moveSpeedMultiplier = 1f; }
         if (sprintSpeedMultiplier == 0) { sprintSpeedMultiplier = 1f; }
+        if (maxSprintStamina == 0) { maxSprintStamina = 100f; }
+        sprintStamina = maxSprintStamina;
+        if (staminaDrainRate == 0) { staminaDrainRate = 2.5f; }
         if (crouchSpeedMultiplier == 0) { crouchSpeedMultiplier = -0.5f; }
         if (wadingSpeedMultiplier == 0) { wadingSpeedMultiplier = -0.3f; }
         if (underwaterSpeedMultiplier == 0) { underwaterSpeedMultiplier = -0.2f; }
@@ -329,6 +332,14 @@ public class PlayerBase : MonoBehaviour
             }
         }
         PauseControls();
+        if (isSprinting)
+        {
+            DrainStamina();
+        }
+        else if(!isSprinting && sprintStamina < maxSprintStamina)
+        {
+            RechargeStamina();
+        }
     }
 
     public virtual void MovementControls()
@@ -351,7 +362,7 @@ public class PlayerBase : MonoBehaviour
         }
         //If the sprint button is held and the player is not already sprinting, the sprint speed modifier is added to the movement speed multiplier and the isSprinting is set to true
         //Checking to see if the player is already sprinting prevents the speed from being added more than once
-        if (Input.GetButtonDown(playerNumber + "Sprint") && !isSprinting)
+        if (Input.GetButtonDown(playerNumber + "Sprint") && !isSprinting && sprintStamina - staminaDrainRate * Time.deltaTime > 0)
         {
             moveSpeedMultiplier += sprintSpeedMultiplier;
             isSprinting = true;
@@ -392,6 +403,25 @@ public class PlayerBase : MonoBehaviour
             characterController.height *= 2;
             movingPartsParent.transform.localPosition = standingEyePosition;
             moveSpeedMultiplier -= crouchSpeedMultiplier;
+        }
+    }
+
+    public void DrainStamina()
+    {
+        sprintStamina -= staminaDrainRate * Time.deltaTime;
+        if(sprintStamina <= 0)
+        {
+            moveSpeedMultiplier -= sprintSpeedMultiplier;
+            isSprinting = false;
+        }
+    }
+
+    public void RechargeStamina()
+    {
+        sprintStamina += staminaDrainRate * Time.deltaTime;
+        if(sprintStamina > maxSprintStamina)
+        {
+            sprintStamina = maxSprintStamina;
         }
     }
 
@@ -680,19 +710,6 @@ public class PlayerBase : MonoBehaviour
         Debug.LogError("No override method has been created for this character's right ability.");
     }
 
-    public virtual void DetectMeleeHit()
-    {
-        RaycastHit rayHit;
-        if (Physics.Raycast(meleeHoldPoint.position, transform.forward, out rayHit, 0.75f))
-        {
-            if (rayHit.collider.gameObject.tag == "Enemy")
-            {
-                enemyBase enemyController = rayHit.collider.gameObject.GetComponent<enemyBase>();
-                enemyController.takeDamage(meleeDamage);
-            }
-        }
-    }
-
     public void ApplyGravity()
     {
         //Adds the value of gravity to the player's current velocity in the Y axis
@@ -725,7 +742,6 @@ public class PlayerBase : MonoBehaviour
         cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         weaponHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         // adsHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        meleeHoldPoint.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         //Rotates the player object left and right based on player input
         transform.Rotate(Vector3.up * mouseX);
     }
@@ -875,6 +891,11 @@ public class PlayerBase : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void MeleeAttack()
+    {
+        meleeWeapon.GetComponent<MeleeWeapon>().ToggleHitDetection();
     }
 
     public void AmmoAlerts()
