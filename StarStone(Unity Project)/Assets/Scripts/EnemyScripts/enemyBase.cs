@@ -164,7 +164,7 @@ public class enemyBase : MonoBehaviour
 
             if (enemyHP <= 0)
             {
-                AudioSource.PlayClipAtPoint(deathSound, .9f * Camera.main.transform.position + 0.1f * transform.position, 1f);
+                AudioSource.PlayClipAtPoint(deathSound, .9f * Camera.main.transform.position + 0.1f * transform.position, 0.2f);
                 destroyEnemy();
             }
         }

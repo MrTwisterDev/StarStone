@@ -6319,6 +6319,9 @@ MonoBehaviour:
   jumpHeight: 0
   moveSpeedMultiplier: 1
   sprintSpeedMultiplier: 0.5
+  maxSprintStamina: 0
+  staminaDrainRate: 0
+  sprintStamina: 0
   crouchSpeedMultiplier: 0
   underwaterSpeedMultiplier: 0
   wadingSpeedMultiplier: 0
@@ -12106,7 +12109,7 @@ PrefabInstance:
     - target: {fileID: 3700757048053744130, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
         type: 3}
       propertyPath: m_Volume
-      value: 1
+      value: 0.19
       objectReference: {fileID: 0}
     - target: {fileID: 5089506431828387958, guid: f3cc76c2c8a3e4e4ba77cfd663026c7d,
         type: 3}
@@ -12419,6 +12422,11 @@ PrefabInstance:
       propertyPath: emptyAmmo
       value: 
       objectReference: {fileID: 8300000, guid: d073ad84290efb749ae384739c479b3b, type: 3}
+    - target: {fileID: 7748798604601228850, guid: 52036d8a519a6454bb0cfd1a9d56e30c,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 9096674702096506287, guid: 52036d8a519a6454bb0cfd1a9d56e30c,
         type: 3}
       propertyPath: m_LocalPosition.z

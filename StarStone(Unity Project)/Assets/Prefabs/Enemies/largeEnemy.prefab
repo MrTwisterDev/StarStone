@@ -58,8 +58,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3782633804096028074, guid: ac25267afebf4964c8a12c323443a661, type: 3}
-  - {fileID: -5189715152625664583, guid: ac25267afebf4964c8a12c323443a661, type: 3}
+  - {fileID: 2100000, guid: 696646475a824b8488d361562effbc3b, type: 2}
+  - {fileID: 2100000, guid: c86c6356d7045f94baec508bb557a446, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -90,7 +90,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5943778680241642380}
   - component: {fileID: 5943778680241642381}
-  - component: {fileID: 5943778680241642382}
   - component: {fileID: 5943778680241642383}
   - component: {fileID: 5943778680241642368}
   - component: {fileID: -590713126386003380}
@@ -128,45 +127,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5943778680241642370}
   m_Mesh: {fileID: 0}
---- !u!23 &5943778680241642382
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5943778680241642370}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 521e7fef8488df24580a23ce559212bc, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!136 &5943778680241642383
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -56,7 +56,7 @@ public class rocketProjectile : MonoBehaviour
         try
         {
            GameObject _pSystem = Instantiate(explosionParticles,transform.position,Quaternion.identity);
-            _pSystem.GetComponent<AudioSource>().PlayOneShot(rocketExplosionSound);
+            _pSystem.GetComponent<AudioSource>().PlayOneShot(rocketExplosionSound,  0.1f);
         }
         finally
         {
