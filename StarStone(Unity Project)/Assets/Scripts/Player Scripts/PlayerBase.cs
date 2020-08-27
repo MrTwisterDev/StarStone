@@ -84,7 +84,7 @@ public class PlayerBase : MonoBehaviour
     [Tooltip("The amount of time the player must wait before being able to regenerate health after having taken damage.")]
     public float regenWaitAfterDamage;
     [Tooltip("A boolean determining whether or not the player is currently able to regenerate health.")]
-    public bool canRegen;
+    public bool canRegenHealth;
     [Tooltip("A boolean determining whether or not the player's health can regeneate to the maximum health value.")]
     public bool canRegenToMax;
     [Tooltip("The amount of time it takes to revive this player.")]
@@ -103,6 +103,9 @@ public class PlayerBase : MonoBehaviour
     public float maxSprintStamina;
     public float staminaDrainRate;
     public float sprintStamina;
+    public float regenWaitAfterSprint;
+    public float staminaRechargeCooldown;
+    public bool canRegenStamina;
     [Space]
     #endregion
     //Camera Controls
@@ -270,6 +273,7 @@ public class PlayerBase : MonoBehaviour
         if (sprintSpeedMultiplier == 0) { sprintSpeedMultiplier = 1f; }
         if (maxSprintStamina == 0) { maxSprintStamina = 100f; }
         sprintStamina = maxSprintStamina;
+        if (regenWaitAfterSprint == 0) { regenWaitAfterSprint = 3f; }
         if (staminaDrainRate == 0) { staminaDrainRate = 2.5f; }
         if (crouchSpeedMultiplier == 0) { crouchSpeedMultiplier = -0.5f; }
         if (wadingSpeedMultiplier == 0) { wadingSpeedMultiplier = -0.3f; }
@@ -317,6 +321,11 @@ public class PlayerBase : MonoBehaviour
             {
                 WeaponSwapTimer();
             }
+            StaminaManagement();
+            if(isSprinting && canRegenStamina && (xInput != 0 || zInput != 0))
+            {
+                canRegenStamina = false;
+            }
             //Locks the player's cursor to the center of the screen while they play
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
@@ -338,14 +347,6 @@ public class PlayerBase : MonoBehaviour
             }
         }
         PauseControls();
-        if (isSprinting)
-        {
-            DrainStamina();
-        }
-        else if(!isSprinting && sprintStamina < maxSprintStamina)
-        {
-            RechargeStamina();
-        }
     }
 
     public virtual void MovementControls()
@@ -372,6 +373,10 @@ public class PlayerBase : MonoBehaviour
         {
             moveSpeedMultiplier += sprintSpeedMultiplier;
             isSprinting = true;
+            if (zInput != 0 || xInput != 0)
+            {
+                canRegenStamina = false;
+            }
         }
         //If the player release the sprint button while they are sprinting, the sprint speed modifier is subtracted from the movement speed multiplier and isSprinting is set to false
         //Checking to see if the player is already sprinting prevents the modifier from being subtracted more than once
@@ -412,6 +417,18 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    public void StaminaManagement()
+    {
+        if (isSprinting && (xInput != 0 || zInput != 0))
+        {
+            DrainStamina();
+        }
+        else if (sprintStamina < maxSprintStamina && canRegenStamina)
+        {
+            RechargeStamina();
+        }
+    }
+
     public void DrainStamina()
     {
         sprintStamina -= staminaDrainRate * Time.deltaTime;
@@ -419,7 +436,7 @@ public class PlayerBase : MonoBehaviour
         {
             moveSpeedMultiplier -= sprintSpeedMultiplier;
             isSprinting = false;
-            walkingSound.PlayOneShot(pantingSound);
+            AudioSource.PlayClipAtPoint(pantingSound, transform.position, 1f);
         }
         uIController.UpdateStaminaBar(sprintStamina);
     }
@@ -788,14 +805,23 @@ public class PlayerBase : MonoBehaviour
             uIController.UpdateBlinkTimer();
         }
         //If the player cannot regenerate health, a cooldown timer is run each frame
-        if (!canRegen)
+        if (!canRegenHealth)
         {
             //The time since they last took damage is incremented each frame
             timeSinceTakenDamage += Time.deltaTime;
             //If the time since the player last took damage reaches the value of regenWaitAfterDamage, the player is then able to regen health again
             if (timeSinceTakenDamage >= regenWaitAfterDamage)
             {
-                canRegen = true;
+                canRegenHealth = true;
+            }
+        }
+        if ((!canRegenStamina && !isSprinting) || !canRegenStamina && isSprinting && xInput == 0 && zInput == 0)
+        {
+            staminaRechargeCooldown += Time.deltaTime;
+            if(staminaRechargeCooldown >= regenWaitAfterSprint)
+            {
+                canRegenStamina = true;
+                staminaRechargeCooldown = 0f;
             }
         }
     }
@@ -833,7 +859,7 @@ public class PlayerBase : MonoBehaviour
         {
             // play sound 
             currentHealth -= damageDealt;
-            canRegen = false;
+            canRegenHealth = false;
             timeSinceTakenDamage = 0f;
         }
         else
@@ -945,7 +971,7 @@ public class PlayerBase : MonoBehaviour
             canRegenToMax = true;
         }
         //If the player is able to regenerate their health to the maximum value, it is incremented by the regen rate every frame
-        if (canRegen && currentHealth < maxHealth && canRegenToMax)
+        if (canRegenHealth && currentHealth < maxHealth && canRegenToMax)
         {
             currentHealth += regenRate * Time.deltaTime;
             //If it surpasses the maximum health the player can have, it is set to the maximum value
@@ -955,7 +981,7 @@ public class PlayerBase : MonoBehaviour
             }
         }
         //If the player is only able to regenerate their health to the cutoff point, it is still incremented every frame
-        else if (canRegen && currentHealth < healthRegenCutoff)
+        else if (canRegenHealth && currentHealth < healthRegenCutoff)
         {
             currentHealth += regenRate * Time.deltaTime;
             //But if it surpasses the cutoff point, it is set to that value
