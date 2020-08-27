@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -7904,6 +7904,80 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 145044184}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &840181927
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -4216859302048453862, guid: 2ff25cca0a58544409e73394c92a1c24,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 345.93506
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 2ff25cca0a58544409e73394c92a1c24,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -72.72609
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 2ff25cca0a58544409e73394c92a1c24,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 225.56723
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 2ff25cca0a58544409e73394c92a1c24,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 2ff25cca0a58544409e73394c92a1c24,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 2ff25cca0a58544409e73394c92a1c24,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 2ff25cca0a58544409e73394c92a1c24,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 2ff25cca0a58544409e73394c92a1c24,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 2ff25cca0a58544409e73394c92a1c24,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 2ff25cca0a58544409e73394c92a1c24,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 2ff25cca0a58544409e73394c92a1c24,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2617335360527084192, guid: 2ff25cca0a58544409e73394c92a1c24,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 68
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 2ff25cca0a58544409e73394c92a1c24,
+        type: 3}
+      propertyPath: m_Name
+      value: uploads_files_890809_Steampunk_gun
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2ff25cca0a58544409e73394c92a1c24, type: 3}
 --- !u!4 &847675286 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1618473241743850031, guid: 1477549b445bae347b5071e872ab88d2,
@@ -19267,7 +19341,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1870303102 stripped
 Transform:
@@ -20266,7 +20340,7 @@ Transform:
   - {fileID: 2111583735}
   - {fileID: 1762055657}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1937992881
 PrefabInstance:
@@ -20584,7 +20658,7 @@ Transform:
   - {fileID: 766055478}
   - {fileID: 1711210380}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1989263003 stripped
 Transform:
@@ -22349,7 +22423,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2133736626
 PrefabInstance:
@@ -26014,9 +26088,6 @@ MonoBehaviour:
   jumpHeight: 0
   moveSpeedMultiplier: 0
   sprintSpeedMultiplier: 0
-  maxSprintStamina: 0
-  staminaDrainRate: 0
-  sprintStamina: 0
   crouchSpeedMultiplier: 0
   underwaterSpeedMultiplier: 0
   wadingSpeedMultiplier: 0
@@ -26038,6 +26109,9 @@ MonoBehaviour:
   reviveHealthIncrease: 25
   bloodOverlayActive: 0
   isDead: 0
+  maxSprintStamina: 0
+  staminaDrainRate: 0
+  sprintStamina: 0
   cameraTransform: {fileID: 6594952469970030784}
   mouseSensitivity: 0
   xRotation: 0
@@ -26076,6 +26150,7 @@ MonoBehaviour:
   actionFailed: {fileID: 8300000, guid: 6d3950b1b366f58409e7e0028a0d92dd, type: 3}
   hitWhileInvulnerable: []
   hitWhileNotInvulnrable: []
+  pantingSound: {fileID: 0}
   flashlight: {fileID: 6594952468251488754}
   playerNumber: 
   uIController: {fileID: 6594952468966134996}
@@ -27644,6 +27719,7 @@ MonoBehaviour:
   healthBar: {fileID: 8186320746299441834}
   bloodOverlay: {fileID: 1282191466968073757}
   deathCanvas: {fileID: 1661556617}
+  staminaBar: {fileID: 0}
   speedCharge: {fileID: 8186320746885542119}
   healthCharge: {fileID: 8186320747152987290}
   fireCharge: {fileID: 8186320747962002484}
@@ -27815,7 +27891,7 @@ Transform:
   - {fileID: 2988327435551295078}
   - {fileID: 668398552}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &6594952469715252305
 GameObject:
