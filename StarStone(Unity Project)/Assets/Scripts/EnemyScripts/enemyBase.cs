@@ -141,7 +141,6 @@ public class enemyBase : MonoBehaviour
     {
 
         UIController.hitMarkerHasHit = true;
-        Debug.Log("hello");
         //James' work - checks the enemy has more than 0 health before they take damage, otherwise with spreadshot weapons they can be "killed" multiple times
         //and spawn multiple souls
         if (enemyHP > 0)

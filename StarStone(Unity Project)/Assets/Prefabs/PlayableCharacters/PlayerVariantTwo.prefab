@@ -156,7 +156,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.9528302, g: 0.916835, b: 0.8314792, a: 1}
-  m_Intensity: 1
+  m_Intensity: 10
   m_Range: 15
   m_SpotAngle: 60
   m_InnerSpotAngle: 6
@@ -5634,7 +5634,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 106.838646, y: 122.01536}
+  m_AnchoredPosition: {x: 106.83862, y: 122.01535}
   m_SizeDelta: {x: 173.91998, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1750557674913152291

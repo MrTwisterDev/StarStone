@@ -6272,7 +6272,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.9528302, g: 0.916835, b: 0.8314792, a: 1}
-  m_Intensity: 1
+  m_Intensity: 10
   m_Range: 15
   m_SpotAngle: 60
   m_InnerSpotAngle: 6
@@ -6554,9 +6554,6 @@ MonoBehaviour:
   jumpHeight: 0
   moveSpeedMultiplier: 1
   sprintSpeedMultiplier: 0.5
-  maxSprintStamina: 0
-  staminaDrainRate: 0
-  sprintStamina: 0
   crouchSpeedMultiplier: 0
   underwaterSpeedMultiplier: 0
   wadingSpeedMultiplier: 0

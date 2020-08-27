@@ -315,7 +315,6 @@ public class UIController : MonoBehaviour
     {
 
         yield return new WaitForSeconds(0.1f);
-        Debug.Log("Do I work?");
         HitMarkerIsActive(false);
         HitMarkerIsNotActive(true);
         hitMarkerHasHit = false;
