@@ -4764,7 +4764,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1618473241743850031}
   - component: {fileID: 1618473241743850030}
-  - component: {fileID: 1618473241743850029}
   - component: {fileID: 1618473241743850028}
   - component: {fileID: 1618473241743850019}
   - component: {fileID: 1849321539451337185}
@@ -4801,45 +4800,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1618473241743850017}
   m_Mesh: {fileID: 0}
---- !u!23 &1618473241743850029
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1618473241743850017}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: -6795264037927296902, guid: ac25267afebf4964c8a12c323443a661, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!136 &1618473241743850028
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4954,7 +4914,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: dc1585d24bafb9c478e76bb937f26538, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.332
+  m_Volume: 0.108
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -4963,7 +4923,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0.1
-  MaxDistance: 15
+  MaxDistance: 12
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -5096,8 +5056,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6795264037927296902, guid: ac25267afebf4964c8a12c323443a661, type: 3}
-  - {fileID: -5189715152625664583, guid: ac25267afebf4964c8a12c323443a661, type: 3}
+  - {fileID: 2100000, guid: b4cdfaba978888a4f9942a534e3dcf52, type: 2}
+  - {fileID: 2100000, guid: c86c6356d7045f94baec508bb557a446, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
