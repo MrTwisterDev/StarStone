@@ -47,9 +47,6 @@ public class PlayerBase : MonoBehaviour
     public float moveSpeedMultiplier;
     [Tooltip("The value added to the movement multiplier while the player is sprinting.")]
     public float sprintSpeedMultiplier;
-    public float maxSprintStamina;
-    public float staminaDrainRate;
-    public float sprintStamina;
     [Tooltip("The value added to the movement multiplier while the player is crouching")]
     public float crouchSpeedMultiplier;
     [Tooltip("The value added to the movement multiplier while the player is fully submerged.")]
@@ -98,6 +95,14 @@ public class PlayerBase : MonoBehaviour
     public float reviveHealthIncrease;
     public bool bloodOverlayActive;
     public bool isDead;
+    [Space]
+    #endregion
+    //Stamina Management
+    #region
+    [Header("Stamina Management")]
+    public float maxSprintStamina;
+    public float staminaDrainRate;
+    public float sprintStamina;
     [Space]
     #endregion
     //Camera Controls
@@ -182,6 +187,7 @@ public class PlayerBase : MonoBehaviour
     [Tooltip("The sound played when the player is attacked while invulnerable.")]
     public AudioClip[] hitWhileInvulnerable;
     public AudioClip[] hitWhileNotInvulnrable;
+    public AudioClip pantingSound;
     [Space]
     #endregion
     //Miscellaneous Variables
@@ -413,7 +419,9 @@ public class PlayerBase : MonoBehaviour
         {
             moveSpeedMultiplier -= sprintSpeedMultiplier;
             isSprinting = false;
+            walkingSound.PlayOneShot(pantingSound);
         }
+        uIController.UpdateStaminaBar(sprintStamina);
     }
 
     public void RechargeStamina()
@@ -423,6 +431,7 @@ public class PlayerBase : MonoBehaviour
         {
             sprintStamina = maxSprintStamina;
         }
+        uIController.UpdateStaminaBar(sprintStamina);
     }
 
     public virtual void WeaponControls()

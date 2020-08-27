@@ -13,34 +13,52 @@ public class UIController : MonoBehaviour
     //***************************************************************|
 
     //Scripts
+    [Header("Scripts")]
     public PlayerBase playerController;
     public build_a_weapon activeWeaponController;
+    [Space]
     //Ammo UI Elements
+    [Header("Ammo UI")]
     public Text totalAmmoText;
     public Text currentMagazineAmmoText;
     public GameObject reloadAlert;
     public GameObject swapWeaponAlert;
+    [Space]
     //Prototype Weapon UI Elements
+    [Header("Prototype Weapon")]
     public Slider prototypeChargeSlider;
     public Text prototypeChargePercent;
+    [Space]
     //Ability UI Elements
+    [Header("Abilities")]
     public Text blinkTimerText;
     public GameObject speedLines;
     public Image[] mineCounters;
+    [Space]
     //Wave Information UI Elements
+    [Header("Wave Information")]
     public Text waveTimerText;
     public Text waveNumberText;
     public Image timerBar;
     public float initialTime;
+    [Space]
     //Health UI Elements
+    [Header("Health UI")]
     public Slider healthBar;
     public Image bloodOverlay;
     public GameObject deathCanvas;
+    [Space]
+    //Stamina UI
+    [Header("Stamina")]
+    public Slider staminaBar;
+    [Space]
     //Starstone Charge Slider
+    [Header("Starstones")]
     public Slider speedCharge;
     public Slider healthCharge;
     public Slider fireCharge;
     public Slider singularityCharge;
+    [Space]
 
 
     //Lewis' work
@@ -54,6 +72,7 @@ public class UIController : MonoBehaviour
 
     public GameObject hitMarker;
     public static bool hitMarkerHasHit;
+
     public void Start()
     {
         playerController = gameObject.GetComponent<PlayerBase>();
@@ -188,7 +207,10 @@ public class UIController : MonoBehaviour
         healthBar.value = playerController.GetHealth() / 100;
     }
 
-
+    public void UpdateStaminaBar(float newStamina)
+    {
+        staminaBar.value = newStamina / 100;
+    }
 
     // Lewis' work 
     public void IsImmune(bool isActive) // Method that enables Text that says "you are immune "
