@@ -2235,7 +2235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ee100110c0374743980b40f0ef88755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fullscreenToggle: 1
+  fullscreenToggle: 0
 --- !u!1 &2821565044641051920
 GameObject:
   m_ObjectHideFlags: 0
@@ -2319,7 +2319,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2821565044641051920}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &7378811033149986544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4127,7 +4127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2166691771465288993
 Transform:
   m_ObjectHideFlags: 0
@@ -7787,7 +7787,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 58.42}
+  m_AnchoredPosition: {x: 0, y: 55.699997}
   m_SizeDelta: {x: 400, y: 68.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8186320746267567379
@@ -9994,7 +9994,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 17.1}
+  m_AnchoredPosition: {x: 0, y: 26.1}
   m_SizeDelta: {x: 450, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8186320747578044980
@@ -10388,7 +10388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 15.199997}
+  m_AnchoredPosition: {x: 0, y: 8.900002}
   m_SizeDelta: {x: 347.1, y: 65.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8186320747735953347
@@ -10419,10 +10419,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -10430,7 +10430,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ...find the answers...
+  m_Text: '...disconnect the generators...
+
+'
 --- !u!1 &8186320747749828822
 GameObject:
   m_ObjectHideFlags: 0

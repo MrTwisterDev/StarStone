@@ -121,9 +121,15 @@ public class PlayerController : MonoBehaviour
     public GameObject flashLight;
     private bool flashlightToggle;
 
+
+
+
     // Start is called before the first frame update
     void Start()
     {
+        
+
+
         gravityScale = -9.81f * 2;
         gravityMultiplier = 1f;
         groundDistance = 0.4f;

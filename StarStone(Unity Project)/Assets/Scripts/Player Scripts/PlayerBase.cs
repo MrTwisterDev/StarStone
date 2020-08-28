@@ -343,7 +343,9 @@ public class PlayerBase : MonoBehaviour
         {
             if (!isDead)
             {
+               
                 KillPlayer();
+
             }
         }
         PauseControls();
@@ -685,6 +687,7 @@ public class PlayerBase : MonoBehaviour
 
     public void KillPlayer()
     {
+        GameObject.Find("Main Camera").GetComponent<AudioListener>().enabled = false;
         if (gameController != null)
         {
             gameController.deadPlayers++;
@@ -692,6 +695,7 @@ public class PlayerBase : MonoBehaviour
         else
         {
             Time.timeScale = 0;
+            
             uIController.ToggleDeathCanvas(true);
         }
         isDead = true;
@@ -1010,7 +1014,9 @@ public class PlayerBase : MonoBehaviour
         if (currentHealth < 0)
         {
             currentHealth = 0;
-            playerState = PlayerStates.deadState;
+        
+          playerState = PlayerStates.deadState;
+      
         }
         uIController.UpdateHealthbar();
     }
