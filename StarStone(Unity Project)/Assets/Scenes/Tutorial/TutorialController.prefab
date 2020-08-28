@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7921590128355341196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7921590128355341194}
+  - component: {fileID: 7921590128355341197}
+  m_Layer: 0
+  m_Name: TutorialController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7921590128355341194
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921590128355341196}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 39.683647, y: 4.3022346, z: -14.00558}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7921590128355341197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921590128355341196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6c562f77bec434cb0f4d59ef504386, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialTexts:
+  - Welcome to the tutorial!
+  - Use the W,A,S, and D keys to move.
+  - Great! Now, use the mouse to move the camera.
+  - Fantastic! Now, hold shift to sprint while moving.
+  - Good job! Try pressing control to crouch!
+  - Excellent. Now use the spacebar to jump.
+  - Wonderful! Please continue to the next area.
+  - Use the Left Mouse Button to fire your weapon.
+  - BANG! Haha. Now, use the Right Mouse Button to aim your weapon!
+  - Great! Now, try using Q to swap weapon.
+  - Huzzah! Feel free to test this bad boy out, and then press V to use your melee
+    attck.
+  - Swoosh! Great! Now, press R to reload your weapon.
+  - All done? Great! Now, double tap Q to equip your Prototype Weapon!
+  - The Prototype weapon has 4 different fire modes, changed by aiming at different
+    Starstone Generators.
+  - Now onto abilities. Press the Middle Mouse Button to use your blink ability!
+  - Fwoosh! Now, use G to throw down a mine! And E to pick it up!
+  - Fabulous work. You've completed the tutorial! Take some time to look around the
+    museum, and return to the main menu from the pause menu when you're done! Press
+    the spacebar to hide this text.
+  tutorialText: {fileID: 0}
+  textIndex: 0
+  tutorialTextUpdateDelayLength: 0
+  firstSectionDoors:
+  - {fileID: 0}
+  - {fileID: 0}
+  secondSectionDoors:
+  - {fileID: 0}
+  - {fileID: 0}

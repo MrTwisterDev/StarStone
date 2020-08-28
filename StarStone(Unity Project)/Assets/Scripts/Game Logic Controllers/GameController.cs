@@ -706,7 +706,6 @@ public class GameController : MonoBehaviour
         //If all of the players in the game are dead, then the death canvas for each of them is activated and time is stopped
         if(deadPlayers == playerControllers.Length)
         {
-            Debug.Log(deadPlayers);
             foreach(PlayerBase player in playerControllers)
             {
                 player.uIController.ToggleDeathCanvas(true);

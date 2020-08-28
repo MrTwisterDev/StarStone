@@ -101,6 +101,17 @@ public class PrototypeWeapon : MonoBehaviour
     public Color fireColour;                                                       
     [Tooltip("The colour the Prototype Weapon's charge bar will turn when it is in singularity mode.")]
     public Color singularityColor;
+    [Space]
+    #endregion
+    //Muzzleflash Colours
+    #region
+    [Header("Muzzle Flash Colours")]
+    public Color minigunColour;
+    public Color vampireColour;
+    public Color grenadeColour;
+    public Color singularityColour;
+    public Light muzzleFlash;
+    private float flashCooldown;
     #endregion
     //External Scripts
     #region
@@ -139,6 +150,20 @@ public class PrototypeWeapon : MonoBehaviour
         newWeaponMode = currentWeaponMode;
         //Sets the weapon's charge to its maximum
         weaponCharge = 100;
+        flashCooldown = 0.25f;
+    }
+
+    private void Update()
+    {
+        if (muzzleFlash.gameObject.activeSelf)
+        {
+            flashCooldown -= Time.deltaTime;
+            if(flashCooldown <= 0)
+            {
+                muzzleFlash.gameObject.SetActive(false);
+                flashCooldown = 0.25f;
+            }
+        }
     }
 
     public void FireMinigunMode()
@@ -146,11 +171,10 @@ public class PrototypeWeapon : MonoBehaviour
         //If the weapon's charge minus the discharge rate is greater than or equal to 0, a raycast is sent out
         if (weaponCharge - minigunChargeUsage >= 0)
         {
+            muzzleFlash.gameObject.SetActive(true);
             if (!weaponSound.isPlaying)
             {
-                weaponSound.Play();
-                
-                
+                weaponSound.Play(); 
             }
             RaycastHit rayHit;
             Debug.DrawRay(transform.position, transform.forward * minigunRange, Color.blue, 1);
@@ -178,6 +202,7 @@ public class PrototypeWeapon : MonoBehaviour
         //If the weapon's charge minus the discharge rate is greater than or equal to 0, then a raycast is sent out
         if (weaponCharge - vampireChargeUsage >= 0 && !singleShotLock)
         {
+            muzzleFlash.gameObject.SetActive(true);
             //The sound of the weapon siring is played
             weaponSound.Play();
             RaycastHit rayHit;
@@ -205,6 +230,7 @@ public class PrototypeWeapon : MonoBehaviour
         //If the weapon's charge minus the discharge rate is greater than or equal to 0, then a projectile is launched
         if (weaponCharge - grenadeLauncherChargeUsage >= 0 && !singleShotLock)
         {
+            muzzleFlash.gameObject.SetActive(true);
             //The sound of the weapon firing is played
             weaponSound.Play();
             //The grenade projectile is instantiated at the end of the weapon, and has force applied to it in its start function
@@ -224,6 +250,7 @@ public class PrototypeWeapon : MonoBehaviour
         //If the weapon's charge minus the discharge rate is greater than or equal to 0, then a projectile is fired
         if (weaponCharge - singularityChargeUsage >= 0 && !singleShotLock)
         {
+            muzzleFlash.gameObject.SetActive(true);
             //The sound of the weapon firing is played
             weaponSound.Play();
             //The singulairty projectile is instantiated at the end of the weapon, and has force applied to it in its start function
@@ -257,22 +284,26 @@ public class PrototypeWeapon : MonoBehaviour
                     case StarstoneController.starstoneTypes.speedStarstone:
                         newWeaponMode = weaponModes.minigunMode;
                         starstoneToChargeFrom.chargePrototypeWeapon(newWeaponMode);
+                        muzzleFlash.color = minigunColour;
                         break;
                     //If the parent object is the Health Starstone, the new weapon mode is set to vampire
                     case StarstoneController.starstoneTypes.healthStarstone:                                        //newWeaponMode is used to compare between the current weapon mode, and the one 
                         newWeaponMode = weaponModes.vampireMode;
                         starstoneToChargeFrom.chargePrototypeWeapon(newWeaponMode);
+                        muzzleFlash.color = vampireColour;
                         //set by the Starstone being aimed at to determine if the weapon should switch mode
                         break;
                     //If the parent object is the Fire Starstone, the new weapon mode is set to grenade launcher
                     case StarstoneController.starstoneTypes.fireStarstone:
                         newWeaponMode = weaponModes.grenadeLauncherMode;
                         starstoneToChargeFrom.chargePrototypeWeapon(newWeaponMode);
+                        muzzleFlash.color = grenadeColour;
                         break;
                     //If the parent object is the Buff Starstone, the new weapon mode is set to singularity
                     case StarstoneController.starstoneTypes.buffStarstone:
                         newWeaponMode = weaponModes.singularityMode;
                         starstoneToChargeFrom.chargePrototypeWeapon(newWeaponMode);
+                        muzzleFlash.color = singularityColor;
                         break;
                 }
                 //Returns the boolean as true
@@ -292,7 +323,7 @@ public class PrototypeWeapon : MonoBehaviour
 
     public void Fire()
     {
-        //Checks whcih mode the weapon is currently in and runs the appropriate method
+        //Checks which mode the weapon is currently in and runs the appropriate method
         switch (currentWeaponMode)
         {
             case weaponModes.minigunMode:

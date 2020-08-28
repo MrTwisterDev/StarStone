@@ -40,7 +40,10 @@ public class SoulController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveToDestination();
+        if (Time.timeScale == 1)
+        {
+            MoveToDestination();
+        }
     }
 
     private void MoveToDestination()
@@ -56,7 +59,7 @@ public class SoulController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //When the soul collides with the main generator, the number of souls inside the generator is incremented and the soul object is destroyed
-        if(other.transform.position == soulDestination.transform.position)
+        if(other.gameObject.tag == "MainGenerator")
         {
             gameController.soulsInGenerator++;
             Destroy(gameObject);
