@@ -12,12 +12,11 @@ public class mineScript : MonoBehaviour
     public float minePrimeTimer; //How long it takes for a mine to prime itself
     private float currentMineTimer; //The current timer until the mine is primed
 
-    private bool hasChangedMaterial; //Has the mine changed it's material
     [HideInInspector]
     public Color unThrownColour; //What color is the mine if it is static
     public Color unarmedMineUIColour; //What color is the mine in the UI when it is unarmed
     public Color armedMineUIColour; //What color is the mine in the UI when it is armed
-    public Material primedMaterial; //What material should be applied when the mine is armed
+    public Light mineLight; //What material should be applied when the mine is armed
     [HideInInspector]
     public UIController uiController; //What UI should this script update
 
@@ -35,9 +34,6 @@ public class mineScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("ReturnMine", 15f); // Lewis' work. Mines that are stuck will  return to the player. 
-
-
         mainCamera = GameObject.Find("Main Camera").GetComponent<Transform>();
         //James' Work\\
         meshRenderer = gameObject.GetComponent<MeshRenderer>();
@@ -46,9 +42,6 @@ public class mineScript : MonoBehaviour
         //~~~~~~~~~~~~\\
         rigidBody = gameObject.GetComponent<Rigidbody>();
         rigidBody.AddForce(mainCamera.forward * 500f);
-
-
-
     }
 
     // Update is called once per frame
@@ -61,12 +54,11 @@ public class mineScript : MonoBehaviour
         if (minePrimed)
         {
             //James' Work\\
-            if(!hasChangedMaterial)
+            if(!mineLight.enabled)
             {
-                meshRenderer.material = primedMaterial;
+                mineLight.enabled = true;
                 AudioSource.PlayClipAtPoint(primedClip, transform.position, 0.25f);
                 uiController.UpdateMineCounter(playerScript.currentActiveMines, armedMineUIColour);
-                hasChangedMaterial = true;
             }
             //~~~~~~~~~~~~\\
             foreach (Collider collider in Physics.OverlapSphere(transform.position, mineExplosionDistance))
