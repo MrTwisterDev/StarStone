@@ -6360,7 +6360,7 @@ MonoBehaviour:
   pantingSound: {fileID: 8300000, guid: 7ac262744a8e0cc4e8c6fac16a5c5f35, type: 3}
   flashlight: {fileID: 6594952469315031074}
   playerNumber: 
-  uIController: {fileID: 0}
+  uIController: {fileID: 6594952470049551620}
   pauseMenu: {fileID: 3738511801133396624}
   playerFeet: {fileID: 6594952468631311746}
   playerState: 0

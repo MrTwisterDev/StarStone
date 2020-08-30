@@ -192,6 +192,11 @@ public class enemyBase : MonoBehaviour
         //James' work\\
         Instantiate(soulParticles, transform.position, soulParticles.transform.rotation);
         DropPowerUp();
+        if(GetComponentInChildren<ThrowingKnife>() != null)
+        {
+            GetComponentInChildren<ThrowingKnife>().gameObject.transform.parent = null;
+            GetComponentInChildren<ThrowingKnife>().rigidBody.isKinematic = false;
+        }
         //~~~~~~~~~~~~\\
         
         

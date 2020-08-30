@@ -103,6 +103,10 @@ public class TutorialController : MonoBehaviour
     {
         //Increments the text index by one to access the next tutorial text
         textIndex++;
+        if(textIndex > tutorialTexts.Length)
+        {
+            textIndex = tutorialTexts.Length;
+        }
         //Sets the text displayed to the string defined in the new array index
         tutorialText.text = tutorialTexts[textIndex];
     }

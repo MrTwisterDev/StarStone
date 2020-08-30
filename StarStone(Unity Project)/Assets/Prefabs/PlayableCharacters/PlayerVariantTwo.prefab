@@ -7653,7 +7653,8 @@ MonoBehaviour:
   rightAbilityCooldown: 0
   rightAbilityCooldownRounded: 0
   leftAbilityPrefab: {fileID: 0}
-  rightAbilityPrefab: {fileID: 0}
+  rightAbilityPrefab: {fileID: 5568544290586574570, guid: 3c1196ec0ed91d94aa96e8b56ccb53cd,
+    type: 3}
   hasSpeedBoost: 0
   speedBoostMultiplier: 0
   speedBoostDuration: 0

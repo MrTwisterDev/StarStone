@@ -19,6 +19,7 @@ public class CharacterVariantTwo : PlayerBase
 
     public override void UseRightAbility()
     {
-        base.UseRightAbility();
+        Quaternion knifeRotation = Quaternion.AngleAxis(-90f, Vector3.right) * transform.rotation;
+        Instantiate(rightAbilityPrefab, cameraTransform.position, knifeRotation);
     }
 }
