@@ -423,6 +423,8 @@ public class GameController : MonoBehaviour
         }
         else if(level == 0)
         {
+            characterSelector = FindObjectOfType<characterSelection>();
+            characterSelector.gameObject.SetActive(false);
             ResetWaveData();
             //Resets the number of dead players to keep the value accurate
             deadPlayers = 0;

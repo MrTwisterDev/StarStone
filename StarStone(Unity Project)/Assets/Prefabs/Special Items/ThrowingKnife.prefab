@@ -53,6 +53,10 @@ MonoBehaviour:
   areaOfEffect: 0
   damageToDeal: 5
   knifeHitEnvironment: {fileID: 8300000, guid: 129df8f5af285664092aaf36e3c928ff, type: 3}
+  uIController: {fileID: 0}
+  playerScript: {fileID: 0}
+  unthrownColour: {r: 1, g: 1, b: 1, a: 1}
+  thrownColour: {r: 1, g: 1, b: 1, a: 0.49019608}
 --- !u!54 &4072825013681117575
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -107,22 +111,22 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 0dcc2b1c436fe3e419f28000832ed92e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.7071068
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 0dcc2b1c436fe3e419f28000832ed92e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 0dcc2b1c436fe3e419f28000832ed92e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 0dcc2b1c436fe3e419f28000832ed92e,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 0dcc2b1c436fe3e419f28000832ed92e,
         type: 3}
@@ -137,7 +141,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 0dcc2b1c436fe3e419f28000832ed92e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 0dcc2b1c436fe3e419f28000832ed92e,
         type: 3}

@@ -12,14 +12,65 @@ public class CharacterVariantTwo : PlayerBase
     //          implement override methods for unique abilities.     |
     //***************************************************************|
 
+    public int maxKnives;
+    public int currentActiveKnives;
+
+    public float teleportSpeed;
+    public bool beaconActive;
+    public bool teleportingPlayer;
+    public Vector3 teleportBeacon;
+
+    private void Awake()
+    {
+        maxKnives = 3;
+        teleportingPlayer = false;
+        if(teleportSpeed == 0) { teleportSpeed = 200f; }
+    }
+
     public override void UseLeftAbility()
     {
-        base.UseLeftAbility();
+        if (beaconActive && !teleportingPlayer && canUseLeftAbility)
+        {
+            teleportingPlayer = true;
+            canUseLeftAbility = false;
+            uIController.ToggleSpeedLines(true);
+        }
+        else if(!beaconActive)
+        {
+            TeleportBeacon beacon = Instantiate(leftAbilityPrefab, transform.position, Quaternion.identity).GetComponent<TeleportBeacon>();
+            beacon.playerScript = this;
+            beaconActive = true;
+        }
+    }
+
+    private void Update()
+    {
+        PlayerStateHandler();
+        if (teleportingPlayer)
+        {
+            //Determines the distance to move the player this step by multiplying the teleportSpeed by deltaTime to make it framerate independent
+            float moveDist = teleportSpeed * Time.deltaTime;
+            //Moves the player towards the teleport target by the previously calculated move distance
+            transform.position = Vector3.MoveTowards(transform.position, teleportBeacon, moveDist);
+            //If the player has essentially reached its target, the speedlines are disabled and the Blinkball destroyed
+            if (Vector3.Distance(transform.position, teleportBeacon) < 0.001f)
+            {
+                uIController.ToggleSpeedLines(false);
+                teleportingPlayer = false;
+            }
+        }
     }
 
     public override void UseRightAbility()
     {
-        Quaternion knifeRotation = Quaternion.AngleAxis(-90f, Vector3.right) * transform.rotation;
-        Instantiate(rightAbilityPrefab, cameraTransform.position, knifeRotation);
+        if (currentActiveKnives < maxKnives)
+        {
+            Quaternion knifeRot = gameObject.transform.rotation;
+            ThrowingKnife thrownKnife = Instantiate(rightAbilityPrefab, cameraTransform.position, knifeRot).GetComponent<ThrowingKnife>();
+            currentActiveKnives++;
+            thrownKnife.playerScript = this;
+            thrownKnife.uIController = uIController;
+            thrownKnife.UpdateUI();
+        }
     }
 }

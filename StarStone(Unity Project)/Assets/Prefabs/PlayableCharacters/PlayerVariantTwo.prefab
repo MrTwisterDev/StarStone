@@ -1154,7 +1154,7 @@ GameObject:
   - component: {fileID: 6744136103976683929}
   - component: {fileID: 4887689440603518012}
   m_Layer: 5
-  m_Name: LandmineCounter03
+  m_Name: KnifeCounter03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1205,8 +1205,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 9a38853276d95e646b3bfffe369703ba, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1377,7 +1377,7 @@ GameObject:
   - component: {fileID: 7856338304442621009}
   - component: {fileID: 5189427520762221949}
   m_Layer: 5
-  m_Name: LandmineCounter02
+  m_Name: KnifeCounter02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1428,8 +1428,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 9a38853276d95e646b3bfffe369703ba, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2826,7 +2826,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0df56bd345e6fa44eb80df481bbcfcca, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 870272771daf9fc46b9cec45bb2f08cd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5838,7 +5838,7 @@ GameObject:
   - component: {fileID: 6198425494322302108}
   - component: {fileID: 6997826866239791181}
   m_Layer: 5
-  m_Name: LandmineCounter01
+  m_Name: KnifeCounter01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5889,8 +5889,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 9a38853276d95e646b3bfffe369703ba, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -7653,7 +7653,8 @@ MonoBehaviour:
   leftAbilityCooldownRounded: 0
   rightAbilityCooldown: 0
   rightAbilityCooldownRounded: 0
-  leftAbilityPrefab: {fileID: 0}
+  leftAbilityPrefab: {fileID: 4495315691689516745, guid: dcbfbf190f4058c499dd25f18b64067d,
+    type: 3}
   rightAbilityPrefab: {fileID: 5568544290586574570, guid: 3c1196ec0ed91d94aa96e8b56ccb53cd,
     type: 3}
   hasSpeedBoost: 0
@@ -7685,6 +7686,12 @@ MonoBehaviour:
   pauseMenu: {fileID: 8469112137278865960}
   playerFeet: {fileID: 5355848416224099050}
   playerState: 0
+  maxKnives: 0
+  currentActiveKnives: 0
+  teleportSpeed: 0
+  beaconActive: 0
+  teleportingPlayer: 0
+  teleportBeacon: {x: 0, y: 0, z: 0}
 --- !u!114 &6908223567716421930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8330,7 +8337,7 @@ GameObject:
   - component: {fileID: 6110295281017667331}
   - component: {fileID: 7732042442007937934}
   m_Layer: 5
-  m_Name: Landmine
+  m_Name: Knives
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

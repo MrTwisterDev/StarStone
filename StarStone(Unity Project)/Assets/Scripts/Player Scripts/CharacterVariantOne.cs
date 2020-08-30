@@ -56,5 +56,9 @@ public class CharacterVariantOne : PlayerBase
         }
     }
 
+    private void Update()
+    {
+        PlayerStateHandler();
+    }
 
 }

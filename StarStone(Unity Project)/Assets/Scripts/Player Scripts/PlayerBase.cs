@@ -295,7 +295,7 @@ public class PlayerBase : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void PlayerStateHandler()
     {
         if (playerState == PlayerStates.deadState || playerState == PlayerStates.pausedState)
         {
@@ -581,6 +581,14 @@ public class PlayerBase : MonoBehaviour
                 else if (interactableObject.collider.gameObject.GetComponent<mineScript>() != null && gameObject.GetComponent<CharacterVariantOne>() != null)
                 {
                     //Destroys the mine being interacted with so that the player can throw another down elsewhere
+                    Destroy(interactableObject.collider.gameObject);
+                }
+                else if (interactableObject.collider.gameObject.GetComponent<ThrowingKnife>() != null && gameObject.GetComponent<CharacterVariantTwo>() != null)
+                {
+                    Destroy(interactableObject.collider.gameObject);
+                }
+                else if(interactableObject.collider.gameObject.GetComponent<TeleportBeacon>() != null && gameObject.GetComponent<CharacterVariantTwo>() != null)
+                {
                     Destroy(interactableObject.collider.gameObject);
                 }
             }
