@@ -316,7 +316,6 @@ public class GameController : MonoBehaviour
             if(connectedGenerators == starstoneArray.Length && finalWaveDone != true)
             {
                 //FINAL WAVE
-                Debug.Log("FINAL WAVE");
                 smallEnemiesInWave *= 2;
                 mediumEnemiesInWave *= 2;
                 largeEnemiesInWave *= 2;

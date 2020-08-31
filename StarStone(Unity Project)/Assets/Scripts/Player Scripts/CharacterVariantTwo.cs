@@ -12,9 +12,12 @@ public class CharacterVariantTwo : PlayerBase
     //          implement override methods for unique abilities.     |
     //***************************************************************|
 
+        [Header("Abilities")]
+    public AudioClip knifeThrow;
     public int maxKnives;
     public int currentActiveKnives;
 
+    public AudioClip teleportSound;
     public float teleportSpeed;
     public bool beaconActive;
     public bool teleportingPlayer;
@@ -34,6 +37,7 @@ public class CharacterVariantTwo : PlayerBase
             teleportingPlayer = true;
             canUseLeftAbility = false;
             uIController.ToggleSpeedLines(true);
+            AudioSource.PlayClipAtPoint(teleportSound, transform.position, 0.25f);
         }
         else if(!beaconActive)
         {
@@ -67,6 +71,7 @@ public class CharacterVariantTwo : PlayerBase
         {
             Quaternion knifeRot = gameObject.transform.rotation;
             ThrowingKnife thrownKnife = Instantiate(rightAbilityPrefab, cameraTransform.position, knifeRot).GetComponent<ThrowingKnife>();
+            AudioSource.PlayClipAtPoint(knifeThrow, transform.position, 0.25f);
             currentActiveKnives++;
             thrownKnife.playerScript = this;
             thrownKnife.uIController = uIController;

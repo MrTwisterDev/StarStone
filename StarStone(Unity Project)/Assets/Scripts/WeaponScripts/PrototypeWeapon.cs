@@ -116,7 +116,7 @@ public class PrototypeWeapon : MonoBehaviour
     //External Scripts
     #region
     private PlayerBase playerController;
-    private UIController uIController;
+    public UIController uIController;
     private StarstoneController starstoneToChargeFrom;
     #endregion
 
@@ -151,6 +151,16 @@ public class PrototypeWeapon : MonoBehaviour
         //Sets the weapon's charge to its maximum
         weaponCharge = 100;
         flashCooldown = 0.25f;
+    }
+
+    private void OnEnable()
+    {
+        uIController.TogglePrototypeUI(true);
+    }
+
+    private void OnDisable()
+    {
+        uIController.TogglePrototypeUI(false);
     }
 
     private void Update()
@@ -219,7 +229,7 @@ public class PrototypeWeapon : MonoBehaviour
             //Locks the weapon from firing while the fire button is held
             singleShotLock = true;
         }
-        else
+        else if(!singleShotLock)
         {
             AudioSource.PlayClipAtPoint(lowPower, transform.position, 1);
         }
@@ -239,7 +249,7 @@ public class PrototypeWeapon : MonoBehaviour
             weaponCharge -= grenadeLauncherChargeUsage;
             singleShotLock = true;
         }
-        else
+        else if(!singleShotLock)
         {
             AudioSource.PlayClipAtPoint(lowPower, transform.position, 1);
         }
@@ -259,7 +269,7 @@ public class PrototypeWeapon : MonoBehaviour
             weaponCharge -= singularityChargeUsage;
             singleShotLock = true;
         }
-        else
+        else if (!singleShotLock)
         {
             AudioSource.PlayClipAtPoint(lowPower, transform.position, 1);
         }
@@ -416,6 +426,7 @@ public class PrototypeWeapon : MonoBehaviour
                 {
                     weaponCharge = 100;
                 }
+                starstoneToChargeFrom.UpdateStoneUI();
             }
         }
         //Updates the UI elements for the prototype weapon's charge using the new charge values, casted as an integer to make the UI more readable

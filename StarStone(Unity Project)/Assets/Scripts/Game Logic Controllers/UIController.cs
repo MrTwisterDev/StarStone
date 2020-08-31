@@ -135,24 +135,29 @@ public class UIController : MonoBehaviour
         speedLines.SetActive(isActive);
     }
 
-    public void UpdateSpeedCharge(int stoneCharge)
+    public void UpdateSpeedCharge(float stoneCharge)
     {
         speedCharge.value = stoneCharge / 100;
     }
 
-    public void UpdateHealthCharge(int stoneCharge)
+    public void UpdateHealthCharge(float stoneCharge)
     {
         healthCharge.value = stoneCharge / 100;
     }
 
-    public void UpdateFireCharge(int stoneCharge)
+    public void UpdateFireCharge(float stoneCharge)
     {
         fireCharge.value = stoneCharge / 100;
     }
 
-    public void UpdateSingularityCharge(int stoneCharge)
+    public void UpdateSingularityCharge(float stoneCharge)
     {
         singularityCharge.value = stoneCharge / 100;
+    }
+
+    public void TogglePrototypeUI(bool isActive)
+    {
+        prototypeChargePercent.gameObject.transform.parent.gameObject.SetActive(isActive);
     }
 
     public void UpdateAmmoText()

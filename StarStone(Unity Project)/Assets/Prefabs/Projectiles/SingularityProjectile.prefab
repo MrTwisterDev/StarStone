@@ -110,7 +110,7 @@ MonoBehaviour:
   rigidBody: {fileID: 0}
   cameraTransform: {fileID: 0}
   detonationSound: {fileID: 8300000, guid: cd6df1927ea6d184ba81c3cb31442695, type: 3}
-  launchForce: 300
+  launchForce: 600
   areaOfEffect: 8
   damageToDeal: 0
   fuseLength: 1.5

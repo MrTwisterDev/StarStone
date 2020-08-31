@@ -101,7 +101,7 @@ public class StarstoneController : MonoBehaviour
             }
         }
         //If the starstone is not active, and its charge is less than 100, it regains charge every frame until it is at 100% charge
-        else if(starstoneCharge < 100f && genEnabled)
+        else if(starstoneCharge < 100f)
         {
             starstoneCharge += Time.deltaTime * rechargeMultiplier;
             if(starstoneCharge > 100f)
@@ -130,25 +130,25 @@ public class StarstoneController : MonoBehaviour
             case starstoneTypes.speedStarstone:
                 foreach (var controller in uIController)
                 {
-                    controller.UpdateSpeedCharge((int)starstoneCharge);
+                    controller.UpdateSpeedCharge(starstoneCharge);
                 }
                 break;
             case starstoneTypes.healthStarstone:
                 foreach (var controller in uIController)
                 {
-                    controller.UpdateHealthCharge((int)starstoneCharge);
+                    controller.UpdateHealthCharge(starstoneCharge);
                 }
                 break;
             case starstoneTypes.fireStarstone:
                 foreach (var controller in uIController)
                 {
-                    controller.UpdateFireCharge((int)starstoneCharge);
+                    controller.UpdateFireCharge(starstoneCharge);
                 }
                 break;
             case starstoneTypes.buffStarstone:
                 foreach (var controller in uIController)
                 {
-                    controller.UpdateSingularityCharge((int)starstoneCharge);
+                    controller.UpdateSingularityCharge(starstoneCharge);
                 }
                 break;
         }
