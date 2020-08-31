@@ -358,7 +358,7 @@ public class PrototypeWeapon : MonoBehaviour
         if (IsAimingAtStarstone())
         {   
             //and the weapon mode associated with it is different to the weapon's current mode...
-            if (newWeaponMode != currentWeaponMode)
+            if (newWeaponMode != currentWeaponMode && starstoneToChargeFrom.genEnabled)
             {
                 //then the new weapon mode is checked and the weapon is set up for the new mode it is being assigned
                 switch (newWeaponMode)
