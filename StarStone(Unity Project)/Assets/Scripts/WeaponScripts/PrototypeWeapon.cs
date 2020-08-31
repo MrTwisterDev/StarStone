@@ -415,7 +415,7 @@ public class PrototypeWeapon : MonoBehaviour
             }
             //Otherwise, if the Starstone aimed at is the same as the fire mode of the weapon, has charge left in it, and the weapon isn't fully charged,
             //the recharging code is executed
-            else if (weaponCharge < 100 && starstoneToChargeFrom.starstoneCharge - Time.deltaTime * weaponRechargeMultiplier >= 0)
+            else if (weaponCharge < 100 && starstoneToChargeFrom.starstoneCharge - Time.deltaTime * weaponRechargeMultiplier >= 0 && starstoneToChargeFrom.genEnabled)
             {
                 //The weapon's charge is increased by the weapon charge rate multiplied by Time.deltaTime to make it framerate independent
                 weaponCharge += Time.deltaTime * weaponRechargeMultiplier;

@@ -101,7 +101,7 @@ public class StarstoneController : MonoBehaviour
             }
         }
         //If the starstone is not active, and its charge is less than 100, it regains charge every frame until it is at 100% charge
-        else if(starstoneCharge < 100f)
+        else if(starstoneCharge < 100f && genEnabled)
         {
             starstoneCharge += Time.deltaTime * rechargeMultiplier;
             if(starstoneCharge > 100f)
