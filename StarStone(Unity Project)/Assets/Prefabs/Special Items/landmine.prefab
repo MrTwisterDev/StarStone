@@ -98,9 +98,9 @@ MonoBehaviour:
   mineExplosionDistance: 1
   mineDamage: 10
   minePrimeTimer: 3
-  unThrownColour: {r: 0, g: 0, b: 0, a: 0}
-  unarmedMineUIColour: {r: 0.11494304, g: 0.38679248, b: 0.14403136, a: 0}
-  armedMineUIColour: {r: 0.7830189, g: 0.40729207, b: 0.08495018, a: 0}
+  unThrownColour: {r: 1, g: 1, b: 1, a: 1}
+  unarmedMineUIColour: {r: 0.11494304, g: 0.38679248, b: 0.14403136, a: 1}
+  armedMineUIColour: {r: 0.7830189, g: 0.40729207, b: 0.08495018, a: 1}
   mineLight: {fileID: 4641195239993700382}
   uiController: {fileID: 0}
   playerScript: {fileID: 0}

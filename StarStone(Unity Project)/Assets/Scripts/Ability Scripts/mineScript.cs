@@ -12,7 +12,6 @@ public class mineScript : MonoBehaviour
     public float minePrimeTimer; //How long it takes for a mine to prime itself
     private float currentMineTimer; //The current timer until the mine is primed
 
-    [HideInInspector]
     public Color unThrownColour; //What color is the mine if it is static
     public Color unarmedMineUIColour; //What color is the mine in the UI when it is unarmed
     public Color armedMineUIColour; //What color is the mine in the UI when it is armed

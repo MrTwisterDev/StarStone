@@ -155,7 +155,7 @@ MonoBehaviour:
   mineExplosionDistance: 1
   mineDamage: 10
   minePrimeTimer: 3
-  unThrownColour: {r: 0.9528302, g: 0.92136884, b: 0.92136884, a: 1}
+  unThrownColour: {r: 1, g: 1, b: 1, a: 1}
   unarmedMineUIColour: {r: 0.028924897, g: 0.4716981, b: 0.034975585, a: 1}
   armedMineUIColour: {r: 0.6886792, g: 0.34814095, b: 0.04223035, a: 1}
   mineLight: {fileID: 5514873802884420535}
