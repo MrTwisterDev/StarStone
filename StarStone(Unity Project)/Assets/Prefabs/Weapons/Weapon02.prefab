@@ -154,9 +154,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a13785688edca4241aa25413796f8852, type: 3}
   reloadSound:
   - {fileID: 8300000, guid: 59b684f6ff82a944b90acfbf7dd673d3, type: 3}
+  emptyAmmo: {fileID: 0}
   typeOfWeapon: 0
   gunAccuracy: 0.2
-  roundsPerSecond: 10
+  roundsPerSecond: 0.2
   gunCameraRecoil: 1
   gunAccuracyRecoil: 15
   gunAccuracyRecovery: 4.25

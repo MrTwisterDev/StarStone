@@ -253,6 +253,8 @@ public class PlayerBase : MonoBehaviour
         uIController.activeWeaponController = activeWeapon.GetComponent<build_a_weapon>();
         uIController.GetChangedWeapon();
         uIController.UpdateAmmoText();
+
+
     }
 
     private void AssignNullVariables()
@@ -695,7 +697,7 @@ public class PlayerBase : MonoBehaviour
 
     public void KillPlayer()
     {
-        GameObject.Find("Main Camera").GetComponent<AudioListener>().enabled = false;
+        GameObject.Find("Main Camera").GetComponent<AudioListener>().enabled = false; // Am I causing problems? I think so. 
         if (gameController != null)
         {
             gameController.deadPlayers++;
