@@ -179,6 +179,7 @@ public class PlayerBase : MonoBehaviour
     [Header("Sounds")]
     [Tooltip("The AudioSource to play while the player is moving.")]
     public AudioSource walkingSound;
+    public AudioSource outOfBreath;
     [Tooltip("The AudioClip to play when the player toggles their flashlight.")]
     public AudioClip flashlightSound;
     [Tooltip("The AudioClip to play when the player uses their melee attack.")]
@@ -190,7 +191,6 @@ public class PlayerBase : MonoBehaviour
     [Tooltip("The sound played when the player is attacked while invulnerable.")]
     public AudioClip[] hitWhileInvulnerable;
     public AudioClip[] hitWhileNotInvulnrable;
-    public AudioClip pantingSound;
     [Space]
     #endregion
     //Miscellaneous Variables
@@ -440,7 +440,7 @@ public class PlayerBase : MonoBehaviour
         {
             moveSpeedMultiplier -= sprintSpeedMultiplier;
             isSprinting = false;
-            AudioSource.PlayClipAtPoint(pantingSound, transform.position, 1f);
+            outOfBreath.Play();
         }
         uIController.UpdateStaminaBar(sprintStamina);
     }
@@ -791,7 +791,7 @@ public class PlayerBase : MonoBehaviour
         //The pitch of the AudioSource is changed to match the tempo with the movement speed
         walkingSound.pitch = moveSpeedMultiplier;
         //If the player is moving in any direction, the walking sound is played
-        if (Input.GetAxis(playerNumber + "Horizontal") != 0 || Input.GetAxis(playerNumber + "Vertical") != 0 && isGrounded && !walkingSound.isPlaying)
+        if ((xInput != 0 || zInput != 0) && isGrounded && !walkingSound.isPlaying)
         {
             walkingSound.Play();
         }
