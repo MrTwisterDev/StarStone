@@ -41,7 +41,7 @@ public class CharacterVariantTwo : PlayerBase
         }
         else if(!beaconActive)
         {
-            TeleportBeacon beacon = Instantiate(leftAbilityPrefab, transform.position, Quaternion.identity).GetComponent<TeleportBeacon>();
+            TeleportBeacon beacon = Instantiate(leftAbilityPrefab, transform.position + transform.forward, Quaternion.identity).GetComponent<TeleportBeacon>();
             beacon.playerScript = this;
             beaconActive = true;
         }
@@ -57,7 +57,7 @@ public class CharacterVariantTwo : PlayerBase
             //Moves the player towards the teleport target by the previously calculated move distance
             transform.position = Vector3.MoveTowards(transform.position, teleportBeacon, moveDist);
             //If the player has essentially reached its target, the speedlines are disabled and the Blinkball destroyed
-            if (Vector3.Distance(transform.position, teleportBeacon) < 0.001f)
+            if (Vector3.Distance(transform.position, teleportBeacon) < 1f)
             {
                 uIController.ToggleSpeedLines(false);
                 teleportingPlayer = false;
@@ -73,6 +73,7 @@ public class CharacterVariantTwo : PlayerBase
             ThrowingKnife thrownKnife = Instantiate(rightAbilityPrefab, cameraTransform.position, knifeRot).GetComponent<ThrowingKnife>();
             AudioSource.PlayClipAtPoint(knifeThrow, transform.position, 0.25f);
             currentActiveKnives++;
+            thrownKnife.cameraTransform = cameraTransform;
             thrownKnife.playerScript = this;
             thrownKnife.uIController = uIController;
             thrownKnife.UpdateUI();

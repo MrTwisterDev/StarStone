@@ -20,8 +20,10 @@ public class characterSelection : MonoBehaviour
 
     private GameController gameController; //James' work
 
+    public bool shouldRunSetup;
+
     //public showCaseScript;
-    void Start()
+    public void InitialSetup()
     {
 
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
@@ -55,9 +57,22 @@ public class characterSelection : MonoBehaviour
     }
 
 
-    private void Update()
+    public void OnEnable()
     {
+        if (shouldRunSetup)
+        {
+            InitialSetup();
+        }
+    }
 
+    public void OnDisable()
+    {
+        for (int i = 0; i < shownPlayers.Length; i++)
+        {
+            Destroy(shownPlayers[i]);
+            Destroy(shownWeapons[i]);
+        }
+        shouldRunSetup = true;
     }
 
 }
