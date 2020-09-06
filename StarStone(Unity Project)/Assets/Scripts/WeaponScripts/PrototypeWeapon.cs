@@ -244,7 +244,8 @@ public class PrototypeWeapon : MonoBehaviour
             //The sound of the weapon firing is played
             weaponSound.Play();
             //The grenade projectile is instantiated at the end of the weapon, and has force applied to it in its start function
-            Instantiate(grenadeProjectile, muzzleTransform.position, Quaternion.identity);
+            ExplosiveRound grenade = Instantiate(grenadeProjectile, muzzleTransform.position, Quaternion.identity).GetComponent<ExplosiveRound>();
+            grenade.cameraTransform = playerController.cameraTransform;
             //The weapon's charge is reduced by the set value
             weaponCharge -= grenadeLauncherChargeUsage;
             singleShotLock = true;
@@ -264,7 +265,8 @@ public class PrototypeWeapon : MonoBehaviour
             //The sound of the weapon firing is played
             weaponSound.Play();
             //The singulairty projectile is instantiated at the end of the weapon, and has force applied to it in its start function
-            Instantiate(singularityProjectile, muzzleTransform.position, Quaternion.identity);
+            SingularityProjectile grenade = Instantiate(singularityProjectile, muzzleTransform.position, Quaternion.identity).GetComponent<SingularityProjectile>();
+            grenade.cameraTransform = playerController.cameraTransform;
             //The weapon's charge is reduced by the set value
             weaponCharge -= singularityChargeUsage;
             singleShotLock = true;

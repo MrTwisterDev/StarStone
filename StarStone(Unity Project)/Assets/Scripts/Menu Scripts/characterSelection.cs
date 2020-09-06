@@ -21,7 +21,7 @@ public class characterSelection : MonoBehaviour
     private GameController gameController; //James' work
 
     //public showCaseScript;
-    void Start()
+    public void InitialSetup()
     {
 
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
@@ -55,9 +55,9 @@ public class characterSelection : MonoBehaviour
     }
 
 
-    private void Update()
+    public void OnEnable()
     {
-
+        InitialSetup();
     }
 
 }

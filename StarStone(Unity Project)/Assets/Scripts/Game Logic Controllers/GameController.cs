@@ -181,7 +181,8 @@ public class GameController : MonoBehaviour
     private Camera playerTwoCamera;
     public PlayerBase[] playerControllers;
     [Tooltip("The GameObject used to handle character selection")]
-    public characterSelection characterSelector;
+    public characterSelection coopcharacterSelector;
+    public characterSelection soloCharacterSelector;
     [Tooltip("The number of players that are currently dead.")]
     public int deadPlayers;
     [Space]
@@ -422,8 +423,9 @@ public class GameController : MonoBehaviour
         }
         else if(level == 0)
         {
-            characterSelector = FindObjectOfType<characterSelection>();
-            characterSelector.gameObject.SetActive(false);
+            soloCharacterSelector = GameObject.Find("CharacterSelector").GetComponent<characterSelection>();
+            coopcharacterSelector = GameObject.Find("Co-OpScreen").GetComponent<characterSelection>();
+            coopcharacterSelector.gameObject.SetActive(false);
             ResetWaveData();
             //Resets the number of dead players to keep the value accurate
             deadPlayers = 0;
@@ -473,7 +475,7 @@ public class GameController : MonoBehaviour
     public void UpdateChosenCharacters()
     {
         //If the selected character variant in Henri, then the character player one will spawn as is set to character variant one
-        if(characterSelector.shownPlayers[0].gameObject.tag == "Henri")
+        if(coopcharacterSelector.shownPlayers[0].gameObject.tag == "Henri")
         {
             playerOneCharacter = characterVariantOne;
         }
@@ -485,7 +487,7 @@ public class GameController : MonoBehaviour
         //If the game is being played in co-op mode, the same process is carried out to determine player two's chosen character
         if (isCoOp)
         {
-            if(characterSelector.shownPlayers[1].gameObject.tag == "Henri")
+            if(coopcharacterSelector.shownPlayers[1].gameObject.tag == "Henri")
             {
                 playerTwoCharacter = characterVariantOne;
             }
