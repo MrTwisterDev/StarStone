@@ -20,6 +20,8 @@ public class characterSelection : MonoBehaviour
 
     private GameController gameController; //James' work
 
+    public bool shouldRunSetup;
+
     //public showCaseScript;
     public void InitialSetup()
     {
@@ -57,7 +59,20 @@ public class characterSelection : MonoBehaviour
 
     public void OnEnable()
     {
-        InitialSetup();
+        if (shouldRunSetup)
+        {
+            InitialSetup();
+        }
+    }
+
+    public void OnDisable()
+    {
+        for (int i = 0; i < shownPlayers.Length; i++)
+        {
+            Destroy(shownPlayers[i]);
+            Destroy(shownWeapons[i]);
+        }
+        shouldRunSetup = true;
     }
 
 }
