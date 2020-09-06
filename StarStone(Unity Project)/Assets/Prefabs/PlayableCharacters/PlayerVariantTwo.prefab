@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2610451422937394028}
   - component: {fileID: 1433617517991185278}
   m_Layer: 5
-  m_Name: LandmineCounter01
+  m_Name: KnifeCounter01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,15 +27,15 @@ RectTransform:
   m_GameObject: {fileID: 64101396874246487}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4143588382902732536}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 17.400002, y: -13.200001}
-  m_SizeDelta: {x: 25, y: 25}
+  m_AnchoredPosition: {x: 23.899998, y: -13.200001}
+  m_SizeDelta: {x: 81, y: 28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2610451422937394028
 CanvasRenderer:
@@ -63,7 +63,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1047ef5cf27338340beb7e7a866f110a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6119a589a9bb5647ad6ae9563b37d59, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 1996129451019215934}
   - component: {fileID: 4289437383373601292}
   m_Layer: 5
-  m_Name: LandmineCounter02
+  m_Name: KnifeCounter02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,15 +228,15 @@ RectTransform:
   m_GameObject: {fileID: 150525273221618965}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4143588382902732536}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 46, y: -13.200001}
-  m_SizeDelta: {x: 25, y: 25}
+  m_AnchoredPosition: {x: 68.2, y: -13.200001}
+  m_SizeDelta: {x: 81, y: 28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1996129451019215934
 CanvasRenderer:
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1047ef5cf27338340beb7e7a866f110a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6119a589a9bb5647ad6ae9563b37d59, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1084,7 +1084,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -568.4, y: -348}
+  m_AnchoredPosition: {x: -607.9, y: -319.90646}
   m_SizeDelta: {x: 100, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4401314039204802306
@@ -2555,8 +2555,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -519, y: -285.29358}
-  m_SizeDelta: {x: 25, y: 25}
+  m_AnchoredPosition: {x: -558.5, y: -257.2}
+  m_SizeDelta: {x: 32, y: 73}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1787018955169739471
 CanvasRenderer:
@@ -2584,7 +2584,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ba57a7e4e1419ec419447c7b2636d486, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d0983e90756189f44b58f3aa4e7def6c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4792,7 +4792,7 @@ GameObject:
   - component: {fileID: 4175686564324652270}
   - component: {fileID: 5265530627290504809}
   m_Layer: 5
-  m_Name: Landmine
+  m_Name: Knives
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4817,7 +4817,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -452.1, y: -259.6}
+  m_AnchoredPosition: {x: -486.4, y: -268.1}
   m_SizeDelta: {x: 100, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4175686564324652270
@@ -10079,7 +10079,7 @@ GameObject:
   - component: {fileID: 8448352621332736039}
   - component: {fileID: 9168304960824844422}
   m_Layer: 5
-  m_Name: LandmineCounter03
+  m_Name: KnifeCounter03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10094,15 +10094,15 @@ RectTransform:
   m_GameObject: {fileID: 7214645111592377064}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4143588382902732536}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 72.9, y: -13.200001}
-  m_SizeDelta: {x: 25, y: 25}
+  m_AnchoredPosition: {x: 114.3, y: -13.200001}
+  m_SizeDelta: {x: 81, y: 28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8448352621332736039
 CanvasRenderer:
@@ -10130,7 +10130,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1047ef5cf27338340beb7e7a866f110a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6119a589a9bb5647ad6ae9563b37d59, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
