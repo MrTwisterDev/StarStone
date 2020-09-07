@@ -33,7 +33,6 @@ public class PrototypeProjectileBase : MonoBehaviour
     void Start()
     {
         rigidBody = gameObject.GetComponent<Rigidbody>();
-        cameraTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
         //Launches the projectile in the direction the player is facing with the appropriate amount of force
         rigidBody.AddForce(cameraTransform.forward * launchForce);
     }
