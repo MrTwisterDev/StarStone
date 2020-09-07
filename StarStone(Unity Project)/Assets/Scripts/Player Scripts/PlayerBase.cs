@@ -514,9 +514,6 @@ public class PlayerBase : MonoBehaviour
         }
         if (Input.GetButtonDown(playerNumber + "ChangeWeapon"))
         {
-
-
-
             //Resets the value of timeSinceLastPress so the timer can start from 0
             timeSinceLastPress = 0f;
             //If the player isn't already preparing to swap their weapon, they are now
@@ -661,6 +658,13 @@ public class PlayerBase : MonoBehaviour
                 PausePlayer();
             }
         }
+    }
+
+    public void ToggleMeleeWeaponActive()
+    {
+        bool isActive = !meleeWeapon.activeSelf;
+        Debug.Log(isActive);
+        meleeWeapon.SetActive(isActive);
     }
 
     public void UnpausePlayer()
