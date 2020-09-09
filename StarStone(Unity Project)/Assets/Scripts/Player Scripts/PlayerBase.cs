@@ -602,12 +602,19 @@ public class PlayerBase : MonoBehaviour
                     PlayerBase player = interactableObject.collider.gameObject.GetComponentInParent<PlayerBase>();
                     if (player.playerState == PlayerStates.deadState)
                     {
+                        if (!uIController.reviveUI.activeSelf)
+                        {
+                            uIController.ToggleReviveUI(true);
+                        }
                         //Increases the value of the reviveTimer by the amount of time passed since the last frame
                         player.reviveTimer += Time.deltaTime;
+                        uIController.UpdateReviveSlider(player.reviveTimer);
                         //If the revive timer reaches the value of reviveTime, the player has health restored and is set to the standard state
                         //The value of the reviveTimer is also reset to 0 so it can be used again
                         if (player.reviveTimer >= player.reviveTime)
                         {
+                            uIController.UpdateReviveSlider(0f);
+                            uIController.ToggleReviveUI(false);
                             player.RestoreHealth(reviveHealthIncrease);
                             player.playerState = PlayerStates.standardState;
                             player.reviveTimer = 0f;
@@ -616,6 +623,11 @@ public class PlayerBase : MonoBehaviour
                             gameController.deadPlayers--;
                         }
                     }
+                }
+                else if (uIController.reviveUI.activeSelf)
+                {
+                    uIController.UpdateReviveSlider(0f);
+                    uIController.ToggleReviveUI(false);
                 }
             }
         }

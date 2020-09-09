@@ -606,6 +606,8 @@ public class GameController : MonoBehaviour
         isInGame = false;
         hasFoundGenerator = false;
         timerActive = false;
+        currentWave = 1;
+        intermissionTimerValue = intermissionLength;
         //Loops through the lists of enemies and clears them until the number of enemies killed no longer increases
         //This is to ensure all null objects are removed from the lists of enemies before the game loads, as loading without this resulted in
         //false positive killcounts
