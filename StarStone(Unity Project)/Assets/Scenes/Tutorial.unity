@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -219,7 +219,7 @@ PrefabInstance:
     - target: {fileID: 1514953352368304337, guid: cf992d006e250f145a7fba86bda0b7ac,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 184
+      value: 183
       objectReference: {fileID: 0}
     - target: {fileID: 1514953352368304337, guid: cf992d006e250f145a7fba86bda0b7ac,
         type: 3}
@@ -246,7 +246,7 @@ PrefabInstance:
       propertyPath: m_text
       value: "How to win!\nActivate a generator. The enemies will defend it.\nFinish
         the wave of enemies.\n This generator is now disconnected.\nDisconnect all
-        4 generators. \nFinal wave with *2 enemies?"
+        4 generators. \nFinal wave with *2 enemies"
       objectReference: {fileID: 0}
     - target: {fileID: 4267499634163899024, guid: cf992d006e250f145a7fba86bda0b7ac,
         type: 3}
