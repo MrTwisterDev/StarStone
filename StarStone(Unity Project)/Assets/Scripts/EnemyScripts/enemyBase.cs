@@ -156,7 +156,7 @@ public class enemyBase : MonoBehaviour
 
             if (shutUp == false)
             { // shutup is false while any other gun is firing. 
-                AudioSource.PlayClipAtPoint(hitSound, nearestPlayer.transform.position);
+                AudioSource.PlayClipAtPoint(hitSound, nearestPlayer.transform.position, 0.25f);
             }
 
 

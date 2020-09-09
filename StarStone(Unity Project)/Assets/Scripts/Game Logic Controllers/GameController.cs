@@ -434,6 +434,7 @@ public class GameController : MonoBehaviour
             isInGame = false;                           //Prevents game timers and enemy spawning methods from being executed
             timerActive = false;
             Time.timeScale = 1;
+            waveTimerValue = 10f;
         }
         else if(level == 2)
         {

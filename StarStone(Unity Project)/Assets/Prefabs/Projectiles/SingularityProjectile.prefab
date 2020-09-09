@@ -111,7 +111,7 @@ MonoBehaviour:
   cameraTransform: {fileID: 0}
   detonationSound: {fileID: 8300000, guid: cd6df1927ea6d184ba81c3cb31442695, type: 3}
   launchForce: 600
-  areaOfEffect: 8
+  areaOfEffect: 12
   damageToDeal: 0
   fuseLength: 1.5
   blackHoleDuration: 5

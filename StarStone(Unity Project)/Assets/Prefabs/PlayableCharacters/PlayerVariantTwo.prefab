@@ -158,7 +158,7 @@ Light:
   m_InnerSpotAngle: 6
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -4007,7 +4007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ee100110c0374743980b40f0ef88755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fullscreenToggle: 0
+  fullscreenToggle: 1
 --- !u!1 &2987115065201954606
 GameObject:
   m_ObjectHideFlags: 0
@@ -4490,7 +4490,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -7594,9 +7594,9 @@ MonoBehaviour:
   - {fileID: 1433617517991185278}
   - {fileID: 4289437383373601292}
   - {fileID: 9168304960824844422}
-  waveTimerText: {fileID: 0}
-  waveNumberText: {fileID: 0}
-  timerBar: {fileID: 0}
+  waveTimerText: {fileID: 1611003767673723272}
+  waveNumberText: {fileID: 1765014067730051838}
+  timerBar: {fileID: 9180365660836301281}
   initialTime: 0
   healthBar: {fileID: 8802240486036064420}
   bloodOverlay: {fileID: 8735957312741603436}
@@ -7608,7 +7608,7 @@ MonoBehaviour:
   singularityCharge: {fileID: 3798761014101019708}
   Immune: {fileID: 2385811971007846690}
   Speed: {fileID: 2174759859148890532}
-  hitMarker: {fileID: 1445233282770980308}
+  hitMarker: {fileID: 8951905575710793871}
 --- !u!1 &5453251584428203776
 GameObject:
   m_ObjectHideFlags: 0
@@ -8010,7 +8010,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d073ad84290efb749ae384739c479b3b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -9502,7 +9502,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -10681,15 +10681,15 @@ RectTransform:
   m_GameObject: {fileID: 7455496125417247862}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1270065573117825717}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1280, y: 720}
+  m_SizeDelta: {x: 0, y: -100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8868197203865712943
 CanvasRenderer:
@@ -13288,6 +13288,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: cinematicFade
+      objectReference: {fileID: 0}
+    - target: {fileID: 5799769118729554535, guid: 278b61089ce7041448f0428e9bce419a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8882609177705028966, guid: 278b61089ce7041448f0428e9bce419a,
         type: 3}
