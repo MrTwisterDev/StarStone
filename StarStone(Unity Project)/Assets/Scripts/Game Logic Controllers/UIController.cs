@@ -47,6 +47,8 @@ public class UIController : MonoBehaviour
     public Slider healthBar;
     public Image bloodOverlay;
     public GameObject deathCanvas;
+    public GameObject reviveUI;
+    public Slider reviveSlider;
     [Space]
     //Stamina UI
     [Header("Stamina")]
@@ -113,6 +115,16 @@ public class UIController : MonoBehaviour
     public void ToggleDeathCanvas(bool isActive)
     {
         deathCanvas.SetActive(isActive);
+    }
+
+    public void ToggleReviveUI(bool isActive)
+    {
+        reviveUI.SetActive(isActive);
+    }
+
+    public void UpdateReviveSlider(float newValue)
+    {
+        reviveSlider.value = newValue;
     }
 
     public void UpdateBloodAlpha(Color newAlpha)
